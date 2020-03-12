@@ -1,0 +1,101 @@
+<?php
+   
+    include('../_partials/header.php') 
+?>
+<!-- Top Bar End -->
+<div class="page-content-wrapper ">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                
+                <h5 class="page-title">Add New Surgery</h5>
+            </div>
+        </div>
+        <!-- end row -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card m-b-30">
+                    <div class="card-body">
+                        <h4 class="mt-0 header-title">Surgery Details</h4>
+                        
+                        <form method="POST">
+                            <div class="form-group row">
+                                <label for="example-text-input" class="col-sm-2 col-form-label">Name</label>
+                                <div class="col-sm-10">
+                                    <input class="form-control" type="text" name="addUser_Name" id="example-text-input">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="example-text-input" class="col-sm-2 col-form-label">Anesthesia Charges</label>
+                                <div class="col-sm-10">
+                                    <input class="form-control" type="text" name="anesthesia_charges" id="example-text-input">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="example-email-input" class="col-sm-2 col-form-label">Hospital Charges</label>
+                                <div class="col-sm-10">
+                                    <input class="form-control" type="email" name="hospital_charges" placeholder="Name@example.com" id="example-email-input">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="example-email-input" class="col-sm-2 col-form-label">Dr Charges</label>
+                                <div class="col-sm-10">
+                                    <input class="form-control" type="email" name="dr_charges" placeholder="Name@example.com" id="example-email-input">
+                                </div>
+                            </div>
+                            
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Password</label>
+                                <div class="col-sm-10">
+                                    <input type="password" id="pass2" name="addUser_password" class="form-control" required placeholder="Password" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label"></label>
+                                <div class="m-t-10 col-sm-10">
+                                    <input type="password" class="form-control" required data-parsley-equalto="#pass2" placeholder="Re-Type Password" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="example-password-input" class="col-sm-2 col-form-label"></label>
+                                <div class="col-sm-10">
+                                    <!-- <button type="button" class="btn btn-secondary waves-effect">Cancel</button> -->
+                                    <button type="submit" name="addUser" class="btn btn-primary waves-effect waves-light">Create User</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <h3 align="center">
+                    <?php echo $userAlreadyinDatabase; ?>
+                </h3>
+                <h3 align="center">
+                    <?php echo $userAdded; ?>
+                </h3>
+                <h3 align="center">
+                    <?php echo $userNotAdded; ?>
+                </h3>
+            </div> <!-- end col -->
+        </div> <!-- end row -->
+    </div><!-- container fluid -->
+</div> <!-- Page content Wrapper -->
+</div> <!-- content -->
+<?php include('../_partials/footer.php') ?>
+
+</div>
+<!-- End Right content here -->
+</div>
+<!-- END wrapper -->
+<!-- jQuery  -->
+        <?php include('../_partials/jquery.php') ?>
+
+<!-- App js -->
+        <?php include('../_partials/app.php') ?>
+<script>
+$(document).ready(function() {
+    $('form').parsley();
+});
+</script>
+</body>
+
+</html>
