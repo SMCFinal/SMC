@@ -26,7 +26,7 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Reg No.</th>
+                                    <th>M.R No.</th>
                                     <th>Name</th>
                                     <th>Date of Operation</th>
                                     <th>Date of Admission</th>
@@ -47,7 +47,7 @@
                                     echo '
                                         <tr>
                                             <td>'.$iteration++.'</td>
-                                            <td>'.$rowPatients['reg_no'].'</td>
+                                            <td>'.$rowPatients['patient_yearly_no'].'</td>
                                             <td>'.$rowPatients['patient_name'].'</td>
                                             <td>'.$rowPatients['patient_doop'].'</td>
                                             <td>'.$rowPatients['patient_doa'].'</td>

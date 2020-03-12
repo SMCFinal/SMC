@@ -38,8 +38,8 @@
                             <table class="table mb-0">
                                 <tbody>
                                     <tr>
-                                        <th scope="row">Registration Number</th>
-                                        <td><?php echo $fetch_selectQuery['reg_no'] ?></td>
+                                        <th scope="row">M.R No.</th>
+                                        <td><?php echo $fetch_selectQuery['patient_yearly_no'] ?></td>
                                     </tr>
                                     <tr>
                                         <th scope="row">Name</th>
