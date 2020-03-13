@@ -139,6 +139,16 @@
                             </ul>
                         </li>
 
+                         <li class="has_sub">
+                            <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-broadcast"></i> <span> Expenses</span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
+                            <ul class="list-unstyled">
+                              
+                                <li><a href="expense_new.php">Add Expense</a></li>
+                                <li><a href="expense_list.php">Expense List</a></li>
+                                
+                            </ul>
+                        </li>
+
                         <li class="has_sub">
                             <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-broadcast"></i> <span> Users</span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
                             <ul class="list-unstyled">
