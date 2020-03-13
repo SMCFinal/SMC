@@ -18,11 +18,11 @@
         <div class="row">
             <div class="col-sm-12">
                 <div class="float-right page-breadcrumb">
-                    <ol class="breadcrumb">
+                 <!--    <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="#">Drixo</a></li>
                         <li class="breadcrumb-item"><a href="#">Tables</a></li>
                         <li class="breadcrumb-item active">Datatable</li>
-                    </ol>
+                    </ol> -->
                 </div>
                 <h5 class="page-title">Patient Details</h5>
             </div>
