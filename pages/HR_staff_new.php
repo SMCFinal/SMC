@@ -49,41 +49,36 @@
                             <div class="form-group row">
                                 <label for="example-text-input" class="col-sm-2 col-form-label">Name</label>
                                 <div class="col-sm-4">
-                                    <input class="form-control" type="text" placeholder="Name" name="name" id="example-text-input">
+                                    <input class="form-control" type="text" placeholder="Name" name="nameStaff" id="example-text-input">
                                 </div>
                                 <label for="example-text-input" class="col-sm-2 col-form-label">CNIC</label>
                                 <div class="col-sm-4">
-                                    <input class="form-control" type="number" placeholder="CNIC" name="cnic" id="example-text-input">
+                                    <input class="form-control" type="number" placeholder="CNIC" name="cnicStaff" id="example-text-input">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">Designation</label>
                                 <div class="col-sm-4">
-                                    <select class="form-control designation" name="designation" id="designation" style="width: 100%" onchange=checkDoctor()>
-                                        <option selected disabled=""  value="Doctor">Select Option</option>
-
-                                        <option  value="Doctor">Doctor</option>
-                                        <option value="Nurse">Nurse</option>
-                                        <option value="3">aa</option>
-                                    </select>
+                                    <?php
+                                    $select_option = mysqli_query($connect, "SELECT * FROM staff_category");
+                                        $options = '<select class="form-control designation" name="designationStaff" id="designation" style="width: 100%" onchange=checkDoctor() required="">';
+                                          while ($row = mysqli_fetch_assoc($select_option)) {
+                                            $options.= '<option value='.$row['category_name']." : ".$row['id'].'>'.$row['category_name'].'</option>';
+                                          }
+                                        $options.= "</select>";
+                                    echo $options;
+                                ?>
                                 </div>
                                 <label class="col-sm-2 col-form-label">Salary</label>
                                 <div class="col-sm-4">
-                                    <input type="number" id="pass2" name="salary" class="form-control" required placeholder="Salary" />
+                                    <input type="number" id="pass2" name="salaryStaff" class="form-control" required placeholder="Salary" />
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">Date of Joining</label>
                                 <div class="col-sm-4">
                                     <div class="input-group">
-                                        <input class="form-control form_datetime" name="dateofjoining" placeholder="dd/mm/yyyy-hh:mm">
-                                        <div class="input-group-append bg-custom b-0"><span class="input-group-text"><i class="mdi mdi-calendar"></i></span></div>
-                                    </div>
-                                </div>
-                                <label class="col-sm-2 col-form-label">Date of Termination</label>
-                                <div class="col-sm-4">
-                                    <div class="input-group">
-                                        <input class="form-control form_datetime" name="dateoftermination" placeholder="dd/mm/yyyy-hh:mm">
+                                        <input class="form-control form_datetime" name="dateofjoiningStaff" placeholder="dd/mm/yyyy-hh:mm">
                                         <div class="input-group-append bg-custom b-0"><span class="input-group-text"><i class="mdi mdi-calendar"></i></span></div>
                                     </div>
                                 </div>
@@ -92,14 +87,14 @@
                                 <label class="col-sm-2 col-form-label">Start Time</label>
                                 <div class="col-sm-4">
                                     <div class="input-group">
-                                        <input class="form-control form_datetime" name="starttime" placeholder="dd/mm/yyyy-hh:mm">
+                                        <input class="form-control form_datetime" name="starttimeStaff" placeholder="dd/mm/yyyy-hh:mm">
                                         <div class="input-group-append bg-custom b-0"><span class="input-group-text"><i class="mdi mdi-calendar"></i></span></div>
                                     </div>
                                 </div>
                                 <label class="col-sm-2 col-form-label">End Time</label>
                                 <div class="col-sm-4">
                                     <div class="input-group">
-                                        <input class="form-control form_datetime" name="endtime" placeholder="dd/mm/yyyy-hh:mm">
+                                        <input class="form-control form_datetime" name="endtimeStaff" placeholder="dd/mm/yyyy-hh:mm">
                                         <div class="input-group-append bg-custom b-0"><span class="input-group-text"><i class="mdi mdi-calendar"></i></span></div>
                                     </div>
                                 </div>

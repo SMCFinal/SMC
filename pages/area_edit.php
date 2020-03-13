@@ -9,22 +9,31 @@
     $added = '';
     $error= '';
 
-    if (isset($_POST['addFloor'])) {
-        $floorName = $_POST['floorName'];
+    $id = $_GET['id'];
+    $retData = mysqli_query($connect, "SELECT * FROM area WHERE id = '$id'");
+    $fetch_retData = mysqli_fetch_assoc($retData);
+    $areaName = $fetch_retData['area_name'];
 
-        $countQuery = mysqli_query($connect, "SELECT COUNT(*)AS countedFloors FROM floors WHERE floor_name = '$floorName'");
+    if (isset($_POST['addArea'])) {
+        $id = $_POST['id'];
+        $nameArea = $_POST['nameArea'];
+
+        
+        $countQuery = mysqli_query($connect, "SELECT COUNT(*)AS countedAreas FROM area WHERE area_name = '$nameArea'");
         $fetch_countQuery = mysqli_fetch_assoc($countQuery);
 
 
-        if ($fetch_countQuery['countedFloors'] == 0) {
-            $insertQuery = mysqli_query($connect, "INSERT INTO floors(floor_name)VALUES('$floorName')");
-            if (!$insertQuery) {
+        if ($fetch_countQuery['countedAreas'] == 0) {
+            $updateQuery = mysqli_query($connect, "UPDATE area SET area_name = '$nameArea' WHERE id = '$id'");
+            if (!$updateQuery) {
                 $error = 'Not Added! Try agian!';
             }else {
-                $added = 'Floor Added!';
+                header("LOCATION:areas_list.php");
             }
         }else {
-            $alreadyAdded = 'Floor Already Added!';
+            $alreadyAdded = '<div class="alert alert-dark" role="alert">
+                                Area Already Added!
+                             </div>';
         }
     }
 
@@ -47,17 +56,18 @@
                 <div class="card m-b-30">
                     <div class="card-body">
                         <form method="POST">
+                            <input type="hidden" name="id" value="<?php echo $id ?>">
                             <div class="form-group row">
                                 <label for="example-text-input" class="col-sm-2 col-form-label">Name</label>
                                 <div class="col-sm-4">
-                                    <input class="form-control" placeholder="Area" type="text" value="" id="example-text-input" name="name" required="">
+                                    <input class="form-control" value="<?php echo $areaName ?>" placeholder="Area" type="text" value="" id="example-text-input"  name="nameArea"  required="">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="example-password-input" class="col-sm-2 col-form-label"></label>
                                 <div class="col-sm-10">
                                     <?php include('../_partials/cancel.php') ?>
-                                    <button type="submit" class="btn btn-primary waves-effect waves-light" name="addFloor">Update Area</button>
+                                    <button type="submit" class="btn btn-primary waves-effect waves-light" name="addArea">Update Area</button>
                                 </div>
                             </div>
                         </form>

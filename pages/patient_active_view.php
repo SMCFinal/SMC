@@ -49,26 +49,44 @@
     <div class="container-fluid mt-3">
         <div class="row">
             <?php
-            $selectPat = mysqli_query($connect, "SELECT * FROM patient_registration WHERE category = 'currentPatient'");
+            $selectPat = mysqli_query($connect, "SELECT patient_registration.*,rooms.*, floors.* FROM `patient_registration`
+INNER JOIN rooms ON rooms.id = patient_registration.room_id
+INNER JOIN floors ON floors.id = rooms.floor_id");
 
             $itr = 1;
 
             while ($rowPatientView = mysqli_fetch_assoc($selectPat)) {
                 echo '
-                <div class="col-xl-3 col-md-6 mb-2">
+                <div class="col-xl-4 col-md-6 mb-2">
                     <div class="card ">
                         <div class="card-body" style="box-shadow: 30px 30px 30px #ccc">
                             <div class="table-responsive">
                                 <table class="table mb-0">
                                     <thead>
                                         <tr>
-                                            <th>PATIENT Name</th>
+                                            <th>Patient Name</th>
                                             <td>'.$rowPatientView['patient_name'].'</td>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
                                             <th>Doctor Name</th>
+                                            <td>'.$rowPatientView['patient_consultant'].'</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Floor/Room</th>
+                                            <td>'.$rowPatientView['floor_name']." <b> | </b> ".$rowPatientView['room_number'].'</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Patient Case</th>
+                                            <td>'.$rowPatientView['patient_disease'].'</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Village Name</th>
+                                            <td>'.$rowPatientView['patient_address'].'</td>
+                                        </tr>
+                                        <tr>
+                                            <th>City</th>
                                             <td>'.$rowPatientView['patient_consultant'].'</td>
                                         </tr>
                                     </tbody>

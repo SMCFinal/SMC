@@ -9,22 +9,26 @@
     $added = '';
     $error= '';
 
-    if (isset($_POST['addFloor'])) {
-        $floorName = $_POST['floorName'];
+    if (isset($_POST['addCategory'])) {
+        $categoryName = $_POST['categoryName'];
 
-        $countQuery = mysqli_query($connect, "SELECT COUNT(*)AS countedFloors FROM floors WHERE floor_name = '$floorName'");
+        $countQuery = mysqli_query($connect, "SELECT COUNT(*)AS countedCategories FROM staff_category WHERE category_name = '$categoryName'");
         $fetch_countQuery = mysqli_fetch_assoc($countQuery);
 
 
-        if ($fetch_countQuery['countedFloors'] == 0) {
-            $insertQuery = mysqli_query($connect, "INSERT INTO floors(floor_name)VALUES('$floorName')");
+        if ($fetch_countQuery['countedCategories'] == 0) {
+            $insertQuery = mysqli_query($connect, "INSERT INTO staff_category(category_name)VALUES('$categoryName')");
             if (!$insertQuery) {
                 $error = 'Not Added! Try agian!';
             }else {
-                $added = 'Floor Added!';
+                $added = '<div class="alert alert-primary" role="alert">
+                                Category Added!
+                             </div>';
             }
         }else {
-            $alreadyAdded = 'Floor Already Added!';
+            $alreadyAdded = '<div class="alert alert-dark" role="alert">
+                                Category Already Added!
+                             </div>';
         }
     }
 
@@ -43,36 +47,38 @@
         </div>
         <!-- end row -->
         <div class="row">
-            <div class="col-12">
+            <div class="col-5">
                 <div class="card m-b-30">
                     <div class="card-body">
                         <form method="POST">
                             <div class="form-group row">
-                                <label for="example-text-input" class="col-sm-2 col-form-label">Category Name</label>
-                                <div class="col-sm-4">
-                                    <input class="form-control" placeholder="Name" type="text" value="" id="example-text-input" name=" Category Name" required="">
+                                <label for="example-text-input" class="col-sm-4 col-form-label">Category Name</label>
+                                <div class="col-sm-8">
+                                    <input class="form-control" placeholder="Name" type="text" value="" id="example-text-input" name="categoryName" required="">
                                 </div>
                                
-                            </div>
+                            </div><hr>
                             <div class="form-group row">
                                  <label for="example-password-input" class="col-sm-2 col-form-label"></label>
-                                <div class="col-sm-4">
+                                <div class="col-sm-12" align="right">
                                     <?php include('../_partials/cancel.php') ?>
-                                    <button type="submit" class="btn btn-primary waves-effect waves-light" name="addFloor">Add Category</button>
+                                    <button type="submit" class="btn btn-primary waves-effect waves-light" name="addCategory">Add Category</button>
                                 </div>
                             </div>
                         </form>
-                        <h5>
+                        <span style="text-align: center">
                             <?php echo $error ?>
-                        </h5>
-                        <h5>
+                        </span>
+                        <span style="text-align: center">
                             <?php echo $added ?>
-                        </h5>
-                        <h5>
+                        </span>
+                        <span style="text-align: center">
                             <?php echo $alreadyAdded ?>
-                        </h5>
+                        </span>
                     </div>
                 </div>
+            </div>
+            <div class="col-7">
                 <div class="card m-b-30">
                     <div class="card-body">
                         <h4 class="mt-0 header-title">Category Details</h4>
@@ -83,17 +89,25 @@
                                     <th>Name</th>
                                     <th class="text-center"> <i class="fa fa-edit"></i>
                                     </th>
-                                    <th class="text-center"><i class="fa fa-trash"></i></th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Doctor</td>
-                                   
-                                    <td class="text-center"><a href="HR_staff_category_edit.php" type="button" class="btn text-white btn-warning waves-effect waves-light">Edit</a></td>
-                                    <td class="text-center"><a type="button" id="sa-warning" class="btn text-white btn-danger waves-effect waves-light">Delete</a></td>
-                                </tr>
+                                <?php
+                                $retCategory = mysqli_query($connect, "SELECT * FROM staff_category");
+                                $iteration = 1;
+
+                                while ($rowCategory = mysqli_fetch_assoc($retCategory)) {
+                                    echo '
+                                    <tr>
+                                        <td>'.$iteration++.'</td>
+                                        <td>'.$rowCategory['category_name'].'</td>
+                                       
+                                        <td class="text-center"><a href="HR_staff_category_edit.php?id='.$rowCategory['id'].'" type="button" class="btn text-white btn-warning waves-effect waves-light">Edit</a></td>
+                                    </tr>
+                                    ';
+                                }
+                                ?>
+                                
                             </tbody>
                         </table>
                     </div>

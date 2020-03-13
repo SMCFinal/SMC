@@ -70,9 +70,9 @@
            ");
 
         if (!$queryAddPatient) {
-            echo mysqli_error($queryAddPatient);
             $notAdded = 'Not added';
         }else {
+            $updateRoom = mysqli_query($connect, "UPDATE rooms SET status = '0' WHERE id = '$patientRoom'");
             header("LOCATION: observation_list.php");
         }
     }
@@ -148,10 +148,15 @@
                                 </div>
                                 <label class="col-sm-2 col-form-label">City</label>
                                 <div class="col-sm-4">
-                                    <select class="form-control" name="address_city">
-                                        <option value="1">abc</option>
-                                        <option value="2">xyz</option>
-                                    </select>
+                                <?php
+                                $select_option_city = mysqli_query($connect, "SELECT * FROM area");
+                                    $optionsCity = '<select class="form-control select2" name="address_city" required="" style="width:100%">';
+                                      while ($rowCity = mysqli_fetch_assoc($select_option_city)) {
+                                        $optionsCity.= '<option value='.$rowCity['id'].'>'.$rowCity['area_name'].'</option>';
+                                      }
+                                    $optionsCity.= "</select>";
+                                echo $optionsCity;
+                                ?>
                                 </div>
 
                             </div>

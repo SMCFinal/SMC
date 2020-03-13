@@ -9,22 +9,30 @@
     $added = '';
     $error= '';
 
-    if (isset($_POST['addFloor'])) {
-        $floorName = $_POST['floorName'];
+    $id = $_GET['id'];
+    $retData = mysqli_query($connect, "SELECT * FROM staff_category WHERE id = '$id'");
+    $fetch_retData = mysqli_fetch_assoc($retData);
+    $cat_Name = $fetch_retData['category_name'];
 
-        $countQuery = mysqli_query($connect, "SELECT COUNT(*)AS countedFloors FROM floors WHERE floor_name = '$floorName'");
+    if (isset($_POST['addCategory'])) {
+        $id = $_POST['id'];
+        $categoryName = $_POST['categoryName'];
+
+        $countQuery = mysqli_query($connect, "SELECT COUNT(*)AS countedCategories FROM staff_category WHERE category_name = '$categoryName'");
         $fetch_countQuery = mysqli_fetch_assoc($countQuery);
 
 
-        if ($fetch_countQuery['countedFloors'] == 0) {
-            $insertQuery = mysqli_query($connect, "INSERT INTO floors(floor_name)VALUES('$floorName')");
+        if ($fetch_countQuery['countedCategories'] == 0) {
+            $insertQuery = mysqli_query($connect, "UPDATE staff_category SET category_name = '$categoryName' WHERE id = '$id'");
             if (!$insertQuery) {
                 $error = 'Not Added! Try agian!';
             }else {
-                $added = 'Floor Added!';
+                header("LOCATION:HR_staff_category.php");
             }
         }else {
-            $alreadyAdded = 'Floor Already Added!';
+            $alreadyAdded = '<div class="alert alert-dark" role="alert">
+                                Category Already Added!
+                             </div>';
         }
     }
 
@@ -47,10 +55,11 @@
                 <div class="card m-b-30">
                     <div class="card-body">
                         <form method="POST">
+                            <input type="hidden" name="id" value="<?php echo $id ?>">
                             <div class="form-group row">
                                 <label for="example-text-input" class="col-sm-2 col-form-label">Category Name</label>
                                 <div class="col-sm-4">
-                                    <input class="form-control" placeholder="Name" type="text" value="" id="example-text-input" name=" Category Name" required="">
+                                    <input class="form-control" value="<?php echo $cat_Name ?>" placeholder="Name" type="text" value="" id="example-text-input" name="categoryName" required="">
                                 </div>
                                
                             </div>
@@ -58,19 +67,19 @@
                                  <label for="example-password-input" class="col-sm-2 col-form-label"></label>
                                 <div class="col-sm-4">
                                     <?php include('../_partials/cancel.php') ?>
-                                    <button type="submit" class="btn btn-primary waves-effect waves-light" name="addFloor">Update Category</button>
+                                    <button type="submit" class="btn btn-primary waves-effect waves-light" name="addCategory">Update Category</button>
                                 </div>
                             </div>
                         </form>
-                        <h5>
+                        <span style="text-align: center">
                             <?php echo $error ?>
-                        </h5>
-                        <h5>
+                        </span>
+                        <span style="text-align: center">
                             <?php echo $added ?>
-                        </h5>
-                        <h5>
+                        </span>
+                        <span style="text-align: center">
                             <?php echo $alreadyAdded ?>
-                        </h5>
+                        </span>
                     </div>
                 </div>
                
