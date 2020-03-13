@@ -30,6 +30,8 @@
     <link href="../assets/css/icons.css" rel="stylesheet" type="text/css">
     <link href="../assets/css/style.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" type="text/css" href="../assets/css/select2.min.css">
+    <link rel="stylesheet" type="text/css" href="../assets/bootstrap-slider.min.css">
+    <link rel="stylesheet" type="text/css" href="../assets/bootstrap-datetimepicker.css">
 
 
 
@@ -85,7 +87,7 @@
                         </li>
                        
                          <li class="has_sub">
-                            <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-broadcast"></i> <span> Rooms</span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
+                            <a href="javascript:void(0);" class="waves-effect"><i class="fas fa-person-booth"></i> <span> Rooms</span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
                             <ul class="list-unstyled">
                                 <li><a href="room_new.php">Add New Room</a></li>
                                 <li><a href="rooms_list.php">Rooms List</a></li>
@@ -96,8 +98,44 @@
                          <li class="has_sub">
                             <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-broadcast"></i> <span> Surgeries</span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
                             <ul class="list-unstyled">
-                                <li><a href="surgery_new.php">Add New Surgery</a></li>
                                 <li><a href="surgeries_list.php">Surgeries List</a></li>
+                            </ul>
+                        </li>
+                        <li class="has_sub">
+                            <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-broadcast"></i> <span> Areas</span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
+                            <ul class="list-unstyled">
+                              
+                                <li><a href="areas_list.php">Areas List</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="has_sub">
+                            <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-broadcast"></i> <span> HR Staff</span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
+                            <ul class="list-unstyled">
+                              
+                                <li><a href="HR_staff_new.php">Staff Registration</a></li>
+                                <li><a href="HR_staff_list.php">Staff List</a></li>
+                                <li><a href="HR_staff_category.php">Staff Category</a></li>
+                                
+                            </ul>
+                        </li>
+                         <li class="has_sub">
+                            <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-broadcast"></i> <span> Pharmacy</span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
+                            <ul class="list-unstyled">
+                              
+                                <li><a href="HR_staff_new.php">Medicines</a></li>
+                                
+                                <li><a href="HR_staff_category.php">aa</a></li>
+                                
+                            </ul>
+                        </li>
+                         <li class="has_sub">
+                            <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-broadcast"></i> <span> Inventory</span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
+                            <ul class="list-unstyled">
+                              
+                                <li><a href="inventory_new.php">Add Inventory Items</a></li>
+                                <li><a href="inventory_list.php">Inventory Items List</a></li>
+                                
                             </ul>
                         </li>
 

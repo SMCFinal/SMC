@@ -63,8 +63,10 @@
                               <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">BP</label>
 
+                                <b>Low</b>
+                                <input id="ex2" type="text" class="span2" value="" data-slider-min="10" data-slider-max="1000" data-slider-step="5" data-slider-value="[250,450]"/> <b>High</b>
+                                
 
-                                <input id="ex2" type="text" class="span2" value="" data-slider-min="10" data-slider-max="1000" data-slider-step="5" data-slider-value="[250,450]"/> <b>€ 1000</b>
 
                               </div>
 
@@ -86,6 +88,15 @@
 <?php include('../_partials/jquery.php') ?>
 <!-- App js -->
 <?php include('../_partials/app.php') ?>
+<script type="text/javascript" src="../assets/bootstrap-slider.min.js"></script>
+<script type="text/javascript">
+    // With JQuery
+$("#ex2").slider({
+    tooltip: 'always'
+});
+
+
+</script>
 </body>
 
 </html>

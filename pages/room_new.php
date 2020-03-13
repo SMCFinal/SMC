@@ -95,7 +95,7 @@
                                             <div class="form-group row">
                                                 <label class="col-sm-2 col-form-label">Room Type</label>
                                                 <div class="col-sm-10">
-                                                    <select class="form-control select2" name="roomType">
+                                                    <select class="form-control select2" name="roomType" style="width: 100%">
                                                         <option value="1">Single Bedded</option>
                                                         <option value="2">Double Bedded</option>
                                                     </select>

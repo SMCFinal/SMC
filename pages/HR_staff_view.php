@@ -24,7 +24,7 @@
                         <li class="breadcrumb-item active">Datatable</li>
                     </ol> -->
                 </div>
-                <h5 class="page-title">Patient Details</h5>
+                <h5 class="page-title">Staff Details</h5>
             </div>
         </div>
         <!-- end row -->
@@ -33,9 +33,7 @@
                 <div class="card m-b-30">
                     <div class="card-body">
                         <h4 class="mt-0 header-title d-inline"><?php echo $fetch_selectQuery['patient_name'] ?></h4>
-                        <div class=" float-right">
-                            <a href="" type="button" class="btn text-white btn-primary waves-effect waves-light">Add Surgery</a>
-                        </div>
+                       
                        
                    
                         
@@ -43,60 +41,46 @@
                             <table class="table mb-0">
                                 <tbody>
                                     <tr>
-                                        <th scope="row">M.R No.</th>
+                                        <th scope="row">Name</th>
                                         <td><?php echo $fetch_selectQuery['patient_yearly_no'] ?></td>
                                     </tr>
                                     <tr>
-                                        <th scope="row">Name</th>
+                                        <th scope="row">CNIC</th>
                                         <td><?php echo $fetch_selectQuery['patient_name'] ?></td>
                                     </tr>
                                     <tr>
-                                        <th scope="row">Age</th>
+                                        <th scope="row">Designation</th>
                                         <td><?php echo $fetch_selectQuery['patient_age'] ?></td>
                                     </tr>
+                                    
                                      <tr>
-                                        <th scope="row">Gender</th>
-                                        <td><?php 
-                                        if ($fetch_selectQuery['patient_gender'] == 1) {
-                                            echo "Male";
-                                        }elseif ($fetch_selectQuery['patient_gender'] == 2) {
-                                            echo "Female";
-                                        }elseif ($fetch_selectQuery['patient_gender'] == 3) {
-                                            echo "Other";
-                                        }
-                                       ?></td>
-                                    </tr>
-                                     <tr>
-                                        <th scope="row">Address</th>
+                                        <th scope="row">Salary</th>
                                         <td><?php echo $fetch_selectQuery['patient_address'] ?></td>
                                     </tr>
                                      <tr>
-                                        <th scope="row">Date of Admission</th>
+                                        <th scope="row">Date of Joining</th>
                                         <td><?php echo $fetch_selectQuery['patient_doa'] ?></td>
                                     </tr>
                                      <tr>
-                                        <th scope="row">Date of Operation</th>
+                                        <th scope="row">Date of Termination</th>
                                         <td><?php echo $fetch_selectQuery['patient_doop'] ?></td>
                                     </tr>
                                      <tr>
-                                        <th scope="row">Disease</th>
+                                        <th scope="row">Start Time</th>
                                         <td><?php echo $fetch_selectQuery['patient_disease'] ?></td>
                                     </tr>
 
                                     <tr>
-                                        <th scope="row">Operation</th>
+                                        <th scope="row">End Time</th>
                                         <td><?php echo $fetch_selectQuery['patient_operation'] ?></td>
                                     </tr>
 
                                     <tr>
-                                        <th scope="row">Consultant</th>
+                                        <th scope="row">Visit Charges</th>
                                         <td><?php echo $fetch_selectQuery['patient_consultant'] ?></td>
                                     </tr>
 
-                                    <tr>
-                                        <th scope="row">Yearly No</th>
-                                        <td><?php echo $fetch_selectQuery['patient_yearly_no'] ?></td>
-                                    </tr>
+                                   
 
                                 </tbody>
                             </table>
