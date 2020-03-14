@@ -77,8 +77,8 @@
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">Date of Joining</label>
                                 <div class="col-sm-4">
-                                    <div class="input-group">
-                                        <input class="form-control form_datetime" name="dateofjoiningStaff" placeholder="dd/mm/yyyy-hh:mm">
+                                    <div class="input-group ">
+                                        <input class="form-control date dateonly" name="dateofjoiningStaff" placeholder="dd/mm/yyyy">
                                         <div class="input-group-append bg-custom b-0"><span class="input-group-text"><i class="mdi mdi-calendar"></i></span></div>
                                     </div>
                                 </div>
@@ -86,15 +86,15 @@
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">Start Time</label>
                                 <div class="col-sm-4">
-                                    <div class="input-group">
-                                        <input class="form-control form_datetime" name="starttimeStaff" placeholder="dd/mm/yyyy-hh:mm">
+                                    <div class="input-group ">
+                                        <input class="form-control date  timeonly" name="starttimeStaff" placeholder="hh:mm">
                                         <div class="input-group-append bg-custom b-0"><span class="input-group-text"><i class="mdi mdi-calendar"></i></span></div>
                                     </div>
                                 </div>
                                 <label class="col-sm-2 col-form-label">End Time</label>
                                 <div class="col-sm-4">
                                     <div class="input-group">
-                                        <input class="form-control form_datetime" name="endtimeStaff" placeholder="dd/mm/yyyy-hh:mm">
+                                        <input class="form-control date  timeonly" name="endtimeStaff" placeholder="hh:mm">
                                         <div class="input-group-append bg-custom b-0"><span class="input-group-text"><i class="mdi mdi-calendar"></i></span></div>
                                     </div>
                                 </div>
@@ -140,8 +140,18 @@
 <?php include('../_partials/app.php') ?>
 <?php include('../_partials/datetimepicker.php') ?>
 <script type="text/javascript">
-$(".form_datetime").datetimepicker({
-    format: "yyyy-mm-dd hh:ii"
+
+$(".timeonly").datetimepicker({
+    format: "HH:ii P",
+    showMeridian: true,
+        autoclose: true,
+        todayBtn: true
+});
+
+$(".dateonly").datetimepicker({
+    format: "yyyy-mm-dd",
+    autoclose:true,
+    todayBtn: true
 });
 </script>
 <script type="text/javascript" src="../assets/js/select2.min.js"></script>
