@@ -153,8 +153,8 @@
 <script type="text/javascript">
 
 $(".timeonly").datetimepicker({
-    format: "HH:ii",
-    showMeridian: true,
+    format: "hh:ii",
+    
         autoclose: true,
         todayBtn: true
 });
