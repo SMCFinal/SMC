@@ -31,13 +31,6 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="col-sm-2 col-form-label">Surgery Name</label>
-                                <div class="col-sm-4">
-                                    <select class="form-control surgery_name" name="surgery_name">
-                                        <option>aaa</option>
-                                        <option>bbb</option>
-                                    </select>
-                                </div>
                                 <label class="col-sm-2 col-form-label">Consultant</label>
                                 <div class="col-sm-4">
                                     <select class="form-control consultant" name="consultant_name">
@@ -45,15 +38,24 @@
                                         <option>bbb</option>
                                     </select>
                                 </div>
+
+                                <label class="col-sm-2 col-form-label">Surgery Name</label>
+                                <div class="col-sm-4">
+                                    <select class="form-control surgery_name" name="surgery_name">
+                                        <option>aaa</option>
+                                        <option>bbb</option>
+                                    </select>
+                                </div>
+                                
                             </div>
                             <div class="form-group row">
                                 <label for="example-email-input" class="col-sm-2 col-form-label">Doctor Charges</label>
                                 <div class="col-sm-4">
-                                    <input class="form-control" type="email" name="dr_charges" placeholder="Doctor Charges" id="example-email-input">
+                                    <input class="form-control" type="number" name="dr_charges" placeholder="Doctor Charges" id="example-email-input">
                                 </div>
                                 <label for="example-text-input" class="col-sm-2 col-form-label">Anesthesia Charges</label>
                                 <div class="col-sm-4">
-                                    <input class="form-control" placeholder="Anesthesia Charges" type="text" name="anesthesia_charges" id="example-text-input">
+                                    <input class="form-control" placeholder="Anesthesia Charges" type="number" name="anesthesia_charges" id="example-text-input">
                                 </div>
                             </div>
                             <div class="form-group row">

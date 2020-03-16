@@ -36,7 +36,7 @@
                     <div class="card-body">
                         <h4 class="mt-0 header-title d-inline"><?php echo $fetch_selectQuery['patient_name'] ?></h4>
                         <div class=" float-right">
-                            <a href="" type="button" class="btn text-white btn-primary waves-effect waves-light">Add Surgery</a>
+                            <a href="surgery_new.php" type="button" class="btn text-white btn-primary waves-effect waves-light">Add Surgery</a>
                         </div>
                        
                    

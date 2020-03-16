@@ -35,7 +35,8 @@
                                     <th>End Time</th>
                                     <th>Visit Charges</th>                                   
                                     <th class="text-center"><i class="mdi mdi-eye"></i></th>
-                                    <!-- <th class="text-center"><i class="fa fa-trash"></i></th> -->
+                                    <th class="text-center"> <i class="fa fa-edit"></i>
+                                    
                                 </tr>
                             </thead>
                             <tbody>
@@ -57,12 +58,12 @@
                                             <td>'.$rowMembers['start_time'].'</td>
                                             <td>'.$rowMembers['end_time'].'</td>
                                             <td>'.$rowMembers['visit_charges'].'</td>
-                                            <td class="text-center"><a href="HR_staff_view.php?id='.$rowMembers['cnic'].'" type="button" class="btn text-white btn-primary waves-effect waves-light btn-sm">View</a></td>';
+                                            <td class="text-center"><a href="HR_staff_view.php?id='.$rowMembers['cnic'].'" type="button" class="btn text-white btn-primary waves-effect waves-light btn-sm">View</a></td>
+                                             <td class="text-center"><a href="HR_staff_edit.php" class="btn btn-warning"  name="Deleteme" data-original-title="Deactivate User Access">Edit</a></td>';
                                             // <td class="text-center"><button class="btn btn-danger" onClick="deleteme('.$rowMembers['cnic'].')" name="Deleteme" data-original-title="Deactivate User Access">Discharge</button></td>
                                           
                                          
-                                       echo ' </tr>
-                                    ';
+                                    
                                 }
                                             // <td class="text-center"><a href="./user_edit.php" type="button" class="btn text-white btn-warning waves-effect 
                                             //waves-light">Edit</a></td>
