@@ -40,7 +40,8 @@
                             </thead>
                             <tbody>
                                 <?php
-                                $selectQueryPatients = mysqli_query($connect, "SELECT * FROM patient_registration WHERE category = 'currentPatient' ORDER BY id ASC");
+                                $selectQueryPatients = mysqli_query($connect, "SELECT patient_registration.*, staff_members.name FROM `patient_registration`
+                                INNER JOIN staff_members ON staff_members.id = patient_registration.patient_consultant AND category = 'currentPatient'");
                                 $iteration = 1;
 
                                 while ($rowPatients = mysqli_fetch_assoc($selectQueryPatients)) {
@@ -52,12 +53,10 @@
                                             <td>'.$rowPatients['patient_doop'].'</td>
                                             <td>'.$rowPatients['patient_doa'].'</td>
                                             <td>'.$rowPatients['patient_disease'].'</td>
-                                            <td>'.$rowPatients['patient_consultant'].'</td>
+                                            <td>'."Dr. ".$rowPatients['name'].'</td>
                                             <td class="text-center"><a href="patient_view.php?id='.$rowPatients['id'].'" type="button" class="btn text-white btn-primary waves-effect waves-light btn-sm">View</a></td>
-                                            
 
-
-                                            <td class="text-center"><button class="btn btn-danger" onClick="deleteme('.$rowPatients['id'].')" name="Deleteme" data-original-title="Deactivate User Access">Discharge</button></td>
+                                            <td class="text-center"><button class="btn btn-danger" onClick="deleteme('.$rowPatients['id'].",".$rowPatients['room_id'].')" name="Deleteme" data-original-title="Deactivate User Access">PostPone</button></td>
                                           
                                          
                                         </tr>
@@ -71,13 +70,13 @@
                             </tbody>
                         </table>
                         <script type="text/javascript">
-        function deleteme(delid){
-          if (confirm("Do you want to discharge patient?")) {
-            window.location.href = 'temporary_disable.php?del_id=' + delid +'';
-            return true;
-          }
-        }
-      </script>
+                        function deleteme(delid,room){
+                          if (confirm("Do you want to discharge patient?")) {
+                            window.location.href = 'temporary_disable.php?del_id='+delid+'&room_id='+room+'';
+                            return true;
+                          }
+                        }
+                      </script>
                     </div>
                 </div>
             </div> <!-- end col -->

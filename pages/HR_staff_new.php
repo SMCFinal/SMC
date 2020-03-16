@@ -1,35 +1,46 @@
 <?php
     include('../_stream/config.php');
 
-    $userAlreadyinDatabase = '';
-    $userNotAdded = '';
-    $userAdded = '';
+    $alreadyAdded = '';
+    $error = '';
+    $added = '';
     
-    if (isset($_POST["addUser"])) {
-        $name = $_POST['addUser_Name'];
-        $userName = $_POST['addUser_userName'];
-        $email = $_POST['addUser_email'];
-        $password = $_POST['addUser_password'];
-        $role = $_POST['addUser_role'];
+    if (isset($_POST["addstaff"])) {
+        $name = $_POST['nameStaff'];
+        $cnic = $_POST['cnicStaff'];
+        $designation = $_POST['designationStaff'];
+        $salaryStaff = $_POST['salaryStaff'];
+        $dateofjoiningStaff = $_POST['dateofjoiningStaff'];
+        $starttimeStaff = $_POST['starttimeStaff'];
+        $endtimeStaff = $_POST['endtimeStaff'];
+        $visitcharges = $_POST['visitchargesStaff'];
 
-        $checkUserTable = mysqli_query($connect, "SELECT COUNT(*)AS countedUsers FROM `login_user` WHERE email = '$email'");
-        $fetch_checkUserTable = mysqli_fetch_array($checkUserTable);
+        $explodeDoctor = explode(":", $designation);
+        $designationStaffId = $explodeDoctor[1];
 
-        if ($fetch_checkUserTable['countedUsers'] < 1) {
-            $createUser = mysqli_query($connect, "INSERT INTO login_user(name, username, email, password, user_role)VALUES('$name', '$userName', '$email', '$password', '$role')");
+        $checkMemberTable = mysqli_query($connect, "SELECT COUNT(*)AS countedStaff FROM `staff_members` WHERE cnic = '$cnic'");
+        $fetch_checkMemberTable = mysqli_fetch_array($checkMemberTable);
 
-            if (!$createUser) {
-                echo mysqli_error($createUser);
-                $userNotAdded = "User not added! Try Again.";
+        if ($fetch_checkMemberTable['countedStaff'] < 1) {
+            $createMember = mysqli_query($connect, "INSERT INTO staff_members(name, cnic, category_id, salary, date_of_joining, start_time, end_time, visit_charges)VALUES('$name', '$cnic', '$designationStaffId', '$salaryStaff', '$dateofjoiningStaff', '$starttimeStaff', '$endtimeStaff', '$visitcharges')");
+
+            if (!$createMember) {
+                echo mysqli_error($connect);
+                $error = "Member not added! Try Again.";
             }else{
-                $userAdded = "User Added!";
+                $added = '<div class="alert alert-primary" role="alert">
+                                Staff Member Added!
+                             </div>';
             }
         }else {
-            $userAlreadyinDatabase = "User Already Exist";
+            $alreadyAdded = '<div class="alert alert-dark" role="alert">
+                                        Staff Member Already Added!
+                                     </div>';
         }
     }
 
-    include('../_partials/header.php') 
+
+    include('../_partials/header.php'); 
 ?>
 <!-- Top Bar End -->
 <div class="page-content-wrapper ">
@@ -63,7 +74,7 @@
                                     $select_option = mysqli_query($connect, "SELECT * FROM staff_category");
                                         $options = '<select class="form-control designation" name="designationStaff" id="designation" style="width: 100%" onchange=checkDoctor() required="">';
                                           while ($row = mysqli_fetch_assoc($select_option)) {
-                                            $options.= '<option value='.$row['category_name']." : ".$row['id'].'>'.$row['category_name'].'</option>';
+                                            $options.= '<option value='.$row['category_name'].':'.$row['id'].'>'.$row['category_name'].'</option>';
                                           }
                                         $options.= "</select>";
                                     echo $options;
@@ -102,7 +113,7 @@
                             <div class="form-group row " id="visitcharges" style="display: none">
                                 <label for="visit" class="col-sm-2 col-form-label">Visit Charges</label>
                                 <div class="col-sm-4">
-                                    <input class="form-control" type="text" placeholder="Visit Charges" name="visitcharges">
+                                    <input class="form-control" type="text" placeholder="Visit Charges" name="visitchargesStaff">
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -115,15 +126,15 @@
                         </form>
                     </div>
                 </div>
-                <h3 align="center">
-                    <?php echo $userAlreadyinDatabase; ?>
-                </h3>
-                <h3 align="center">
-                    <?php echo $userAdded; ?>
-                </h3>
-                <h3 align="center">
-                    <?php echo $userNotAdded; ?>
-                </h3>
+                        <span style="text-align: center">
+                            <?php echo $error ?>
+                        </span>
+                        <span style="text-align: center">
+                            <?php echo $added ?>
+                        </span>
+                        <span style="text-align: center">
+                            <?php echo $alreadyAdded ?>
+                        </span>
             </div> <!-- end col -->
         </div> <!-- end row -->
     </div><!-- container fluid -->
@@ -142,7 +153,7 @@
 <script type="text/javascript">
 
 $(".timeonly").datetimepicker({
-    format: "HH:ii P",
+    format: "HH:ii",
     showMeridian: true,
         autoclose: true,
         todayBtn: true
@@ -170,17 +181,16 @@ $('.attendant').select2({
 </script>
 <script type="text/javascript">
 
-        function checkDoctor() {
-    let desg = document.querySelector('#designation');
-    if (desg.value.toLowerCase() == 'doctor') {
+    function checkDoctor() {
+        var option = document.getElementById('designation')
+        var display = option.options[option.selectedIndex].text;
 
-        document.querySelector('#visitcharges').style.display = '';
-    }
-    else {
-        document.querySelector('#visitcharges').style.display = 'none';
-
-
-    }
+        if (display == 'Doctor' || display == 'doctor') {
+            document.querySelector('#visitcharges').style.display = '';
+        }
+        else {
+            document.querySelector('#visitcharges').style.display = 'none';
+        }
 
 }
 

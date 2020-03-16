@@ -33,7 +33,7 @@
         $patient_cnic = $_POST['patientCnic'];
         $patient_contact = $_POST['patientContact'];
 
-        $currentPatient = 'observationPatient';
+        $currentPatient = 'currentPatient';
 
         $queryAddPatient = mysqli_query($connect, 
             "INSERT INTO patient_registration(
@@ -73,7 +73,7 @@
             $notAdded = 'Not added';
         }else {
             $updateRoom = mysqli_query($connect, "UPDATE rooms SET status = '0' WHERE id = '$patientRoom'");
-            header("LOCATION: observation_list.php");
+            header("LOCATION: patient_new.php");
         }
     }
 
@@ -174,23 +174,33 @@
                             <hr>
 
                         <h4 class="mb-4 page-title"><u>Patient Admission Details</u></h4>
+                        <?php
+                        date_default_timezone_set('Asia/Karachi');
+                        $date = date('Y-m-d H:i:s', time());
+                        ?>
 
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">Date of Admission</label>
                                 <div class="col-sm-4">
                                     <div class="input-group">
-                                        <input  class="form-control form_datetime" name="patientDateOfAdmission" placeholder="dd/mm/yyyy-hh:mm" >
+                                        <input  class="form-control form_datetime" name="patientDateOfAdmission" value="<?php echo $date ?>" placeholder="dd/mm/yyyy-hh:mm" >
                                         <div class="input-group-append bg-custom b-0"><span class="input-group-text"><i class="mdi mdi-calendar"></i></span></div>
                                     </div>
                                 </div>
 
                                  <label class="col-sm-2 col-form-label">Refered by / Consultant</label>
                                 <div class="col-sm-4">
-                                    <select class="form-control attendant" name="patientConsultant" style="width: 100%">
-                                        <option value="Dr. Habib">Dr. Habib</option>
-                                        <option value="Dr. Taj Muhammad">Dr. Taj Muhammad</option>
-                                        <option value="Dr. Aman Ullah">Dr. Aman Ullah</option>
-                                    </select>
+                                <?php
+                                $selectDoctor = mysqli_query($connect, "SELECT staff_members.*, staff_category.* FROM `staff_members`
+                                INNER JOIN staff_category ON staff_category.id = staff_members.category_id
+                                WHERE staff_members.status = '1' AND staff_category.category_name = 'Doctor'");
+                                    $optionsDoctor = '<select class="form-control select2" name="patientConsultant" required="" style="width:100%">';
+                                      while ($rowDoctor = mysqli_fetch_assoc($selectDoctor)) {
+                                        $optionsDoctor.= '<option value='.$rowDoctor['id'].'>'.$rowDoctor['name'].'</option>';
+                                      }
+                                    $optionsDoctor.= "</select>";
+                                echo $optionsDoctor;
+                                ?>
                                 </div>
                             </div>
 

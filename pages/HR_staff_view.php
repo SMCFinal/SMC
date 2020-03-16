@@ -7,7 +7,9 @@
 
     $id = $_GET['id'];
 
-    $selectQuery = mysqli_query($connect, "SELECT * FROM patient_registration WHERE id = '$id'");
+    $selectQuery = mysqli_query($connect, "SELECT staff_members.*, staff_category.* FROM `staff_members`
+                                INNER JOIN staff_category ON staff_category.id = staff_members.category_id
+                                WHERE staff_members.status = '1' AND staff_members.cnic = '$id'");
     $fetch_selectQuery = mysqli_fetch_assoc($selectQuery);
 
     include('../_partials/header.php'); 
@@ -32,7 +34,7 @@
             <div class="col-12">
                 <div class="card m-b-30">
                     <div class="card-body">
-                        <h4 class="mt-0 header-title d-inline"><?php echo $fetch_selectQuery['patient_name'] ?></h4>
+                        <h4 class="mt-0 header-title d-inline"><h3><?php echo $fetch_selectQuery['name'] ?></h3></h4>
                        
                        
                    
@@ -42,42 +44,38 @@
                                 <tbody>
                                     <tr>
                                         <th scope="row">Name</th>
-                                        <td><?php echo $fetch_selectQuery['patient_yearly_no'] ?></td>
+                                        <td><?php echo $fetch_selectQuery['name'] ?></td>
                                     </tr>
                                     <tr>
                                         <th scope="row">CNIC</th>
-                                        <td><?php echo $fetch_selectQuery['patient_name'] ?></td>
+                                        <td><?php echo $fetch_selectQuery['cnic'] ?></td>
                                     </tr>
                                     <tr>
                                         <th scope="row">Designation</th>
-                                        <td><?php echo $fetch_selectQuery['patient_age'] ?></td>
+                                        <td><?php echo $fetch_selectQuery['category_name'] ?></td>
                                     </tr>
                                     
                                      <tr>
                                         <th scope="row">Salary</th>
-                                        <td><?php echo $fetch_selectQuery['patient_address'] ?></td>
+                                        <td><?php echo $fetch_selectQuery['salary'] ?></td>
                                     </tr>
                                      <tr>
                                         <th scope="row">Date of Joining</th>
-                                        <td><?php echo $fetch_selectQuery['patient_doa'] ?></td>
-                                    </tr>
-                                     <tr>
-                                        <th scope="row">Date of Termination</th>
-                                        <td><?php echo $fetch_selectQuery['patient_doop'] ?></td>
+                                        <td><?php echo $fetch_selectQuery['date_of_joining'] ?></td>
                                     </tr>
                                      <tr>
                                         <th scope="row">Start Time</th>
-                                        <td><?php echo $fetch_selectQuery['patient_disease'] ?></td>
+                                        <td><?php echo $fetch_selectQuery['start_time'] ?></td>
                                     </tr>
 
                                     <tr>
                                         <th scope="row">End Time</th>
-                                        <td><?php echo $fetch_selectQuery['patient_operation'] ?></td>
+                                        <td><?php echo $fetch_selectQuery['end_time'] ?></td>
                                     </tr>
 
                                     <tr>
                                         <th scope="row">Visit Charges</th>
-                                        <td><?php echo $fetch_selectQuery['patient_consultant'] ?></td>
+                                        <td><?php echo $fetch_selectQuery['visit_charges'] ?></td>
                                     </tr>
 
                                    

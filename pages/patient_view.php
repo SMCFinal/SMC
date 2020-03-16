@@ -7,7 +7,9 @@
 
     $id = $_GET['id'];
 
-    $selectQuery = mysqli_query($connect, "SELECT * FROM patient_registration WHERE id = '$id'");
+    $selectQuery = mysqli_query($connect, "SELECT patient_registration.*, staff_members.name FROM `patient_registration`
+                                INNER JOIN staff_members ON staff_members.id = patient_registration.patient_consultant
+                                 WHERE patient_registration.id = '$id'");
     $fetch_selectQuery = mysqli_fetch_assoc($selectQuery);
 
     include('../_partials/header.php'); 
@@ -89,15 +91,14 @@
                                     </tr>
 
                                     <tr>
-                                        <th scope="row">Consultant</th>
-                                        <td><?php echo $fetch_selectQuery['patient_consultant'] ?></td>
+                                        <th scope="row">Refered by / Consultant</th>
+                                        <td><?php echo "Dr. ".$fetch_selectQuery['name'] ?></td>
                                     </tr>
 
                                     <tr>
                                         <th scope="row">Yearly No</th>
                                         <td><?php echo $fetch_selectQuery['patient_yearly_no'] ?></td>
                                     </tr>
-
                                 </tbody>
                             </table>
                         </div>

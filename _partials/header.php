@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="utf-8" />
+<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
     <title>SMC</title>
@@ -67,7 +67,7 @@
                             </a>
                         </li>
                           <li class="has_sub">
-                            <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-briefcase"></i> <span> Quick Access </span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
+                            <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-flash"></i> <span> Quick Access </span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
                             <ul class="list-unstyled">
                                 <li><a href="patients_list.php">View Patients</a></li>
                                 <li><a href="patient_new.php">View Rooms</a></li>
@@ -79,7 +79,7 @@
                             <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-briefcase"></i> <span> Patients </span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
                             <ul class="list-unstyled">
                                 <li><a href="patient_new.php">Patient Registration</a></li>
-                                <li><a href="patients_observation.php">Patients Observation</a></li>
+                                <!-- <li><a href="patients_observation.php">Patients Observation</a></li> -->
                                 <li><a href="patients_list.php">Current Patients</a></li>
                                 
                                 <!-- <li><a target="_blank" href="patient_active_view.php">View Current Patients</a></li> -->
@@ -87,7 +87,7 @@
                         </li>
                        
                          <li class="has_sub">
-                            <a href="javascript:void(0);" class="waves-effect"><i class="fas fa-person-booth"></i> <span> Rooms</span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
+                            <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-glassdoor"></i> <span> Rooms</span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
                             <ul class="list-unstyled">
                                 <li><a href="room_new.php">Add New Room</a></li>
                                 <li><a href="rooms_list.php">Rooms List</a></li>

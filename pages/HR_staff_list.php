@@ -26,49 +26,42 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                  
                                     <th>Name</th>
                                     <th>CNIC</th>
                                     <th>Designation</th>
                                     <th>Salary</th>
                                     <th>Date of Joining</th>
-                                    <th>Date of Termination</th>
                                     <th>Start Time</th>
                                     <th>End Time</th>
-                                    <th>Visit Charges</th>
-
-
-
-                                   
+                                    <th>Visit Charges</th>                                   
                                     <th class="text-center"><i class="mdi mdi-eye"></i></th>
-                                   <!--  <th class="text-center"> <i class="fa fa-edit"></i>
-                                    </th> -->
-                                    <th class="text-center"><i class="fa fa-trash"></i></th>
+                                    <!-- <th class="text-center"><i class="fa fa-trash"></i></th> -->
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php
-                                $selectQueryPatients = mysqli_query($connect, "SELECT * FROM patient_registration WHERE category = 'currentPatient' ORDER BY id ASC");
+                                $selectQueryMembers = mysqli_query($connect, "SELECT staff_members.*, staff_category.* FROM `staff_members`
+                                INNER JOIN staff_category ON staff_category.id = staff_members.category_id
+                                WHERE staff_members.status = '1'");
                                 $iteration = 1;
 
-                                while ($rowPatients = mysqli_fetch_assoc($selectQueryPatients)) {
+                                while ($rowMembers = mysqli_fetch_assoc($selectQueryMembers)) {
                                     echo '
                                         <tr>
                                             <td>'.$iteration++.'</td>
-                                            <td>'.$rowPatients['patient_yearly_no'].'</td>
-                                            <td>'.$rowPatients['patient_name'].'</td>
-                                            <td>'.$rowPatients['patient_doop'].'</td>
-                                            <td>'.$rowPatients['patient_doa'].'</td>
-                                            <td>'.$rowPatients['patient_disease'].'</td>
-                                            <td>'.$rowPatients['patient_consultant'].'</td>
-                                            <td class="text-center"><a href="patient_view.php?id='.$rowPatients['id'].'" type="button" class="btn text-white btn-primary waves-effect waves-light btn-sm">View</a></td>
-                                            
-
-
-                                            <td class="text-center"><button class="btn btn-danger" onClick="deleteme('.$rowPatients['id'].')" name="Deleteme" data-original-title="Deactivate User Access">Discharge</button></td>
+                                            <td>'.$rowMembers['name'].'</td>
+                                            <td>'.$rowMembers['cnic'].'</td>
+                                            <td>'.$rowMembers['category_name'].'</td>
+                                            <td>'.$rowMembers['salary'].'</td>
+                                            <td>'.$rowMembers['date_of_joining'].'</td>
+                                            <td>'.$rowMembers['start_time'].'</td>
+                                            <td>'.$rowMembers['end_time'].'</td>
+                                            <td>'.$rowMembers['visit_charges'].'</td>
+                                            <td class="text-center"><a href="HR_staff_view.php?id='.$rowMembers['cnic'].'" type="button" class="btn text-white btn-primary waves-effect waves-light btn-sm">View</a></td>';
+                                            // <td class="text-center"><button class="btn btn-danger" onClick="deleteme('.$rowMembers['cnic'].')" name="Deleteme" data-original-title="Deactivate User Access">Discharge</button></td>
                                           
                                          
-                                        </tr>
+                                       echo ' </tr>
                                     ';
                                 }
                                             // <td class="text-center"><a href="./user_edit.php" type="button" class="btn text-white btn-warning waves-effect 
