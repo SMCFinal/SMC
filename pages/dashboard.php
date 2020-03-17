@@ -49,7 +49,7 @@
                                         </div>
                                         <div class="card-body">
                                             <div class="border-bottom pb-4 text-center">
-                                               <span style="font-family: 'Vollkorn', serif; font-size: 100px"><?php echo $allUsers ?></span>
+                                               <span style="  font-size: 100px"><?php echo $allUsers ?></span>
                                             </div>
                                             <!-- <div class="mt-4 text-muted">
                                                 
@@ -71,7 +71,7 @@
                                         </div>
                                         <div class="card-body">
                                             <div class="border-bottom pb-4 text-center">
-                                               <span style="font-family: 'Vollkorn', serif; font-size: 100px"><?php echo $activeUsers ?></span>
+                                               <span style="font-size: 100px"><?php echo $activeUsers ?></span>
                                             </div>
                                             <!-- <div class="mt-4 text-muted">
                                                 
@@ -91,7 +91,7 @@
                                         </div>
                                         <div class="card-body">
                                             <div class="border-bottom pb-4 text-center">
-                                               <span style="font-family: 'Vollkorn', serif; font-size: 100px"><?php echo $deactiveUsers ?></span>
+                                               <span style=" font-size: 100px"><?php echo $deactiveUsers ?></span>
                                             </div>
                                             <!-- <div class="mt-4 text-muted">
                                                 

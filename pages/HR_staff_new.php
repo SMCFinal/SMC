@@ -156,13 +156,13 @@ $(".timeonly").datetimepicker({
     format: "hh:ii",
     
         autoclose: true,
-        todayBtn: true
+        todayBtn: true,
 });
 
 $(".dateonly").datetimepicker({
     format: "yyyy-mm-dd",
     autoclose:true,
-    todayBtn: true
+    todayBtn: true,
 });
 </script>
 <script type="text/javascript" src="../assets/js/select2.min.js"></script>

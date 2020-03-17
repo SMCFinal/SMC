@@ -62,7 +62,7 @@
                                             </div>
                                             <input type="hidden" name="id" value="<?php echo $id ?>">
 
-                                            <div class="row">
+                                            <div class="form-group row">
                                             <!-- <div class="col-md-10"> -->
                                             <label class="col-sm-2 col-form-label">Floor No.</label>
                                             <div class="col-10">
