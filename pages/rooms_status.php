@@ -44,7 +44,7 @@
                                             while ($rowRooms = mysqli_fetch_assoc($retDataRooms)) {
                                                 if ($rowRooms['status'] == 1) {
                                                 echo '
-                                                    <div class="col-lg-2 col-md-4 col-sm-12 roomSuccess m-3">
+                                                    <div class="col-lg-2 col-md-4 col-sm-12 roomSuccess m-3" style="border-radius:.2rem">
                                                         <a href="room_view.php">
                                                             <div>
                                                                 <p class="badge badge-pill badge-light ">'.$rowRooms['floor_name'].'</p><br>

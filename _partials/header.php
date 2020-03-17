@@ -70,7 +70,7 @@
                             <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-flash"></i> <span> Quick Access </span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
                             <ul class="list-unstyled">
                                 <li><a href="patients_list.php">View Patients</a></li>
-                                <li><a href="patient_new.php">View Rooms</a></li>
+                                <!-- <li><a href="patient_new.php">View Rooms</a></li> -->
                                 <li><a target="_blank" href="patient_active_view.php">View Current Patients</a></li>
                             </ul>
                         </li>
@@ -119,7 +119,7 @@
                                 
                             </ul>
                         </li>
-                         <li class="has_sub">
+                         <!-- <li class="has_sub">
                             <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-broadcast"></i> <span> Pharmacy</span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
                             <ul class="list-unstyled">
                               
@@ -128,8 +128,8 @@
                                 <li><a href="HR_staff_category.php">aa</a></li>
                                 
                             </ul>
-                        </li>
-                         <li class="has_sub">
+                        </li> -->
+                         <!-- <li class="has_sub">
                             <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-broadcast"></i> <span> Inventory</span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
                             <ul class="list-unstyled">
                               
@@ -137,9 +137,9 @@
                                 <li><a href="inventory_list.php">Inventory Items List</a></li>
                                 
                             </ul>
-                        </li>
+                        </li> -->
 
-                         <li class="has_sub">
+                         <!-- <li class="has_sub">
                             <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-broadcast"></i> <span> Expenses</span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
                             <ul class="list-unstyled">
                               
@@ -147,7 +147,7 @@
                                 <li><a href="expense_list.php">Expense List</a></li>
                                 
                             </ul>
-                        </li>
+                        </li> -->
 
                         <li class="has_sub">
                             <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-broadcast"></i> <span> Users</span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>

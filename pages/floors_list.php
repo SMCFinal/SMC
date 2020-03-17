@@ -18,13 +18,18 @@
 
         if ($fetch_countQuery['countedFloors'] == 0) {
             $insertQuery = mysqli_query($connect, "INSERT INTO floors(floor_name)VALUES('$floorName')");
-            if (!$insertQuery) {
-                $error = 'Not Added! Try agian!';
+              if (!$insertQuery) {
+              $error = 'Not Added! Try agian!';
             }else {
-                $added = 'Floor Added!';
+                $added = '
+                <div class="alert alert-primary" role="alert">
+                                Floor Added!
+                             </div>';
             }
         }else {
-            $alreadyAdded = 'Floor Already Added!';
+            $alreadyAdded = '<div class="alert alert-dark" role="alert">
+                                Floor Already Added!
+                             </div>';
         }
     }
 
@@ -61,9 +66,9 @@
                                 </div>
                             </div>
                         </form>
-                        <h5><?php echo $error ?></h5>
-                        <h5><?php echo $added ?></h5>
-                        <h5><?php echo $alreadyAdded ?></h5>
+                        <h5 align="center"><?php echo $error ?></h5>
+                        <h5 align="center"><?php echo $added ?></h5>
+                        <h5 align="center"><?php echo $alreadyAdded ?></h5>
                     </div>
                 </div>
                 <div class="card m-b-30">
@@ -77,7 +82,7 @@
                                     <th>Floor No.</th>
                                     <th class="text-center"> <i class="fa fa-edit"></i>
                                     </th>
-                                    <th class="text-center"><i class="fa fa-trash"></i></th>
+                                    <!-- <th class="text-center"><i class="fa fa-trash"></i></th> -->
                                 </tr>
                             </thead>
                             <tbody>
@@ -92,11 +97,11 @@
                                         <td>'.$rowFloors['floor_name'].'</td>
                                         <td class="text-center"><a href="floor_edit.php?id='.$rowFloors['id'].'" type="button" class="btn text-white btn-warning waves-effect waves-light">Edit</a></td>
                                         
-                                        <td class="text-center"><a type="button" id="sa-warning" class="btn text-white btn-danger waves-effect waves-light">Delete</a></td>
                                     </tr>
                                     ';
                                 }
                                 ?>
+                                        <!-- <td class="text-center"><a type="button" id="sa-warning" class="btn text-white btn-danger waves-effect waves-light">Delete</a></td> -->
                                 
                             </tbody>
                         </table>

@@ -6,10 +6,19 @@
     }
 
     $id = $_GET['id'];
+    $getPatient = mysqli_query($connect, "SELECT * FROM patient_registration WHERE id = '$id'");
+    $fetch_getPatient = mysqli_fetch_assoc($getPatient);
 
-    $selectQuery = mysqli_query($connect, "SELECT patient_registration.*, staff_members.name FROM `patient_registration`
+    if (empty($fetch_getPatient['patient_operation'])) {
+        $selectQuery = mysqli_query($connect, "SELECT patient_registration.*, staff_members.name FROM `patient_registration`
                                 INNER JOIN staff_members ON staff_members.id = patient_registration.patient_consultant
-                                 WHERE patient_registration.id = '$id'");
+                                WHERE patient_registration.id =  '$id'");
+    }else {
+        $selectQuery = mysqli_query($connect, "SELECT patient_registration.*, staff_members.name, surgeries.surgery_name FROM `patient_registration`
+                                INNER JOIN staff_members ON staff_members.id = patient_registration.patient_consultant
+                                INNER JOIN surgeries ON surgeries.id = patient_registration.patient_operation
+                                WHERE patient_registration.id  = '$id'");
+    }
     $fetch_selectQuery = mysqli_fetch_assoc($selectQuery);
 
     include('../_partials/header.php'); 
@@ -36,7 +45,10 @@
                     <div class="card-body">
                         <h4 class="mt-0 header-title d-inline"><?php echo $fetch_selectQuery['patient_name'] ?></h4>
                         <div class=" float-right">
-                            <a href="surgery_new.php" type="button" class="btn text-white btn-primary waves-effect waves-light">Add Surgery</a>
+                            <?php
+                            echo '
+                            <a href="surgery_new.php?id='.$fetch_selectQuery['id'].'" type="button" class="btn text-white btn-primary waves-effect waves-light">Add Surgery</a>';
+                            ?>
                         </div>
                        
                    
@@ -74,11 +86,25 @@
                                     </tr>
                                      <tr>
                                         <th scope="row">Date of Admission</th>
-                                        <td><?php echo $fetch_selectQuery['patient_doa'] ?></td>
+                                        <td><?php 
+                                        $dateAdmisison = $fetch_selectQuery['patient_doa']; 
+                                        $newAdmisison = date('d/M/Y h:i:s A', strtotime($dateAdmisison));
+                                        echo $newAdmisison;
+
+                                        ?></td>
                                     </tr>
                                      <tr>
                                         <th scope="row">Date of Operation</th>
-                                        <td><?php echo $fetch_selectQuery['patient_doop'] ?></td>
+                                        <?php $fetch_selectQuery['patient_operation'];
+
+                                        $date = $fetch_selectQuery['patient_doop']; 
+                                        $newDate = date('d/M/Y h:i:s A', strtotime($date));
+                                            if ($fetch_selectQuery['patient_doop'] == '0000-00-00 00:00:00') {
+                                                echo '<td style="color:red"><b>No Surgery Assigned</b></td>';
+                                             }else {
+                                                echo '<td>'.$newDate.'</td>';
+                                             } 
+                                        ?>
                                     </tr>
                                      <tr>
                                         <th scope="row">Disease</th>
@@ -87,7 +113,13 @@
 
                                     <tr>
                                         <th scope="row">Operation</th>
-                                        <td><?php echo $fetch_selectQuery['patient_operation'] ?></td>
+                                            <?php $fetch_selectQuery['patient_operation'];
+                                            if (empty($fetch_selectQuery['patient_operation'])) {
+                                                echo '<td style="color:red"><b>No Surgery Assigned</b></td>';
+                                             }else {
+                                                echo '<td>'.$fetch_selectQuery['surgery_name'].'</td>';
+                                             } 
+                                             ?>
                                     </tr>
 
                                     <tr>

@@ -21,8 +21,7 @@
         $roomTypeUpdate = $_POST['roomTypeUpdate'];
 
         
-        $updateRoomDetail = mysqli_query($connect, "UPDATE rooms SET room_number = '$roomUpdate', floor_id = '$floorUpdate', room_price = '$floorUpdate', room_type = '$roomTypeUpdate' WHERE id = '$id'");
-        echo "UPDATE rooms SET room_number = '$roomUpdate', floor_id = '$floorUpdate', room_price = '$floorUpdate', room_type = '$roomTypeUpdate' WHERE id = '$id'";
+        $updateRoomDetail = mysqli_query($connect, "UPDATE rooms SET room_number = '$roomUpdate', floor_id = '$floorUpdate', room_price = '$priceUpdated', room_type = '$roomTypeUpdate' WHERE id = '$id'");
 
         if (!$updateRoomDetail) {
             $error = 'Not Updated';
@@ -64,7 +63,10 @@
                                             <input type="hidden" name="id" value="<?php echo $id ?>">
 
                                             <div class="row">
-                                            <div class="col-md-10">
+                                            <!-- <div class="col-md-10"> -->
+                                            <label class="col-sm-2 col-form-label">Floor No.</label>
+                                            <div class="col-10">
+                                                
                                             <?php
                                                 $select_option = mysqli_query($connect, "SELECT * FROM floors");
                                                     $options = '<select class="form-control" name="floorUpdate" required="">';
@@ -76,9 +78,10 @@
                                                         }
                                                       }
                                                     $options.= "</select>";
-                                                echo '<label class="col-sm-2 col-form-label">Floor No.</label>'.$options;
+                                                echo $options;
                                             ?>
                                             </div>
+                                            <!-- </div> -->
                                             </div>
 
                                             <div class="form-group row">

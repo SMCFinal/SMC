@@ -5,28 +5,33 @@
         header("LOCATION:../index.php");
     }
 
+
     $alreadyAdded = '';
     $added = '';
     $error= '';
 
-    if (isset($_POST['addFloor'])) {
-        $floorName = $_POST['floorName'];
 
-        $countQuery = mysqli_query($connect, "SELECT COUNT(*)AS countedFloors FROM floors WHERE floor_name = '$floorName'");
-        $fetch_countQuery = mysqli_fetch_assoc($countQuery);
+    $id = $_GET['id'];
+    $selectQuery = mysqli_query($connect, "SELECT * FROM surgeries WHERE id = '$id'");
+    $fetch_selectQuery = mysqli_fetch_assoc($selectQuery);
+
+    if (isset($_POST['updateSurgery'])) {
+        $id = $_POST['id'];
+        $updateName = $_POST['updateName'];
+
+        // $countQuery = mysqli_query($connect, "SELECT COUNT(*)AS countedFloors FROM floors WHERE floor_name = '$floorName'");
+        // $fetch_countQuery = mysqli_fetch_assoc($countQuery);
 
 
-        if ($fetch_countQuery['countedFloors'] == 0) {
-            $insertQuery = mysqli_query($connect, "INSERT INTO floors(floor_name)VALUES('$floorName')");
-            if (!$insertQuery) {
-                $error = 'Not Added! Try agian!';
-            }else {
-                $added = 'Floor Added!';
+        // if ($fetch_countQuery['countedFloors'] == 0) {
+            $updateQuery = mysqli_query($connect, "UPDATE surgeries SET surgery_name = '$updateName' WHERE id = '$id'");
+            if (!$updateQuery) {
+                    $error = '<div class="alert alert-danger" role="alert">Surgery not updated!</div>';
+                }else {
+                   header("LOCATION:surgeries_list.php");
+                }
             }
-        }else {
-            $alreadyAdded = 'Floor Already Added!';
-        }
-    }
+    // }
 
 
     include('../_partials/header.php');
@@ -50,24 +55,16 @@
                             <div class="form-group row">
                                 <label for="example-text-input" class="col-sm-2 col-form-label">Name</label>
                                 <div class="col-sm-4">
-                                    <input class="form-control" placeholder="Name" type="text" value="" id="example-text-input" name="Name" required="">
-                                </div>
-
-                                <label class="col-sm-2 col-form-label">Specialist</label>
-                                <div class="col-sm-4">
-                                   <select class="specialist" name="specilist[]" multiple="multiple" style="width: 100%">
-
-                                        <option value="1">Johny Sins</option>
-                                        <option value="2">Asif</option>
-                                    </select>
+                                    <input class="form-control" placeholder="Name" type="text" value="<?php echo $fetch_selectQuery['surgery_name'] ?>" id="example-text-input" name="updateName" required="">
                                 </div>
                             </div>
+                            <input type="hidden" name="id" value="<?php echo $id ?>">
                             
                             <div class="form-group row">
                                 <label for="example-password-input" class="col-sm-2 col-form-label"></label>
                                 <div class="col-sm-10">
                                     <?php include('../_partials/cancel.php') ?>
-                                    <button type="submit" class="btn btn-primary waves-effect waves-light" name="addFloor">Update Surgery</button>
+                                    <button type="submit" class="btn btn-primary waves-effect waves-light" name="updateSurgery">Update Surgery</button>
                                 </div>
                             </div>
                         </form>

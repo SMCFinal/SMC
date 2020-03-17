@@ -26,7 +26,7 @@
                                         <div class="card-body">
             
                                             <h4 class="mt-0 header-title">Rooms</h4>   
-                                            <a href="floor_new.php" type="button" class="btn btn-primary waves-effect waves-light text-white ml-auto" style="float: right;">Rooms Detials</a>
+                                            <!-- <a href="floor_new.php" type="button" class="btn btn-primary waves-effect waves-light text-white ml-auto" style="float: right;">Rooms Detials</a> -->
 
                                             <table id="datatable" class="table dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
 
@@ -37,9 +37,9 @@
                                                     <th>Floor No.</th>
                                                     <th>Room Price</th>
                                                     <th>Room Type</th>                                                   
-                                                    <th class="text-center"> <i class="fa fa-eye"></i></th>
+                                                    <!-- <th class="text-center"> <i class="fa fa-eye"></i></th> -->
                                                     <th class="text-center"> <i class="fa fa-edit"></i></th>
-                                                    <th  class="text-center"><i class="fa fa-trash"></i></th>
+                                                    <!-- <th  class="text-center"><i class="fa fa-trash"></i></th> -->
                                                 </tr>
                                                 </thead>
                                                 <tbody>
@@ -65,14 +65,15 @@
                                                             
                                                             // <td></td>
                                                             
-                                                             echo '<td class="text-center"><a href="room_view.php?id='.$rowRooms['id'].'" type="button" class="btn text-white btn-success waves-effect waves-light">View</a></td>
+                                                             echo '
                                                             <td class="text-center"><a href="room_edit.php?id='.$rowRooms['id'].'" type="button" class="btn text-white btn-warning waves-effect waves-light">Edit</a></td>
-                                                            <td class="text-center"><a type="button" id="sa-warning" class="btn text-white btn-danger waves-effect waves-light">Delete</a></td>
                                                         </tr>
                                                         ';
                                                     }
                                                     ?>
+                                                             <!-- <td class="text-center"><a href="room_view.php?id='.$rowRooms['id'].'" type="button" class="btn text-white btn-success waves-effect waves-light">View</a></td> -->
                                                 
+                                                            <!-- <td class="text-center"><a type="button" id="sa-warning" class="btn text-white btn-danger waves-effect waves-light">Delete</a></td> -->
                                                 </tbody>
                                             </table>
             

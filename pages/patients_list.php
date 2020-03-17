@@ -28,13 +28,10 @@
                                     <th>#</th>
                                     <th>M.R No.</th>
                                     <th>Name</th>
-                                    <th>Date of Operation</th>
                                     <th>Date of Admission</th>
                                     <th>Disease</th>
                                     <th>Consultant</th>
                                     <th class="text-center"><i class="mdi mdi-eye"></i></th>
-                                   <!--  <th class="text-center"> <i class="fa fa-edit"></i>
-                                    </th> -->
                                     <th class="text-center"><i class="fa fa-trash"></i></th>
                                 </tr>
                             </thead>
@@ -49,9 +46,11 @@
                                         <tr>
                                             <td>'.$iteration++.'</td>
                                             <td>'.$rowPatients['patient_yearly_no'].'</td>
-                                            <td>'.$rowPatients['patient_name'].'</td>
-                                            <td>'.$rowPatients['patient_doop'].'</td>
-                                            <td>'.$rowPatients['patient_doa'].'</td>
+                                            <td>'.$rowPatients['patient_name'].'</td>';
+                                            $dateAdmisison = $rowPatients['patient_doa']; 
+                                            $newAdmisison = date('d/M/Y h:i:s A', strtotime($dateAdmisison));
+                                            echo '
+                                            <td>'.$newAdmisison.'</td>
                                             <td>'.$rowPatients['patient_disease'].'</td>
                                             <td>'."Dr. ".$rowPatients['name'].'</td>
                                             <td class="text-center"><a href="patient_view.php?id='.$rowPatients['id'].'" type="button" class="btn text-white btn-primary waves-effect waves-light btn-sm">View</a></td>
@@ -71,7 +70,7 @@
                         </table>
                         <script type="text/javascript">
                         function deleteme(delid,room){
-                          if (confirm("Do you want to discharge patient?")) {
+                          if (confirm("Do you want to PostPone Patient?")) {
                             window.location.href = 'temporary_disable.php?del_id='+delid+'&room_id='+room+'';
                             return true;
                           }
