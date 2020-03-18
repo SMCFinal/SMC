@@ -46,8 +46,10 @@
                         <h4 class="mt-0 header-title d-inline"><?php echo $fetch_selectQuery['patient_name'] ?></h4>
                         <div class=" float-right">
                             <?php
+                            if ($fetch_selectQuery['patient_doop'] == '0000-00-00 00:00:00') {
                             echo '
                             <a href="surgery_new.php?id='.$fetch_selectQuery['id'].'" type="button" class="btn text-white btn-primary waves-effect waves-light">Add Surgery</a>';
+                            }
                             ?>
                         </div>
                        

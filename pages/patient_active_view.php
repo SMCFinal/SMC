@@ -4,8 +4,8 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="utf-8" />
+<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
     <title>SMC</title>
@@ -49,9 +49,10 @@
     <div class="container-fluid mt-3">
         <div class="row">
             <?php
-            $selectPat = mysqli_query($connect, "SELECT patient_registration.*,rooms.*, floors.* FROM `patient_registration`
+            $selectPat = mysqli_query($connect, "SELECT patient_registration.*,rooms.*, floors.*, staff_members.name FROM `patient_registration`
 INNER JOIN rooms ON rooms.id = patient_registration.room_id
-INNER JOIN floors ON floors.id = rooms.floor_id");
+INNER JOIN floors ON floors.id = rooms.floor_id
+INNER JOIN staff_members ON staff_members.id = patient_registration.patient_consultant");
 
             $itr = 1;
 
@@ -71,7 +72,7 @@ INNER JOIN floors ON floors.id = rooms.floor_id");
                                     <tbody>
                                         <tr>
                                             <th>Doctor Name</th>
-                                            <td>'.$rowPatientView['patient_consultant'].'</td>
+                                            <td>'."Dr. ".$rowPatientView['name'].'</td>
                                         </tr>
                                         <tr>
                                             <th>Floor/Room</th>
@@ -84,10 +85,6 @@ INNER JOIN floors ON floors.id = rooms.floor_id");
                                         <tr>
                                             <th>Village Name</th>
                                             <td>'.$rowPatientView['patient_address'].'</td>
-                                        </tr>
-                                        <tr>
-                                            <th>City</th>
-                                            <td>'.$rowPatientView['patient_consultant'].'</td>
                                         </tr>
                                     </tbody>
                                 </table>

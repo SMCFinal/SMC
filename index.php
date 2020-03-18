@@ -38,7 +38,7 @@
         <meta content="ThemeDesign" name="author" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
-        <link rel="shortcut icon" href="assets/images/favicon.ico">
+        <link rel="shortcut icon" href="assets/logo.png">
 
         <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
         <link href="assets/css/icons.css" rel="stylesheet" type="text/css">
@@ -60,18 +60,16 @@
                     <div class="container">
                         <div class="row justify-content-center">
                             <div class="col-lg-5 col-md-8">
-                                <div class="card">
+                                <div class="card" style="box-shadow: 3px 3px 15px 3px #E7EAED">
                                     <div class="card-body">
-                
                                         <h3 class="text-center mt-0 m-b-15">
-                                            <a  class="logo logo-admin"><h3>SMC</h3></a>
+                                            <a  class="logo logo-admin"><img src="assets/logo.png" width="20%" height="20%"> <h3>Shah Medical Center</h3></a>
                                         </h3>
                 
-                                        <h4 class="text-muted text-center font-18"><b>Sign In</b></h4>
+                                        <h4 class="text-muted text-center font-18"><b>Sign In</b></h4><hr>
                 
                                         <div class="p-2">
                                             <form class="form-horizontal m-t-20" method="POST">
-                
                                                 <div class="form-group row">
                                                     <div class="col-12">
                                                         <input class="form-control" name="user_email" type="text" required="" placeholder="Username">

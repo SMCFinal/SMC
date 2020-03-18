@@ -21,6 +21,8 @@
         $role = $_POST['editRole'];
         $password = $_POST['editPassword'];
         $userStatus = $_POST['userStatus'];
+        $contact = $_POST['edit_contact'];
+        $emailMsg = $_POST['emailMsg'];
 
         
 
@@ -28,6 +30,12 @@
             if (!$editUserQuery) {
                 $userNotUpdated = "Failed to update. Try Again!";
             }else {
+                $description = "Dear ".$name.". Your Credentails. Email:".$emailMsg." and Password: ".$password.". Thank You!";
+                
+                $insertMsg = mysqli_query($connect, "INSERT INTO message_tbl
+                    (from_device, to_device, message_body, status)
+                    VALUES
+                    ('1', '$contact', '$description', '1')");
                 header("LOCATION:users_list.php");
             }
         }
@@ -44,11 +52,11 @@
                             <div class="row">
                                 <div class="col-sm-12">
                                     <div class="float-right page-breadcrumb">
-                                        <ol class="breadcrumb">
+                                        <!-- <ol class="breadcrumb">
                                             <li class="breadcrumb-item"><a href="#">Drixo</a></li>
                                             <li class="breadcrumb-item"><a href="#">Forms</a></li>
                                             <li class="breadcrumb-item active">Form Elements</li>
-                                        </ol>
+                                        </ol> -->
                                     </div>
                                     <h5 class="page-title">Edit User</h5>
                                 </div>
@@ -77,6 +85,12 @@
                                                     <input class="form-control" name="editUserName" value="<?php echo $fetch_selectUser['username'] ?>" type="text" id="example-text-input">
                                                 </div>
                                             </div>
+                                            <div class="form-group row">
+                                                <label for="example-email-input" class="col-sm-2 col-form-label">Contact</label>
+                                                <div class="col-sm-10">
+                                                    <input class="form-control" type="number" value="<?php echo $fetch_selectUser['contact'] ?>" name="edit_contact" placeholder="Contact" id="example-email-input">
+                                                </div>
+                                            </div>
 
                                             <div class="form-group row">
                                                 <label for="example-email-input" class="col-sm-2 col-form-label">Email</label>
@@ -84,6 +98,7 @@
                                                     <input class="form-control" name="editEmail" value="<?php echo $fetch_selectUser['email'] ?>" type="email" placeholder="Name@example.com" id="example-email-input" disabled>
                                                 </div>
                                             </div>
+                                            <input type="hidden" name="emailMsg" value="<?php echo $fetch_selectUser['email'] ?>">
 
                                             <div class="form-group row">
                                                 <label class="col-sm-2 col-form-label" >Role</label>

@@ -36,10 +36,11 @@
                                         <div class="row">
                                             <?php
                                             $iteration = 1;
-                                            $retDataRooms = mysqli_query($connect, "SELECT rooms.*, patient_registration.id, patient_registration.patient_name, patient_registration.city_id, patient_registration.patient_consultant, area.area_name, floors.floor_name FROM `rooms`
+                                            $retDataRooms = mysqli_query($connect, "SELECT rooms.*, patient_registration.id, patient_registration.patient_name, patient_registration.city_id, patient_registration.patient_consultant, area.area_name, floors.floor_name, staff_members.name FROM `rooms`
                                                 LEFT JOIN patient_registration ON patient_registration.room_id = rooms.id
                                                 LEFT JOIN area ON area.id = patient_registration.city_id
-                                                LEFT JOIN floors ON floors.id = rooms.floor_id");
+                                                LEFT JOIN floors ON floors.id = rooms.floor_id
+                                                LEFT JOIN staff_members ON staff_members.id = patient_registration.patient_consultant");
 
                                             while ($rowRooms = mysqli_fetch_assoc($retDataRooms)) {
                                                 if ($rowRooms['status'] == 1) {
@@ -77,7 +78,7 @@
                                                                  '.$rowRooms['patient_name'].' 
                                                                  </span><br>
                                                                 <span ><i class="fa fa-user-md text-dark" style="font-size: 20px;padding-right: 5px"></i>
-                                                                '.$rowRooms['patient_consultant'].'
+                                                                '."Dr. ".$rowRooms['name'].'
                                                                 </span><br>
                                                                 <span ><i class="fa fa-address-card text-dark" style="font-size: 20px;padding-right: 5px"></i>
                                                                 '.$rowRooms['area_name'].'

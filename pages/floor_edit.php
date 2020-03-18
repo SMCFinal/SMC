@@ -13,13 +13,14 @@
     $fetch_selectQuery = mysqli_fetch_assoc($selectQuery);
 
     if (isset($_POST['updateFloor'])) {
+        $id = $_POST['id'];
         $floorName = $_POST['floorName'];
 
         $countQuery = mysqli_query($connect, "SELECT COUNT(*)AS countedFloors FROM floors WHERE floor_name = '$floorName'");
         $fetch_countQuery = mysqli_fetch_assoc($countQuery);
 
         if ($fetch_countQuery['countedFloors'] == 0) {
-            $updateFloor = mysqli_query($connect, "UPDATE floors SET floor_name = '$floorName'");
+            $updateFloor = mysqli_query($connect, "UPDATE floors SET floor_name = '$floorName' WHERE id = '$id'");
 
             if (!$updateFloor) {
                 $notUpdated = 'Not Updated!';
@@ -55,6 +56,8 @@
                                     <input class="form-control" type="text" value="<?php echo $fetch_selectQuery['floor_name'] ?>" name="floorName" id="example-text-input">
                                 </div>
                             </div>
+
+                            <input type="hidden" name="id" value="<?php echo $id ?>">
                             <div class="form-group row">
                                 <label for="example-password-input" class="col-sm-2 col-form-label"></label>
                                 <div class="col-sm-10">

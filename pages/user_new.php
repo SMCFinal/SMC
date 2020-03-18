@@ -11,18 +11,25 @@
         $email = $_POST['addUser_email'];
         $password = $_POST['addUser_password'];
         $role = $_POST['addUser_role'];
+        $contact = $_POST['addUser_contact'];
 
         $checkUserTable = mysqli_query($connect, "SELECT COUNT(*)AS countedUsers FROM `login_user` WHERE email = '$email'");
         $fetch_checkUserTable = mysqli_fetch_array($checkUserTable);
 
         if ($fetch_checkUserTable['countedUsers'] < 1) {
-            $createUser = mysqli_query($connect, "INSERT INTO login_user(name, username, email, password, user_role)VALUES('$name', '$userName', '$email', '$password', '$role')");
+            $createUser = mysqli_query($connect, "INSERT INTO login_user(name, username, email, password, user_role, contact)VALUES('$name', '$userName', '$email', '$password', '$role', '$contact')");
 
             if (!$createUser) {
-                echo mysqli_error($createUser);
                 $userNotAdded = "User not added! Try Again.";
             }else{
                 $userAdded = "User Added!";
+                $description = "Dear ".$name.". You can access SMC WebApp using the following credentials. Email:".$email." and Password: ".$password.". Thank You!";
+                
+                $insertMsg = mysqli_query($connect, "INSERT INTO message_tbl
+                    (from_device, to_device, message_body, status)
+                    VALUES
+                    ('1', '$contact', '$description', '1')");
+                header("LOCATION:users_list.php");
             }
         }else {
             $userAlreadyinDatabase = "User Already Exist";
@@ -51,13 +58,19 @@
                             <div class="form-group row">
                                 <label for="example-text-input" class="col-sm-2 col-form-label">Name</label>
                                 <div class="col-sm-10">
-                                    <input class="form-control" type="text" name="addUser_Name" id="example-text-input">
+                                    <input class="form-control" type="text" placeholder="Name" name="addUser_Name" id="example-text-input">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="example-text-input" class="col-sm-2 col-form-label">Username</label>
                                 <div class="col-sm-10">
-                                    <input class="form-control" type="text" name="addUser_userName" id="example-text-input">
+                                    <input class="form-control" type="text" name="addUser_userName" placeholder="User Name" id="example-text-input">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="example-email-input" class="col-sm-2 col-form-label">Contact</label>
+                                <div class="col-sm-10">
+                                    <input class="form-control" type="number" name="addUser_contact" placeholder="Contact" id="example-email-input">
                                 </div>
                             </div>
                             <div class="form-group row">
