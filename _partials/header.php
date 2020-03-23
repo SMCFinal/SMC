@@ -33,9 +33,6 @@
     <link rel="stylesheet" type="text/css" href="../assets/css/select2.min.css">
     <link rel="stylesheet" type="text/css" href="../assets/bootstrap-slider.min.css">
     <link rel="stylesheet" type="text/css" href="../assets/bootstrap-datetimepicker.css">
-
-
-
 </head>
 
 <body class="fixed-left">
@@ -181,7 +178,7 @@
                             
                             <li class="list-inline-item dropdown notification-list">
                                 <a class="nav-link dropdown-toggle arrow-none waves-effect nav-user" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                                    <img src="../assets/images/users/user-1.jpg" alt="user" class="rounded-circle">
+                                    <img src="../assets/images/user.png" alt="user" class="rounded-circle" style="border:1px solid #54CC96; box-shadow: 1px 1px 3px 1px #ccc">
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-animated profile-dropdown ">
                                     <a class="dropdown-item" href="#"><i class="mdi mdi-account-circle m-r-5 text-muted"></i> Profile</a>

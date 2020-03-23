@@ -12,7 +12,6 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-12">
-                
                 <h5 class="page-title">Current Patient List</h5>
             </div>
         </div>
@@ -31,8 +30,7 @@
                                     <th>Date of Admission</th>
                                     <th>Disease</th>
                                     <th>Consultant</th>
-                                    <th class="text-center"><i class="mdi mdi-eye"></i></th>
-                                    <th class="text-center"><i class="fa fa-trash"></i></th>
+                                    <th class="text-center"><i class="mdi mdi-eye"></i> / <i class="fa fa-trash"></i></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -41,7 +39,12 @@
                                 INNER JOIN staff_members ON staff_members.id = patient_registration.patient_consultant AND category = 'currentPatient'");
                                 $iteration = 1;
 
+                                $timezone = date_default_timezone_set('Asia/Karachi');
+                                $date = date('m/d/Y h:i:s a', time());
+
                                 while ($rowPatients = mysqli_fetch_assoc($selectQueryPatients)) {
+                                    // echo $rowPatients['patient_doa'];
+                                $hourdiff = round((strtotime($date) - strtotime($rowPatients['patient_doa']))/3600, 1);
                                     echo '
                                         <tr>
                                             <td>'.$iteration++.'</td>
@@ -53,11 +56,14 @@
                                             <td>'.$newAdmisison.'</td>
                                             <td>'.$rowPatients['patient_disease'].'</td>
                                             <td>'."Dr. ".$rowPatients['name'].'</td>
-                                            <td class="text-center"><a href="patient_view.php?id='.$rowPatients['id'].'" type="button" class="btn text-white btn-primary waves-effect waves-light btn-sm">View</a></td>
+                                            <td class="text-center">
+                                            <a href="patient_view.php?id='.$rowPatients['id'].'" type="button" class="btn text-white btn-primary waves-effect waves-light btn-sm">View</a>&nbsp;&nbsp;&nbsp;';
 
-                                            <td class="text-center"><button class="btn btn-danger" onClick="deleteme('.$rowPatients['id'].",".$rowPatients['room_id'].')" name="Deleteme" data-original-title="Deactivate User Access">PostPone</button></td>
-                                          
-                                         
+                                            if ($hourdiff < 4) {
+                                                echo '<button class="btn btn-danger btn-sm" onClick="deleteme('.$rowPatients['id'].",".$rowPatients['room_id'].')" name="Deleteme" data-original-title="Deactivate User Access">PostPone</button>';
+                                            }
+                                            echo '
+                                            </td>
                                         </tr>
                                     ';
                                 }
