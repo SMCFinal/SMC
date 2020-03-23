@@ -172,10 +172,7 @@
                         </div>
                     </div>
                     <nav class="navbar-custom">
-                        <ul class="list-inline float-right mb-0">
-                            
-                        
-                            
+                        <ul class="list-inline float-right mb-0">                            
                             <li class="list-inline-item dropdown notification-list">
                                 <a class="nav-link dropdown-toggle arrow-none waves-effect nav-user" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
                                     <img src="../assets/images/user.png" alt="user" class="rounded-circle" style="border:1px solid #54CC96; box-shadow: 1px 1px 3px 1px #ccc">
