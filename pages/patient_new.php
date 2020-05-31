@@ -14,7 +14,12 @@
 
     $pickYearly = mysqli_query($connect, "SELECT COUNT(*)AS yearlyCounted FROM `patient_registration` WHERE auto_date LIKE '%$currentYear%'");
     $fetch_pickYearly = mysqli_fetch_assoc($pickYearly);
-    $yearlyCountedPatients = $fetch_pickYearly['yearlyCounted'];
+
+
+    $pickYearlyPostpone = mysqli_query($connect, "SELECT COUNT(*)AS yearlyPostponeCounted FROM `postpone_patient` WHERE auto_date LIKE '%$currentYear%'");
+    $fetch_pickYearlyPostpone = mysqli_fetch_assoc($pickYearlyPostpone);
+    
+    $yearlyCountedPatients = $fetch_pickYearly['yearlyCounted'] + $fetch_pickYearlyPostpone['yearlyPostponeCounted'];
 
     $newPatient = $currentYearNewPatient."0".($yearlyCountedPatients + 1);
 

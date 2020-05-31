@@ -59,9 +59,9 @@
                                             <td class="text-center">
                                             <a href="patient_view.php?id='.$rowPatients['id'].'" type="button" class="btn text-white btn-primary waves-effect waves-light btn-sm">View</a>&nbsp;&nbsp;&nbsp;';
 
-                                            if ($hourdiff < 4) {
+                                            // if ($hourdiff < 4) {
                                                 echo '<button class="btn btn-danger btn-sm" onClick="deleteme('.$rowPatients['id'].",".$rowPatients['room_id'].')" name="Deleteme" data-original-title="Deactivate User Access">PostPone</button>';
-                                            }
+                                            // }
                                             echo '
                                             </td>
                                         </tr>

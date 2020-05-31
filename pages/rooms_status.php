@@ -36,7 +36,7 @@
                                         <div class="row">
                                             <?php
                                             $iteration = 1;
-                                            $retDataRooms = mysqli_query($connect, "SELECT rooms.*, patient_registration.id, patient_registration.patient_name, patient_registration.city_id, patient_registration.patient_consultant, area.area_name, floors.floor_name, staff_members.name FROM `rooms`
+                                            $retDataRooms = mysqli_query($connect, "SELECT rooms.id AS roomId, rooms.*, patient_registration.id, patient_registration.patient_name, patient_registration.city_id, patient_registration.patient_consultant, area.area_name, floors.floor_name, staff_members.name FROM `rooms`
                                                 LEFT JOIN patient_registration ON patient_registration.room_id = rooms.id
                                                 LEFT JOIN area ON area.id = patient_registration.city_id
                                                 LEFT JOIN floors ON floors.id = rooms.floor_id
@@ -46,7 +46,7 @@
                                                 if ($rowRooms['status'] == 1) {
                                                 echo '
                                                     <div class="col-lg-2 col-md-4 col-sm-12 roomSuccess m-3" style="border-radius:.2rem">
-                                                        <a href="room_view.php">
+                                                        <a>
                                                             <div>
                                                                 <p class="badge badge-pill badge-light ">'.$rowRooms['floor_name'].'</p><br>
                                                                 
@@ -68,7 +68,7 @@
                                                 }else {
                                                 echo '
                                                     <div class="col-lg-2 col-md-4 col-sm-12 roomDanger m-3">
-                                                        <a href="">
+                                                        <a href="room_view.php?room_id='.$rowRooms['roomId'].'">
                                                             <div>
                                                             <p class="badge badge-pill badge-light ">'.$rowRooms['floor_name'].'</p><br>
 
