@@ -35,6 +35,18 @@
 
         $currentPatient = 'currentPatient';
 
+    
+        //  Chnages Need to modify
+        $patient_doop = '0000-00-00';
+        $patient_operation = '0';
+        $consultant_charges = '0';
+        $anasthetic_name = '0';
+        $anesthesia_charges = '0';
+        $added_by = '0';
+        $updated_by = '0';
+        
+        // Till here
+        
         $queryAddPatient = mysqli_query($connect, 
             "INSERT INTO patient_registration(
             patient_name, 
@@ -50,7 +62,14 @@
             category, 
             patient_yearly_no,
             patient_cnic,
-            patient_contact
+            patient_contact,
+            patient_doop,
+            patient_operation,
+            consultant_charges,
+            anasthetic_name,
+            anesthesia_charges,
+            added_by,
+            updated_by
             )VALUES(
             '$name', 
             '$Age', 
@@ -65,11 +84,19 @@
             '$currentPatient',
             '$yearlyNumber', 
             '$patient_cnic', 
-            '$patient_contact'
+            '$patient_contact',
+            '$patient_doop',
+            '$patient_operation',
+            '$consultant_charges',
+            '$anasthetic_name',
+            '$anesthesia_charges',
+            '$added_by',
+            '$updated_by'
             )
            ");
 
         if (!$queryAddPatient) {
+            echo mysqli_error($connect);
             $notAdded = 'Not added';
         }else {
             $updateRoom = mysqli_query($connect, "UPDATE rooms SET status = '0' WHERE id = '$patientRoom'");

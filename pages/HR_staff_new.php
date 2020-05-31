@@ -14,7 +14,10 @@
         $starttimeStaff = $_POST['starttimeStaff'];
         $endtimeStaff = $_POST['endtimeStaff'];
         $visitcharges = $_POST['visitchargesStaff'];
-
+        
+        if(empty($visitcharges)) {
+            $visitcharges = 0;
+        }
         $explodeDoctor = explode(":", $designation);
         $designationStaffId = $explodeDoctor[1];
 

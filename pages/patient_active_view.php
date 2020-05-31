@@ -52,12 +52,13 @@
             $selectPat = mysqli_query($connect, "SELECT patient_registration.*,rooms.*, floors.*, staff_members.name FROM `patient_registration`
 INNER JOIN rooms ON rooms.id = patient_registration.room_id
 INNER JOIN floors ON floors.id = rooms.floor_id
-INNER JOIN staff_members ON staff_members.id = patient_registration.patient_consultant");
+INNER JOIN staff_members ON staff_members.id = patient_registration.patient_consultant
+WHERE patient_registration.category = 'currentPatient'");
 
             $itr = 1;
 
             while ($rowPatientView = mysqli_fetch_assoc($selectPat)) {
-                echo '
+                    echo '
                 <div class="col-xl-4 col-md-6 mb-2">
                     <div class="card ">
                         <div class="card-body" style="box-shadow: 30px 30px 30px #ccc">

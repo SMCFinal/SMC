@@ -173,7 +173,7 @@
 <script type="text/javascript">
     $(document).ready(function() {
     $('.specialist').select2({
-        placeholder: 'Specilist Name',
+        placeholder: 'Specialist Name',
   allowClear:true
     });
 });
