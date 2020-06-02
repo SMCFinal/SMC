@@ -1,10 +1,10 @@
 <?php
-    include('../_stream/config.php');
-    session_start();
-        if (empty($_SESSION["user"])) {
-        header("LOCATION:../index.php");
-    }
-    include('../_partials/header.php');
+include '../_stream/config.php';
+session_start();
+if (empty($_SESSION["user"])) {
+	header("LOCATION:../index.php");
+}
+include '../_partials/header.php';
 ?>
 <link href="../assets/plugins/sweet-alert2/sweetalert2.min.css" rel="stylesheet" type="text/css">
 <div class="page-content-wrapper ">
@@ -58,26 +58,26 @@
     </div><!-- container fluid -->
 </div> <!-- Page content Wrapper -->
 </div> <!-- content -->
-<?php include('../_partials/footer.php') ?>
+<?php include '../_partials/footer.php'?>
 </div>
 <!-- End Right content here -->
 </div>
 <!-- END wrapper -->
 <!-- jQuery  -->
 <!-- jQuery  -->
-<?php include('../_partials/jquery.php') ?>
+<?php include '../_partials/jquery.php'?>
 <!-- Required datatable js -->
-<?php include('../_partials/datatable.php') ?>
+<?php include '../_partials/datatable.php'?>
 <!-- Buttons examples -->
-<?php include('../_partials/buttons.php') ?>
+<?php include '../_partials/buttons.php'?>
 <!-- Responsive examples -->
-<?php include('../_partials/responsive.php') ?>
+<?php include '../_partials/responsive.php'?>
 <!-- Datatable init js -->
-<?php include('../_partials/datatableInit.php') ?>
+<?php include '../_partials/datatableInit.php'?>
 <!-- Sweet-Alert  -->
-<?php include('../_partials/sweetalert.php') ?>
+<?php include '../_partials/sweetalert.php'?>
 <!-- App js -->
-<?php include('../_partials/app.php') ?>
+<?php include '../_partials/app.php'?>
 </body>
 
 </html>

@@ -6,7 +6,9 @@
  */
 
 $(document).ready(function() {
-    $('#datatable').DataTable();
+    $('#datatable').DataTable({
+    	"pageLength": 50
+    });
 
     //Buttons examples
     var table = $('#datatable-buttons').DataTable({

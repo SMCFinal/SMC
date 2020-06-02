@@ -79,11 +79,11 @@
                                 <li><a href="patient_new.php">Patient Registration</a></li>
                                 <!-- <li><a href="patients_observation.php">Patients Observation</a></li> -->
                                 <li><a href="patients_list.php">Current Patients</a></li>
-                                
+
                                 <!-- <li><a target="_blank" href="patient_active_view.php">View Current Patients</a></li> -->
                             </ul>
                         </li>
-                       
+
                          <li class="has_sub">
                             <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-glassdoor"></i> <span> Rooms</span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
                             <ul class="list-unstyled">
@@ -102,7 +102,7 @@
                         <li class="has_sub">
                             <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-broadcast"></i> <span> Areas</span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
                             <ul class="list-unstyled">
-                              
+
                                 <li><a href="areas_list.php">Areas List</a></li>
                             </ul>
                         </li>
@@ -110,42 +110,54 @@
                         <li class="has_sub">
                             <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-broadcast"></i> <span> HR Staff</span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
                             <ul class="list-unstyled">
-                              
+
                                 <li><a href="HR_staff_new.php">Staff Registration</a></li>
                                 <li><a href="HR_staff_list.php">Staff List</a></li>
                                 <li><a href="HR_staff_category.php">Staff Category</a></li>
-                                
+
                             </ul>
                         </li>
-                         <!-- <li class="has_sub">
+                         <li class="has_sub">
                             <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-broadcast"></i> <span> Pharmacy</span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
                             <ul class="list-unstyled">
-                              
-                                <li><a href="HR_staff_new.php">Medicines</a></li>
-                                
-                                <li><a href="HR_staff_category.php">aa</a></li>
-                                
+                                <li><a href="pharmacy_order_medicine_new.php">Order Medicines</a></li>
+
+                                <li><a href="pharmacy_medicine_new.php">Add New Medicines</a></li>
+                                <li><a href="pharmacy_medicine_list.php">Medicines List</a></li>
+                                <li><a href="pharmacy_medicine_category.php">Medicines Category</a></li>
+
+
                             </ul>
-                        </li> -->
-                         <!-- <li class="has_sub">
+                        </li>
+                         <li class="has_sub">
                             <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-broadcast"></i> <span> Inventory</span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
                             <ul class="list-unstyled">
-                              
+
                                 <li><a href="inventory_new.php">Add Inventory Items</a></li>
                                 <li><a href="inventory_list.php">Inventory Items List</a></li>
-                                
-                            </ul>
-                        </li> -->
 
-                         <!-- <li class="has_sub">
+                            </ul>
+                        </li>
+
+                         <li class="has_sub">
+                            <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-broadcast"></i> <span> Lab Tests</span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
+                            <ul class="list-unstyled">
+
+                                <li><a href="lab_test_new.php">Add New Lab Test</a></li>
+                                <li><a href="Lab_test_list.php">Lab Tests List</a></li>
+
+                            </ul>
+                        </li>
+
+                         <li class="has_sub">
                             <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-broadcast"></i> <span> Expenses</span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
                             <ul class="list-unstyled">
-                              
+
                                 <li><a href="expense_new.php">Add Expense</a></li>
                                 <li><a href="expense_list.php">Expense List</a></li>
-                                
+
                             </ul>
-                        </li> -->
+                        </li>
 
                         <li class="has_sub">
                             <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-broadcast"></i> <span> Users</span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
@@ -172,7 +184,7 @@
                         </div>
                     </div>
                     <nav class="navbar-custom">
-                        <ul class="list-inline float-right mb-0">                            
+                        <ul class="list-inline float-right mb-0">
                             <li class="list-inline-item dropdown notification-list">
                                 <a class="nav-link dropdown-toggle arrow-none waves-effect nav-user" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
                                     <img src="../assets/images/user.png" alt="user" class="rounded-circle" style="border:1px solid #54CC96; box-shadow: 1px 1px 3px 1px #ccc">
@@ -196,8 +208,7 @@
                     </nav>
                 </div>
                 <!-- Top Bar End -->
-            
 
 
 
-         
+
