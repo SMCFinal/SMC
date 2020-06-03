@@ -140,6 +140,16 @@
                         </li>
 
                          <li class="has_sub">
+                            <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-broadcast"></i> <span> Operation Theater</span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
+                            <ul class="list-unstyled">
+
+                                <li><a href="ot_items_new.php">Add Items</a></li>
+                                <li><a href="ot_items_list.php">Items List</a></li>
+
+                            </ul>
+                        </li>
+
+                         <li class="has_sub">
                             <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-broadcast"></i> <span> Lab Tests</span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
                             <ul class="list-unstyled">
 

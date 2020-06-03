@@ -13,7 +13,7 @@ include '../_partials/header.php';
         <div class="row">
             <div class="col-sm-12">
 
-                <h5 class="page-title">Inventory Items List</h5>
+                <h5 class="page-title">Operation Theater</h5>
             </div>
         </div>
         <!-- end row -->
@@ -21,7 +21,7 @@ include '../_partials/header.php';
             <div class="col-12">
                 <div class="card m-b-30">
                     <div class="card-body">
-                        <h4 class="mt-0 header-title text-center">Inventory List</h4>
+                        <h4 class="mt-0 header-title"> Items List</h4>
                         <table id="datatable" class="table  dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                             <thead>
                                 <tr>
@@ -31,8 +31,8 @@ include '../_partials/header.php';
                                     <th>Quantity</th>
                                     <th>Price</th>
                                     <th>Date of Purchase</th>
-                                    <th>Floor No</th>
-                                    <th>Room No</th>
+                                    <!-- <th>Floor No</th> -->
+                                    <!-- <th>Room No</th> -->
 
 
 
@@ -57,25 +57,21 @@ while ($rowPatients = mysqli_fetch_assoc($selectQueryPatients)) {
                                             <td>' . $rowPatients['patient_name'] . '</td>
                                             <td>' . $rowPatients['patient_doop'] . '</td>
                                             <td>' . $rowPatients['patient_doa'] . '</td>
-                                            <td>' . $rowPatients['patient_disease'] . '</td>
-                                            <td>' . $rowPatients['patient_consultant'] . '</td>
-                                            <td class="text-center"><a href="inventory_view.php" type="button" class="btn text-white btn-primary waves-effect waves-light btn-sm">View</a></td>
-                                            <td class="text-center"><a href="inventory_edit.php" type="button" class="btn text-white btn-warning waves-effect waves-light btn-sm">Edit</a></td>
+
+                                            <td class="text-center"><a href="ot_items_view.php?id=' . $rowPatients['id'] . '" type="button" class="btn text-white btn-primary waves-effect waves-light btn-sm">View</a></td>
+                                            <td class="text-center"><a href="ot_items_edit.php" type="button" class="btn text-white btn-warning waves-effect waves-light btn-sm">Edit</a></td>
 
 
 
                                             <td class="text-center"><button class="btn btn-danger" onClick="deleteme(' . $rowPatients['id'] . ')" name="Deleteme" data-original-title="Deactivate User Access">Delete</button></td>
-                                            <td></td>
 
 
                                         </tr>
                                     ';
 }
-
 // <td class="text-center"><a href="./user_edit.php" type="button" class="btn text-white btn-warning waves-effect
 //waves-light">Edit</a></td>
 ?>
-
 
 
                             </tbody>
