@@ -1,6 +1,40 @@
 <?php
+    include('../_stream/config.php');
+        session_start();
+            if (empty($_SESSION["user"])) {
+            header("LOCATION:../index.php");
+        }
 
-include '../_partials/header.php';
+        $alreadyExist = '';
+        $notAdded = '';
+        $added = '';
+
+        if (isset($_POST['addCategory'])) {
+            $category = $_POST['categoryName'];
+            $categoryName = str_replace('\' ', '\'', ucwords(str_replace('\'', '\' ', strtolower($category))));
+
+            $checkTable = mysqli_query($connect, "SELECT COUNT(*)AS countedCategory FROM medicine_category WHERE category_name = '$categoryName'");
+            $fetch_checkTable = mysqli_fetch_assoc($checkTable);
+           
+            if ($fetch_checkTable['countedCategory'] < 1) {
+                $addCategory = mysqli_query($connect, "INSERT INTO medicine_category(
+                    category_name)VALUES(
+                    '$categoryName')
+                    ");
+                if (!$addCategory) {
+                    $notAdded  = 'Please try Again!';
+                }else {
+                    $added = 'Category Added!';
+                }
+            }else {
+                $alreadyExist = 'This category is already added!';
+            }
+
+
+
+        }
+
+    include '../_partials/header.php';
 ?>
 <style type="text/css">
 <link href="../assets/plugins/sweet-alert2/sweetalert2.min.css"rel="stylesheet"type="text/css">
@@ -36,6 +70,10 @@ include '../_partials/header.php';
 
                     </div>
                 </div>
+                <h3><?php echo $added ?></h3>
+                <h3><?php echo $notAdded ?></h3>
+                <h3><?php echo $alreadyExist ?></h3>
+                
             </div>
             <div class="col-7">
                 <div class="card m-b-30">
@@ -51,14 +89,23 @@ include '../_partials/header.php';
                                 </tr>
                             </thead>
                             <tbody>
+                                <?php
+                                $itr = 1;
 
-                                    <tr>
-                                        <td>aa</td>
-                                        <td>bb</td>
+                                $selectCategoryQuery = mysqli_query($connect, "SELECT * FROM medicine_category");
 
-                                        <td class="text-center"><a href="pharmacy_medicine_category_edit.php" type="button" class="btn text-white btn-warning waves-effect waves-light">Edit</a></td>
-                                    </tr>
-
+                                while ($rowCategory = mysqli_fetch_assoc($selectCategoryQuery)) {
+                                    echo '
+                                        <tr>
+                                            <td>'.$itr++.'</td>
+                                            <td>'.$rowCategory['category_name'].'</td>
+                                            <td class="text-center">
+                                                <a href="pharmacy_medicine_category_edit.php" type="button" class="btn text-white btn-warning waves-effect waves-light">Edit</a>
+                                            </td>
+                                        </tr>
+                                    ';
+                                }
+                                ?>
                             </tbody>
                         </table>
                     </div>
