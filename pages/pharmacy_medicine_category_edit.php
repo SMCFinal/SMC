@@ -1,6 +1,33 @@
 <?php
+    include('../_stream/config.php');
+        session_start();
+            if (empty($_SESSION["user"])) {
+            header("LOCATION:../index.php");
+        }
 
-include '../_partials/header.php';
+    $id = $_GET['id'];
+
+    $retCategoryData = mysqli_query($connect, "SELECT * FROM medicine_category WHERE id = '$id'");
+    $fetch_retCategoryData = mysqli_fetch_assoc($retCategoryData);
+
+    $notUpdated = '';
+
+    if (isset($_POST['updateCategory'])) {
+        $id = $_POST['id'];
+        $category = $_POST['categoryName'];
+            $categoryName = str_replace('\' ', '\'', ucwords(str_replace('\'', '\' ', strtolower($category))));
+
+        $updateCategory = mysqli_query($connect, "UPDATE medicine_category SET category_name = '$categoryName' WHERE id = '$id'");
+
+        if (!$updateCategory) {
+            $notUpdated = 'Category Not Updated!';
+        }else {
+            header("LOCATION:pharmacy_medicine_category.php");
+        }
+
+    }
+
+    include '../_partials/header.php';
 ?>
 <style type="text/css">
 <link href="../assets/plugins/sweet-alert2/sweetalert2.min.css"rel="stylesheet"type="text/css">
@@ -18,11 +45,11 @@ include '../_partials/header.php';
                 <div class="card m-b-30">
                     <div class="card-body">
                         <form method="POST">
-                            <input type="hidden" name="id" value="<?php echo $id ?>">
+                            <input type="hidden" name="id" value="<?php echo $fetch_retCategoryData['id'] ?>">
                             <div class="form-group row">
                                 <label for="example-text-input" class="col-sm-2 col-form-label">Category Name</label>
                                 <div class="col-sm-4">
-                                    <input class="form-control" value="" placeholder="Name" type="text" value="" id="example-text-input" name="categoryName" required="">
+                                    <input class="form-control" placeholder="Name" type="text" id="example-text-input" name="categoryName" value="<?php echo $fetch_retCategoryData['category_name'] ?>"  required="">
                                 </div>
 
                             </div>
@@ -30,14 +57,14 @@ include '../_partials/header.php';
                                  <label for="example-password-input" class="col-sm-2 col-form-label"></label>
                                 <div class="col-sm-4">
                                     <?php include '../_partials/cancel.php'?>
-                                    <button type="submit" class="btn btn-primary waves-effect waves-light" name="addCategory">Update Category</button>
+                                    <button type="submit" class="btn btn-primary waves-effect waves-light" name="updateCategory">Update Category</button>
                                 </div>
                             </div>
                         </form>
 
                     </div>
                 </div>
-
+                <h3><?php echo $notUpdated ?></h3>
             </div> <!-- end col -->
         </div> <!-- end row -->
     </div><!-- container fluid -->

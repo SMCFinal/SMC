@@ -1,4 +1,34 @@
 <?php
+    include('../_stream/config.php');
+        session_start();
+            if (empty($_SESSION["user"])) {
+            header("LOCATION:../index.php");
+        }
+
+        $alreadyExist = '';
+        $added = '';
+        $notAdded = '';
+
+        if (isset($_POST['addMedicine'])) {
+            $medicine = $_POST['nameMedicine'];
+            $medicineCategory = $_POST['medicineCategory'];
+
+            $medicineName = str_replace('\' ', '\'', ucwords(str_replace('\'', '\' ', strtolower($medicine))));
+
+            $checkTable = mysqli_query($connect, "SELECT COUNT(*)AS countedMedicines FROM add_medicines WHERE medicine_name = '$medicineName' AND medicine_category = '$medicineCategory'");
+            $fetch_checkTable = mysqli_fetch_assoc($checkTable);
+           
+            if ($fetch_checkTable['countedMedicines'] < 1) {
+                $addMedicineQuery = mysqli_query($connect, "INSERT INTO add_medicines(medicine_name, medicine_category)VALUES('$medicineName', '$medicineCategory')");
+                if (!$addMedicineQuery) {
+                    $notAdded = 'Medicine not added!';
+                }else {
+                    $added = 'Medicine Added!';
+                }
+            }else {
+                $alreadyExist = 'This medicine is already added!';
+            }
+        }
 
 include '../_partials/header.php';
 ?>
@@ -20,25 +50,22 @@ include '../_partials/header.php';
                             <div class="form-group row">
                                 <label for="example-text-input" class="col-sm-2 col-form-label">Name</label>
                                 <div class="col-sm-4">
-                                    <input class="form-control" type="text" placeholder="Name" name="nameMedicine" id="example-text-input">
+                                    <input class="form-control" type="text" placeholder="Medicine Name" name="nameMedicine" id="example-text-input">
                                 </div>
 
-                                <label for="example-text-input" class="col-sm-2 col-form-label">Price</label>
-                                <div class="col-sm-4">
-                                    <input class="form-control" type="number" placeholder="Price" name="price" id="price">
-                                </div>
-                            </div>
-                            <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">Category</label>
                                 <div class="col-sm-4">
-                                <select class="form-control designation" name="Category" id="designation" style="width: 100%"  required="">
-                                    <option value='abc'> abc</option>
-                                    <option value='abc'> abc</option>
-
-                                </select>
+                                <?php
+                                $selectCategory = mysqli_query($connect, "SELECT * FROM medicine_category");
+                                    $optionsCategory = '<select class="form-control designation" name="medicineCategory" required="" style="width:100%">';
+                                      while ($rowCategory = mysqli_fetch_assoc($selectCategory)) {
+                                        $optionsCategory.= '<option value='.$rowCategory['id'].'>'.$rowCategory['category_name'].'</option>';
+                                      }
+                                    $optionsCategory.= "</select>";
+                                echo $optionsCategory;
+                                ?>
 
                                 </div>
-
                             </div>
 
                              <div class="form-group row">
@@ -52,6 +79,10 @@ include '../_partials/header.php';
                         </form>
                     </div>
                 </div>
+
+                <h3><?php echo $added ?></h3>
+                <h3><?php echo $notAdded ?></h3>
+                <h3><?php echo $alreadyExist ?></h3>
 
             </div> <!-- end col -->
         </div> <!-- end row -->

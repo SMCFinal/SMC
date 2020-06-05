@@ -1,4 +1,33 @@
 <?php
+include '../_stream/config.php';
+    session_start();
+    if (empty($_SESSION["user"])) {
+        header("LOCATION:../index.php");
+    }
+
+    $id = $_GET['id'];
+
+    $retMedicinesData = mysqli_query($connect, "SELECT * FROM add_medicines WHERE id = '$id'");
+    $fetch_retMedicinesData = mysqli_fetch_assoc($retMedicinesData);
+
+    $notUpdated = '';
+
+    if (isset($_POST['updateMedicine'])) {
+        $id = $_POST['id'];
+        $medicine = $_POST['nameMedicine'];
+        
+        $medicineName = str_replace('\' ', '\'', ucwords(str_replace('\'', '\' ', strtolower($medicine))));
+        
+        $medicineCategory = $_POST['medicineCategory'];
+
+        $updateQuery = mysqli_query($connect, "UPDATE add_medicines SET medicine_name = '$medicineName', medicine_category = '$medicineCategory' WHERE id = '$id'");
+
+        if (!$updateQuery) {
+            $notUpdated = 'Not Updated';
+        }else {
+            header("LOCATION:pharmacy_medicine_list.php");
+        }
+    }
 
 include '../_partials/header.php';
 ?>
@@ -20,38 +49,44 @@ include '../_partials/header.php';
                             <div class="form-group row">
                                 <label for="example-text-input" class="col-sm-2 col-form-label">Name</label>
                                 <div class="col-sm-4">
-                                    <input class="form-control" type="text" placeholder="Name" name="nameMedicine" id="example-text-input">
+                                    <input class="form-control" type="text" placeholder="Name" name="nameMedicine" id="example-text-input" value="<?php echo $fetch_retMedicinesData['medicine_name'] ?>">
                                 </div>
+                                <input type="hidden" name="id" value="<?php echo $id ?>">
 
-                                <label for="example-text-input" class="col-sm-2 col-form-label">Price</label>
-                                <div class="col-sm-4">
-                                    <input class="form-control" type="number" placeholder="Price" name="price" id="price">
-                                </div>
-                            </div>
-                            <div class="form-group row">
+
                                 <label class="col-sm-2 col-form-label">Category</label>
                                 <div class="col-sm-4">
-                                <select class="form-control designation" name="Category" id="designation" style="width: 100%"  required="">
-                                    <option value='abc'> abc</option>
-                                    <option value='abc'> abc</option>
+                                <?php
+                                $selectCategory = mysqli_query($connect, "SELECT * FROM medicine_category");
+                                    $optionsCategory = '<select class="form-control designation" name="medicineCategory" required="" style="width:100%">';
+                                      while ($rowCategory = mysqli_fetch_assoc($selectCategory)) {
+                                        if ($rowCategory['id'] == $fetch_retMedicinesData['medicine_category']) {
+                                            $optionsCategory.= '<option value='.$rowCategory['id'].' selected>'.$rowCategory['category_name'].'</option>';     
+                                        }else {
+                                        $optionsCategory.= '<option value='.$rowCategory['id'].'>'.$rowCategory['category_name'].'</option>';
 
-                                </select>
+                                        }
+                                      }
+                                    $optionsCategory.= "</select>";
+                                echo $optionsCategory;
+                                ?>
 
                                 </div>
-
                             </div>
 
                              <div class="form-group row">
                                 <label class="col-sm-2 col-form-label"></label>
                                 <div class="col-sm-10">
                                     <?php include '../_partials/cancel.php'?>
-                                    <button type="submit" name="addMedicine" class="btn btn-primary waves-effect waves-light">Update Medicine</button>
+                                    <button type="submit" name="updateMedicine" class="btn btn-primary waves-effect waves-light">Update Medicine</button>
                                 </div>
                             </div>
 
                         </form>
                     </div>
                 </div>
+
+                <h3><?php echo $notUpdated ?></h3>
 
             </div> <!-- end col -->
         </div> <!-- end row -->

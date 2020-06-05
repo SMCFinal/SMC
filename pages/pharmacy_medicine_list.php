@@ -28,31 +28,44 @@ include '../_partials/header.php';
                                     <th>#</th>
                                     <th>Medicine Name</th>
                                     <th>Category</th>
-                                    <th>Price</th>
-
-                                    <th class="text-center"><i class="mdi mdi-eye"></i></th>
                                     <th class="text-center"> <i class="fa fa-edit"></i>
-                                         <th  class="text-center"><i class="fa fa-trash"></i></th>
-
+                                    <th class="text-center"><i class="fa fa-trash"></i></th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                            <td>1</td>
-                                            <td>abc</td>
-                                            <td>abc</td>
-                                            <td>abc</td>
+                                <?php
+                                $itr = 1;
 
-                                            <td class="text-center"><a href="./pharmacy_medicine_view.php" type="button" class="btn text-white btn-primary waves-effect waves-light btn-sm">View</a></td>
-                                             <td class="text-center"><a href="./pharmacy_medicine_edit.php" class="btn btn-warning"  name="Deleteme" data-original-title="Deactivate User Access">Edit</a></td>
-	 <td class="text-center"><button class="btn btn-danger"  name="Deleteme" data-original-title="Deactivate User Access">Delete</button></td>
+                                $retMedicines = mysqli_query($connect, "SELECT add_medicines.*, medicine_category.category_name FROM `add_medicines`
+                                    INNER JOIN medicine_category ON medicine_category.id = add_medicines.medicine_category");
 
+                                while ($rowMedicines = mysqli_fetch_assoc($retMedicines)) {
+                                    echo '
+                                        <tr>
+                                            <td>'.$itr++.'</td>
+                                            <td>'.$rowMedicines['medicine_name'].'</td>
+                                            <td>'.$rowMedicines['category_name'].'</td>
+                                            <td class="text-center">
+                                                <a href="./pharmacy_medicine_edit.php?id='.$rowMedicines['id'].'" class="btn btn-warning"  name="Deleteme" data-original-title="Deactivate User Access">Edit</a>
+                                            </td>
+                                            <td class="text-center">
+                                                <button class="btn btn-danger btn-sm" onClick="deleteme('.$rowMedicines['id'].')" name="Deleteme" data-original-title="Deactivate User Access">Delete</button>
+                                            </td>
 
-
-
-
+                                        </tr>
+                                    ';
+                                }
+                                ?>
                             </tbody>
                         </table>
+                        <script type="text/javascript">
+                        function deleteme(delid){
+                          if (confirm("Do you want to delete medicine?")) {
+                            window.location.href = 'pharmacy_medicine_delete.php?del_id='+delid;
+                            return true;
+                          }
+                        }
+                      </script>
                   </div>
                 </div>
             </div> <!-- end col -->

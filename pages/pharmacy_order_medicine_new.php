@@ -1,6 +1,17 @@
 <?php
+    include('../_stream/config.php');
+        session_start();
+            if (empty($_SESSION["user"])) {
+            header("LOCATION:../index.php");
+        }
 
-include '../_partials/header.php';
+        if (isset($_POST['patientMedicine'])) {
+            $patient = $_POST['patients'];
+
+            header('LOCATION:pharmacy_order_medicine_new_table.php?patientId='.$patient.'');
+        }
+
+    include '../_partials/header.php';
 ?>
 <!-- Top Bar End -->
 <div class="page-content-wrapper ">
@@ -15,17 +26,21 @@ include '../_partials/header.php';
             <div class="col-12">
                 <div class="card m-b-30">
                     <div class="card-body">
-                        <!-- <h4 class="mt-0 header-title">Patient Name</h4> -->
                         <form method="POST">
-
                             <div class="form-group row">
                                  <label for="example-text-input" class="col-sm-2 col-form-label">Patient Name</label>
                                 <div class="col-sm-4">
-                                <select class="form-control designation" name="Category" id="designation" style="width: 100%"  required="">
-                                    <option value='abc'> abc</option>
-                                    <option value='abc'> abc</option>
-
-                                </select>
+                                <?php
+                                $selectPatient = mysqli_query($connect, "SELECT patient_registration.id AS patientId , patient_registration.patient_name,  rooms.*, floors.* FROM `patient_registration`
+                                    INNER JOIN rooms ON rooms.id = patient_registration.room_id
+                                    INNER JOIN floors ON floors.id = rooms.floor_id");
+                                        $optionsPatientRooms = '<select class="form-control designation" name="patients" required="" style="width:100%">';
+                                          while ($rowPatientsRooms = mysqli_fetch_assoc($selectPatient)) {
+                                            $optionsPatientRooms.= '<option value='.$rowPatientsRooms['patientId'].'>'.$rowPatientsRooms['patient_name'].' - '.$rowPatientsRooms['room_number'].'</option>';
+                                          }
+                                        $optionsPatientRooms.= "</select>";
+                                echo $optionsPatientRooms;
+                                ?>
 
                                 </div>
 
@@ -34,8 +49,10 @@ include '../_partials/header.php';
                              <div class="form-group row">
                                 <label class="col-sm-2 col-form-label"></label>
                                 <div class="col-sm-10">
-                                    <?php include '../_partials/cancel.php'?>
-                                    <a href="pharmacy_order_medicine_new_table.php" type="submit" name="addMedicine" class="btn btn-primary waves-effect waves-light">Order Medicine</a>
+                                    <?php include '../_partials/cancel.php'; ?>
+                                    
+                                    <button type="submit" name="patientMedicine" class="btn btn-primary waves-effect waves-light">Order Medicine</button>
+                                    <!-- <a href="pharmacy_order_medicine_new_table.php" type="submit" name="patientMedicine" class=""></a> -->
                                 </div>
                             </div>
 

@@ -1,6 +1,11 @@
 <?php
+    include('../_stream/config.php');
+        session_start();
+            if (empty($_SESSION["user"])) {
+            header("LOCATION:../index.php");
+        }
 
-include '../_partials/header.php';
+    include '../_partials/header.php';
 ?>
 <link href="../assets/plugins/sweet-alert2/sweetalert2.min.css" rel="stylesheet" type="text/css">
 <div class="page-content-wrapper ">
@@ -23,10 +28,6 @@ include '../_partials/header.php';
                 <div class="card m-b-30">
                     <div class="card-body">
                         <h4 class="mt-0 header-title d-inline"><h3>Abc Medicine </h3></h4>
-
-
-
-
                         <div class="table-responsive mt-5">
                             <table class="table mb-0">
                                 <tbody>

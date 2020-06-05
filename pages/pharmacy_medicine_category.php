@@ -100,7 +100,7 @@
                                             <td>'.$itr++.'</td>
                                             <td>'.$rowCategory['category_name'].'</td>
                                             <td class="text-center">
-                                                <a href="pharmacy_medicine_category_edit.php" type="button" class="btn text-white btn-warning waves-effect waves-light">Edit</a>
+                                                <a href="pharmacy_medicine_category_edit.php?id='.$rowCategory['id'].'" type="button" class="btn text-white btn-warning waves-effect waves-light">Edit</a>
                                             </td>
                                         </tr>
                                     ';
