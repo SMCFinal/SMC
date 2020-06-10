@@ -8,7 +8,7 @@ include '../_partials/header.php';
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-12">
-                <h5 class="page-title">Pending Orders List</h5>
+                <h5 class="page-title">Completed Orders List</h5>
             </div>
         </div>
         <!-- end row -->

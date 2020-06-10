@@ -74,7 +74,7 @@
                         </li>
 
                         <li class="has_sub">
-                            <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-briefcase"></i> <span> Patients </span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
+                            <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-wheelchair-accessibility"></i> <span> Patients </span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
                             <ul class="list-unstyled">
                                 <li><a href="patient_new.php">Patient Registration</a></li>
                                 <!-- <li><a href="patients_observation.php">Patients Observation</a></li> -->
@@ -94,7 +94,7 @@
                             </ul>
                         </li>
                          <li class="has_sub">
-                            <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-broadcast"></i> <span> Surgeries</span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
+                            <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-hotel"></i> <span> Surgeries</span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
                             <ul class="list-unstyled">
                                 <li><a href="surgeries_list.php">Surgeries List</a></li>
                             </ul>
@@ -118,13 +118,16 @@
                             </ul>
                         </li>
                          <li class="has_sub">
-                            <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-broadcast"></i> <span> Pharmacy</span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
+                            <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-briefcase"></i> <span> Pharmacy</span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
                             <ul class="list-unstyled">
-                                <li><a href="pharmacy_order_medicine_new.php">Order Medicines</a></li>
-
-                                <li><a href="pharmacy_medicine_new.php">Add New Medicines</a></li>
-                                <li><a href="pharmacy_medicine_list.php">Medicines List</a></li>
                                 <li><a href="pharmacy_medicine_category.php">Medicines Category</a></li>
+                                <li><a href="pharmacy_medicine_new.php">Add New Medicines</a></li>
+
+                                <li><a href="pharmacy_medicine_list.php">Medicines List</a></li>
+                                <li><a href="pharmacy_order_medicine_new.php">Order Medicines</a></li>
+                                <li><a href="pharmacy_order_medicine_pending.php">Pending Orders</a></li>
+                                <li><a href="pharmacy_order_medicine_completed_list.php">Completed Orders</a></li>
+
 
 
                             </ul>
