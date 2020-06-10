@@ -7,6 +7,10 @@ include '../_stream/config.php';
 
     $id = $_GET['patientId'];
 
+    if (isset($_POST['addOrder'])) {
+        header("LOCATION:Pharmacy_order.php");
+    }
+
 include '../_partials/header.php';
 ?>
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/fixedheader/3.1.7/css/fixedHeader.bootstrap4.min.css">
@@ -24,7 +28,7 @@ include '../_partials/header.php';
                 <div class="card m-b-30">
                     <div class="card-body">
                         <!-- <h4 class="mt-0 header-title">Patient Name</h4> -->
-                        <form method="POST">
+                        <form method="POST" onsubmit="e.preventDefault()">
                             <table id="datatablem" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                 <thead>
                                     <tr>
@@ -33,7 +37,11 @@ include '../_partials/header.php';
                                         <th>Medicine Category</th>
                                         <th>Quantity</th>
                                         <th>Confirm</th>
-                                        <th class="text-center"><a href="pharmacy_order_medicine_pending.php" class="btn btn-primary waves-effect waves-light">Order Medicine</a></th>
+                                        <th class="text-center">
+                                            <!-- <a href="pharmacy_order_medicine_pending.php" class="btn btn-primary waves-effect waves-light">Order Medicine</a> -->
+                                            <button class="btn btn-primary waves-effect waves-light" type="submit" name="addOrder" id="getOrder" onclick="getValue();" onclick="javascript:change()">Order Medicine</button>
+                                            <!--  -->
+                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -46,20 +54,27 @@ include '../_partials/header.php';
 
                                     while ($rowMedicines = mysqli_fetch_assoc($retMedicines)) {
                                         echo '
+                                                <div id="myDiv">
                                             <tr>
                                                 <td>'.$itr++.'.'.'</td>
                                                 <td>'.$rowMedicines['medicine_name'].'</td>
                                                 <td>'.$rowMedicines['category_name'].'</td>
+
+                                                <input  class="some'.$itr.'" type="hidden" name="medicine[]" value='.$rowMedicines['id'].'>
+                                                <input  class="some'.$itr.'" type="hidden" name="category[]" value='.$rowMedicines['medicine_category'].'>
+
                                                 <td>
-                                                    <input class="form-control" name="quantity[]" type="text" placeholder="Quantity" id="example-text-input">
+                                                    <input class="form-control some'.$itr.'" name="quantity[]" type="text" placeholder="Quantity" id="example-text-input">
                                                 </td>
                                                 <td class="zoom">
                                                     <div class="custom-control custom-checkbox"> 
-                                                            <input type="checkbox" class=""> 
+                                                            <input type="checkbox" name="check[]" class="check some'.$itr.'" value='.$rowMedicines["id"].'> 
                                                     </div>
                                                 </td>
-                                                <td><td>
+                                                <input type="hidden" id="userId" class="check some'.$itr.'" value='.$id.'>
+                                                <td></td>
                                             </tr>
+                                                </div>
                                         ';
                                     }
                                     ?>
@@ -108,15 +123,102 @@ $(document).ready(function() {
          fixedHeader: {
         headerOffset: $('.topbar').outerHeight()
     }
-
-    //     fixedHeader: {
-    //         fixedHeader: true,
-    //      headerOffset: 500
-    // }
     });
 
 
 });
+</script>
+
+<script type="text/javascript">
+    
+    var arrayData = []
+    
+    var arrayPureData = []
+
+    document.getElementById("getOrder").addEventListener("click", function(event){
+      event.preventDefault();
+    });
+    function getValue() {
+        var checks = document.getElementsByClassName('check');
+
+        var str = '';
+
+        var checkValues = [];
+
+        for (var i = 0; i <= checks.length - 1; i++) {
+            
+            if (checks[i].checked === true) {
+                str = checks[i].value + "";
+                checkValues.push(str+"")
+
+                var className = checks[i].className;
+                var classNameSplit = className.split(" ");
+                var classNameIndex = classNameSplit[1];
+
+                var RowData = document.getElementsByClassName(classNameIndex);
+                for (var TakeRowData = 0; TakeRowData <= RowData.length - 1; TakeRowData++) {
+                    arrayData.push(RowData[TakeRowData].value)
+                }
+                arrayPureData.push(arrayData)
+                arrayData = []
+
+                $("#getOrder").click(function(e) {
+                    e.preventDefault()
+                })
+
+                if (arrayPureData.length) {
+                    var Category_id = arrayPureData;
+                }
+
+
+                console.log(arrayPureData)
+                for( var pureData in arrayPureData){
+                // if ((index = arrayPureData[pureData])) {}
+                    // arrayPureData[pureData]
+
+                }
+                    var medicineCategory = arrayPureData[pureData][0]
+                    var Category = arrayPureData[pureData][1]
+                    var qty = arrayPureData[pureData][2]
+
+                    var patient = document.getElementById('userId').value;
+                    // var status = arrayPureData[pureData][3]
+                    
+                    $.ajax({
+                        url: "Pharmacy_order.php",
+                        method: "GET",
+                        data: {
+                            medicineCategory,
+                            Category,
+                            qty,
+                            patient
+                        },
+                        dataType : 'html',
+                        success: function(res) {
+                            console.log(res)
+                            window.location.href = 'order_paced.php';
+                        },
+                        error:function(e){
+                            console.log(e)
+                        }
+                    })
+                
+
+                var medicineCategory = arrayPureData[0].value
+                // console.log("HERE", medicineCategory)
+                // var Category = arrayPureData[1].value
+                // var quantity = arrayPureData[2].value
+                // console.log(medicineCategory , Category, quantity)
+            }
+        }
+
+    }
+
+        // alert(medicineCategory)
+        // alert("ASCBKASJC")
+
+        // 
+
 
 </script>
 <style type="text/css">

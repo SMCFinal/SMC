@@ -4,6 +4,8 @@ session_start();
 if (empty($_SESSION["user"])) {
 	header("LOCATION:../index.php");
 }
+
+
 include '../_partials/header.php';
 ?>
 <link href="../assets/plugins/sweet-alert2/sweetalert2.min.css" rel="stylesheet" type="text/css">
@@ -19,26 +21,19 @@ include '../_partials/header.php';
         <!-- end row -->
         <div class="row">
             <div class="col-12">
-                <div class="card m-b-30">
+                <div class="card m-b-3">
                     <div class="card-body">
                         <h4 class="mt-0 header-title text-center">Inventory List</h4>
                         <table id="datatable" class="table  dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                             <thead>
                                 <tr>
                                     <th>#</th>
-
                                     <th>Name</th>
                                     <th>Quantity</th>
                                     <th>Price</th>
                                     <th>Date of Purchase</th>
                                     <th>Floor No</th>
                                     <th>Room No</th>
-
-
-
-
-
-                                    <th class="text-center"><i class="mdi mdi-eye"></i></th>
                                     <th class="text-center"> <i class="fa fa-edit"></i>
                                     </th>
                                     <th class="text-center"><i class="fa fa-trash"></i></th>
@@ -46,26 +41,26 @@ include '../_partials/header.php';
                             </thead>
                             <tbody>
                                 <?php
-$selectQueryPatients = mysqli_query($connect, "SELECT * FROM patient_registration WHERE category = 'currentPatient' ORDER BY id ASC");
-$iteration = 1;
+                                    $retInventoryItems = mysqli_query($connect, "SELECT inventory_items.*, floors.floor_name , rooms.room_number FROM `inventory_items`
+                                        INNER JOIN floors ON floors.id = inventory_items.floor_id
+                                        INNER JOIN rooms ON rooms.id = inventory_items.room_id");
+                                    $iteration = 1;
 
-while ($rowPatients = mysqli_fetch_assoc($selectQueryPatients)) {
-	echo '
+                                    while ($rowInventory = mysqli_fetch_assoc($retInventoryItems)) {
+                                    	echo '
                                         <tr>
-                                            <td>' . $iteration++ . '</td>
-                                            <td>' . $rowPatients['patient_yearly_no'] . '</td>
-                                            <td>' . $rowPatients['patient_name'] . '</td>
-                                            <td>' . $rowPatients['patient_doop'] . '</td>
-                                            <td>' . $rowPatients['patient_doa'] . '</td>
-                                            <td>' . $rowPatients['patient_disease'] . '</td>
-                                            <td>' . $rowPatients['patient_consultant'] . '</td>
-                                            <td class="text-center"><a href="inventory_view.php" type="button" class="btn text-white btn-primary waves-effect waves-light btn-sm">View</a></td>
-                                            <td class="text-center"><a href="inventory_edit.php" type="button" class="btn text-white btn-warning waves-effect waves-light btn-sm">Edit</a></td>
+                                            <td>'.$iteration++.'</td>
+                                            <td>'.$rowInventory['item_name'].'</td>
+                                            <td>'.$rowInventory['item_qty'].'</td>
+                                            <td>'.$rowInventory['item_price'].'</td>
+                                            <td>'.substr($rowInventory['item_purchase_date'], 0,10).'</td>
+                                            <td>'.$rowInventory['floor_name'].'</td>
+                                            <td>'.$rowInventory['room_number'].'</td>
+                                            <td class="text-center">
+                                                <a href="inventory_edit.php?id='.$rowInventory['id'].'" type="button" class="btn text-white btn-warning waves-effect waves-light btn-sm">Edit</a>
+                                            </td>
 
-
-
-                                            <td class="text-center"><button class="btn btn-danger" onClick="deleteme(' . $rowPatients['id'] . ')" name="Deleteme" data-original-title="Deactivate User Access">Delete</button></td>
-                                            <td></td>
+                                            <td class="text-center"><button class="btn btn-danger" onClick="deleteme('.$rowInventory['id'].')" name="Deleteme" data-original-title="Deactivate User Access">Delete</button></td>
 
 
                                         </tr>
@@ -81,13 +76,13 @@ while ($rowPatients = mysqli_fetch_assoc($selectQueryPatients)) {
                             </tbody>
                         </table>
                         <script type="text/javascript">
-        function deleteme(delid){
-          if (confirm("Do you want to discharge patient?")) {
-            window.location.href = 'temporary_disable.php?del_id=' + delid +'';
-            return true;
-          }
-        }
-      </script>
+                            function deleteme(delid){
+                              if (confirm("Do you want to discharge patient?")) {
+                                window.location.href = 'temporary_disable.php?del_id=' + delid +'';
+                                return true;
+                              }
+                            }
+                        </script>
                     </div>
                 </div>
             </div> <!-- end col -->

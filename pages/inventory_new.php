@@ -7,74 +7,34 @@
     }
 
     $notAdded = '';
+    $added = '';
+    $itemAlreadyAdded='';
 
-    $date = date_default_timezone_set('Asia/Karachi');
-    $currentYear = date('Y');
-    $currentYearNewPatient = date('Y-');
+    if (isset($_POST['addInventory'])) {
+        $item = $_POST['name'];
+        $item_name = str_replace('\' ', '\'', ucwords(str_replace('\'', '\' ', strtolower($item))));
+        $item_qty = $_POST['quantity'];
+        $item_price = $_POST['price'];
+        $dateOfpurchase = $_POST['dateOfpurchase'];
+        $floor_no = $_POST['floor_no'];
+        $room_no = $_POST['room_no'];
 
-    $pickYearly = mysqli_query($connect, "SELECT COUNT(*)AS yearlyCounted FROM `patient_registration` WHERE auto_date LIKE '%$currentYear%'");
-    $fetch_pickYearly = mysqli_fetch_assoc($pickYearly);
-    $yearlyCountedPatients = $fetch_pickYearly['yearlyCounted'];
+        // $countedInvertoryQuery = mysqli_query($connect, "SELECT COUNT(*)AS countedInventory FROM `inventory_items` WHERE floor_id = '$floor_no' AND room_id = '$room_no' AND item_name = '$item_name'");
+        // $fetch_countedInvertoryQuery = mysqli_fetch_assoc($countedInvertoryQuery);
 
-    $newPatient = $currentYearNewPatient."0".($yearlyCountedPatients + 1);
+        // if ($fetch_countedInvertoryQuery['countedInventory'] >= 1 ) {
+        //     $itemAlreadyAdded = 'Item already added in Database!';
+        // }else {
 
-    if (isset($_POST['patientRegister'])) {
-        $yearlyNumber = $_POST['patientYearlyNumber'];
-        $name = $_POST['patientName'];
-        $Age = $_POST['patientAge'];
-        $Gender = $_POST['patientGender'];
-        $disease = $_POST['patientDisease'];
-        $Address = $_POST['patientAddress'];
-        $address_city = $_POST['address_city'];
-        $DateOfAdmission = $_POST['patientDateOfAdmission'];
-        $consultant = $_POST['patientConsultant'];
-        $patientRoom = $_POST['patientRoom'];
-        $attendantName = $_POST['attendantName'];
-        $patient_cnic = $_POST['patientCnic'];
-        $patient_contact = $_POST['patientContact'];
 
-        $currentPatient = 'observationPatient';
+        $inventoryQuery = mysqli_query($connect, "INSERT INTO inventory_items(item_name, item_qty, item_price, item_purchase_date, floor_id, room_id)VALUES('$item_name', '$item_qty', '$item_price', '$dateOfpurchase', '$floor_no', '$room_no')");
 
-        $queryAddPatient = mysqli_query($connect, 
-            "INSERT INTO patient_registration(
-            patient_name, 
-            patient_age, 
-            patient_gender, 
-            patient_address, 
-            city_id,
-            room_id, 
-            patient_doa, 
-            patient_disease, 
-            patient_consultant, 
-            attendent_name, 
-            category, 
-            patient_yearly_no,
-            patient_cnic,
-            patient_contact
-            )VALUES(
-            '$name', 
-            '$Age', 
-            '$Gender', 
-            '$Address', 
-            '$address_city', 
-            '$patientRoom', 
-            '$DateOfAdmission', 
-            '$disease', 
-            '$consultant', 
-            '$attendantName', 
-            '$currentPatient',
-            '$yearlyNumber', 
-            '$patient_cnic', 
-            '$patient_contact'
-            )
-           ");
-
-        if (!$queryAddPatient) {
-            echo mysqli_error($queryAddPatient);
-            $notAdded = 'Not added';
+        if (!$inventoryQuery) {
+            $notAdded = 'Item not added to inventory!';
         }else {
-            header("LOCATION: observation_list.php");
+            $added = 'Item Added!';
         }
+        // }
     }
 
 
@@ -114,26 +74,42 @@
                                 <label class="col-sm-2 col-form-label">Date of Purchase</label>
                                 <div class="col-sm-4">
                                     <div class="input-group">
-                                        <input class="form-control form_datetime" name="patientDateOfpurchase" placeholder="dd/mm/yyyy-hh:mm">
+                                        <input class="form-control form_datetime" name="dateOfpurchase" placeholder="dd/mm/yyyy-hh:mm">
                                         <div class="input-group-append bg-custom b-0"><span class="input-group-text"><i class="mdi mdi-calendar"></i></span></div>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="form-group row">
+
                                 <label class="col-sm-2 col-form-label">Floor No</label>
-                               <div class="col-sm-4">
-                                    <select class="form-control floor" name="floor_no">
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                    </select>
-                                </div>
-                                <label class="col-sm-2 col-form-label">Room No</label>
                                 <div class="col-sm-4">
-                                    <select class="form-control room" name="room_no">
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                    </select>
+                                    <?php
+                                        $select_option = mysqli_query($connect, "SELECT * FROM floors");
+                                  
+                                            $options = '<select class="form-control floor"  name="floor_no" required="" style="width:100%">';
+                                              while ($row = mysqli_fetch_assoc($select_option)) {
+                                                $options.= '<option value='.$row['id'].'>'.$row['floor_name'].'</option>';
+                                              }
+                                            $options.= "</select>";
+                                      
+                                        echo $options;
+                                    ?>
+                                </div>
+
+                                <label class="col-sm-2 col-form-label">Room No</label>
+                                <div class="col-sm-4"> 
+
+                                <?php
+                                    $select_option = mysqli_query($connect, "SELECT * FROM rooms");
+                                        $options = '<select class="form-control room" name="room_no" required="" style="width:100%">';
+                                          while ($row = mysqli_fetch_assoc($select_option)) {
+                                            $options.= '<option value='.$row['id'].'>'.$row['room_number'].'</option>';
+                                          }
+                                        $options.= "</select>";
+                                    echo $options;
+                                ?>
+                          
                                 </div>
                             </div>
                             
@@ -141,13 +117,15 @@
                                 <label class="col-sm-2 col-form-label"></label>
                                 <div class="col-sm-10">
                                     <?php include('../_partials/cancel.php') ?>
-                                    <button type="submit" name="patientRegister" class="btn btn-primary waves-effect waves-light">Add Item</button>
+                                    <button type="submit" name="addInventory" class="btn btn-primary waves-effect waves-light">Add Item</button>
                                 </div>
                             </div>
                         </form>
                     </div>
                     <h3>
                         <?php echo $notAdded; ?>
+                        <?php echo $added; ?>
+                        <?php echo $itemAlreadyAdded; ?>
                     </h3>
                 </div>
             </div> <!-- end col -->

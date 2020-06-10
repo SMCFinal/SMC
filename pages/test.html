@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+ <input type="text" name="textArray[]" value="" />
+<input type="text" name="textArray[]" value="" />
+<input type="text" name="textArray[]" value="" />
+<input type="text" name="textArray[]" value="AAA" />
+
+<input type="checkbox" name="checkArray[]" value="" />
+<input type="checkbox" name="checkArray[]" value="" />
+<input type="checkbox" name="checkArray[]" value="" />
+<input type="checkbox" name="checkArray[]" value="" />
+
+<input type="button" value="test" onclick="javascript:change()" />
+</body>
+</html>
+
+<script type="text/javascript">
+	function change() {
+
+var input_lengths = document.getElementsByName("textArray[]");
+
+for(var i= 0; i < input_lengths.length;i++) {
+
+    if(document.getElementsByName("textArray[]").item(i).value != "") {
+
+        document.getElementsByName("checkArray[]").item(i).checked = true;
+
+    }
+
+} 
+}
+</script>
