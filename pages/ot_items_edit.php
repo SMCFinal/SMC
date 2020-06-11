@@ -1,83 +1,40 @@
 <?php
-include '../_stream/config.php';
+    include '../_stream/config.php';
 
-session_start();
-if (empty($_SESSION["user"])) {
-	header("LOCATION:../index.php");
-}
+        session_start();
+        if (empty($_SESSION["user"])) {
+        	header("LOCATION:../index.php");
+        }
 
-$notAdded = '';
+        $notAdded = '';
+        $id = $_GET['id'];
 
-$date = date_default_timezone_set('Asia/Karachi');
-$currentYear = date('Y');
-$currentYearNewPatient = date('Y-');
+        $ret_ot_data = mysqli_query($connect, "SELECT * FROM ot_items WHERE id = '$id'");
+        $fetch_ret_ot_data = mysqli_fetch_assoc($ret_ot_data);
 
-$pickYearly = mysqli_query($connect, "SELECT COUNT(*)AS yearlyCounted FROM `patient_registration` WHERE auto_date LIKE '%$currentYear%'");
-$fetch_pickYearly = mysqli_fetch_assoc($pickYearly);
-$yearlyCountedPatients = $fetch_pickYearly['yearlyCounted'];
 
-$newPatient = $currentYearNewPatient . "0" . ($yearlyCountedPatients + 1);
+    $notAdded = '';
 
-if (isset($_POST['patientRegister'])) {
-	$yearlyNumber = $_POST['patientYearlyNumber'];
-	$name = $_POST['patientName'];
-	$Age = $_POST['patientAge'];
-	$Gender = $_POST['patientGender'];
-	$disease = $_POST['patientDisease'];
-	$Address = $_POST['patientAddress'];
-	$address_city = $_POST['address_city'];
-	$DateOfAdmission = $_POST['patientDateOfAdmission'];
-	$consultant = $_POST['patientConsultant'];
-	$patientRoom = $_POST['patientRoom'];
-	$attendantName = $_POST['attendantName'];
-	$patient_cnic = $_POST['patientCnic'];
-	$patient_contact = $_POST['patientContact'];
+    if (isset($_POST['updateOTitem'])) {
+        $item = $_POST['name'];
+        $item_name = str_replace('\' ', '\'', ucwords(str_replace('\'', '\' ', strtolower($item))));
+        $item_qty = $_POST['quantity'];
+        $item_price = $_POST['price'];
+        $dateOfpurchase = $_POST['dateOfpurchase'];
+        $id = $_POST['id'];
 
-	$currentPatient = 'observationPatient';
 
-	$queryAddPatient = mysqli_query($connect,
-		"INSERT INTO patient_registration(
-            patient_name,
-            patient_age,
-            patient_gender,
-            patient_address,
-            city_id,
-            room_id,
-            patient_doa,
-            patient_disease,
-            patient_consultant,
-            attendent_name,
-            category,
-            patient_yearly_no,
-            patient_cnic,
-            patient_contact
-            )VALUES(
-            '$name',
-            '$Age',
-            '$Gender',
-            '$Address',
-            '$address_city',
-            '$patientRoom',
-            '$DateOfAdmission',
-            '$disease',
-            '$consultant',
-            '$attendantName',
-            '$currentPatient',
-            '$yearlyNumber',
-            '$patient_cnic',
-            '$patient_contact'
-            )
-           ");
+         $updateQuery = mysqli_query($connect, "UPDATE ot_items SET ot_item_name = '$item_name', ot_item_qty = '$item_qty', ot_item_price = '$item_price', ot_item_dop = '$dateOfpurchase' WHERE id = '$id'");
 
-	if (!$queryAddPatient) {
-		echo mysqli_error($queryAddPatient);
-		$notAdded = 'Not added';
-	} else {
-		header("LOCATION: observation_list.php");
-	}
-}
+        if (!$updateQuery) {
+            $notAdded = 'Item not added to inventory!';
+        }else {
+            header("LOCATION:ot_items_list.php");
+        }
+    }
 
-include '../_partials/header.php'
+
+    include '../_partials/header.php';
 ?>
 
 <!-- Top Bar End -->
@@ -85,7 +42,7 @@ include '../_partials/header.php'
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-12">
-                <h5 class="page-title">Add New Item</h5>
+                <h5 class="page-title">Edit Item</h5>
             </div>
         </div>
         <!-- end row -->
@@ -98,49 +55,33 @@ include '../_partials/header.php'
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">Name</label>
                                 <div class="col-sm-4">
-                                    <input class="form-control" name="name" type="text" placeholder="Item Name" id="example-text-input">
+                                    <input class="form-control" name="name" type="text" placeholder="Item Name" id="example-text-input" value="<?php echo $fetch_ret_ot_data['ot_item_name'] ?>">
                                 </div>
                                 <label class="col-sm-2 col-form-label">Quantity</label>
                                 <div class="col-sm-4">
-                                    <input class="form-control" name="quantity" type="number" placeholder="Qty" value="">
+                                    <input class="form-control" name="quantity" type="number" placeholder="Quantity" value="<?php echo $fetch_ret_ot_data['ot_item_qty'] ?>">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">Price</label>
                                 <div class="col-sm-4">
-                                    <input class="form-control" name="price" type="text" placeholder="Item Price" id="example-text-input">
+                                    <input class="form-control" name="price" type="number" placeholder="Item Price" id="example-text-input" value="<?php echo $fetch_ret_ot_data['ot_item_price'] ?>">
                                 </div>
                                 <label class="col-sm-2 col-form-label">Date of Purchase</label>
                                 <div class="col-sm-4">
                                     <div class="input-group">
-                                        <input class="form-control form_datetime" name="patientDateOfpurchase" placeholder="dd/mm/yyyy-hh:mm">
+                                        <input class="form-control form_datetime" name="dateOfpurchase" placeholder="dd/mm/yyyy-hh:mm" value="<?php echo $fetch_ret_ot_data['ot_item_dop'] ?>">
                                         <div class="input-group-append bg-custom b-0"><span class="input-group-text"><i class="mdi mdi-calendar"></i></span></div>
                                     </div>
                                 </div>
                             </div>
-
-                            <!-- <div class="form-group row">
-                                <label class="col-sm-2 col-form-label">Floor No</label>
-                               <div class="col-sm-4">
-                                    <select class="form-control floor" name="floor_no">
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                    </select>
-                                </div> -->
-                              <!--   <label class="col-sm-2 col-form-label">Room No</label>
-                                <div class="col-sm-4">
-                                    <select class="form-control room" name="room_no">
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                    </select>
-                                </div> -->
-                            <!-- </div> -->
+                            <input type="hidden" name="id" value="<?php echo $id ?>">
 
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label"></label>
                                 <div class="col-sm-10">
                                     <?php include '../_partials/cancel.php'?>
-                                    <button type="submit" name="patientRegister" class="btn btn-primary waves-effect waves-light">Update Item</button>
+                                    <button type="submit" name="updateOTitem" class="btn btn-primary waves-effect waves-light">Update Item</button>
                                 </div>
                             </div>
                         </form>

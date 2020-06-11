@@ -43,11 +43,6 @@
                                         <th scope="row">Price</th>
                                         <td>120</td>
                                     </tr>
-
-
-
-
-
                                 </tbody>
                             </table>
                         </div>

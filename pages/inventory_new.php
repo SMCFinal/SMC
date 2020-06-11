@@ -19,14 +19,6 @@
         $floor_no = $_POST['floor_no'];
         $room_no = $_POST['room_no'];
 
-        // $countedInvertoryQuery = mysqli_query($connect, "SELECT COUNT(*)AS countedInventory FROM `inventory_items` WHERE floor_id = '$floor_no' AND room_id = '$room_no' AND item_name = '$item_name'");
-        // $fetch_countedInvertoryQuery = mysqli_fetch_assoc($countedInvertoryQuery);
-
-        // if ($fetch_countedInvertoryQuery['countedInventory'] >= 1 ) {
-        //     $itemAlreadyAdded = 'Item already added in Database!';
-        // }else {
-
-
         $inventoryQuery = mysqli_query($connect, "INSERT INTO inventory_items(item_name, item_qty, item_price, item_purchase_date, floor_id, room_id)VALUES('$item_name', '$item_qty', '$item_price', '$dateOfpurchase', '$floor_no', '$room_no')");
 
         if (!$inventoryQuery) {
@@ -34,7 +26,6 @@
         }else {
             $added = 'Item Added!';
         }
-        // }
     }
 
 

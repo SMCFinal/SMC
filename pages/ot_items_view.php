@@ -7,9 +7,7 @@ if (empty($_SESSION["user"])) {
 
 $id = $_GET['id'];
 
-$selectQuery = mysqli_query($connect, "SELECT staff_members.*, staff_category.* FROM `staff_members`
-                                INNER JOIN staff_category ON staff_category.id = staff_members.category_id
-                                WHERE staff_members.status = '1' AND staff_members.cnic = '$id'");
+$selectQuery = mysqli_query($connect, "SELECT * FROM ot_items WHERE id = '$id'");
 $fetch_selectQuery = mysqli_fetch_assoc($selectQuery);
 
 include '../_partials/header.php';
@@ -19,13 +17,7 @@ include '../_partials/header.php';
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-12">
-                <div class="float-right page-breadcrumb">
-                 <!--    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="#">Drixo</a></li>
-                        <li class="breadcrumb-item"><a href="#">Tables</a></li>
-                        <li class="breadcrumb-item active">Datatable</li>
-                    </ol> -->
-                </div>
+                <div class="float-right page-breadcrumb"></div>
                 <h5 class="page-title">Item Details</h5>
             </div>
         </div>
@@ -34,7 +26,7 @@ include '../_partials/header.php';
             <div class="col-12">
                 <div class="card m-b-30">
                     <div class="card-body">
-                        <h4 class="mt-0 header-title d-inline"><h3><?php echo $fetch_selectQuery['name'] ?></h3></h4>
+                        <h4 class="mt-0 header-title d-inline"><a href="ot_items_list.php" class="btn text-white btn-primary waves-effect waves-light"><i class="fa fa-arrow-left"></i></a></h4>
 
 
 
@@ -44,20 +36,25 @@ include '../_partials/header.php';
                                 <tbody>
                                     <tr>
                                         <th scope="row">Name</th>
-                                        <td><?php echo $fetch_selectQuery['name'] ?></td>
+                                        <td><?php echo $fetch_selectQuery['ot_item_name'] ?></td>
                                     </tr>
                                     <tr>
                                         <th scope="row">Quantity</th>
-                                        <td><?php echo $fetch_selectQuery['cnic'] ?></td>
+                                        <td><?php echo $fetch_selectQuery['ot_item_qty'] ?></td>
                                     </tr>
                                     <tr>
                                         <th scope="row">Price</th>
-                                        <td><?php echo $fetch_selectQuery['category_name'] ?></td>
+                                        <td><?php echo $fetch_selectQuery['ot_item_price'] ?></td>
+                                    </tr>
+
+                                    <tr>
+                                        <th scope="row">Total Price</th>
+                                        <td><?php echo "Rs. ".$fetch_selectQuery['ot_item_price']*$fetch_selectQuery['ot_item_qty'] ?></td>
                                     </tr>
 
                                      <tr>
                                         <th scope="row">Date of Purchase</th>
-                                        <td><?php echo $fetch_selectQuery['salary'] ?></td>
+                                        <td><?php echo $fetch_selectQuery['ot_item_dop'] ?></td>
                                     </tr>
 
 

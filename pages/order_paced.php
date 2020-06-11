@@ -91,6 +91,10 @@
   }
 }
 
+#sidebar-menu, .side-menu, .topbar {
+  display: none
+}
+
 
 </style>
 <div class="page-content-wrapper ">
@@ -99,23 +103,26 @@
             <div class="col-sm-12">
                 <!-- <h5 class="page-title">Add Medicine</h5> -->
             <br><br><br><br>
+            <br><br><br>
             </div>
         </div>
         <!-- end row -->
         <div class="row">
-            <div class="col-12" >
+            <div class="col-9" >
                 <div class="card m-b-30">
                     <div class="card-body" align="center">
                         <!-- <h4 class="mt-0 header-title">Medicine Details</h4> -->
                         <div class="lds-default"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
-                        <h3>Order Completing. Please Wait <span id="countdown">5</span></h3>
+                        <h3>Order Completing. Please Wait <span id="countdown">3</span></h3>
                         <script type="text/javascript">
+
+
                             var seconds = document.getElementById("countdown").textContent;
                             var countdown = setInterval(function() {
                                 seconds--;
                                 document.getElementById("countdown").textContent = seconds;
                                 if (seconds <= 0) {
-                                    window.location.href = 'pharmacy_order_medicine_new.php';
+                                    window.location.href = 'pharmacy_order_medicine_pending.php';
                                 }
                             }, 1000);
                         </script>
@@ -152,8 +159,9 @@ $('.attendant').select2({
     allowClear: true
 
 });
-</script>
 
+
+</script>
 </body>
 
 </html>

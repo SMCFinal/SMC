@@ -34,8 +34,8 @@ include '../_partials/header.php';
                                     <th>Date of Purchase</th>
                                     <th>Floor No</th>
                                     <th>Room No</th>
-                                    <th class="text-center"> <i class="fa fa-edit"></i>
-                                    </th>
+                                    <th class="text-center"> <i class="fa fa-eye"></i></th>
+                                    <th class="text-center"> <i class="fa fa-edit"></i></th>
                                     <th class="text-center"><i class="fa fa-trash"></i></th>
                                 </tr>
                             </thead>
@@ -57,6 +57,9 @@ include '../_partials/header.php';
                                             <td>'.$rowInventory['floor_name'].'</td>
                                             <td>'.$rowInventory['room_number'].'</td>
                                             <td class="text-center">
+                                                <a href="inventory_view.php?id='.$rowInventory['id'].'" type="button" class="btn text-white btn-primary waves-effect waves-light btn-sm">View</a>
+                                            </td>
+                                            <td class="text-center">
                                                 <a href="inventory_edit.php?id='.$rowInventory['id'].'" type="button" class="btn text-white btn-warning waves-effect waves-light btn-sm">Edit</a>
                                             </td>
 
@@ -65,11 +68,11 @@ include '../_partials/header.php';
 
                                         </tr>
                                     ';
-}
+                                    }
 
-// <td class="text-center"><a href="./user_edit.php" type="button" class="btn text-white btn-warning waves-effect
-//waves-light">Edit</a></td>
-?>
+                                    // <td class="text-center"><a href="./user_edit.php" type="button" class="btn text-white btn-warning waves-effect
+                                    //waves-light">Edit</a></td>
+                                    ?>
 
 
 
@@ -77,8 +80,8 @@ include '../_partials/header.php';
                         </table>
                         <script type="text/javascript">
                             function deleteme(delid){
-                              if (confirm("Do you want to discharge patient?")) {
-                                window.location.href = 'temporary_disable.php?del_id=' + delid +'';
+                              if (confirm("Do you want delete an item from inventory?")) {
+                                window.location.href = 'delete_inventory.php?del_id=' + delid +'';
                                 return true;
                               }
                             }

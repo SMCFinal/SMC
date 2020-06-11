@@ -7,9 +7,9 @@ if (empty($_SESSION["user"])) {
 
 $id = $_GET['id'];
 
-$selectQuery = mysqli_query($connect, "SELECT staff_members.*, staff_category.* FROM `staff_members`
-                                INNER JOIN staff_category ON staff_category.id = staff_members.category_id
-                                WHERE staff_members.status = '1' AND staff_members.cnic = '$id'");
+$selectQuery = mysqli_query($connect, "SELECT inventory_items.*, floors.floor_name , rooms.room_number FROM `inventory_items`
+                                        INNER JOIN floors ON floors.id = inventory_items.floor_id
+                                        INNER JOIN rooms ON rooms.id = inventory_items.room_id WHERE inventory_items.id = '$id'");
 $fetch_selectQuery = mysqli_fetch_assoc($selectQuery);
 
 include '../_partials/header.php';
@@ -34,7 +34,7 @@ include '../_partials/header.php';
             <div class="col-12">
                 <div class="card m-b-30">
                     <div class="card-body">
-                        <h4 class="mt-0 header-title d-inline"><h3><?php echo $fetch_selectQuery['name'] ?></h3></h4>
+                        <h4 class="mt-0 header-title d-inline"><a href="inventory_list.php" class="btn text-white btn-primary waves-effect waves-light"><i class="fa fa-arrow-left"></i></a></h4>
 
 
 
@@ -44,28 +44,32 @@ include '../_partials/header.php';
                                 <tbody>
                                     <tr>
                                         <th scope="row">Name</th>
-                                        <td><?php echo $fetch_selectQuery['name'] ?></td>
+                                        <td><?php echo $fetch_selectQuery['item_name'] ?></td>
                                     </tr>
                                     <tr>
                                         <th scope="row">Quantity</th>
-                                        <td><?php echo $fetch_selectQuery['cnic'] ?></td>
+                                        <td><?php echo $fetch_selectQuery['item_qty'] ?></td>
                                     </tr>
                                     <tr>
                                         <th scope="row">Price</th>
-                                        <td><?php echo $fetch_selectQuery['category_name'] ?></td>
+                                        <td><?php echo $fetch_selectQuery['item_price'] ?></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Total Price</th>
+                                        <td><?php echo "Rs. ".$fetch_selectQuery['item_price']*$fetch_selectQuery['item_price'] ?></td>
                                     </tr>
 
                                      <tr>
                                         <th scope="row">Date of Purchase</th>
-                                        <td><?php echo $fetch_selectQuery['salary'] ?></td>
+                                        <td><?php echo $fetch_selectQuery['item_purchase_date'] ?></td>
                                     </tr>
                                      <tr>
                                         <th scope="row">Floor No</th>
-                                        <td><?php echo $fetch_selectQuery['date_of_joining'] ?></td>
+                                        <td><?php echo $fetch_selectQuery['floor_name'] ?></td>
                                     </tr>
                                      <tr>
                                         <th scope="row">Room No</th>
-                                        <td><?php echo $fetch_selectQuery['start_time'] ?></td>
+                                        <td><?php echo $fetch_selectQuery['room_number'] ?></td>
                                     </tr>
 
 

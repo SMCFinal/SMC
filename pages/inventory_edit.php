@@ -8,75 +8,28 @@
 
     $notAdded = '';
 
-    $date = date_default_timezone_set('Asia/Karachi');
-    $currentYear = date('Y');
-    $currentYearNewPatient = date('Y-');
+    $id = $_GET['id'];
+    $retInventoryData = mysqli_query($connect, "SELECT * FROM inventory_items WHERE id = '$id'");
+    $fetch_retInventoryData = mysqli_fetch_assoc($retInventoryData);
 
-    $pickYearly = mysqli_query($connect, "SELECT COUNT(*)AS yearlyCounted FROM `patient_registration` WHERE auto_date LIKE '%$currentYear%'");
-    $fetch_pickYearly = mysqli_fetch_assoc($pickYearly);
-    $yearlyCountedPatients = $fetch_pickYearly['yearlyCounted'];
+    if (isset($_POST['updateInventory'])) {
+        $item = $_POST['name'];
+        $item_name = str_replace('\' ', '\'', ucwords(str_replace('\'', '\' ', strtolower($item))));
+        $item_qty = $_POST['quantity'];
+        $item_price = $_POST['price'];
+        $dateOfpurchase = $_POST['dateOfpurchase'];
+        $floor_no = $_POST['floor_no'];
+        $room_no = $_POST['room_no'];
+        $id = $_POST['id'];
 
-    $newPatient = $currentYearNewPatient."0".($yearlyCountedPatients + 1);
+        $updateQuery = mysqli_query($connect, "UPDATE inventory_items SET item_name = '$item_name', item_qty = '$item_qty', item_price = '$item_price', item_purchase_date = '$dateOfpurchase', floor_id = '$floor_no', room_id = '$room_no' WHERE id = '$id'");
 
-    if (isset($_POST['patientRegister'])) {
-        $yearlyNumber = $_POST['patientYearlyNumber'];
-        $name = $_POST['patientName'];
-        $Age = $_POST['patientAge'];
-        $Gender = $_POST['patientGender'];
-        $disease = $_POST['patientDisease'];
-        $Address = $_POST['patientAddress'];
-        $address_city = $_POST['address_city'];
-        $DateOfAdmission = $_POST['patientDateOfAdmission'];
-        $consultant = $_POST['patientConsultant'];
-        $patientRoom = $_POST['patientRoom'];
-        $attendantName = $_POST['attendantName'];
-        $patient_cnic = $_POST['patientCnic'];
-        $patient_contact = $_POST['patientContact'];
-
-        $currentPatient = 'observationPatient';
-
-        $queryAddPatient = mysqli_query($connect, 
-            "INSERT INTO patient_registration(
-            patient_name, 
-            patient_age, 
-            patient_gender, 
-            patient_address, 
-            city_id,
-            room_id, 
-            patient_doa, 
-            patient_disease, 
-            patient_consultant, 
-            attendent_name, 
-            category, 
-            patient_yearly_no,
-            patient_cnic,
-            patient_contact
-            )VALUES(
-            '$name', 
-            '$Age', 
-            '$Gender', 
-            '$Address', 
-            '$address_city', 
-            '$patientRoom', 
-            '$DateOfAdmission', 
-            '$disease', 
-            '$consultant', 
-            '$attendantName', 
-            '$currentPatient',
-            '$yearlyNumber', 
-            '$patient_cnic', 
-            '$patient_contact'
-            )
-           ");
-
-        if (!$queryAddPatient) {
-            echo mysqli_error($queryAddPatient);
-            $notAdded = 'Not added';
+        if (!$updateQuery) {
+            $notAdded = 'Item not Updated!';
         }else {
-            header("LOCATION: observation_list.php");
+            header("LOCATION:inventory_list.php");
         }
     }
-
 
     include('../_partials/header.php') 
 ?>
@@ -99,22 +52,22 @@
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">Name</label>
                                 <div class="col-sm-4">
-                                    <input class="form-control" name="name" type="text" placeholder="Item Name" id="example-text-input">
+                                    <input class="form-control" name="name" type="text" placeholder="Item Name" id="example-text-input" value="<?php echo $fetch_retInventoryData['item_name'] ?>" required="">
                                 </div>
                                 <label class="col-sm-2 col-form-label">Quantity</label>
                                 <div class="col-sm-4">
-                                    <input class="form-control" name="quantity" type="number" placeholder="Qty" value="">
+                                    <input class="form-control" name="quantity" type="number" placeholder="Quantity" value="<?php echo $fetch_retInventoryData['item_qty'] ?>" required="">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">Price</label>
                                 <div class="col-sm-4">
-                                    <input class="form-control" name="price" type="text" placeholder="Item Price" id="example-text-input">
+                                    <input class="form-control" name="price" type="text" placeholder="Item Price" id="example-text-input" value="<?php echo $fetch_retInventoryData['item_price'] ?>" required=""> 
                                 </div>
                                 <label class="col-sm-2 col-form-label">Date of Purchase</label>
                                 <div class="col-sm-4">
                                     <div class="input-group">
-                                        <input class="form-control form_datetime" name="patientDateOfpurchase" placeholder="dd/mm/yyyy-hh:mm">
+                                        <input class="form-control form_datetime" name="dateOfpurchase" placeholder="dd/mm/yyyy-hh:mm" value="<?php echo $fetch_retInventoryData['item_purchase_date'] ?>" required="">
                                         <div class="input-group-append bg-custom b-0"><span class="input-group-text"><i class="mdi mdi-calendar"></i></span></div>
                                     </div>
                                 </div>
@@ -123,17 +76,45 @@
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">Floor No</label>
                                <div class="col-sm-4">
-                                    <select class="form-control floor" name="floor_no">
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                    </select>
+                                    <?php
+                                        $select_option = mysqli_query($connect, "SELECT * FROM floors");
+                                  
+                                            $options = '<select class="form-control floor"  name="floor_no" required="" style="width:100%">';
+                                              while ($row = mysqli_fetch_assoc($select_option)) {
+
+                                                if ($row['id'] == $fetch_retInventoryData['floor_id']) {
+                                                    $options.= '<option value='.$row['id'].' selected>'.$row['floor_name'].'</option>';
+                                                }else {
+                                                    $options.= '<option value='.$row['id'].'>'.$row['floor_name'].'</option>';
+                                                }
+                                              }
+                                            $options.= "</select>";
+                                      
+                                        echo $options;
+                                    ?>
                                 </div>
+                                <input type="hidden" name="id" value="<?php echo $id ?>">
+
                                 <label class="col-sm-2 col-form-label">Room No</label>
-                                <div class="col-sm-4">
-                                    <select class="form-control room" name="room_no">
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                    </select>
+                                <div class="col-sm-4"> 
+
+                                <?php
+                                    $select_optionRoom = mysqli_query($connect, "SELECT * FROM rooms");
+
+                                        $optionsRoom = '<select class="form-control room" name="room_no" required="" style="width:100%">';
+                                          while ($rowRoom = mysqli_fetch_assoc($select_optionRoom)) {
+
+                                            if ($rowRoom['id'] == $fetch_retInventoryData['room_id']) {
+                                                $optionsRoom.= '<option value='.$rowRoom['id'].' selected>'.$rowRoom['room_number'].'</option>';
+                                            }else {
+                                                $optionsRoom.= '<option value='.$rowRoom['id'].'>'.$rowRoom['room_number'].'</option>';
+                                            }
+
+                                          }
+                                        $optionsRoom.= "</select>";
+                                    echo $optionsRoom;
+                                ?>
+                          
                                 </div>
                             </div>
                             
@@ -141,7 +122,7 @@
                                 <label class="col-sm-2 col-form-label"></label>
                                 <div class="col-sm-10">
                                     <?php include('../_partials/cancel.php') ?>
-                                    <button type="submit" name="patientRegister" class="btn btn-primary waves-effect waves-light">Update Item</button>
+                                    <button type="submit" name="updateInventory" class="btn btn-primary waves-effect waves-light">Update Item</button>
                                 </div>
                             </div>
                         </form>
