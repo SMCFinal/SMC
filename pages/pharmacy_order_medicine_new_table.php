@@ -11,6 +11,16 @@ include '../_stream/config.php';
         header("LOCATION:Pharmacy_order.php");
     }
 
+    $referenceNo_query = mysqli_query($connect, "SELECT MAX(reference_no) as dbRef FROM medicine_order");
+
+    $fetch_referenceNo = mysqli_fetch_assoc($referenceNo_query);
+
+    if (empty($fetch_referenceNo['dbRef'])) {
+      $reference_no = 1;
+    } else {
+      $reference_no = $fetch_referenceNo['dbRef'] + 1;
+    }
+
 include '../_partials/header.php';
 ?>
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/fixedheader/3.1.7/css/fixedHeader.bootstrap4.min.css">
@@ -29,6 +39,7 @@ include '../_partials/header.php';
                     <div class="card-body">
                         <!-- <h4 class="mt-0 header-title">Patient Name</h4> -->
                         <form method="POST" onsubmit="e.preventDefault()">
+                            <input type="text" name="ref_no" value="<?php echo $reference_no ?>">
                             <table id="datatablem" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                 <thead>
                                     <tr>
