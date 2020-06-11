@@ -1,0 +1,115 @@
+<?php
+include '../_stream/config.php';
+?>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <title>SMC</title>
+    <meta content="Admin Dashboard" name="description" />
+    <meta content="ThemeDesign" name="author" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link rel="shortcut icon" href="../assets/images/favicon.ico">
+    <!--Morris Chart CSS -->
+    <link rel="stylesheet" href="../assets/plugins/morris/morris.css">
+    <link href="../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="../assets/css/icons.css" rel="stylesheet" type="text/css">
+    <link href="../assets/css/style.css" rel="stylesheet" type="text/css">
+</head>
+<style type="text/css">
+.table thead th {
+    border-bottom: none;
+
+}
+
+.table thead td,
+.table thead th {
+    border-bottom: 1px solid #dee2e6;
+    border-top: none;
+
+}
+</style>
+
+<body onload="JavaScript:AutoRefresh(3000);">
+    <!-- Loader -->
+    <div id="preloader">
+        <div id="status">
+            <div class="spinner"></div>
+        </div>
+    </div>
+    <div class="container-fluid p-0 fixed-top ">
+        <div class="p-3" style="background-color: #60d09d">
+            <!-- <a href="index.html" class="logo "><img src="../assets/images/logo.png" height="20" alt="logo"></a> -->
+            <h3 class=" d-inline text-white">Pharmacy | SHAH MEDICAL &amp; SURGICAL CENTER</h3>
+            <span class=" d-inline text-white" style="float: right;"><b>Developed By DCS PVT LTD.</b>
+                <button class="btn btn-danger btn-sm ml-3" name="Deleteme">Logout</button>
+            </span>
+        </div>
+    </div>
+    <div class="container  p-5"></div>
+    <div class="container-fluid mt-3">
+        <div class="row">
+            <div class="col-12">
+                <div class="card m-b-30">
+                    <div class="card-body">
+                        <h3 class=" d-inline ">Asif</h3>
+                        <h3 class=" d-inline " style="float: right;">Room #3</h3>
+                        </span>
+                        <!-- <h4 class="mt-0 header-title text-center">HR Staff List</h4> -->
+                        <table id="datatable" class="table  dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Medicine Name</th>
+                                    <th>Quantity</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>Panadol</td>
+                                    <td>2</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                         <button class="btn btn-primary btn-sm ml-3" name="Deleteme" style="float: right;">Complete</button>
+                    </div>
+                </div>
+            </div> <!-- end col -->
+        </div>
+        <!-- end row -->
+    </div>
+    <!-- <footer class="footer mt-5 " style="position: relative;left: 0px;background-color: white">
+        ©2020 <b>SMC</b> <span class="d-none d-sm-inline-block"> - Crafted with <i class="mdi mdi-heart text-danger"></i> by Team DCS.</span>
+    </footer> -->
+    <!-- END wrapper -->
+    <!-- jQuery  -->
+    <?php include '../_partials/jquery.php'?>
+    <?php include '../_partials/app.php'?>
+    <!-- <script type="text/javascript">
+        $("html, body").animate({ scrollTop: $(document).height() }, 4000);
+setTimeout(function() {
+   $('html, body').animate({scrollTop:0}, 8000);
+},4000);
+setInterval(function(){
+     // 4000 - it will take 4 secound in total from the top of the page to the bottom
+$("html, body").animate({ scrollTop: $(document).height() }, 4000);
+setTimeout(function() {
+   $('html, body').animate({scrollTop:0}, 8000);
+},4000);
+
+},4000);
+    </script> -->
+    <!--  <script type="text/javascript">
+            $(document).ready(function () {
+                setTimeout(function(){
+                  location.reload(true);
+                }, 30000);
+            });
+        </script> -->
+</body>
+
+</html>

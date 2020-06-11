@@ -127,6 +127,7 @@
                                 <li><a href="pharmacy_order_medicine_new.php">Order Medicines</a></li>
                                 <li><a href="pharmacy_order_medicine_pending.php">Pending Orders</a></li>
                                 <li><a href="pharmacy_order_medicine_completed_list.php">Completed Orders</a></li>
+                                <li><a href="pharmacy_list.php">Pharmacy List</a></li>
 
 
 
@@ -168,6 +169,7 @@
 
                                 <li><a href="expense_new.php">Add Expense</a></li>
                                 <li><a href="expense_list.php">Expense List</a></li>
+                                <li><a href="expense_category_new.php">Expense Category</a></li>
 
                             </ul>
                         </li>
