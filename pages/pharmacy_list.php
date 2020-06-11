@@ -41,7 +41,7 @@ include '../_stream/config.php';
     <div class="container-fluid p-0 fixed-top ">
         <div class="p-3" style="background-color: #60d09d">
             <!-- <a href="index.html" class="logo "><img src="../assets/images/logo.png" height="20" alt="logo"></a> -->
-            <h3 class=" d-inline text-white">Patients | SHAH MEDICAL &amp; SURGICAL CENTER</h3>
+            <h3 class=" d-inline text-white">Pharmacy | SHAH MEDICAL &amp; SURGICAL CENTER</h3>
             <span  class=" d-inline text-white" style="float: right;"><b>Developed By DCS PVT LTD.</b>
              <button class="btn btn-danger btn-sm ml-3" name="Deleteme" >Logout</button>
          </span>
@@ -50,55 +50,38 @@ include '../_stream/config.php';
     <div class="container  p-5"></div>
     <div class="container-fluid mt-3">
         <div class="row">
-            <?php
-$selectPat = mysqli_query($connect, "SELECT patient_registration.*,rooms.*, floors.*, staff_members.name FROM `patient_registration`
-INNER JOIN rooms ON rooms.id = patient_registration.room_id
-INNER JOIN floors ON floors.id = rooms.floor_id
-INNER JOIN staff_members ON staff_members.id = patient_registration.patient_consultant
-WHERE patient_registration.category = 'currentPatient'");
+              <div class="col-12">
+                <div class="card m-b-30">
+                    <div class="card-body">
+                        <!-- <h4 class="mt-0 header-title text-center">HR Staff List</h4> -->
+                        <table id="datatable" class="table  dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Patient Name</th>
+                                    <th>Room #</th>
+                                      <th class="text-center"><i class="mdi mdi-eye"></i></th>
+                                </tr>
+                            </thead>
+                            <tbody>
 
-$itr = 1;
+                                        <tr>
+                                            <td>1</td>
+                                            <td>Asif</td>
+                                            <td>12</td>
+                                            <td class="text-center"><a href="./pharmacy_view.php" type="button" class="btn text-white btn-primary waves-effect waves-light btn-sm">View</a></td>
 
-while ($rowPatientView = mysqli_fetch_assoc($selectPat)) {
-	echo '
-                <div class="col-xl-4 col-md-6 mb-2">
-                    <div class="card ">
-                        <div class="card-body" style="box-shadow: 30px 30px 30px #ccc">
-                            <div class="table-responsive">
-                                <table class="table mb-0">
-                                    <thead>
-                                        <tr>
-                                            <th>Patient Name</th>
-                                            <td>' . $rowPatientView['patient_name'] . '</td>
+
+
                                         </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <th>Doctor Name</th>
-                                            <td>' . "Dr. " . $rowPatientView['name'] . '</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Floor/Room</th>
-                                            <td>' . $rowPatientView['floor_name'] . " <b> | </b> " . $rowPatientView['room_number'] . '</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Patient Case</th>
-                                            <td>' . $rowPatientView['patient_disease'] . '</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Village Name</th>
-                                            <td>' . $rowPatientView['patient_address'] . '</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
+
+                            </tbody>
+                        </table>
+
+                  </div>
                 </div>
+            </div> <!-- end col -->
 
-                ';
-}
-?>
         </div>
         <!-- end row -->
     </div>
@@ -129,13 +112,13 @@ setTimeout(function() {
 },4000);
     </script> -->
 
-    <script type="text/javascript">
+   <!--  <script type="text/javascript">
             $(document).ready(function () {
                 setTimeout(function(){
                   location.reload(true);
                 }, 30000);
             });
-        </script>
+        </script> -->
 </body>
 
 </html>

@@ -1,35 +1,35 @@
 <?php
-    include('../_stream/config.php');
+include '../_stream/config.php';
 
-    $userAlreadyinDatabase = '';
-    $userNotAdded = '';
-    $userAdded = '';
-    
-    if (isset($_POST["addUser"])) {
-        $name = $_POST['addUser_Name'];
-        $userName = $_POST['addUser_userName'];
-        $email = $_POST['addUser_email'];
-        $password = $_POST['addUser_password'];
-        $role = $_POST['addUser_role'];
+$userAlreadyinDatabase = '';
+$userNotAdded = '';
+$userAdded = '';
 
-        $checkUserTable = mysqli_query($connect, "SELECT COUNT(*)AS countedUsers FROM `login_user` WHERE email = '$email'");
-        $fetch_checkUserTable = mysqli_fetch_array($checkUserTable);
+if (isset($_POST["addUser"])) {
+	$name = $_POST['addUser_Name'];
+	$userName = $_POST['addUser_userName'];
+	$email = $_POST['addUser_email'];
+	$password = $_POST['addUser_password'];
+	$role = $_POST['addUser_role'];
 
-        if ($fetch_checkUserTable['countedUsers'] < 1) {
-            $createUser = mysqli_query($connect, "INSERT INTO login_user(name, username, email, password, user_role)VALUES('$name', '$userName', '$email', '$password', '$role')");
+	$checkUserTable = mysqli_query($connect, "SELECT COUNT(*)AS countedUsers FROM `login_user` WHERE email = '$email'");
+	$fetch_checkUserTable = mysqli_fetch_array($checkUserTable);
 
-            if (!$createUser) {
-                echo mysqli_error($createUser);
-                $userNotAdded = "User not added! Try Again.";
-            }else{
-                $userAdded = "User Added!";
-            }
-        }else {
-            $userAlreadyinDatabase = "User Already Exist";
-        }
-    }
+	if ($fetch_checkUserTable['countedUsers'] < 1) {
+		$createUser = mysqli_query($connect, "INSERT INTO login_user(name, username, email, password, user_role)VALUES('$name', '$userName', '$email', '$password', '$role')");
 
-    include('../_partials/header.php') 
+		if (!$createUser) {
+			echo mysqli_error($createUser);
+			$userNotAdded = "User not added! Try Again.";
+		} else {
+			$userAdded = "User Added!";
+		}
+	} else {
+		$userAlreadyinDatabase = "User Already Exist";
+	}
+}
+
+include '../_partials/header.php'
 ?>
 <!-- Top Bar End -->
 <div class="page-content-wrapper ">
@@ -47,9 +47,16 @@
                         <h4 class="mt-0 header-title">Add Expenses</h4>
                         <form method="POST">
                             <div class="form-group row">
-                                <label for="example-text-input" class="col-sm-2 col-form-label">Name</label>
+                                <label for="example-text-input" class="col-sm-2 col-form-label">Category Name</label>
                                 <div class="col-sm-4">
-                                    <input class="form-control" type="text" placeholder="Name" name="name" id="example-text-input">
+
+                                    <select class="form-control designation" name="" id="designation" style="width: 100%" required="">';
+                                         <option value='aa'>aa</option>
+                                         <option value='aa'>aa</option>
+                                         </select>
+
+
+                                    <!-- <input class="form-control" type="text" placeholder="Name" name="name" id="example-text-input"> -->
                                 </div>
                                 <label for="example-text-input" class="col-sm-2 col-form-label">Amount</label>
                                 <div class="col-sm-4">
@@ -78,7 +85,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label"></label>
                                 <div class="col-sm-10">
-                                    <?php include('../_partials/cancel.php') ?>
+                                    <?php include '../_partials/cancel.php'?>
                                     <button type="submit" name="addstaff" class="btn btn-primary waves-effect waves-light">Add Expense</button>
                                 </div>
                             </div>
@@ -99,16 +106,16 @@
     </div><!-- container fluid -->
 </div> <!-- Page content Wrapper -->
 </div> <!-- content -->
-<?php include('../_partials/footer.php') ?>
+<?php include '../_partials/footer.php'?>
 </div>
 <!-- End Right content here -->
 </div>
 <!-- END wrapper -->
 <!-- jQuery  -->
-<?php include('../_partials/jquery.php') ?>
+<?php include '../_partials/jquery.php'?>
 <!-- App js -->
-<?php include('../_partials/app.php') ?>
-<?php include('../_partials/datetimepicker.php') ?>
+<?php include '../_partials/app.php'?>
+<?php include '../_partials/datetimepicker.php'?>
 <script type="text/javascript">
 $(".form_datetime").datetimepicker({
     format: "yyyy-mm-dd hh:ii"
