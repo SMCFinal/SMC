@@ -23,7 +23,6 @@ include '../_partials/header.php';
             <div class="col-12">
                 <div class="card m-b-30">
                     <div class="card-body">
-                        <!-- <h4 class="mt-0 header-title">Patient Name</h4> -->
                         <form method="POST">
                             <table id="datatablem" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                 <thead>

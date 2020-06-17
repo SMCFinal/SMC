@@ -1,5 +1,26 @@
 <?php
 include '../_stream/config.php';
+session_start();
+if (empty($_SESSION["user"])) {
+    header("LOCATION:../index.php");
+}
+
+$error = '';
+
+$id = $_GET['ref_no'];
+$name = $_GET['name'];
+$room = $_GET['room'];
+
+if (isset($_POST['completeOrder'])) {
+    $ref_no = $_POST['refNo'];
+
+    $updateQuery = mysqli_query($connect, "UPDATE medicine_order SET pharmacy_status = '0' WHERE reference_no = '$ref_no'");
+    if (!$updateQuery) {
+        $error = "Not Done. Please Try Again!";
+    }else {
+        header("LOCATION:pharmacy_list.php");
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -45,7 +66,8 @@ include '../_stream/config.php';
             <!-- <a href="index.html" class="logo "><img src="../assets/images/logo.png" height="20" alt="logo"></a> -->
             <h3 class=" d-inline text-white">Pharmacy | SHAH MEDICAL &amp; SURGICAL CENTER</h3>
             <span class=" d-inline text-white" style="float: right;"><b>Developed By DCS PVT LTD.</b>
-                <button class="btn btn-danger btn-sm ml-3" name="Deleteme">Logout</button>
+                <!-- <a href="signout.php" class="btn btn-danger btn-sm ml-3">Logout </a> -->
+                <!-- <button  name="Deleteme"></button> -->
             </span>
         </div>
     </div>
@@ -55,28 +77,47 @@ include '../_stream/config.php';
             <div class="col-12">
                 <div class="card m-b-30">
                     <div class="card-body">
-                        <h3 class=" d-inline ">Asif</h3>
-                        <h3 class=" d-inline " style="float: right;">Room #3</h3>
+                        <h3 class=" d-inline "><?php echo $name ?></h3>
+                        <h3 class=" d-inline " style="float: right;"><?php echo $room ?></h3>
                         </span>
                         <!-- <h4 class="mt-0 header-title text-center">HR Staff List</h4> -->
+                        <form method="POST">
                         <table id="datatable" class="table  dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                             <thead>
                                 <tr>
                                     <th>#</th>
                                     <th>Medicine Name</th>
+                                    <th>Medicine Category</th>
                                     <th>Quantity</th>
                                 </tr>
                             </thead>
+                            <input type="hidden" name="refNo" value="<?php echo $id ?>">
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Panadol</td>
-                                    <td>2</td>
-                                </tr>
+                                <?php 
+                                    $itr = 1;
+                                        $queryListMedicines = mysqli_query($connect, "SELECT medicine_order.*, add_medicines.medicine_name, medicine_category.category_name FROM `medicine_order`
+                                            INNER JOIN add_medicines ON add_medicines.id = medicine_order.med_id
+                                            INNER JOIN medicine_category ON medicine_category.id = medicine_order.cat_id
+                                            WHERE medicine_order.reference_no = '$id'");
+                                       
+                                        while ($rowList = mysqli_fetch_assoc($queryListMedicines)) {
+                                            echo '
+                                            <tr>
+                                                <td>'.$itr++.'</td>
+                                                <td>'.$rowList['medicine_name'].'</td>
+                                                <td>'.$rowList['category_name'].'</td>
+                                                <td>'.$rowList['med_qty'].'</td>
+                                            </tr>
+                                            ';
+
+                                        }
+                                        ?>
                             </tbody>
                         </table>
-                         <button class="btn btn-primary btn-sm ml-3" name="Deleteme" style="float: right;">Complete</button>
+                         <button class="btn btn-primary btn-sm ml-3"  name="completeOrder" style="float: right;" type="submit"> Complete</button>
+                     </form>
                     </div>
+                    <?php  echo $error ?>
                 </div>
             </div> <!-- end col -->
         </div>

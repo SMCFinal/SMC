@@ -1,4 +1,10 @@
 <?php
+include('../_stream/config.php');
+session_start();
+if (empty($_SESSION["user"])) {
+    header("LOCATION:../index.php");
+}
+
 include '../_stream/config.php';
 ?>
 <!DOCTYPE html>
@@ -43,7 +49,8 @@ include '../_stream/config.php';
             <!-- <a href="index.html" class="logo "><img src="../assets/images/logo.png" height="20" alt="logo"></a> -->
             <h3 class=" d-inline text-white">Pharmacy | SHAH MEDICAL &amp; SURGICAL CENTER</h3>
             <span  class=" d-inline text-white" style="float: right;"><b>Developed By DCS PVT LTD.</b>
-             <button class="btn btn-danger btn-sm ml-3" name="Deleteme" >Logout</button>
+                <a href="signout.php" class="btn btn-danger btn-sm ml-3">Logout </a>
+             <!-- <button class="btn btn-danger btn-sm ml-3" name="Deleteme" >Logout</button> -->
          </span>
         </div>
     </div>
@@ -59,22 +66,35 @@ include '../_stream/config.php';
                                 <tr>
                                     <th>#</th>
                                     <th>Patient Name</th>
+                                    <th>Floor #</th>
                                     <th>Room #</th>
                                       <th class="text-center"><i class="mdi mdi-eye"></i></th>
                                 </tr>
                             </thead>
                             <tbody>
-
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Asif</td>
-                                            <td>12</td>
-                                            <td class="text-center"><a href="./pharmacy_view.php" type="button" class="btn text-white btn-primary waves-effect waves-light btn-sm">View</a></td>
-
-
+                            <?php
+                            $itr = 1;
+                            $retQuery = mysqli_query($connect, "SELECT medicine_order.*, patient_registration.patient_name, patient_registration.patient_contact, patient_registration.attendent_name ,patient_registration.room_id, rooms.*, floors.* FROM `medicine_order`
+                                INNER JOIN patient_registration ON patient_registration.id = medicine_order.patient_id
+                                INNER JOIN rooms ON rooms.id = patient_registration.room_id
+                                INNER JOIN floors ON floors.id = rooms.floor_id
+                                WHERE medicine_order.pharmacy_status = '1'
+                                GROUP BY medicine_order.reference_no  ORDER BY medicine_order.reference_no ASC");
+                            while ($rowRetOrders = mysqli_fetch_assoc($retQuery)) {
+                                        echo '
+                                         <tr>
+                                            <td>'.$itr++.'</td>
+                                            <td>'.$rowRetOrders['patient_name'].'</td>
+                                            <td>'.$rowRetOrders['floor_name'].'</td>
+                                            <td>'.$rowRetOrders['room_number'].'</td>
+                                            
+                                            <td class="text-center"><a href="./pharmacy_view.php?ref_no='.$rowRetOrders['reference_no'].'&name='.$rowRetOrders['patient_name'].'&room='.$rowRetOrders['room_number'].'" type="button" class="btn text-white btn-primary waves-effect waves-light btn-sm">View</a></td>
 
                                         </tr>
 
+                                        ';
+                                    }
+                            ?>
                             </tbody>
                         </table>
 
