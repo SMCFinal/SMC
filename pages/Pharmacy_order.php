@@ -10,6 +10,7 @@
      $category = $_GET['Category'];
      $qty = $_GET['qty'];
      $patient = $_GET['patient'];
+     $reference_number = $_GET['reference_number'];
 
      $status = 0;
      $medcinePrice = 0;
@@ -26,7 +27,7 @@
 
      // echo $medicineCategoryId .'*****'.$categoryId.'*****'.$quantityMedicine.'*****';
 
-     $query = mysqli_query($connect, "INSERT INTO medicine_order(med_id, cat_id, med_qty, med_price, patient_id)VALUES('$medicineCategoryId', '$categoryId', '$quantityMedicine', '$medcinePrice', '$patient')");
+     $query = mysqli_query($connect, "INSERT INTO medicine_order(med_id, cat_id, med_qty, med_price, patient_id, reference_no)VALUES('$medicineCategoryId', '$categoryId', '$quantityMedicine', '$medcinePrice', '$patient', '$reference_number')");
 
      if(!$query) {
             echo mysqli_error($query);

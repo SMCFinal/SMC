@@ -39,7 +39,7 @@ include '../_partials/header.php';
                     <div class="card-body">
                         <!-- <h4 class="mt-0 header-title">Patient Name</h4> -->
                         <form method="POST" onsubmit="e.preventDefault()">
-                            <input type="text" name="ref_no" value="<?php echo $reference_no ?>">
+                            <input type="hidden" id="refNo" name="ref_no" value="<?php echo $reference_no ?>">
                             <table id="datatablem" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                 <thead>
                                     <tr>
@@ -193,6 +193,7 @@ $(document).ready(function() {
                     var qty = arrayPureData[pureData][2]
 
                     var patient = document.getElementById('userId').value;
+                    var reference_number = document.getElementById('refNo').value;
                     // var status = arrayPureData[pureData][3]
                     
                     $.ajax({
@@ -202,7 +203,8 @@ $(document).ready(function() {
                             medicineCategory,
                             Category,
                             qty,
-                            patient
+                            patient,
+                            reference_number
                         },
                         dataType : 'html',
                         success: function(res) {

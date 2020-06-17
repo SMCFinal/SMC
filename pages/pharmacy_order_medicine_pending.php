@@ -1,4 +1,11 @@
 <?php
+include('../_stream/config.php');
+session_start();
+if (empty($_SESSION["user"])) {
+    header("LOCATION:../index.php");
+}
+
+
 
 include '../_partials/header.php';
 ?>
@@ -21,23 +28,43 @@ include '../_partials/header.php';
                             <table id="datatablem" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                 <thead>
                                     <tr>
+                                        <th>S.No</th>
                                         <th>Patient Name</th>
-                                        <th>Room #</th>
+                                        <th>Floor No.</th>
+                                        <th>Room No.</th>
                                         <th>Contact number</th>
                                         <th>Attendent Name</th>
+                                        <th>Ref No.</th>
                                         <th class="text-center"><i class="fa fa-check"></i></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>Tiger Nixon</td>
-                                        <td>Tiger Nixon</td>
-                                        <td>Tiger Nixon</td>
-                                        <td>Tiger Nixon</td>
-                                        <td class="text-center"><a href="pharmacy_order_medicine_total.php" class="btn btn-primary waves-effect waves-light">Confirm Order</a></td>
+                                    <?php
+                                    $itr = 1;
+                                    $retQuery = mysqli_query($connect, "SELECT medicine_order.*, patient_registration.patient_name, patient_registration.patient_contact, patient_registration.attendent_name ,patient_registration.room_id, rooms.*, floors.* FROM `medicine_order`
+                                        INNER JOIN patient_registration ON patient_registration.id = medicine_order.patient_id
+                                        INNER JOIN rooms ON rooms.id = patient_registration.room_id
+                                        INNER JOIN floors ON floors.id = rooms.floor_id
+                                        WHERE medicine_order.med_status = '1'
+                                        GROUP BY medicine_order.reference_no  ORDER BY medicine_order.reference_no ASC");
 
+                                    while ($rowRetOrders = mysqli_fetch_assoc($retQuery)) {
+                                        echo '
+                                         <tr>
+                                            <td>'.$itr++.'</td>
+                                            <td>'.$rowRetOrders['patient_name'].'</td>
+                                            <td>'.$rowRetOrders['floor_name'].'</td>
+                                            <td>'.$rowRetOrders['room_number'].'</td>
+                                            <td>'.$rowRetOrders['patient_contact'].'</td>
+                                            <td>'.$rowRetOrders['attendent_name'].'</td>
+                                            <td>'.$rowRetOrders['reference_no'].'</td>
+                                            <td class="text-center"><a href="pharmacy_order_medicine_total.php?ref_no='.$rowRetOrders['reference_no'].'" class="btn btn-primary waves-effect waves-light">Confirm Order</a></td>
+                                        </tr>
 
-                                    </tr>
+                                        ';
+                                    }
+
+                                    ?>
                                 </tbody>
                             </table>
                         </form>
