@@ -117,6 +117,20 @@
 
                             </ul>
                         </li>
+
+                        <li class="has_sub">
+                            <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-broadcast"></i> <span>Employees</span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
+                            <ul class="list-unstyled">
+
+                                <li><a href="employee_new.php">Add Employee</a></li>
+                                <li><a href="employee_list.php">Employees List</a></li>
+                                <li><a href="employee_salary.php">Employees Salary</a></li>
+                                <li><a href="employee_select.php">Advance Payments</a></li>
+                                <li><a href="employee_advance_payments_list.php">Advance Payments List</a></li>
+                                <li><a href="employee_designations.php">Add Designations</a></li>
+
+                            </ul>
+                        </li>
                          <li class="has_sub">
                             <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-briefcase"></i> <span> Pharmacy</span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
                             <ul class="list-unstyled">
