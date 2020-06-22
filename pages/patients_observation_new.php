@@ -2,37 +2,40 @@
 include '../_stream/config.php';
 session_start();
 if (empty($_SESSION["user"])) {
-	header("LOCATION:../index.php");
+    header("LOCATION:../index.php");
 }
 
 $error = '';
 $alreadyExist = '';
 
 if (isset($_POST['addRoom'])) {
-	$roomNo = $_POST['roomNo'];
-	$floorNumber = $_POST['floorNo'];
-	$roomPrice = $_POST['roomPrice'];
-	$roomType = $_POST['roomType'];
+    $roomNo = $_POST['roomNo'];
+    $floorNumber = $_POST['floorNo'];
+    $roomPrice = $_POST['roomPrice'];
+    $roomType = $_POST['roomType'];
 
-	$selectQuery = mysqli_query($connect, "SELECT COUNT(*)AS CountedRooms FROM rooms WHERE room_number = '$roomNo'");
-	$fetch_selectQuery = mysqli_fetch_assoc($selectQuery);
+    $selectQuery = mysqli_query($connect, "SELECT COUNT(*)AS CountedRooms FROM rooms WHERE room_number = '$roomNo'");
+    $fetch_selectQuery = mysqli_fetch_assoc($selectQuery);
 
-	if ($fetch_selectQuery['CountedRooms'] == 0) {
-		$insertQuery = mysqli_query($connect, "INSERT INTO rooms(room_number, floor_id, room_price, room_type)VALUES('$roomNo', '$floorNumber', '$roomPrice', '$roomType')");
+    if ($fetch_selectQuery['CountedRooms'] == 0) {
+        $insertQuery = mysqli_query($connect, "INSERT INTO rooms(room_number, floor_id, room_price, room_type)VALUES('$roomNo', '$floorNumber', '$roomPrice', '$roomType')");
 
-		if (!$insertQuery) {
-			$error = 'Room Not Added!';
-		} else {
-			header("LOCATION:rooms_list.php");
-		}
-	} else {
-		$alreadyExist = 'Room Already Exist';
-	}
+        if (!$insertQuery) {
+            $error = 'Room Not Added!';
+        } else {
+            header("LOCATION:rooms_list.php");
+        }
+    } else {
+        $alreadyExist = 'Room Already Exist';
+    }
 
 }
 
 include '../_partials/header.php';
 ?>
+<!-- ION Slider -->
+<link href="../assets/plugins/ion-rangeslider/ion.rangeSlider.css" rel="stylesheet" type="text/css" />
+<link href="../assets/plugins/ion-rangeslider/ion.rangeSlider.skinModern.css" rel="stylesheet" type="text/css" />
 <!-- Top Bar End -->
 <div class="page-content-wrapper ">
     <div class="container-fluid">
@@ -61,22 +64,12 @@ include '../_partials/header.php';
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">BP</label>
                                 <div class="col-sm-4">
-                                    <div class="input-group ">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text" id="basic-addon1" style="background-color: #54cc96; color: white">Low</span>
-                                        </div>
-                                        <input type="text" class="form-control" placeholder="Diastolic">
-                                    </div>
+                                    <span>Low</span>
+                                    <input type="text" id="range_bp" value="">
+                                    <span>High</span>
+
                                 </div>
-                                <label class="col-sm-2 col-form-label"></label>
-                                <div class="col-sm-4">
-                                    <div class="input-group ">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text" id="basic-addon1" style="background-color: #54cc96; color: white">High</span>
-                                        </div>
-                                        <input type="text" class="form-control" placeholder="Systolic">
-                                    </div>
-                                </div>
+                               
                             </div>
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">Pulse</label>
@@ -104,7 +97,7 @@ include '../_partials/header.php';
                                     <input type="text" class="form-control" placeholder="N/G">
                                 </div>
                             </div>
-                             <div class="form-group row">
+                            <div class="form-group row">
                                 <label class="col-sm-2 col-form-label"></label>
                                 <div class="col-sm-10">
                                     <?php include '../_partials/cancel.php'?>
@@ -126,15 +119,22 @@ include '../_partials/header.php';
 <!-- END wrapper -->
 <!-- jQuery  -->
 <?php include '../_partials/jquery.php'?>
+<script src="../assets/plugins/ion-rangeslider/ion.rangeSlider.min.js"></script>
+<script src="../assets/pages/rangeslider-init.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+    $("#range_bp").ionRangeSlider({
+        type: "double",
+        grid: true,
+        min: 0,
+        max: 200,
+        from: 50,
+        to: 200
+    });
+})
+</script>
 <!-- App js -->
 <?php include '../_partials/app.php'?>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.6.2/bootstrap-slider.js"></script>
-<!-- <script type="text/javascript" src="../assets/bootstrap-slider.min.js"></script> -->
-<script type="text/javascript">
-// With JQuery
-$("#ex2").slider({
-    tooltip: 'always'
-});
 </script>
 </body>
 
