@@ -10,31 +10,32 @@
     $error= '';
 
     $id = $_GET['id'];
-    $retData = mysqli_query($connect, "SELECT * FROM area WHERE id = '$id'");
+    $retData = mysqli_query($connect, "SELECT * FROM employee_designation WHERE id = '$id'");
     $fetch_retData = mysqli_fetch_assoc($retData);
-    $areaName = $fetch_retData['area_name'];
+    $designation_name = $fetch_retData['designation_name'];
 
-    if (isset($_POST['addArea'])) {
+    if (isset($_POST['update'])) {
         $id = $_POST['id'];
-        $nameArea = $_POST['nameArea'];
+        $designation = $_POST['nameDesignation'];
+        $designationName = str_replace('\' ', '\'', ucwords(str_replace('\'', '\' ', strtolower($designation))));
 
         
-        $countQuery = mysqli_query($connect, "SELECT COUNT(*)AS countedAreas FROM area WHERE area_name = '$nameArea'");
-        $fetch_countQuery = mysqli_fetch_assoc($countQuery);
+        // $countQuery = mysqli_query($connect, "SELECT COUNT(*)AS countedAreas FROM area WHERE area_name = '$nameArea'");
+        // $fetch_countQuery = mysqli_fetch_assoc($countQuery);
 
 
-        if ($fetch_countQuery['countedAreas'] == 0) {
-            $updateQuery = mysqli_query($connect, "UPDATE area SET area_name = '$nameArea' WHERE id = '$id'");
+        // if ($fetch_countQuery['countedAreas'] == 0) {
+            $updateQuery = mysqli_query($connect, "UPDATE employee_designation SET designation_name = '$designationName' WHERE id = '$id'");
             if (!$updateQuery) {
-                $error = 'Not Added! Try agian!';
+                $error = 'Not Added! Try Again!';
             }else {
-                header("LOCATION:areas_list.php");
+                header("LOCATION:employee_designations.php");
             }
-        }else {
-            $alreadyAdded = '<div class="alert alert-dark" role="alert">
-                                Area Already Added!
-                             </div>';
-        }
+        // }else {
+        //     $alreadyAdded = '<div class="alert alert-dark" role="alert">
+        //                         Area Already Added!
+        //                      </div>';
+        // }
     }
 
 
@@ -60,14 +61,14 @@
                             <div class="form-group row">
                                 <label for="example-text-input" class="col-sm-2 col-form-label">Name</label>
                                 <div class="col-sm-4">
-                                    <input class="form-control" value="<?php echo $areaName ?>" placeholder="Area" type="text" value="" id="example-text-input"  name="nameArea"  required="">
+                                    <input class="form-control" value="<?php echo $designation_name ?>" placeholder="Area" type="text" value="" id="example-text-input"  name="nameDesignation"  required="">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="example-password-input" class="col-sm-2 col-form-label"></label>
                                 <div class="col-sm-10">
                                     <?php include('../_partials/cancel.php') ?>
-                                    <button type="submit" class="btn btn-primary waves-effect waves-light" name="addArea">Update Designation</button>
+                                    <button type="submit" class="btn btn-primary waves-effect waves-light" name="update">Update Designation</button>
                                 </div>
                             </div>
                         </form>

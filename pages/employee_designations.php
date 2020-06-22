@@ -85,30 +85,37 @@
                                     <th>#</th>
                                     <th>Name</th>
                                     <th class="text-center"> <i class="fa fa-edit"></i>
-                                    <th class="text-center"> <i class="fa fa-trash"></i></i>
                                     </th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php 
-                                $retDesignations = mysqli_query($connect, "SELECT * FROM `employee_designation`");
-                                $iteration = 1;
+                                    $retDesignations = mysqli_query($connect, "SELECT * FROM `employee_designation`");
+                                    $iteration = 1;
 
-                                while ($rowDesignation = mysqli_fetch_assoc($retDesignations)) {
-                                    echo '
-                                    <tr>
-                                        <td>'.$iteration++.'</td>
-                                        <td>'.$rowDesignation['designation_name'].'</td>
-                                        <td class="text-center"><a href="area_edit.php?id='.$rowDesignation['id'].'" type="button" class="btn text-white btn-warning waves-effect waves-light">Edit</a></td>
-                                         <td class="text-center"><a href="area_edit.php?id='.$rowDesignation['id'].'" type="button" class="btn text-white btn-danger waves-effect waves-light">Delete</a></td>
-                                    </tr>
-                                    ';
-                                }
+                                    while ($rowDesignation = mysqli_fetch_assoc($retDesignations)) {
+                                        echo '
+                                        <tr>
+                                            <td>'.$iteration++.'</td>
+                                            <td>'.$rowDesignation['designation_name'].'</td>
+                                            <td class="text-center"><a href="employee_designations_edit.php?id='.$rowDesignation['id'].'" type="button" class="btn text-white btn-warning waves-effect waves-light">Edit</a></td>
+                                        </tr>
+                                        ';
+                                    }
                                 ?>
                             </tbody>
                         </table>
                     </div>
                 </div>
+<!--                                          <td class="text-center"><button class="btn btn-danger btn-sm" onClick="deleteme('.$rowDesignation['id'].",".$rowDesignation['designation_name'].')" name="Deleteme" data-original-title="Deactivate User Access">PostPone</button></td> -->
+                <!-- <script type="text/javascript">
+                    function deleteme(delid,des_id){
+                      if (confirm("Do you want to delete "+  +" designation?")) {
+                        window.location.href = 'temporary_disable.php?del_id='+delid+'&room_id='+room+'';
+                        return true;
+                      }
+                    }
+                </script> -->
             </div> <!-- end col -->
         </div> <!-- end row -->
     </div><!-- container fluid -->

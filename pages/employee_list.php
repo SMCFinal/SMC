@@ -27,12 +27,10 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Name</th>
-                                    <th>CNIC</th>
                                     <th>Gender</th>
                                     <th>Designation</th>
                                     <th>Salary</th>
                                     <th>Date of Joining</th>
-                                    <th>Contact</th>
                                     <th>Address</th>
                                   
                                                                      
@@ -43,24 +41,31 @@
                             </thead>
                             <tbody>
                                 <?php
-                                $selectQueryMembers = mysqli_query($connect, "SELECT staff_members.*, staff_category.* FROM `staff_members`
-                                INNER JOIN staff_category ON staff_category.id = staff_members.category_id
-                                WHERE staff_members.status = '1'");
+                                $selectQueryMembers = mysqli_query($connect, "SELECT employee_registration.*, employee_designation.designation_name FROM `employee_registration`
+                                    INNER JOIN employee_designation ON employee_designation.id = employee_registration.emp_designation
+                                    WHERE employee_registration.emp_status = '1'");
                                 $iteration = 1;
 
                                 while ($rowMembers = mysqli_fetch_assoc($selectQueryMembers)) {
                                     echo '
                                         <tr>
                                             <td>'.$iteration++.'</td>
-                                            <td>'.$rowMembers['name'].'</td>
-                                            <td>'.$rowMembers['cnic'].'</td>
-                                            <td>'.$rowMembers['category_name'].'</td>
-                                            <td>'.$rowMembers['salary'].'</td>
-                                            <td>'.$rowMembers['date_of_joining'].'</td>
-                                            <td>'.$rowMembers['start_time'].'</td>
-                                            <td>'.$rowMembers['end_time'].'</td>
-                                            <td>'.$rowMembers['visit_charges'].'</td>
-                                            <td class="text-center"><a href="HR_staff_view.php?id='.$rowMembers['cnic'].'" type="button" class="btn text-white btn-primary waves-effect waves-light btn-sm">View</a></td>
+                                            <td>'.$rowMembers['emp_name'].'</td>';
+
+                                            if ($rowMembers['emp_gender'] == '1') {
+                                                echo '<td>Male</td>';
+                                            }elseif ($rowMembers['emp_gender'] == '2') {
+                                                echo '<td>Female</td>';
+                                            }else {
+                                                echo '<td>Other</td>';
+                                            }
+
+                                            echo '
+                                            <td>'.$rowMembers['designation_name'].'</td>
+                                            <td>'.$rowMembers['emp_salary'].'</td>
+                                            <td>'.substr($rowMembers['emp_doj'], 0,10).'</td>
+                                            <td>'.$rowMembers['emp_address'].'</td>
+                                            <td class="text-center"><a href="HR_staff_view.php?id='.$rowMembers['emp_cnic'].'" type="button" class="btn text-white btn-primary waves-effect waves-light btn-sm">View</a></td>
                                              <td class="text-center"><a href="HR_staff_edit.php" class="btn btn-warning"  name="Deleteme" data-original-title="Deactivate User Access">Edit</a></td>';
                                             // <td class="text-center"><button class="btn btn-danger" onClick="deleteme('.$rowMembers['cnic'].')" name="Deleteme" data-original-title="Deactivate User Access">Discharge</button></td>
                                           

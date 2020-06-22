@@ -5,39 +5,36 @@
     $error = '';
     $added = '';
     
-    if (isset($_POST["addstaff"])) {
-        $name = $_POST['nameStaff'];
-        $cnic = $_POST['cnicStaff'];
-        $designation = $_POST['designationStaff'];
-        $salaryStaff = $_POST['salaryStaff'];
-        $dateofjoiningStaff = $_POST['dateofjoiningStaff'];
-        $starttimeStaff = $_POST['starttimeStaff'];
-        $endtimeStaff = $_POST['endtimeStaff'];
-        $visitcharges = $_POST['visitchargesStaff'];
+    if (isset($_POST["addEmp"])) {
+        $name = $_POST['nameEmp'];
+        $cnic = $_POST['cnicEmp'];
+        $contact = $_POST['contactEmp'];
+        $gender = $_POST['genderEmp'];
+        $designation = $_POST['designationEmp'];
+        $salaryStaff = $_POST['salaryEmp'];
+        $dateofjoiningEmp = $_POST['dateofjoiningEmp'];
+        $address = $_POST['addressEmp'];
         
-        if(empty($visitcharges)) {
-            $visitcharges = 0;
-        }
-        $explodeDoctor = explode(":", $designation);
-        $designationStaffId = $explodeDoctor[1];
-
-        $checkMemberTable = mysqli_query($connect, "SELECT COUNT(*)AS countedStaff FROM `staff_members` WHERE cnic = '$cnic'");
+        
+        $checkMemberTable = mysqli_query($connect, "SELECT COUNT(*)AS countedEmp FROM `employee_registration` WHERE emp_cnic = '$cnic'");
         $fetch_checkMemberTable = mysqli_fetch_array($checkMemberTable);
 
-        if ($fetch_checkMemberTable['countedStaff'] < 1) {
-            $createMember = mysqli_query($connect, "INSERT INTO staff_members(name, cnic, category_id, salary, date_of_joining, start_time, end_time, visit_charges)VALUES('$name', '$cnic', '$designationStaffId', '$salaryStaff', '$dateofjoiningStaff', '$starttimeStaff', '$endtimeStaff', '$visitcharges')");
+        if ($fetch_checkMemberTable['countedEmp'] < 1) {
+            $createMember = mysqli_query($connect, "INSERT INTO employee_registration(
+                emp_name, emp_cnic, emp_contact, emp_gender, emp_designation, emp_salary, emp_doj, emp_address)VALUES(
+                '$name', '$cnic', '$contact', '$gender', '$designation', '$salaryStaff', '$dateofjoiningEmp', '$address')");
 
             if (!$createMember) {
                 echo mysqli_error($connect);
-                $error = "Member not added! Try Again.";
+                $error = "Employee not added! Try Again.";
             }else{
                 $added = '<div class="alert alert-primary" role="alert">
-                                Staff Member Added!
+                                Employee Added!
                              </div>';
             }
         }else {
             $alreadyAdded = '<div class="alert alert-dark" role="alert">
-                                        Staff Member Already Added!
+                                        Employee Already Added!
                                      </div>';
         }
     }
@@ -46,6 +43,12 @@
     include('../_partials/header.php'); 
 ?>
 <!-- Top Bar End -->
+<style type="text/css">
+    
+        .customClass {
+            zoom: 1.5;
+        }
+</style>
 <div class="page-content-wrapper ">
     <div class="container-fluid">
         <div class="row">
@@ -63,28 +66,29 @@
                             <div class="form-group row">
                                 <label for="example-text-input" class="col-sm-2 col-form-label">Name</label>
                                 <div class="col-sm-4">
-                                    <input class="form-control" type="text" placeholder="Name" name="nameStaff" id="example-text-input">
+                                    <input class="form-control" type="text" placeholder="Name" name="nameEmp" id="example-text-input">
                                 </div>
                                 <label for="example-text-input" class="col-sm-2 col-form-label">CNIC</label>
                                 <div class="col-sm-4">
-                                    <input class="form-control" type="number" placeholder="CNIC" name="cnicStaff" id="example-text-input">
+                                    <input class="form-control" type="number" placeholder="CNIC" name="cnicEmp" id="example-text-input">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="example-text-input" class="col-sm-2 col-form-label">Contact</label>
                                 <div class="col-sm-4">
-                                    <input class="form-control" type="text" placeholder="Contact" name="Contact" id="example-text-input">
+                                    <input class="form-control" type="text" placeholder="Contact" name="contactEmp" id="example-text-input">
                                 </div>
                                 <label for="example-text-input" class="col-sm-2 col-form-label">Gender</label>
                                 <div class="col-sm-4">
                                     <label class="radio-inline">
-                                        <input type="radio" name="optradio" checked>Male
+                                        <input type="radio" name="genderEmp" class="customClass" checked="" value="1">&nbsp;&nbsp;Male
                                     </label>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;
                                     <label class="radio-inline">
-                                        <input type="radio" name="optradio">Fenale
-                                    </label>
+                                        <input type="radio" name="genderEmp" class="customClass" value="2">&nbsp;&nbsp;Female
+                                    </label>&nbsp;&nbsp;&nbsp;&nbsp;
                                     <label class="radio-inline">
-                                        <input type="radio" name="optradio">Other
+                                        <input type="radio" name="genderEmp" class="customClass" value="3">&nbsp;&nbsp;Other
                                     </label>
                                 </div>
                             </div>
@@ -92,10 +96,10 @@
                                 <label class="col-sm-2 col-form-label">Designation</label>
                                 <div class="col-sm-4">
                                     <?php
-                                    $select_option = mysqli_query($connect, "SELECT * FROM staff_category");
-                                        $options = '<select class="form-control designation" name="designationStaff" id="designation" style="width: 100%" onchange=checkDoctor() required="">';
+                                    $select_option = mysqli_query($connect, "SELECT * FROM employee_designation");
+                                        $options = '<select class="form-control designation" name="designationEmp" id="designation" style="width: 100%"  required="">';
                                           while ($row = mysqli_fetch_assoc($select_option)) {
-                                            $options.= '<option value='.$row['category_name'].':'.$row['id'].'>'.$row['category_name'].'</option>';
+                                            $options.= '<option value='.$row['id'].'>'.$row['designation_name'].'</option>';
                                           }
                                         $options.= "</select>";
                                     echo $options;
@@ -103,27 +107,27 @@
                                 </div>
                                 <label class="col-sm-2 col-form-label">Salary</label>
                                 <div class="col-sm-4">
-                                    <input type="number" id="pass2" name="salaryStaff" class="form-control" required placeholder="Salary" />
+                                    <input type="number" id="pass2" name="salaryEmp" class="form-control" required placeholder="Salary" />
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">Date of Joining</label>
                                 <div class="col-sm-4">
                                     <div class="input-group ">
-                                        <input class="form-control date dateonly" name="dateofjoiningStaff" placeholder="dd/mm/yyyy" autoclear>
+                                        <input class="form-control date dateonly" name="dateofjoiningEmp" placeholder="dd/mm/yyyy" autoclear>
                                         <div class="input-group-append bg-custom b-0"><span class="input-group-text"><i class="mdi mdi-calendar"></i></span></div>
                                     </div>
                                 </div>
                                  <label for="example-text-input" class="col-sm-2 col-form-label">Address</label>
                                 <div class="col-sm-4">
-                                    <input class="form-control" type="number" placeholder="Address" name="Address" id="example-text-input">
+                                    <input class="form-control" type="text" placeholder="Address" name="addressEmp" id="example-text-input">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label"></label>
                                 <div class="col-sm-10">
                                     <?php include('../_partials/cancel.php') ?>
-                                    <button type="submit" name="addstaff" class="btn btn-primary waves-effect waves-light">Add Employee</button>
+                                    <button type="submit" name="addEmp" class="btn btn-primary waves-effect waves-light">Add Employee</button>
                                 </div>
                             </div>
                         </form>
