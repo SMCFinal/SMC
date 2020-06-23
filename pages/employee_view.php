@@ -7,9 +7,9 @@
 
     $id = $_GET['id'];
 
-    $selectQuery = mysqli_query($connect, "SELECT staff_members.*, staff_category.* FROM `staff_members`
-                                INNER JOIN staff_category ON staff_category.id = staff_members.category_id
-                                WHERE staff_members.status = '1' AND staff_members.cnic = '$id'");
+    $selectQuery = mysqli_query($connect, "SELECT employee_registration.*, employee_designation.designation_name FROM `employee_registration`
+                                    INNER JOIN employee_designation ON employee_designation.id = employee_registration.emp_designation
+                                    WHERE employee_registration.id = '$id'");
     $fetch_selectQuery = mysqli_fetch_assoc($selectQuery);
 
     include('../_partials/header.php'); 
@@ -34,7 +34,8 @@
             <div class="col-12">
                 <div class="card m-b-30">
                     <div class="card-body">
-                        <h4 class="mt-0 header-title d-inline"><h3><?php echo $fetch_selectQuery['name'] ?></h3></h4>
+                        <!-- <h4 class="mt-0 header-title d-inline"><h3></h3></h4> -->
+                        <a href="employee_list.php" class="btn btn-primary"><i class="fa fa-arrow-left"></i></a>
                        
                        
                    
@@ -44,37 +45,45 @@
                                 <tbody>
                                     <tr>
                                         <th scope="row">Name</th>
-                                        <td><?php echo $fetch_selectQuery['name'] ?></td>
+                                        <td><?php echo $fetch_selectQuery['emp_name'] ?></td>
                                     </tr>
                                     <tr>
                                         <th scope="row">CNIC</th>
-                                        <td><?php echo $fetch_selectQuery['cnic'] ?></td>
+                                        <td><?php echo $fetch_selectQuery['emp_cnic'] ?></td>
                                     </tr>
                                     <tr>
                                         <th scope="row">Designation</th>
-                                        <td><?php echo $fetch_selectQuery['category_name'] ?></td>
+                                        <td><?php echo $fetch_selectQuery['designation_name'] ?></td>
                                     </tr>
                                      <tr>
                                         <th scope="row">Gender</th>
-                                        <td></td>
+                                        <?php
+                                        if ($fetch_selectQuery['emp_designation'] == '1') {
+                                            echo '<td>Male</td>';
+                                        }elseif ($fetch_selectQuery['emp_designation'] == '2') {
+                                            echo '<td>Female</td>';
+                                        }elseif ($fetch_selectQuery['emp_designation'] == '3') {
+                                            echo '<td>Other</td>';
+                                        }
+                                        ?>
                                     </tr>
                                     
                                      <tr>
                                         <th scope="row">Salary</th>
-                                        <td><?php echo $fetch_selectQuery['salary'] ?></td>
+                                        <td><?php echo $fetch_selectQuery['emp_salary'] ?></td>
                                     </tr>
                                      <tr>
                                         <th scope="row">Date of Joining</th>
-                                        <td><?php echo $fetch_selectQuery['date_of_joining'] ?></td>
+                                        <td><?php echo substr($fetch_selectQuery['emp_doj'], 0,10) ?></td>
                                     </tr>
                                      <tr>
                                         <th scope="row">Contact</th>
-                                        <td><?php echo $fetch_selectQuery['start_time'] ?></td>
+                                        <td><?php echo "0".$fetch_selectQuery['emp_contact'] ?></td>
                                     </tr>
 
                                     <tr>
                                         <th scope="row">Address</th>
-                                        <td><?php echo $fetch_selectQuery['end_time'] ?></td>
+                                        <td><?php echo $fetch_selectQuery['emp_address'] ?></td>
                                     </tr>
 
                                    

@@ -56,7 +56,7 @@
                                                 echo '<td>Male</td>';
                                             }elseif ($rowMembers['emp_gender'] == '2') {
                                                 echo '<td>Female</td>';
-                                            }else {
+                                            }elseif ($rowMembers['emp_gender'] == '3') {
                                                 echo '<td>Other</td>';
                                             }
 
@@ -65,8 +65,10 @@
                                             <td>'.$rowMembers['emp_salary'].'</td>
                                             <td>'.substr($rowMembers['emp_doj'], 0,10).'</td>
                                             <td>'.$rowMembers['emp_address'].'</td>
-                                            <td class="text-center"><a href="HR_staff_view.php?id='.$rowMembers['emp_cnic'].'" type="button" class="btn text-white btn-primary waves-effect waves-light btn-sm">View</a></td>
-                                             <td class="text-center"><a href="HR_staff_edit.php" class="btn btn-warning"  name="Deleteme" data-original-title="Deactivate User Access">Edit</a></td>';
+                                            
+                                            <td class="text-center"><a href="employee_view.php?id='.$rowMembers['id'].'" type="button" class="btn text-white btn-primary waves-effect waves-light btn-sm">View</a></td>
+                                            
+                                            <td class="text-center"><a href="employee_edit.php?id='.$rowMembers['id'].'" class="btn btn-warning"  name="Deleteme" data-original-title="Deactivate User Access">Edit</a></td>';
                                             // <td class="text-center"><button class="btn btn-danger" onClick="deleteme('.$rowMembers['cnic'].')" name="Deleteme" data-original-title="Deactivate User Access">Discharge</button></td>
                                           
                                          

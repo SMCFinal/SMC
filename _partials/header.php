@@ -77,10 +77,8 @@
                             <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-wheelchair-accessibility"></i> <span> Patients </span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
                             <ul class="list-unstyled">
                                 <li><a href="patient_new.php">Patient Registration</a></li>
-                                <!-- <li><a href="patients_observation.php">Patients Observation</a></li> -->
                                 <li><a href="patients_list.php">Current Patients</a></li>
-
-                                <!-- <li><a target="_blank" href="patient_active_view.php">View Current Patients</a></li> -->
+                                <li><a href="patients_observation.php">Patients Observation</a></li>
                             </ul>
                         </li>
 
@@ -181,9 +179,9 @@
                             <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-broadcast"></i> <span> Expenses</span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
                             <ul class="list-unstyled">
 
+                                <li><a href="expense_category_new.php">Expense Category</a></li>
                                 <li><a href="expense_new.php">Add Expense</a></li>
                                 <li><a href="expense_list.php">Expense List</a></li>
-                                <li><a href="expense_category_new.php">Expense Category</a></li>
 
                             </ul>
                         </li>
@@ -237,7 +235,3 @@
                     </nav>
                 </div>
                 <!-- Top Bar End -->
-
-
-
-
