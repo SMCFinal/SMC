@@ -57,7 +57,7 @@
                                             <td>'.$rowPatients['patient_disease'].'</td>
                                             <td>'."Dr. ".$rowPatients['name'].'</td>
                                             <td class="text-center">
-                                            <a href="patients_observation_new.php?id='.$rowPatients['id'].'" type="button" class="btn text-white btn-primary waves-effect waves-light btn-sm">Observations</a>&nbsp;&nbsp;&nbsp;
+                                            <a href="patients_observation_selector.php?id='.$rowPatients['id'].'" type="button" class="btn text-white btn-primary waves-effect waves-light btn-sm">Observations</a>&nbsp;&nbsp;&nbsp;
                                             </td>
                                         </tr>
                                     ';
