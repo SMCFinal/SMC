@@ -10,27 +10,27 @@ $added = '';
 $error = '';
 
 $id = $_GET['id'];
-$retData = mysqli_query($connect, "SELECT * FROM area WHERE id = '$id'");
-$fetch_retData = mysqli_fetch_assoc($retData);
-$areaName = $fetch_retData['area_name'];
+$retExpenseCat = mysqli_query($connect, "SELECT * FROM expense_category WHERE id = '$id'");
+$fetch_retData = mysqli_fetch_assoc($retExpenseCat);
+$expenseCat = $fetch_retData['expense_name'];
 
-if (isset($_POST['addArea'])) {
+if (isset($_POST['updateExpense'])) {
 	$id = $_POST['id'];
-	$nameArea = $_POST['nameArea'];
+	$nameCategory = $_POST['nameCategory'];
 
-	$countQuery = mysqli_query($connect, "SELECT COUNT(*)AS countedAreas FROM area WHERE area_name = '$nameArea'");
+	$countQuery = mysqli_query($connect, "SELECT COUNT(*)AS countedExpenseCat FROM expense_category WHERE expense_name = '$nameCategory'");
 	$fetch_countQuery = mysqli_fetch_assoc($countQuery);
 
-	if ($fetch_countQuery['countedAreas'] == 0) {
-		$updateQuery = mysqli_query($connect, "UPDATE area SET area_name = '$nameArea' WHERE id = '$id'");
+	if ($fetch_countQuery['countedExpenseCat'] == 0) {
+		$updateQuery = mysqli_query($connect, "UPDATE expense_category SET expense_name = '$nameCategory' WHERE id = '$id'");
 		if (!$updateQuery) {
 			$error = 'Not Added! Try agian!';
 		} else {
-			header("LOCATION:areas_list.php");
+			header("LOCATION:expense_category_new.php");
 		}
 	} else {
 		$alreadyAdded = '<div class="alert alert-dark" role="alert">
-                                Area Already Added!
+                                Already Added!
                              </div>';
 	}
 }
@@ -44,7 +44,7 @@ include '../_partials/header.php';
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-12">
-                <h5 class="page-title">Exoense Category</h5>
+                <h5 class="page-title">Expense Category</h5>
             </div>
         </div>
         <!-- end row -->
@@ -57,14 +57,14 @@ include '../_partials/header.php';
                             <div class="form-group row">
                                 <label for="example-text-input" class="col-sm-2 col-form-label">Name</label>
                                 <div class="col-sm-4">
-                                    <input class="form-control" value="<?php echo $areaName ?>" placeholder="Category" type="text" value="" id="example-text-input"  name="nameArea"  required="">
+                                    <input class="form-control" value="<?php echo $expenseCat ?>" placeholder="Category" type="text" id="example-text-input"  name="nameCategory"  required="">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="example-password-input" class="col-sm-2 col-form-label"></label>
                                 <div class="col-sm-10">
                                     <?php include '../_partials/cancel.php'?>
-                                    <button type="submit" class="btn btn-primary waves-effect waves-light" name="addArea">Update Category</button>
+                                    <button type="submit" class="btn btn-primary waves-effect waves-light" name="updateExpense">Update Category</button>
                                 </div>
                             </div>
                         </form>

@@ -5,6 +5,8 @@ if (empty($_SESSION["user"])) {
     header("LOCATION:../index.php");
 }
 
+$id = $_GET['id'];
+
 $error = '';
 $alreadyExist = '';
 
@@ -64,38 +66,37 @@ include '../_partials/header.php';
                         <form method="POST">
                            
                             <div class="form-group row">
-                               
-                                <div class="col-sm-12 col-md-6 col-lg-4 mb-sm-3">
-                                   
-                                    <a  href="patients_observation_bp.php" name="addMedicine" class="btn btn-primary waves-effect waves-light btn-xxl">BP</a>
+                                <div class="col-sm-12 col-md-6 col-lg-6 mb-sm-3" align="center">
+                                    <a  href="patients_observation_bp.php?id=<?php echo $id ?>" name="addMedicine" class="btn btn-primary waves-effect waves-light btn-xxl" style="width: 80%;padding: 8%; box-shadow: 5px 5px 5px 5px #ccc; ">Blood Pressure</a>
                                 </div>
-                                <div class="col-sm-12 col-md-6 col-lg-4 mb-sm-3">
-                                   
-                                    <a href="patients_observation_pulse.php"  name="addMedicine" class="btn btn-primary waves-effect waves-light btn-xxl">Pulse</a>
-                                </div>
-
-                                 <div class="col-sm-12 col-md-6 col-lg-4 mb-sm-3">
-                                   
-                                    <a href="patients_observation_urine.php"  name="addMedicine" class="btn btn-primary waves-effect waves-light btn-xxl">Urine</a>
+                                <div class="col-sm-12 col-md-6 col-lg-6 mb-sm-3" align="center">
+                                    <a href="patients_observation_pulse.php?id=<?php echo $id ?>"  name="addMedicine" class="btn btn-primary waves-effect waves-light btn-xxl" style="width: 80%;padding: 8%; box-shadow: 5px 5px 5px 5px #ccc; ">Pulse</a>
                                 </div>
                             </div>
 
                             <div class="form-group row">
-                               
-                                <div class="col-sm-12 col-md-6 col-lg-4 mb-sm-3">
+                               <div class="col-sm-12 col-md-6 col-lg-6 mb-sm-3" align="center">
                                    
-                                    <a href="patients_observation_respiratory.php"  name="addMedicine" class="btn btn-primary waves-effect waves-light btn-xxl">Respiratory</a>
-                                </div>
-                                <div class="col-sm-12 col-md-6 col-lg-4 mb-sm-3">
-                                   
-                                    <a  href="patients_observation_drain.php" name="addMedicine" class="btn btn-primary waves-effect waves-light btn-xxl">Drain</a>
+                                    <a href="patients_observation_urine.php?id=<?php echo $id ?>"  name="addMedicine" class="btn btn-primary waves-effect waves-light btn-xxl" style="width: 80%;padding: 8%; box-shadow: 5px 5px 5px 5px #ccc; ">Urine</a>
                                 </div>
 
-                                 <div class="col-sm-12 col-md-6 col-lg-4 mb-sm-3">
-                                   
-                                    <a href="patients_observation_ng.php"  name="addMedicine" class="btn btn-primary waves-effect waves-light btn-xxl">N/G
-</a>
+
+                                <div class="col-sm-12 col-md-6 col-lg-6 mb-sm-3" align="center">
+                                    <a href="patients_observation_respiratory.php?id=<?php echo $id ?>"  name="addMedicine" class="btn btn-primary waves-effect waves-light btn-xxl" style="width: 80%;padding: 8%; box-shadow: 5px 5px 5px 5px #ccc; ">Respiratory</a>
                                 </div>
+                            </div>
+
+                            <div class="form-group row">
+                               <div class="col-sm-12 col-md-6 col-lg-6 mb-sm-3" align="center">
+                                   
+                                    <a  href="patients_observation_drain.php?id=<?php echo $id ?>" name="addMedicine" class="btn btn-primary waves-effect waves-light btn-xxl" style="width: 80%;padding: 8%; box-shadow: 5px 5px 5px 5px #ccc; ">Drain</a>
+                                </div>
+
+                                <div class="col-sm-12 col-md-6 col-lg-6 mb-sm-3" align="center">
+                                   
+                                    <a href="patients_observation_ng.php?id=<?php echo $id ?>"  name="addMedicine" class="btn btn-primary waves-effect waves-light btn-xxl" style="width: 80%;padding: 8%; box-shadow: 5px 5px 5px 5px #ccc; ">N/G</a>
+                                </div>
+                                
                             </div>
                         </form>
                     </div>

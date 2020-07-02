@@ -18,8 +18,6 @@
     <link href="../assets/css/style.css" rel="stylesheet" type="text/css">
 
     <link href="../assets/package/dist/sweetalert2.min.css" rel="stylesheet" type="text/css">
-
-
     <!-- DataTables -->
     <link href="../assets/plugins/datatables/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
     <link href="../assets/plugins/datatables/buttons.bootstrap4.min.css" rel="stylesheet" type="text/css" />
@@ -169,6 +167,7 @@
                             <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-broadcast"></i> <span> Lab Tests</span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
                             <ul class="list-unstyled">
 
+                                <li><a href="lab_test_category.php">Add Lab Test Category</a></li>
                                 <li><a href="lab_test_new.php">Add New Lab Test</a></li>
                                 <li><a href="Lab_test_list.php">Lab Tests List</a></li>
 

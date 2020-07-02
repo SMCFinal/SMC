@@ -7,28 +7,20 @@ if (empty($_SESSION["user"])) {
 
 $error = '';
 $alreadyExist = '';
+$id = $_GET['id'];
+if (isset($_POST['addUrineMeasurement'])) {
+    $id = $_POST['id'];
+    $urineMeasurement = $_POST['urineMeasurement'];
+    $manualDate = $_POST['manualDate'];
 
-if (isset($_POST['addRoom'])) {
-    $roomNo = $_POST['roomNo'];
-    $floorNumber = $_POST['floorNo'];
-    $roomPrice = $_POST['roomPrice'];
-    $roomType = $_POST['roomType'];
-
-    $selectQuery = mysqli_query($connect, "SELECT COUNT(*)AS CountedRooms FROM rooms WHERE room_number = '$roomNo'");
-    $fetch_selectQuery = mysqli_fetch_assoc($selectQuery);
-
-    if ($fetch_selectQuery['CountedRooms'] == 0) {
-        $insertQuery = mysqli_query($connect, "INSERT INTO rooms(room_number, floor_id, room_price, room_type)VALUES('$roomNo', '$floorNumber', '$roomPrice', '$roomType')");
+    
+        $insertQuery = mysqli_query($connect, "INSERT INTO pat_observation_urine(pat_id, urine_measurement, manual_date)VALUES('$id', '$urineMeasurement', '$manualDate')");
 
         if (!$insertQuery) {
-            $error = 'Room Not Added!';
+            $error = 'Urine Measure Not Added! Try Again!';
         } else {
-            header("LOCATION:rooms_list.php");
+            header("LOCATION:patients_observation_selector.php?id=".$id."");
         }
-    } else {
-        $alreadyExist = 'Room Already Exist';
-    }
-
 }
 
 include '../_partials/header.php';
@@ -56,15 +48,27 @@ include '../_partials/header.php';
                                 
                                 <label class="col-sm-2 col-form-label">Urine</label>
                                 <div class="col-sm-4">
-                                    <input type="text" class="form-control" placeholder="Urine">
+                                    <input type="text" class="form-control" name="urineMeasurement" placeholder="Urine" required="">
                                 </div>
                             </div>
                            
+
+                            <input type="hidden" name="id" value="<?php echo $id ?>">
+                            <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Date &amp; Time</label>
+                            <div class="col-sm-4">
+                                <div class="input-group">
+                                    <input class="form-control form_datetime" name="manualDate"  placeholder="dd/mm/yyyy-hh:mm" autoclear="">
+                                    <div class="input-group-append bg-custom b-0"><span class="input-group-text"><i class="mdi mdi-calendar"></i></span></div>
+                                </div>
+                            </div>
+                            </div><hr>
+                            
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label"></label>
                                 <div class="col-sm-10">
                                     <?php include '../_partials/cancel.php'?>
-                                    <button type="submit" name="addMedicine" class="btn btn-primary waves-effect waves-light">Submit</button>
+                                    <button type="submit" name="addUrineMeasurement" class="btn btn-primary waves-effect waves-light">Submit</button>
                                 </div>
                             </div>
                         </form>
@@ -98,6 +102,12 @@ $(document).ready(function() {
 </script>
 <!-- App js -->
 <?php include '../_partials/app.php'?>
+<?php include('../_partials/datetimepicker.php') ?>
+</script>
+<script type="text/javascript">
+    $(".form_datetime").datetimepicker({
+        format: "yyyy-mm-dd hh:ii"
+    });
 </script>
 </body>
 

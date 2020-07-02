@@ -4,6 +4,8 @@
         if (empty($_SESSION["user"])) {
         header("LOCATION:../index.php");
     }
+
+
     include('../_partials/header.php');
 ?>
 <link href="../assets/plugins/sweet-alert2/sweetalert2.min.css" rel="stylesheet" type="text/css">
@@ -26,46 +28,39 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                  
                                     <th>Name</th>
                                     <th>Amount</th>
-                                    <th>By</th>
-                                    <th>Date</th>
+                                    <th>Date-Time</th>
                                     <th>Description</th>
-                                   
-
-
-
-                                   
-                                    <th class="text-center"><i class="mdi mdi-eye"></i></th>
-                                    <th class="text-center"> <i class="fa fa-edit"></i>
-                                    </th>
-                                    <th class="text-center"><i class="fa fa-trash"></i></th>
+                                    <th>Expense Status</th>
+                                    <!-- <th class="text-center"><i class="mdi mdi-eye"></i></th> -->
+                                    <th class="text-center"> <i class="fa fa-edit"></i></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php
-                                $selectQueryPatients = mysqli_query($connect, "SELECT * FROM patient_registration WHERE category = 'currentPatient' ORDER BY id ASC");
+                                $selectExpense = mysqli_query($connect, "SELECT expense.*, expense_category.expense_name FROM expense
+                                    INNER JOIN expense_category ON expense_category.id = expense.cat_id");
                                 $iteration = 1;
 
-                                while ($rowPatients = mysqli_fetch_assoc($selectQueryPatients)) {
+                                while ($rowExpense = mysqli_fetch_assoc($selectExpense)) {
                                     echo '
                                         <tr>
                                             <td>'.$iteration++.'</td>
-                                            <td>'.$rowPatients['patient_yearly_no'].'</td>
-                                            <td>'.$rowPatients['patient_name'].'</td>
-                                            <td>'.$rowPatients['patient_doop'].'</td>
-                                            <td>'.$rowPatients['patient_doa'].'</td>
-                                          
-                                            <td>'.$rowPatients['patient_consultant'].'</td>
-                                            <td class="text-center"><a href="patient_view.php?id='.$rowPatients['id'].'" type="button" class="btn text-white btn-primary waves-effect waves-light btn-sm">View</a></td>
-                                            <td class="text-center"><a href="expense_edit.php?id='.$rowPatients['id'].'" type="button" class="btn text-white btn-warning waves-effect waves-light btn-sm">Edit</a></td>
-                                            
+                                            <td>'.$rowExpense['expense_name'].'</td>
+                                            <td>'.$rowExpense['expense_amount'].'</td>
+                                            <td>'.$rowExpense['expense_date'].'</td>
+                                            <td>'.$rowExpense['expense_description'].'</td>';
 
+                                            if ($rowExpense['expense_status'] == 1) {
+                                                echo '<td><span class="badge badge-warning">Pending Admin Approval</span></td>';
+                                            }else {
+                                                echo '<td><span class="badge badge-success">Approved By Admin</span></td>';
+                                            }
 
-                                            <td class="text-center"><button class="btn btn-danger" onClick="deleteme('.$rowPatients['id'].')" name="Deleteme" data-original-title="Deactivate User Access">Delete</button></td>
-                                          
-                                         
+                                            echo '<td class="text-center">
+                                                <a href="expense_edit.php?id='.$rowExpense['id'].'" type="button" class="btn text-white btn-warning waves-effect waves-light btn-sm">Edit</a>
+                                            </td>
                                         </tr>
                                     ';
                                 }
