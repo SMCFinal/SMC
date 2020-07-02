@@ -5,23 +5,23 @@ if (empty($_SESSION["user"])) {
     header("LOCATION:../index.php");
 }
 
-$error = '';
-$alreadyExist = '';
-
+    $error = '';
+    $alreadyExist = '';
     $id = $_GET['id'];
-    if (isset($_POST['addDrain'])) {
-        $id = $_POST['id'];
-        $drainMeasurement = $_POST['drainMeasurement'];
-        $manualDate = $_POST['manualDate'];
+if (isset($_POST['addrespiratoryMeasure'])) {
+    $id = $_POST['id'];
+    $respiratoryMeasure = $_POST['respiratoryMeasure'];
+    $manualDate = $_POST['manualDate'];
 
-            $insertQuery = mysqli_query($connect, "INSERT INTO pat_observation_drain(pat_id, drain_measurement, manual_date)VALUES('$id', '$drainMeasurement', '$manualDate')");
+        $insertQuery = mysqli_query($connect, "INSERT INTO pat_observation_respiratory(pat_id, respiratory_measurement, manual_date)VALUES('$id', '$respiratoryMeasure', '$manualDate')");
 
-            if (!$insertQuery) {
-                $error = 'Drain Measurement Not Added! Try Again!';
-            } else {
-                header("LOCATION:patients_observation_selector.php?id=".$id."");
-            }
+        if (!$insertQuery) {
+            $error = 'Respiratory Measurement Not Added! Try Again!';
+        } else {
+            header("LOCATION:patients_observation_selector.php?id=".$id."");
         }
+}
+
 include '../_partials/header.php';
 ?>
 <!-- ION Slider -->
@@ -32,7 +32,7 @@ include '../_partials/header.php';
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-12">
-                <h5 class="page-title">Patient Observation Drain</h5>
+                <h5 class="page-title">Patient Observation Respiratory</h5>
             </div>
         </div>
         <!-- end row -->
@@ -42,23 +42,22 @@ include '../_partials/header.php';
                     <div class="card-body">
                         <!-- <h4 class="mt-0 header-title text-center ">Observation Details</h4> -->
                         <form method="POST">
-                            
+                           
                             <div class="form-group row">
-                               
-                                <label class="col-sm-2 col-form-label">Drain</label>
+                                <label class="col-sm-2 col-form-label">Respiratory</label>
                                 <div class="col-sm-4">
-                                    <input type="text" class="form-control" placeholder="Drain" name="drainMeasurement" required="">
+                                    <input type="text" class="form-control" name="respiratoryMeasure" placeholder="Respiratory" required="">
                                 </div>
                             </div>
-                          
+
                             <input type="hidden" name="id" value="<?php echo $id ?>">
                             <hr>
-
+                           
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label"></label>
                                 <div class="col-sm-10">
                                     <?php include '../_partials/cancel.php'?>
-                                    <button type="submit" name="addDrain" class="btn btn-primary waves-effect waves-light">Update</button>
+                                    <button type="submit" name="addrespiratoryMeasure" class="btn btn-primary waves-effect waves-light">Update</button>
                                 </div>
                             </div>
                         </form>

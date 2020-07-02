@@ -4,24 +4,28 @@ session_start();
 if (empty($_SESSION["user"])) {
     header("LOCATION:../index.php");
 }
-
+$id = $_GET['id'];
 $error = '';
 $alreadyExist = '';
 
-    $id = $_GET['id'];
-    if (isset($_POST['addDrain'])) {
-        $id = $_POST['id'];
-        $drainMeasurement = $_POST['drainMeasurement'];
-        $manualDate = $_POST['manualDate'];
+if (isset($_POST['addBpMeasure'])) {
+    $id = $_POST['id'];
+    $bpMeasure = $_POST['bpMeasure'];
 
-            $insertQuery = mysqli_query($connect, "INSERT INTO pat_observation_drain(pat_id, drain_measurement, manual_date)VALUES('$id', '$drainMeasurement', '$manualDate')");
+    $explodeBP = explode(";", $bpMeasure);
+    $lowBp = $explodeBP[0];
+    $highBp = $explodeBP[1];
+    $manualDate = $_POST['manualDate'];
+    
+    $insertQuery = mysqli_query($connect, "INSERT INTO pat_observation_bp(pat_id, bp_low, bp_high, manual_date)VALUES('$id', '$lowBp', '$highBp', '$manualDate')");
 
-            if (!$insertQuery) {
-                $error = 'Drain Measurement Not Added! Try Again!';
-            } else {
-                header("LOCATION:patients_observation_selector.php?id=".$id."");
-            }
-        }
+    if (!$insertQuery) {
+        $error = 'BP Measurement Not Added. Try Again!';
+    } else {
+        header("LOCATION:patients_observation_selector.php?id=".$id."");
+    }
+}
+
 include '../_partials/header.php';
 ?>
 <!-- ION Slider -->
@@ -32,7 +36,7 @@ include '../_partials/header.php';
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-12">
-                <h5 class="page-title">Patient Observation Drain</h5>
+                <h5 class="page-title">Patient Observation PB</h5>
             </div>
         </div>
         <!-- end row -->
@@ -42,23 +46,22 @@ include '../_partials/header.php';
                     <div class="card-body">
                         <!-- <h4 class="mt-0 header-title text-center ">Observation Details</h4> -->
                         <form method="POST">
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">BP</label>
+                                <div class="col-sm-4">
+                                    <span>Low</span>
+                                    <input type="text" id="range_bp" name="bpMeasure">
+                                    <span>High</span>
+                                </div>
+                                <input type="hidden" name="id" value="<?php echo $id ?>">
+                            </div><br>
+                           <hr>
                             
                             <div class="form-group row">
-                               
-                                <label class="col-sm-2 col-form-label">Drain</label>
-                                <div class="col-sm-4">
-                                    <input type="text" class="form-control" placeholder="Drain" name="drainMeasurement" required="">
-                                </div>
-                            </div>
-                          
-                            <input type="hidden" name="id" value="<?php echo $id ?>">
-                            <hr>
-
-                            <div class="form-group row">
                                 <label class="col-sm-2 col-form-label"></label>
-                                <div class="col-sm-10">
+                                <div class="col-sm-4">
                                     <?php include '../_partials/cancel.php'?>
-                                    <button type="submit" name="addDrain" class="btn btn-primary waves-effect waves-light">Update</button>
+                                    <button type="submit" name="addBpMeasure" class="btn btn-primary waves-effect waves-light">Update</button>
                                 </div>
                             </div>
                         </form>
@@ -93,7 +96,6 @@ $(document).ready(function() {
 <!-- App js -->
 <?php include '../_partials/app.php'?>
 <?php include('../_partials/datetimepicker.php') ?>
-</script>
 <script type="text/javascript">
     $(".form_datetime").datetimepicker({
         format: "yyyy-mm-dd hh:ii"
@@ -101,4 +103,14 @@ $(document).ready(function() {
 </script>
 </body>
 
+<script type="text/javascript">
+    // var bpLow =  document.getElementsByTagName('form')[0].children[0].children[1].children[1].children[0].children[3].innerText
+    // var IntLow = parseInt(bpLow)
+    
+    // var bpHigh = document.getElementsByClassName('irs-from')[0].innerText;
+    // var IntLow = parseInt(bpHigh)
+
+
+    // console.log(IntLow)
+</script>
 </html>

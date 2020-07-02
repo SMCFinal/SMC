@@ -8,20 +8,21 @@ if (empty($_SESSION["user"])) {
 $error = '';
 $alreadyExist = '';
 
-    $id = $_GET['id'];
-    if (isset($_POST['addDrain'])) {
+$id = $_GET['id'];
+    if (isset($_POST['addNG'])) {
         $id = $_POST['id'];
-        $drainMeasurement = $_POST['drainMeasurement'];
+        $ngMeasurement = $_POST['ngMeasurement'];
         $manualDate = $_POST['manualDate'];
 
-            $insertQuery = mysqli_query($connect, "INSERT INTO pat_observation_drain(pat_id, drain_measurement, manual_date)VALUES('$id', '$drainMeasurement', '$manualDate')");
+            $insertQuery = mysqli_query($connect, "INSERT INTO pat_observation_ng(pat_id, ng_measurement, manual_date)VALUES('$id', '$ngMeasurement', '$manualDate')");
 
             if (!$insertQuery) {
-                $error = 'Drain Measurement Not Added! Try Again!';
+                $error = 'NG Measurement Not Added! Try Again!';
             } else {
                 header("LOCATION:patients_observation_selector.php?id=".$id."");
             }
         }
+
 include '../_partials/header.php';
 ?>
 <!-- ION Slider -->
@@ -32,7 +33,7 @@ include '../_partials/header.php';
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-12">
-                <h5 class="page-title">Patient Observation Drain</h5>
+                <h5 class="page-title">Patient Observation N/G</h5>
             </div>
         </div>
         <!-- end row -->
@@ -44,21 +45,21 @@ include '../_partials/header.php';
                         <form method="POST">
                             
                             <div class="form-group row">
-                               
-                                <label class="col-sm-2 col-form-label">Drain</label>
+                                <label class="col-sm-2 col-form-label">N/G</label>
                                 <div class="col-sm-4">
-                                    <input type="text" class="form-control" placeholder="Drain" name="drainMeasurement" required="">
+                                    <input type="text" class="form-control" name="ngMeasurement" placeholder="N/G" required="">
                                 </div>
                             </div>
-                          
+
                             <input type="hidden" name="id" value="<?php echo $id ?>">
-                            <hr>
+                           <hr>
+
 
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label"></label>
                                 <div class="col-sm-10">
                                     <?php include '../_partials/cancel.php'?>
-                                    <button type="submit" name="addDrain" class="btn btn-primary waves-effect waves-light">Update</button>
+                                    <button type="submit" name="addNG" class="btn btn-primary waves-effect waves-light">Update</button>
                                 </div>
                             </div>
                         </form>
