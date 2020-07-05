@@ -52,6 +52,15 @@ include '../_partials/header.php';
                             </div>
                           
                             <input type="hidden" name="id" value="<?php echo $id ?>">
+                            <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Date &amp; Time</label>
+                            <div class="col-sm-4">
+                                <div class="input-group">
+                                    <input class="form-control form_datetime" name="manualDate"  placeholder="dd/mm/yyyy-hh:mm" autoclear="">
+                                    <div class="input-group-append bg-custom b-0"><span class="input-group-text"><i class="mdi mdi-calendar"></i></span></div>
+                                </div>
+                            </div>
+                            </div>
                             <hr>
 
                             <div class="form-group row">

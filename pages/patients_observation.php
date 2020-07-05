@@ -61,7 +61,7 @@
                                             <a href="patients_observation_selector.php?id='.$rowPatients['id'].'" type="button" class="btn text-white btn-primary waves-effect waves-light btn-sm">Observations</a>&nbsp;&nbsp;&nbsp;
                                             </td>
                                             <td class="text-center">
-                                            <a href="patients_observation_history.php" type="button" class="btn text-white btn-primary waves-effect waves-light btn-sm">History </a>
+                                            <a href="patients_observation_history.php?id='.$rowPatients['id'].'" type="button" class="btn text-white btn-primary waves-effect waves-light btn-sm">History </a>
                                             </td>
                                         </tr>
                                     ';

@@ -5,33 +5,8 @@ if (empty($_SESSION["user"])) {
     header("LOCATION:../index.php");
 }
 
-// $id = $_GET['id'];
+$id = $_GET['id'];
 
-// $error = '';
-// $alreadyExist = '';
-
-// if (isset($_POST['addRoom'])) {
-//     $roomNo = $_POST['roomNo'];
-//     $floorNumber = $_POST['floorNo'];
-//     $roomPrice = $_POST['roomPrice'];
-//     $roomType = $_POST['roomType'];
-
-//     $selectQuery = mysqli_query($connect, "SELECT COUNT(*)AS CountedRooms FROM rooms WHERE room_number = '$roomNo'");
-//     $fetch_selectQuery = mysqli_fetch_assoc($selectQuery);
-
-//     if ($fetch_selectQuery['CountedRooms'] == 0) {
-//         $insertQuery = mysqli_query($connect, "INSERT INTO rooms(room_number, floor_id, room_price, room_type)VALUES('$roomNo', '$floorNumber', '$roomPrice', '$roomType')");
-
-//         if (!$insertQuery) {
-//             $error = 'Room Not Added!';
-//         } else {
-//             header("LOCATION:rooms_list.php");
-//         }
-//     } else {
-//         $alreadyExist = 'Room Already Exist';
-//     }
-
-// }
 
 include '../_partials/header.php';
 ?>
@@ -67,25 +42,40 @@ include '../_partials/header.php';
                                 <div class="col-sm-12 col-md-6 col-lg-6 mb-sm-3" align="center">
                                     <div class="card m-b-30">
                                         <div class="card-body">
-                                            <h4 class="mt-0 header-title">BP</h4>
+                                            <h5 class="card-title mt-0">Blood Pressure</h5>
                                             <table id="" class="datatable table  dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                                 <thead>
                                                     <tr>
                                                         <th>#</th>
-                                                        <th>High</th>
                                                         <th>Low</th>
+                                                        <th>High</th>
                                                         <th>Date</th>
+                                                        <th>Time</th>
                                                         <th>Edit</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr>
-                                                        <td>a</td>
-                                                        <td>a</td>
-                                                        <td>a</td>
-                                                        <td>a</td>
-                                                        <td class="text-center"><a href="patients_observation_bp_edit.php" type="button" class="btn text-white btn-warning waves-effect waves-light btn-sm">Edit</a></td>
-                                                    </tr>
+                                                    <?php
+                                                    $selectMeasureBP = mysqli_query($connect, "SELECT * FROM `pat_observation_bp` WHERE pat_id = '$id'");
+                                                    $itr = 1;
+                                                    while ($rowBP = mysqli_fetch_assoc($selectMeasureBP)) {
+                                                        echo '
+                                                            <tr>
+                                                                <td>'.$itr++.'</td>
+                                                                <td>'.$rowBP['bp_low'].'</td>
+                                                                <td>'.$rowBP['bp_high'].'</td>
+                                                                <td>'.substr($rowBP['manual_date'], 0,10).'</td>';
+
+                                                                $time = substr($rowBP['manual_date'], 10);
+                                                                $time12Hr = date('h:i A', strtotime($time));
+
+
+                                                                echo '<td>'.$time12Hr.'</td>
+                                                                <td class="text-center"><a href="patients_observation_bp_edit.php" type="button" class="btn text-white btn-warning waves-effect waves-light btn-sm">Edit</a></td>
+                                                            </tr>
+                                                        ';
+                                                    }
+                                                    ?>
                                                 </tbody>
                                             </table>
                                         </div>
@@ -101,44 +91,74 @@ include '../_partials/header.php';
                                                         <th>#</th>
                                                         <th>Pulse Rate</th>
                                                         <th>Date</th>
+                                                        <th>Time</th>
                                                         <th>Edit</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr>
-                                                        <td>a</td>
-                                                        <td>a</td>
-                                                        <td>a</td>
-                                                        <td class="text-center"><a href="patients_observation_pulse_edit.php" type="button" class="btn text-white btn-warning waves-effect waves-light btn-sm">Edit</a></td>
-                                                    </tr>
+                                                    <?php
+                                                    $selectMeasurePulse = mysqli_query($connect, "SELECT * FROM `pat_observation_pulse` WHERE pat_id = '$id'");
+                                                    $itr = 1;
+                                                    while ($rowPulse = mysqli_fetch_assoc($selectMeasurePulse)) {
+                                                        echo '
+                                                            <tr>
+                                                                <td>'.$itr++.'</td>
+                                                                <td>'.$rowPulse['pulse_rate'].'</td>
+                                                                <td>'.substr($rowPulse['manual_date'], 0,10).'</td>';
+
+                                                                $time = substr($rowPulse['manual_date'], 10);
+                                                                $time12Hr = date('h:i A', strtotime($time));
+
+
+                                                                echo '<td>'.$time12Hr.'</td>
+                                                                <td class="text-center"><a href="patients_observation_bp_edit.php" type="button" class="btn text-white btn-warning waves-effect waves-light btn-sm">Edit</a></td>
+                                                            </tr>
+                                                        ';
+                                                    }
+                                                    ?>
                                                 </tbody>
                                             </table>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            <hr style="background-color:green;">
                             <div class="form-group row">
                                 <div class="col-sm-12 col-md-6 col-lg-6 mb-sm-3" align="center">
                                     <div class="card m-b-30">
                                         <div class="card-body">
-                                            <h4 class="mt-0 header-title">Urine</h4>
+                                            <h5 class="card-title mt-0">Urine</h5>
                                             <table id="" class="datatable table  dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                                 <thead>
                                                     <tr>
                                                         <th>#</th>
                                                         <th>Urine Measurement</th>
                                                         <th>Date</th>
+                                                        <th>Time</th>
                                                         <th>Edit</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr>
-                                                        <td>a</td>
-                                                        <td>a</td>
-                                                        <td>a</td>
-                                                        <td>a</td>
-                                                        <td class="text-center"><a href="patients_observation_urine_edit.php" type="button" class="btn text-white btn-warning waves-effect waves-light btn-sm">Edit</a></td>
-                                                    </tr>
+                                                    <?php
+                                                    $selectMeasureUrine = mysqli_query($connect, "SELECT * FROM `pat_observation_urine` WHERE pat_id = '$id'");
+                                                    $itr = 1;
+                                                    while ($rowUrine = mysqli_fetch_assoc($selectMeasureUrine)) {
+                                                        echo '
+                                                            <tr>
+                                                                <td>'.$itr++.'</td>
+                                                                <td>'.$rowUrine['urine_measurement'].'</td>
+                                                                <td>'.substr($rowUrine['manual_date'], 0,10).'</td>';
+
+                                                                $time = substr($rowUrine['manual_date'], 10);
+                                                                $time12Hr = date('h:i A', strtotime($time));
+
+
+                                                                echo '<td>'.$time12Hr.'</td>
+                                                                <td class="text-center"><a href="patients_observation_bp_edit.php" type="button" class="btn text-white btn-warning waves-effect waves-light btn-sm">Edit</a></td>
+                                                            </tr>
+                                                        ';
+                                                    }
+                                                    ?>
                                                 </tbody>
                                             </table>
                                         </div>
@@ -152,18 +172,33 @@ include '../_partials/header.php';
                                                 <thead>
                                                     <tr>
                                                         <th>#</th>
-                                                        <th>Respiratory Measurement</th>
+                                                        <th>R/Measurement</th>
                                                         <th>Date</th>
+                                                        <th>Time</th>
                                                         <th>Edit</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr>
-                                                        <td>a</td>
-                                                        <td>a</td>
-                                                        <td>a</td>
-                                                        <td class="text-center"><a href="patients_observation_respiratory_edit.php" type="button" class="btn text-white btn-warning waves-effect waves-light btn-sm">Edit</a></td>
-                                                    </tr>
+                                                    <?php
+                                                    $selectMeasureRespiratory = mysqli_query($connect, "SELECT * FROM `pat_observation_respiratory` WHERE pat_id = '$id'");
+                                                    $itr = 1;
+                                                    while ($rowRespiratory = mysqli_fetch_assoc($selectMeasureRespiratory)) {
+                                                        echo '
+                                                            <tr>
+                                                                <td>'.$itr++.'</td>
+                                                                <td>'.$rowRespiratory['respiratory_measurement'].'</td>
+                                                                <td>'.substr($rowRespiratory['manual_date'], 0,10).'</td>';
+
+                                                                $time = substr($rowRespiratory['manual_date'], 10);
+                                                                $time12Hr = date('h:i A', strtotime($time));
+
+
+                                                                echo '<td>'.$time12Hr.'</td>
+                                                                <td class="text-center"><a href="patients_observation_bp_edit.php" type="button" class="btn text-white btn-warning waves-effect waves-light btn-sm">Edit</a></td>
+                                                            </tr>
+                                                        ';
+                                                    }
+                                                    ?>
                                                 </tbody>
                                             </table>
                                         </div>
@@ -174,23 +209,38 @@ include '../_partials/header.php';
                                 <div class="col-sm-12 col-md-6 col-lg-6 mb-sm-3" align="center">
                                     <div class="card m-b-30">
                                         <div class="card-body">
-                                            <h4 class="mt-0 header-title">Drain</h4>
+                                            <h5 class="card-title mt-0">Drain</h5>
                                             <table id="" class="datatable table  dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                                 <thead>
                                                     <tr>
                                                         <th>#</th>
-                                                        <th>Respiratory Measurement</th>
+                                                        <th>D/Measurement</th>
                                                         <th>Date</th>
+                                                        <th>Time</th>
                                                         <th>Edit</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr>
-                                                        <td>a</td>
-                                                        <td>a</td>
-                                                        <td>a</td>
-                                                        <td class="text-center"><a href="patients_observation_drain.php" type="button" class="btn text-white btn-warning waves-effect waves-light btn-sm">Edit</a></td>
-                                                    </tr>
+                                                    <?php
+                                                    $selectMeasureDrain = mysqli_query($connect, "SELECT * FROM `pat_observation_drain` WHERE pat_id = '$id'");
+                                                    $itr = 1;
+                                                    while ($rowDrain = mysqli_fetch_assoc($selectMeasureDrain)) {
+                                                        echo '
+                                                            <tr>
+                                                                <td>'.$itr++.'</td>
+                                                                <td>'.$rowDrain['drain_measurement'].'</td>
+                                                                <td>'.substr($rowDrain['manual_date'], 0,10).'</td>';
+
+                                                                $time = substr($rowDrain['manual_date'], 10);
+                                                                $time12Hr = date('h:i A', strtotime($time));
+
+
+                                                                echo '<td>'.$time12Hr.'</td>
+                                                                <td class="text-center"><a href="patients_observation_bp_edit.php" type="button" class="btn text-white btn-warning waves-effect waves-light btn-sm">Edit</a></td>
+                                                            </tr>
+                                                        ';
+                                                    }
+                                                    ?>
                                                 </tbody>
                                             </table>
                                         </div>
@@ -206,16 +256,31 @@ include '../_partials/header.php';
                                                         <th>#</th>
                                                         <th>N/G Measurement</th>
                                                         <th>Date</th>
+                                                        <th>Time</th>
                                                         <th>Edit</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr>
-                                                        <td>a</td>
-                                                        <td>a</td>
-                                                        <td>a</td>
-                                                        <td class="text-center"><a href="patients_observation_ng_edit.php" type="button" class="btn text-white btn-warning waves-effect waves-light btn-sm">Edit</a></td>
-                                                    </tr>
+                                                    <?php
+                                                    $selectMeasureNG = mysqli_query($connect, "SELECT * FROM `pat_observation_ng` WHERE pat_id = '$id'");
+                                                    $itr = 1;
+                                                    while ($rowNG = mysqli_fetch_assoc($selectMeasureNG)) {
+                                                        echo '
+                                                            <tr>
+                                                                <td>'.$itr++.'</td>
+                                                                <td>'.$rowNG['ng_measurement'].'</td>
+                                                                <td>'.substr($rowNG['manual_date'], 0,10).'</td>';
+
+                                                                $time = substr($rowNG['manual_date'], 10);
+                                                                $time12Hr = date('h:i A', strtotime($time));
+
+
+                                                                echo '<td>'.$time12Hr.'</td>
+                                                                <td class="text-center"><a href="patients_observation_bp_edit.php" type="button" class="btn text-white btn-warning waves-effect waves-light btn-sm">Edit</a></td>
+                                                            </tr>
+                                                        ';
+                                                    }
+                                                    ?>
                                                 </tbody>
                                             </table>
                                         </div>
