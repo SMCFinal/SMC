@@ -9,30 +9,27 @@ $pat_id = $_GET['pat_id'];
 $row_id = $_GET['id'];
 
 
-$retUrineData = mysqli_query($connect, "SELECT * FROM pat_observation_urine WHERE id = '$row_id'");
-$fetch_retUrineData = mysqli_fetch_assoc($retUrineData);
+$retDrainData = mysqli_query($connect, "SELECT * FROM pat_observation_drain WHERE id = '$row_id'");
+$fetch_retDrainData = mysqli_fetch_assoc($retDrainData);
 
 
 $error = '';
 $alreadyExist = '';
 
+    if (isset($_POST['updateDrain'])) {
+        $id = $_POST['row_id'];
+        $pat_id = $_POST['pat_id'];
+        $drainMeasurement = $_POST['drainMeasurement'];
+        $manualDate = $_POST['manualDate'];
 
-$id = $_GET['id'];
-if (isset($_POST['updateUrineMeasurement'])) {
-    $id = $_POST['id'];
-    $pat_id = $_POST['pat_id'];
-    $urineMeasurement = $_POST['urineMeasurement'];
-    $manualDate = $_POST['manualDate'];
+        $updateDrainQuery = mysqli_query($connect, "UPDATE pat_observation_drain SET drain_measurement = '$drainMeasurement', manual_date = '$manualDate' WHERE id = '$id'");
 
-    $updateUrineMeasurementQuery = mysqli_query($connect, "UPDATE pat_observation_urine SET urine_measurement = '$urineMeasurement', manual_date = '$manualDate' WHERE id = '$id'");
-
-        if (!$updateUrineMeasurementQuery) {
-            $error = 'Urine Measure Not Added! Try Again!';
-        } else {
-            header("LOCATION:patients_observation_history.php?id=".$pat_id."");
+            if (!$updateDrainQuery) {
+                $error = 'Drain Measurement Not Updated! Try Again!';
+            } else {
+                header("LOCATION:patients_observation_history.php?id=".$pat_id."");
+            }
         }
-}
-
 include '../_partials/header.php';
 ?>
 <!-- ION Slider -->
@@ -43,7 +40,7 @@ include '../_partials/header.php';
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-12">
-                <h5 class="page-title">Patient Observation Urine</h5>
+                <h5 class="page-title">Patient Observation Drain</h5>
             </div>
         </div>
         <!-- end row -->
@@ -53,39 +50,40 @@ include '../_partials/header.php';
                     <div class="card-body">
                         <!-- <h4 class="mt-0 header-title text-center ">Observation Details</h4> -->
                         <form method="POST">
-                           
+                            
                             <div class="form-group row">
-                                
-                                <label class="col-sm-2 col-form-label">Urine</label>
+                               
+                                <label class="col-sm-2 col-form-label">Drain</label>
                                 <div class="col-sm-4">
-                                    <input type="text" class="form-control" name="urineMeasurement" placeholder="Urine" required="" value="<?php echo $fetch_retUrineData['urine_measurement'] ?>">
+                                    <input type="text" class="form-control" placeholder="Drain" name="drainMeasurement" required="" value="<?php echo $fetch_retDrainData['drain_measurement'] ?>">
                                 </div>
                             </div>
-                           
-
-                            <input type="hidden" name="id" value="<?php echo $row_id ?>">
+                          
+                            <input type="hidden" name="row_id" value="<?php echo $row_id ?>">
                             <input type="hidden" name="pat_id" value="<?php echo $pat_id ?>">
-                               <br>
-                                <div class="form-group row">
-                                <label class="col-sm-2 col-form-label">Date &amp; Time</label>
-                                <div class="col-sm-4">
-                                    <div class="input-group">
-                                        <input class="form-control form_datetime" name="manualDate"  placeholder="dd/mm/yyyy-hh:mm" autoclear="" value="<?php echo $fetch_retUrineData['manual_date'] ?>">
-                                        <div class="input-group-append bg-custom b-0"><span class="input-group-text"><i class="mdi mdi-calendar"></i></span></div>
-                                    </div>
+
+                            <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Date &amp; Time</label>
+                            <div class="col-sm-4">
+                                <div class="input-group">
+                                    <input class="form-control form_datetime" name="manualDate"  placeholder="dd/mm/yyyy-hh:mm" autoclear="" value="<?php echo $fetch_retDrainData['manual_date'] ?>">
+                                    <div class="input-group-append bg-custom b-0"><span class="input-group-text"><i class="mdi mdi-calendar"></i></span></div>
                                 </div>
-                                </div><hr>
-                            
+                            </div>
+                            </div>
+                            <hr>
+
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label"></label>
                                 <div class="col-sm-10">
                                     <?php include '../_partials/cancel.php'?>
-                                    <button type="submit" name="updateUrineMeasurement" class="btn btn-primary waves-effect waves-light">Update</button>
+                                    <button type="submit" name="updateDrain" class="btn btn-primary waves-effect waves-light">Update</button>
                                 </div>
                             </div>
                         </form>
                     </div>
                 </div>
+                <h3><?php echo $error ?></h3>
             </div> <!-- end col -->
         </div> <!-- end row -->
     </div><!-- container fluid -->

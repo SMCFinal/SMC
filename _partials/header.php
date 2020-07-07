@@ -169,6 +169,8 @@
 
                                 <li><a href="lab_test_category.php">Add Lab Test Category</a></li>
                                 <li><a href="lab_test_new.php">Add New Lab Test</a></li>
+                                <li><a href="lab_test_new.php">Pending Lab Test</a></li>
+                                <li><a href="lab_test_new.php">Completed Lab Test</a></li>
                                 <li><a href="Lab_test_list.php">Lab Tests List</a></li>
 
                             </ul>

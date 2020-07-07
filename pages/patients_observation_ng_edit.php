@@ -5,21 +5,32 @@ if (empty($_SESSION["user"])) {
     header("LOCATION:../index.php");
 }
 
+$pat_id = $_GET['pat_id'];
+$row_id = $_GET['id'];
+
+
+$retNGData = mysqli_query($connect, "SELECT * FROM pat_observation_ng WHERE id = '$row_id'");
+$fetch_retNGData = mysqli_fetch_assoc($retNGData);
+
+
+
 $error = '';
 $alreadyExist = '';
 
 $id = $_GET['id'];
-    if (isset($_POST['addNG'])) {
+    if (isset($_POST['updateNG'])) {
         $id = $_POST['id'];
+        $pat_id = $_POST['pat_id'];
         $ngMeasurement = $_POST['ngMeasurement'];
         $manualDate = $_POST['manualDate'];
 
+        $updateNGQuery = mysqli_query($connect, "UPDATE pat_observation_ng SET ng_measurement = '$ngMeasurement', manual_date = '$manualDate' WHERE id = '$id'");
             $insertQuery = mysqli_query($connect, "INSERT INTO pat_observation_ng(pat_id, ng_measurement, manual_date)VALUES('$id', '$ngMeasurement', '$manualDate')");
 
             if (!$insertQuery) {
                 $error = 'NG Measurement Not Added! Try Again!';
             } else {
-                header("LOCATION:patients_observation_selector.php?id=".$id."");
+                header("LOCATION:patients_observation_history.php?id=".$pat_id."");
             }
         }
 
@@ -47,19 +58,29 @@ include '../_partials/header.php';
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">N/G</label>
                                 <div class="col-sm-4">
-                                    <input type="text" class="form-control" name="ngMeasurement" placeholder="N/G" required="">
+                                    <input type="text" class="form-control" name="ngMeasurement" placeholder="N/G" required="" value="<?php echo $fetch_retNGData['ng_measurement'] ?>">
                                 </div>
                             </div>
 
-                            <input type="hidden" name="id" value="<?php echo $id ?>">
-                           <hr>
+                            <input type="hidden" name="id" value="<?php echo $row_id ?>">
+                            <input type="hidden" name="pat_id" value="<?php echo $pat_id ?>">
+                           <br>
+                            <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Date &amp; Time</label>
+                            <div class="col-sm-4">
+                                <div class="input-group">
+                                    <input class="form-control form_datetime" name="manualDate"  placeholder="dd/mm/yyyy-hh:mm" autoclear="" value="<?php echo $fetch_retNGData['manual_date'] ?>">
+                                    <div class="input-group-append bg-custom b-0"><span class="input-group-text"><i class="mdi mdi-calendar"></i></span></div>
+                                </div>
+                            </div>
+                            </div><hr>
 
 
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label"></label>
                                 <div class="col-sm-10">
                                     <?php include '../_partials/cancel.php'?>
-                                    <button type="submit" name="addNG" class="btn btn-primary waves-effect waves-light">Update</button>
+                                    <button type="submit" name="updateNG" class="btn btn-primary waves-effect waves-light">Update</button>
                                 </div>
                             </div>
                         </form>

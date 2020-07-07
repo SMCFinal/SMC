@@ -1,4 +1,10 @@
 <?php
+    include('../_stream/config.php');
+
+    session_start();
+    if (empty($_SESSION["user"])) {
+        header("LOCATION:../index.php");
+    }
 
 include '../_partials/header.php';
 ?>
@@ -18,34 +24,29 @@ include '../_partials/header.php';
                         <h4 class="mt-0 header-title">Test Details</h4>
                         <form method="POST">
                             <div class="form-group row">
-                                <label for="example-text-input" class="col-sm-2 col-form-label">Name</label>
-                                <div class="col-sm-4">
-                                    <input class="form-control" type="text" placeholder="Name" name="nameMedicine" id="example-text-input">
-                                </div>
+                            <label class="col-sm-2 col-form-label">Select Patient</label>
+                                <div class="col-sm-4"> 
 
-                                <label for="example-text-input" class="col-sm-2 col-form-label">Price</label>
-                                <div class="col-sm-4">
-                                    <input class="form-control" type="number" placeholder="Price" name="price" id="price">
+                                <?php
+                                    $select_option = mysqli_query($connect, "SELECT patient_registration.*, rooms.room_number FROM `patient_registration`
+                                        INNER JOIN rooms ON rooms.id = patient_registration.room_id");
+                                        $options = '<select class="form-control select2" name="patientRoom" required="" style="width:100%">';
+                                          while ($row = mysqli_fetch_assoc($select_option)) {
+                                            $options.= '<option value='.$row['id'].'>'.$row['patient_name'].' --- '.$row['room_number'].'</option>';
+                                          }
+                                        $options.= "</select>";
+                                    echo $options;
+                                ?>
+                          
                                 </div>
                             </div>
-                          <!--   <div class="form-group row">
-                                <label class="col-sm-2 col-form-label">Category</label>
-                                <div class="col-sm-4">
-                                <select class="form-control designation" name="Category" id="designation" style="width: 100%"  required="">
-                                    <option value='abc'> abc</option>
-                                    <option value='abc'> abc</option>
-
-                                </select>
-
-                                </div>
-
-                            </div> -->
 
                              <div class="form-group row">
                                 <label class="col-sm-2 col-form-label"></label>
                                 <div class="col-sm-10">
                                     <?php include '../_partials/cancel.php'?>
-                                    <button type="submit" name="addMedicine" class="btn btn-primary waves-effect waves-light">Add Test</button>
+                                    <a href="" type="submit" name="addMedicine" class="btn btn-primary waves-effect waves-light">Add Test</a>
+                                    <!-- <button ></button> -->
                                 </div>
                             </div>
 
@@ -82,6 +83,15 @@ $('.attendant').select2({
     placeholder: 'Select an option',
     allowClear: true
 
+});
+</script>
+
+<script type="text/javascript" src="../assets/js/select2.min.js"></script>
+        <script type="text/javascript">
+            $('.select2').select2({
+  placeholder: 'Select an option',
+  allowClear:true
+  
 });
 </script>
 

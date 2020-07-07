@@ -71,7 +71,9 @@ include '../_partials/header.php';
 
 
                                                                 echo '<td>'.$time12Hr.'</td>
-                                                                <td class="text-center"><a href="patients_observation_bp_edit.php" type="button" class="btn text-white btn-warning waves-effect waves-light btn-sm">Edit</a></td>
+                                                                <td class="text-center">
+                                                                    <a href="patients_observation_bp_edit.php?pat_id='.$id.'&id='.$rowBP['id'].'" type="button" class="btn text-white btn-warning waves-effect waves-light btn-sm">Edit</a>
+                                                                </td>
                                                             </tr>
                                                         ';
                                                     }
@@ -111,7 +113,7 @@ include '../_partials/header.php';
 
 
                                                                 echo '<td>'.$time12Hr.'</td>
-                                                                <td class="text-center"><a href="patients_observation_bp_edit.php" type="button" class="btn text-white btn-warning waves-effect waves-light btn-sm">Edit</a></td>
+                                                                <td class="text-center"><a href="patients_observation_pulse_edit.php?pat_id='.$id.'&id='.$rowPulse['id'].'" type="button" class="btn text-white btn-warning waves-effect waves-light btn-sm">Edit</a></td>
                                                             </tr>
                                                         ';
                                                     }
@@ -132,7 +134,7 @@ include '../_partials/header.php';
                                                 <thead>
                                                     <tr>
                                                         <th>#</th>
-                                                        <th>Urine Measurement</th>
+                                                        <th>U/Measurement</th>
                                                         <th>Date</th>
                                                         <th>Time</th>
                                                         <th>Edit</th>
@@ -154,7 +156,8 @@ include '../_partials/header.php';
 
 
                                                                 echo '<td>'.$time12Hr.'</td>
-                                                                <td class="text-center"><a href="patients_observation_bp_edit.php" type="button" class="btn text-white btn-warning waves-effect waves-light btn-sm">Edit</a></td>
+
+                                                                <td class="text-center"><a href="patients_observation_urine_edit.php?pat_id='.$id.'&id='.$rowUrine['id'].'" type="button" class="btn text-white btn-warning waves-effect waves-light btn-sm">Edit</a></td>
                                                             </tr>
                                                         ';
                                                     }
@@ -194,7 +197,7 @@ include '../_partials/header.php';
 
 
                                                                 echo '<td>'.$time12Hr.'</td>
-                                                                <td class="text-center"><a href="patients_observation_bp_edit.php" type="button" class="btn text-white btn-warning waves-effect waves-light btn-sm">Edit</a></td>
+                                                                <td class="text-center"><a href="patients_observation_respiratory_edit.php?pat_id='.$id.'&id='.$rowRespiratory['id'].'" type="button" class="btn text-white btn-warning waves-effect waves-light btn-sm">Edit</a></td>
                                                             </tr>
                                                         ';
                                                     }
@@ -205,6 +208,7 @@ include '../_partials/header.php';
                                     </div>
                                 </div>
                             </div>
+                             <hr style="background-color:green;">
                             <div class="form-group row">
                                 <div class="col-sm-12 col-md-6 col-lg-6 mb-sm-3" align="center">
                                     <div class="card m-b-30">
@@ -236,7 +240,7 @@ include '../_partials/header.php';
 
 
                                                                 echo '<td>'.$time12Hr.'</td>
-                                                                <td class="text-center"><a href="patients_observation_bp_edit.php" type="button" class="btn text-white btn-warning waves-effect waves-light btn-sm">Edit</a></td>
+                                                                <td class="text-center"><a href="patients_observation_drain_edit.php?pat_id='.$id.'&id='.$rowDrain['id'].'" type="button" class="btn text-white btn-warning waves-effect waves-light btn-sm">Edit</a></td>
                                                             </tr>
                                                         ';
                                                     }
@@ -276,7 +280,7 @@ include '../_partials/header.php';
 
 
                                                                 echo '<td>'.$time12Hr.'</td>
-                                                                <td class="text-center"><a href="patients_observation_bp_edit.php" type="button" class="btn text-white btn-warning waves-effect waves-light btn-sm">Edit</a></td>
+                                                                <td class="text-center"><a href="patients_observation_ng_edit.php?pat_id='.$id.'&id='.$rowNG['id'].'" type="button" class="btn text-white btn-warning waves-effect waves-light btn-sm">Edit</a></td>
                                                             </tr>
                                                         ';
                                                     }
