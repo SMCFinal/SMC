@@ -18,7 +18,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-12">
-                <h5 class="page-title">Advance Payment</h5>
+                <h5 class="page-title">Employee Salary</h5>
             </div>
         </div>
         <!-- end row -->
@@ -46,33 +46,24 @@
 
                                  <label for="example-text-input" class="col-sm-2 col-form-label">Amount</label>
                                 <div class="col-sm-4">
-                                    <input class="form-control" type="number" placeholder="Amount" name="amount" id="example-text-input">
+                                    <input class="form-control" type="number" readonly placeholder="Amount" name="amount" id="example-text-input">
                                 </div>
 
                             </div>
 
 
                             <div class="form-group row">
-                                <label class="col-sm-2 col-form-label">Date of Payment</label>
+                                <label class="col-sm-2 col-form-label">Date of Salary</label>
                                 <div class="col-sm-4">
                                     <div class="input-group ">
-                                        <input class="form-control date dateonly" name="dateofpayment" placeholder="dd/mm/yyyy" autoclear>
+                                        <input class="form-control date dateonly" name="dateofsalary" placeholder="dd/mm/yyyy" autoclear>
                                         <div class="input-group-append bg-custom b-0"><span class="input-group-text"><i class="mdi mdi-calendar"></i></span></div>
                                     </div>
                                 </div>
                                
                             </div>
 
-                             <div class="form-group row">
-                                <label class="col-sm-2 col-form-label">Description</label>
-                                <div class="col-sm-10">
-                                    <div class="input-group ">
-                                      <textarea id="textarea" class="form-control" maxlength="225" rows="3" placeholder=""></textarea>
-                                       
-                                    </div>
-                                </div>
-                               
-                            </div>
+                            
 
 
 
@@ -82,7 +73,7 @@
                                 <div class="col-sm-10">
                                     <?php include '../_partials/cancel.php'; ?>
                                     
-                                    <button type="submit" name="patientMedicine" class="btn btn-primary waves-effect waves-light">Advance Payment</button>
+                                    <button type="submit" name="salary" class="btn btn-primary waves-effect waves-light">Salary</button>
                                     <!-- <a href="pharmacy_order_medicine_new_table.php" type="submit" name="patientMedicine" class=""></a> -->
                                 </div>
                             </div>

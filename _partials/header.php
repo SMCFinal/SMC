@@ -76,7 +76,9 @@
                             <ul class="list-unstyled">
                                 <li><a href="patient_new.php">Patient Registration</a></li>
                                 <li><a href="patients_list.php">Current Patients</a></li>
+                                <li><a href="patients_postponed_list.php">Postponed Patients</a></li>
                                 <li><a href="patients_observation.php">Patients Observation</a></li>
+                                <li><a href="patients_discharge.php">Patient Discharge</a></li>
                             </ul>
                         </li>
 
@@ -169,9 +171,8 @@
 
                                 <li><a href="lab_test_category.php">Add Lab Test Category</a></li>
                                 <li><a href="lab_test_new.php">Add New Lab Test</a></li>
-                                <li><a href="lab_test_new.php">Pending Lab Test</a></li>
-                                <li><a href="lab_test_new.php">Completed Lab Test</a></li>
-                                <li><a href="Lab_test_list.php">Lab Tests List</a></li>
+                                <li><a href="lab_test_pending.php">Pending Lab Test</a></li>
+                                <li><a href="lab_test_completed.php">Completed Lab Test</a></li>
 
                             </ul>
                         </li>

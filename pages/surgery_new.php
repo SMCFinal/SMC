@@ -59,7 +59,7 @@
                             <div class="form-group row">
                                 <label for="patient Name" class="col-sm-2 col-form-label">Patient Name</label>
                                 <div class="col-sm-4">
-                                    <input class="form-control" value="<?php echo $fetch_selectQuery['patient_name'] ?>" readonly placeholder=""  type="text" name="ptaient_name" id="">
+                                    <input class="form-control"  value="<?php echo $fetch_selectQuery['patient_name'] ?>" readonly placeholder=""  type="text" name="ptaient_name" id="">
                                 </div>
                                 <label class="col-sm-2 col-form-label">Date of Surgery</label>
                                 <div class="col-sm-4">
@@ -75,7 +75,7 @@
                                 <label class="col-sm-2 col-form-label">Surgery Name</label>
                                 <div class="col-sm-4">
                                     <?php
-                                    $select_option_specialist = mysqli_query($connect, "SELECT * FROM `surgeries` GROUP BY surgery_name");
+                                    $select_option_specialist = mysqli_query($connect, "SELECT * FROM `surgeries`  where status='1' GROUP BY surgery_name");
                                         $optionsSurgery = '<select class="form-control surgery_name" name="surgery" required="" id="surgery" style="width:100%">';
                                           while ($rowSurgery = mysqli_fetch_assoc($select_option_specialist)) {
                                             $optionsSurgery.= '<option value='.$rowSurgery['id'].'>'.$rowSurgery['surgery_name'].'</option>';
@@ -89,7 +89,7 @@
                                 <!-- <div class="col-sm-4"> -->
                                     <label for="patient Name" class="col-sm-2 col-form-label">Consultant</label>
                                 <div class="col-sm-4">
-                                    <input class="form-control" value="<?php echo "Dr. ".$fetch_selectQuery['name'] ?>" readonly placeholder=""  type="text" name="ptaient_name" id="">
+                                    <input class="form-control" required value="<?php echo "Dr. ".$fetch_selectQuery['name'] ?>" readonly placeholder=""  type="text" name="ptaient_name" id="">
                                 </div>
                                     <!-- <select class="form-control consultant" name="specialist" required="" id="specialist" style="width:100%"> -->
                                         
@@ -101,7 +101,7 @@
                             <div class="form-group row">
                                 <label for="example-email-input" class="col-sm-2 col-form-label">Consultant Charges</label>
                                 <div class="col-sm-4">
-                                    <input class="form-control"  type="number" value="<?php echo $fetch_selectQuery['salary'] ?>" name="ConsultantPrice"  placeholder="Doctor Charges" id="example-email-input">
+                                    <input class="form-control" required  type="number" value="<?php echo $fetch_selectQuery['salary'] ?>" name="ConsultantPrice"  placeholder="Doctor Charges" id="example-email-input">
                                 </div>
                             </div><hr>
                             <h4 class="mt-0 header-title"><u>Anasthesia</u></h4>
@@ -125,7 +125,7 @@
                                 </div>
                                 <label for="example-text-input" class="col-sm-2 col-form-label">Anesthesia Charges</label>
                                 <div class="col-sm-4">
-                                    <input class="form-control" placeholder="Anesthesia Charges" type="number" name="anesthesia_charges" id="anesthesiaCharges">
+                                    <input class="form-control" placeholder="Anesthesia Charges"  required type="number" name="anesthesia_charges" id="anesthesiaCharges">
                                 </div>
                             </div>
 
