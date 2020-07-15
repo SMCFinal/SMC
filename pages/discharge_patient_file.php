@@ -80,11 +80,8 @@ include '../_partials/header.php';
                                                         <td class="text-center"><strong>Price</strong></td>
                                                         <td class="text-center"><strong>Quantity</strong>
                                                         </td>
-                                                        <td class="text-right"><strong>Totals</strong></td>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <!-- foreach ($order->lineItems as $line) or some such thing here -->
+                                                        <td class="text-right"><strong>Totals</strong></total </tr> </thead> <tbody>
+                                                            <!-- foreach ($order->lineItems as $line) or some such thing here -->
                                                     <tr>
                                                         <td>BS-200</td>
                                                         <td class="text-center">$10.99</td>
@@ -97,7 +94,7 @@ include '../_partials/header.php';
                                                         <td class="text-center">3</td>
                                                         <td class="text-right">$60.00</td>
                                                     </tr>
-                                                </tbody>
+                                                    </tbody>
                                             </table>
                                         </div>
                                         <!-- <div class="d-print-none mo-mt-2">
@@ -110,8 +107,7 @@ include '../_partials/header.php';
                                 </div>
                             </div>
                         </div> <!-- end row -->
-
-                         <div class="row">
+                        <div class="row">
                             <div class="col-12">
                                 <div class="panel panel-default">
                                     <div class="p-2">
@@ -154,100 +150,144 @@ include '../_partials/header.php';
                                         </div> -->
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="panel panel-default">
-                                    <div class="p-2">
-                                        <h3 class="panel-title font-20"><strong>Laboratory Details: </strong></h3>
-                                    </div>
-                                    <div class="">
-                                        <div class="table-responsive">
-                                            <table class="table">
-                                                <thead>
-                                                    <tr>
-                                                        <td><strong>Item</strong></td>
-                                                        <td class="text-center"><strong>Price</strong></td>
-                                                        <td class="text-center"><strong>Quantity</strong>
-                                                        </td>
-                                                        <td class="text-right"><strong>Totals</strong></td>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <!-- foreach ($order->lineItems as $line) or some such thing here -->
-                                                    <tr>
-                                                        <td>BS-200</td>
-                                                        <td class="text-center">$10.99</td>
-                                                        <td class="text-center">1</td>
-                                                        <td class="text-right">$10.99</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>BS-400</td>
-                                                        <td class="text-center">$20.00</td>
-                                                        <td class="text-center">3</td>
-                                                        <td class="text-right">$60.00</td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
+                                </total </div> <div class="row">
+                                <div class="col-12">
+                                    <div class="panel panel-default">
+                                        <div class="p-2">
+                                            <h3 class="panel-title font-20"><strong>Laboratory Details: </strong></h3>
                                         </div>
-                                       
-                                      
-                                            
+                                        <div class="">
+                                            <div class="table-responsive">
+                                                <table class="table">
+                                                    <thead>
+                                                        <tr>
+                                                            <td><strong>Item</strong></td>
+                                                            <td class="text-center"><strong>Price</strong></td>
+                                                            <td class="text-center"><strong>Quantity</strong>
+                                                            </td>
+                                                            <td class="text-right"><strong>Totals</strong></total>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <!-- foreach ($order->lineItems as $line) or some such thing here -->
+                                                        <tr>
+                                                            <td>BS-200</td>
+                                                            <td class="text-center">$10.99</td>
+                                                            <td class="text-center">1</td>
+                                                            <td class="text-right">$10.99</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>BS-400</td>
+                                                            <td class="text-center">$20.00</td>
+                                                            <td class="text-center">3</td>
+                                                            <td class="text-right">$60.00</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
                                             <form>
-  <div class="row">
-    <div class="col text-right">
-    <label> xcbfb:</label>
-    </div>
-     <div class="col-md-2">
-     <input type="text" readonly class="form-control" placeholder="First name">
-    </div>
-    <div class="col-md-3">
-     <input type="text" class="form-control" placeholder="First name">
-    </div>
-
-    
-
-
-
-  </div>
-  <br/>
-   <div class="row">
-    <div class="col text-right">
-    <label> xcbfb:</label>
-    </div>
-    <div class="col-md-2">
-     <input type="text" class="form-control" placeholder="First name">
-    </div>
-   <div class="col-md-3">
-      <input type="text" class="form-control" placeholder="First name">
-    </div>
-   
-  </div>
-  <br/>
-
-   <div class="row">
-    <div class="col text-right">
-    <label> xcbfb:</label>
-    </div>
-    <div class="col-md-2">
-     <input type="text" class="form-control" placeholder="First name">
-    </div>
-    <div class="col-md-3">
-      <input type="text" class="form-control" placeholder="First name">
-    </div>
-   
-  </div>
-</form>
-                                         
-
-
-                                        </form>
-                                        <div class="d-print-none mo-mt-2">
-                                            <div class="float-right">
-                                                <a href="javascript:window.print()" class="btn btn-success waves-effect waves-light"><i class="fa fa-print"></i></a>
-                                                <a href="#" class="btn btn-primary waves-effect waves-light">Send</a>
+                                                <div class="row">
+                                                    <div class="col text-right">
+                                                        <label> Medicines Charges:</label>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <input type="number" value="2" readonly id="actMedChar" required="" onkeyUp="actCharges()" class="form-control" placeholder="Medicines Price">
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <input type="number" value="" class="form-control" id="totMedChar" required="" onkeyUp="totCharges()" placeholder="Medicines Price">
+                                                    </div>
+                                                </div>
+                                                <br />
+                                                <div class="row">
+                                                    <div class="col text-right">
+                                                        <label> Room Charges:</label>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <input type="number" value="2" readonly id="actRoomChar" required="" onkeyUp="actCharges()" class="form-control" placeholder="Room Charges">
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <input type="number" value="" id="totRoomChar" required="" onkeyUp="totCharges()" class="form-control" placeholder="Room Charges">
+                                                    </div>
+                                                </div>
+                                                <br />
+                                                <div class="row">
+                                                    <div class="col text-right">
+                                                        <label> OT Charges:</label>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <input type="number" value="2" id="actOtChar" required="" onkeyUp="actCharges()" readonly class="form-control" placeholder="OT Charges">
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <input type="number" value="" id="totOtChar" required="" onkeyUp="totCharges()" class="form-control" placeholder="OT Charges">
+                                                    </div>
+                                                </div>
+                                                <br />
+                                                <div class="row">
+                                                    <div class="col text-right">
+                                                        <label> Hospital Charges:</label>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <input type="number" value="2" id="actHosChar" required="" onkeyUp="actCharges()" readonly class="form-control" placeholder="Hospital Charges">
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <input type="number" value="" id="totHosChar" required="" onkeyUp="totCharges()" class="form-control" placeholder="Hospital Charges">
+                                                    </div>
+                                                </div>
+                                                <br />
+                                                <div class="row">
+                                                    <div class="col text-right">
+                                                        <label> Lab Charges:</label>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <input type="number" value="2" id="actLabChar" required="" onkeyUp="actCharges()" readonly class="form-control" placeholder="Lab Charges">
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <input type="number" value="" id="totLabChar" required="" onkeyUp="totCharges()" class="form-control" placeholder="Lab Charges">
+                                                    </div>
+                                                </div>
+                                                <br />
+                                                <div class="row">
+                                                    <div class="col text-right">
+                                                        <label> Doctor Charges:</label>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <input type="number" value="2" id="actDrChar" required="" onkeyUp="actCharges()" readonly class="form-control" placeholder="Doctor Charges">
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <input type="number" value="" id="TotDrChar" required="" onkeyUp="totCharges()" class="form-control" placeholder="Doctor Charges">
+                                                    </div>
+                                                </div>
+                                                <br />
+                                                <div class="row">
+                                                    <div class="col text-right">
+                                                        <label> Anesthesia Charges:</label>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <input type="number" value="2" id="actAnesChar" required="" onkeyUp="actCharges()" readonly class="form-control" placeholder="Anesthesia Charges">
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <input type="number" value="" id="totAnesChar" required="" onkeyUp="totCharges()" class="form-control" placeholder="Anesthesia Charges">
+                                                    </div>
+                                                </div>
+                                                <br />
+                                                <div class="row">
+                                                    <div class="col text-right">
+                                                        <label> Actual Charges:</label>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <input type="number" value="" id="actualCharges" readonly class="form-control" placeholder="Actual Charges">
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <input type="number" value="" id="totalCharges" class="form-control" readonly placeholder="Total Charges"> </div>
+                                                </div>
+                                                <br />
+                                            </form>
+                                            </form>
+                                            <div class="d-print-none mo-mt-2">
+                                                <div class="float-right">
+                                                    <a href="javascript:window.print()" class="btn btn-success waves-effect waves-light"><i class="fa fa-print"></i></a>
+                                                    <a href="#" class="btn btn-primary waves-effect waves-light">Send</a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -255,11 +295,10 @@ include '../_partials/header.php';
                             </div>
                         </div>
                     </div>
-                </div>
-            </div> <!-- end col -->
-        </div> <!-- end row -->
-    </div><!-- container fluid -->
-</div> <!-- Page content Wrapper -->
+                </div> <!-- end col -->
+            </div> <!-- end row -->
+        </div><!-- container fluid -->
+    </div> <!-- Page content Wrapper -->
 </div> <!-- content -->
 <?php include '../_partials/footer.php'?>
 </div>
@@ -292,6 +331,56 @@ $('.select2').select2({
     allowClear: true
 
 });
+</script>
+<script type="text/javascript">
+    window.onload = function() {
+        actCharges();
+        totCharges();
+        console.log('executed')
+    }
+function actCharges() {
+   let totalChargesVar = [];
+    let totalCalcCharges = 0;
+
+    totalChargesVar['actMedChar'] = parseInt(document.getElementById('actMedChar').value);
+    totalChargesVar['actRoomChar'] = parseInt(document.getElementById('actRoomChar').value);
+    totalChargesVar['actOtChar'] = parseInt(document.getElementById('actOtChar').value);
+    totalChargesVar['actHosChar'] = parseInt(document.getElementById('actHosChar').value);
+    totalChargesVar['actLabChar'] = parseInt(document.getElementById('actLabChar').value);
+    totalChargesVar['actDrChar'] = parseInt(document.getElementById('actDrChar').value);
+    totalChargesVar['actAnesChar'] = parseInt(document.getElementById('actAnesChar').value);
+    document.getElementById('actualCharges').value = '';
+
+    for (let key in totalChargesVar) {
+        if (totalChargesVar[key]) {
+            totalCalcCharges += totalChargesVar[key];
+            
+            document.getElementById('actualCharges').value = totalCalcCharges;
+        }
+    }
+}
+
+function totCharges() {
+    let totalChargesVar = [];
+    let totalCalcCharges = 0;
+
+    totalChargesVar['totMedChar'] = parseInt(document.getElementById('totMedChar').value);
+    totalChargesVar['totRoomChar'] = parseInt(document.getElementById('totRoomChar').value);
+    totalChargesVar['totOtChar'] = parseInt(document.getElementById('totOtChar').value);
+    totalChargesVar['totHosChar'] = parseInt(document.getElementById('totHosChar').value);
+    totalChargesVar['totLabChar'] = parseInt(document.getElementById('totLabChar').value);
+    totalChargesVar['TotDrChar'] = parseInt(document.getElementById('TotDrChar').value);
+    totalChargesVar['totAnesChar'] = parseInt(document.getElementById('totAnesChar').value);
+    document.getElementById('totalCharges').value = '';
+
+    for (let key in totalChargesVar) {
+        if (totalChargesVar[key]) {
+            totalCalcCharges += totalChargesVar[key];
+            
+            document.getElementById('totalCharges').value = totalCalcCharges;
+        }
+    }
+}
 </script>
 </body>
 
