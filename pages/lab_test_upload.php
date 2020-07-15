@@ -23,7 +23,7 @@ if (isset($_POST['Upload'])) {
 
     $newName = $file_name.date("miYis").'.'.$file_ext;
 
-    $saveto = "images/".$newName;
+    $saveto = "../_labFiles/".$newName;
 
     if (move_uploaded_file($temp, $saveto)) {
     
@@ -37,9 +37,10 @@ if (isset($_POST['Upload'])) {
                                             WHERE lab_order.reference_no = 'ref_no'");
     $fetch_querySum = mysqli_fetch_assoc($querySum);
     $totalTestPrice = $fetch_querySum['totalPriceLab'];
+    $patient = $fetch_querySum['pat_id'];
 
 
-    
+
 
 
 
@@ -114,18 +115,18 @@ if (isset($_POST['Upload'])) {
                                                 <a href="lab_test_upload.php?id=<?php echo $id ?>" class="btn btn-danger waves-effect waves-light">Remove File <i class="fa fa-trash"></i></a>
                                             </div>
                                             <br>
-                                            <div class="m-b-30">
-                                                <form action="#" method="POST" class="dropzone">
-                                                    <input type="hidden" name="ref_no" value="<?php echo $id ?>">
-                                                    <div class="fallback">
-                                                        <input name="uploadFile" type="file">
-                                                    </div>
-                                                </form>
-                                            </div>
-            
-                                            <div class="text-center m-t-15">
-                                                <button type="button" name="Upload" class="btn btn-primary waves-effect waves-light">Send Files</button>
-                                            </div>
+                                            <form action="#" method="POST" class="dropzone" enctype="multipart/form-data">
+                                                <div class="m-b-30">
+                                                        <input type="hidden" name="ref_no" required="" value="<?php echo $id ?>" >
+                                                        <div class="fallback">
+                                                            <input name="uploadFile" type="file">
+                                                        </div>
+                                                </div>
+                
+                                                <div class="text-center m-t-15" >
+                                                    <button name="Upload" class="btn btn-primary waves-effect waves-light" type="submit">Send Files</button>
+                                                </div>
+                                            </form>
             
                                         </div>
                                     </div>
