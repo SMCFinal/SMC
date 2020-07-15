@@ -5,13 +5,13 @@ include '../_stream/config.php';
         header("LOCATION:../index.php");
     }
 
-    $id = $_GET['patientId'];
+    $id = $_GET['id'];
 
     if (isset($_POST['addOrder'])) {
         header("LOCATION:Pharmacy_order.php");
     }
 
-    $referenceNo_query = mysqli_query($connect, "SELECT MAX(reference_no) as dbRef FROM medicine_order");
+    $referenceNo_query = mysqli_query($connect, "SELECT MAX(reference_no) as dbRef FROM lab_order");
 
     $fetch_referenceNo = mysqli_fetch_assoc($referenceNo_query);
 
@@ -60,19 +60,17 @@ include '../_partials/header.php';
                                     <?php
                                     $itr = 1;
 
-                                    $retMedicines = mysqli_query($connect, "SELECT add_medicines.*, medicine_category.category_name FROM `add_medicines`
-                                    INNER JOIN medicine_category ON medicine_category.id = add_medicines.medicine_category");
+                                    $retMedicines = mysqli_query($connect, "SELECT * FROM `lab_test_category`");
 
                                     while ($rowMedicines = mysqli_fetch_assoc($retMedicines)) {
                                         echo '
                                                 <div id="myDiv">
                                             <tr>
                                                 <td>'.$itr++.'.'.'</td>
-                                                <td>'.$rowMedicines['medicine_name'].'</td>
-                                                <td>'.$rowMedicines['category_name'].'</td>
+                                                <td>'.$rowMedicines['test_name'].'</td>
+                                                <td>'.$rowMedicines['test_price'].'</td>
 
                                                 <input  class="some'.$itr.'" type="hidden" name="medicine[]" value='.$rowMedicines['id'].'>
-                                                <input  class="some'.$itr.'" type="hidden" name="category[]" value='.$rowMedicines['medicine_category'].'>
 
                                                
                                                 <td class="zoom">
@@ -165,9 +163,11 @@ $(document).ready(function() {
                 var classNameIndex = classNameSplit[1];
 
                 var RowData = document.getElementsByClassName(classNameIndex);
+                console.log(RowData)
                 for (var TakeRowData = 0; TakeRowData <= RowData.length - 1; TakeRowData++) {
                     arrayData.push(RowData[TakeRowData].value)
                 }
+
                 arrayPureData.push(arrayData)
                 arrayData = []
 
@@ -181,6 +181,14 @@ $(document).ready(function() {
 
 
                 console.log(arrayPureData)
+
+
+
+
+
+
+
+
                 for( var pureData in arrayPureData){
                 // if ((index = arrayPureData[pureData])) {}
                     // arrayPureData[pureData]
@@ -188,26 +196,26 @@ $(document).ready(function() {
                 }
                     var medicineCategory = arrayPureData[pureData][0]
                     var Category = arrayPureData[pureData][1]
-                    var qty = arrayPureData[pureData][2]
+                    // var qty = arrayPureData[pureData][2]
 
                     var patient = document.getElementById('userId').value;
                     var reference_number = document.getElementById('refNo').value;
                     // var status = arrayPureData[pureData][3]
                     
                     $.ajax({
-                        url: "Pharmacy_order.php",
+                        url: "lab_test_order.php",
                         method: "GET",
                         data: {
                             medicineCategory,
                             Category,
-                            qty,
+                            // qty,
                             patient,
                             reference_number
                         },
                         dataType : 'html',
                         success: function(res) {
                             console.log(res)
-                            window.location.href = 'order_placed.php';
+                            window.location.href = 'order_placed_lab.php';
                         },
                         error:function(e){
                             console.log(e)
@@ -224,12 +232,6 @@ $(document).ready(function() {
         }
 
     }
-
-        // alert(medicineCategory)
-        // alert("ASCBKASJC")
-
-        // 
-
 
 </script>
 <style type="text/css">

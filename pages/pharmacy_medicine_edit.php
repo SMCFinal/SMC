@@ -60,9 +60,12 @@ include '../_partials/header.php';
                                 $selectCategory = mysqli_query($connect, "SELECT * FROM medicine_category");
                                     $optionsCategory = '<select class="form-control designation" name="medicineCategory" required="" style="width:100%">';
                                       while ($rowCategory = mysqli_fetch_assoc($selectCategory)) {
+                                        
                                         if ($rowCategory['id'] == $fetch_retMedicinesData['medicine_category']) {
                                             $optionsCategory.= '<option value='.$rowCategory['id'].' selected>'.$rowCategory['category_name'].'</option>';     
+                                        
                                         }else {
+                                        
                                         $optionsCategory.= '<option value='.$rowCategory['id'].'>'.$rowCategory['category_name'].'</option>';
 
                                         }

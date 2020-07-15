@@ -5,11 +5,13 @@
         header("LOCATION:../index.php");
     }
 
-    $id = $_GET['id'];
+    $id = $_GET['ref'];
 
-    $selectQuery = mysqli_query($connect, "SELECT staff_members.*, staff_category.* FROM `staff_members`
-                                INNER JOIN staff_category ON staff_category.id = staff_members.category_id
-                                WHERE staff_members.status = '1' AND staff_members.cnic = '$id'");
+    $selectQuery = mysqli_query($connect, "SELECT lab_order.id AS labId, lab_order.*, patient_registration.patient_name, patient_registration.attendent_name, patient_registration.patient_address, rooms.room_number, lab_test_category.* FROM `lab_order` 
+                                                        INNER JOIN patient_registration ON patient_registration.id = lab_order.pat_id
+                                                        INNER JOIN lab_test_category ON lab_test_category.id = lab_order.lab_test_id
+                                                        INNER JOIN rooms ON rooms.id = patient_registration.room_id
+                                                        WHERE lab_order.reference_no = '$id'");
     $fetch_selectQuery = mysqli_fetch_assoc($selectQuery);
 
     include('../_partials/header.php'); 
@@ -20,13 +22,8 @@
         <div class="row">
             <div class="col-sm-12">
                 <div class="float-right page-breadcrumb">
-                 <!--    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="#">Drixo</a></li>
-                        <li class="breadcrumb-item"><a href="#">Tables</a></li>
-                        <li class="breadcrumb-item active">Datatable</li>
-                    </ol> -->
                 </div>
-                <h5 class="page-title">Test Details</h5>
+                <h5 class="page-title">Patient Test Details</h5>
             </div>
         </div>
         <!-- end row -->
@@ -34,52 +31,56 @@
             <div class="col-12">
                 <div class="card m-b-30">
                     <div class="card-body">
-                        <h4 class="mt-0 header-title d-inline"><h3><?php echo $fetch_selectQuery['name'] ?></h3></h4>
-                       
-                       
-                   
-                        
+                            <a href="lab_test_pending.php" class="btn btn-primary waves-effect waves-light"><i class="fa fa-arrow-left"></i></a>
                         <div class="table-responsive mt-5">
                             <table class="table mb-0">
                                 <tbody>
                                     <tr>
                                         <th scope="row">Name</th>
-                                        <td><?php echo $fetch_selectQuery['name'] ?></td>
+                                        <td><?php echo $fetch_selectQuery['patient_name'] ?></td>
                                     </tr>
                                     <tr>
-                                        <th scope="row">CNIC</th>
-                                        <td><?php echo $fetch_selectQuery['cnic'] ?></td>
+                                        <th scope="row">Attendent Name</th>
+                                        <td><?php echo $fetch_selectQuery['attendent_name'] ?></td>
                                     </tr>
                                     <tr>
-                                        <th scope="row">Designation</th>
-                                        <td><?php echo $fetch_selectQuery['category_name'] ?></td>
+                                        <th scope="row">Room Number</th>
+                                        <td><?php echo $fetch_selectQuery['room_number'] ?></td>
                                     </tr>
-                                    
-                                     <tr>
-                                        <th scope="row">Salary</th>
-                                        <td><?php echo $fetch_selectQuery['salary'] ?></td>
-                                    </tr>
-                                     <tr>
-                                        <th scope="row">Date of Joining</th>
-                                        <td><?php echo $fetch_selectQuery['date_of_joining'] ?></td>
-                                    </tr>
-                                     <tr>
-                                        <th scope="row">Start Time</th>
-                                        <td><?php echo $fetch_selectQuery['start_time'] ?></td>
-                                    </tr>
-
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive mt-5">
+                            <table class="table mb-0">
+                                <thead>
                                     <tr>
-                                        <th scope="row">End Time</th>
-                                        <td><?php echo $fetch_selectQuery['end_time'] ?></td>
+                                        <th>#</th>
+                                        <th>Test Name</th>
+                                        <th>Test Price</th>
+                                        <th>Test Status</th>
                                     </tr>
+                                </thead>
+                                <tbody>
+                                    <?php 
+                                    $query = mysqli_query($connect, "SELECT lab_order.*, lab_test_category.* FROM `lab_order`
+                                    INNER JOIN lab_test_category ON lab_test_category.id = lab_order.lab_test_id
+                                    WHERE lab_order.reference_no = '$id'");
 
-                                    <tr>
-                                        <th scope="row">Visit Charges</th>
-                                        <td><?php echo $fetch_selectQuery['visit_charges'] ?></td>
-                                    </tr>
+                                    $itr = 1;
 
-                                   
-
+                                    while ($row = mysqli_fetch_assoc($query)) {
+                                        echo '
+                                            <tr>
+                                                <td>'.$itr++.'</td>
+                                                <td>'.$row['test_name'].'</td>
+                                                <td>'.$row['test_price'].'</td>
+                                                <td><b><i>Pending Result</i></b></td>
+                                            </tr>
+                                        ';
+                                    }
+                                    ?>
                                 </tbody>
                             </table>
                         </div>

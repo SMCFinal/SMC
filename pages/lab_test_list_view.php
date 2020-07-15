@@ -28,12 +28,10 @@ include '../_stream/config.php';
 <style type="text/css">
     .table thead th {
         border-bottom:none;
-
     }
     .table thead td,.table thead th {
          border-bottom: 1px solid #dee2e6;
          border-top: none;
-
     }
 </style>
 
@@ -66,27 +64,26 @@ include '../_stream/config.php';
                                 <tr>
                                     <th>#</th>
                                     <th>Patient Name</th>
-                                    <th>Floor #</th>
                                     <th>Room #</th>
+                                    <th>Patient Case</th>
                                       <th class="text-center"><i class="mdi mdi-eye"></i></th>
                                 </tr>
                             </thead>
                             <tbody>
                             <?php
                             $itr = 1;
-                            $retQuery = mysqli_query($connect, "SELECT medicine_order.*, patient_registration.patient_name, patient_registration.patient_contact, patient_registration.attendent_name ,patient_registration.room_id, rooms.*, floors.* FROM `medicine_order`
-                                INNER JOIN patient_registration ON patient_registration.id = medicine_order.patient_id
-                                INNER JOIN rooms ON rooms.id = patient_registration.room_id
-                                INNER JOIN floors ON floors.id = rooms.floor_id
-                                WHERE medicine_order.pharmacy_status = '1'
-                                GROUP BY medicine_order.reference_no  ORDER BY medicine_order.reference_no ASC");
+                            $retQuery = mysqli_query($connect, "SELECT lab_order.id AS labId, lab_order.*, patient_registration.patient_name, patient_registration.attendent_name, patient_registration.patient_address, patient_registration.patient_disease, rooms.room_number, lab_test_category.* FROM `lab_order` 
+                                                        INNER JOIN patient_registration ON patient_registration.id = lab_order.pat_id
+                                                        INNER JOIN lab_test_category ON lab_test_category.id = lab_order.lab_test_id
+                                                        INNER JOIN rooms ON rooms.id = patient_registration.room_id
+                                                        WHERE lab_order.lab_status = '1' GROUP BY lab_order.reference_no");
                             while ($rowRetOrders = mysqli_fetch_assoc($retQuery)) {
                                         echo '
                                          <tr>
                                             <td>'.$itr++.'</td>
                                             <td>'.$rowRetOrders['patient_name'].'</td>
-                                            <td>'.$rowRetOrders['floor_name'].'</td>
                                             <td>'.$rowRetOrders['room_number'].'</td>
+                                            <td>'.$rowRetOrders['patient_disease'].'</td>
                                             
                                             <td class="text-center"><a href="./lab_view.php?ref_no='.$rowRetOrders['reference_no'].'&name='.$rowRetOrders['patient_name'].'&room='.$rowRetOrders['room_number'].'" type="button" class="btn text-white btn-primary waves-effect waves-light btn-sm">View</a></td>
 

@@ -5,10 +5,18 @@
             header("LOCATION:../index.php");
         }
 
-        if (isset($_POST['patientMedicine'])) {
-            $patient = $_POST['patients'];
+        if (isset($_POST['salary'])) {
+            $employeeName = $_POST['employeeName'];
+            $amount = $_POST['amount'];
+            $dateofsalary = $_POST['dateofsalary'];
 
-            header('LOCATION:pharmacy_order_medicine_new_table.php?patientId='.$patient.'');
+
+            $salaryQuery = mysqli_query($connect, "INSERT INTO employee_salary(emp_id, salary_amount, salaray_dop)VALUES('$employeeName', '$amount', '$dateofsalary')");
+            
+            $updateQuery = mysqli_query($connect, "UPDATE emp_advance_payment SET adv_status = '0'");
+            if ($updateQuery) {
+                header('LOCATION:employee_salary_list.php');
+            }
         }
 
     include '../_partials/header.php';
@@ -30,41 +38,44 @@
                             <div class="form-group row">
                                  <label for="example-text-input" class="col-sm-2 col-form-label">Employee Name</label>
                                 <div class="col-sm-4">
-                                <?php
-                                $selectPatient = mysqli_query($connect, "SELECT patient_registration.id AS patientId , patient_registration.patient_name,  rooms.*, floors.* FROM `patient_registration`
-                                    INNER JOIN rooms ON rooms.id = patient_registration.room_id
-                                    INNER JOIN floors ON floors.id = rooms.floor_id");
-                                        $optionsPatientRooms = '<select class="form-control designation" name="patients" required="" style="width:100%">';
-                                          while ($rowPatientsRooms = mysqli_fetch_assoc($selectPatient)) {
-                                            $optionsPatientRooms.= '<option value='.$rowPatientsRooms['patientId'].'>'.$rowPatientsRooms['patient_name'].' - '.$rowPatientsRooms['room_number'].'</option>';
+                                 <?php
+                                $selectEmp = mysqli_query($connect, "SELECT * FROM `employee_registration`");
+                                        $optionEmp = '<select class="form-control designation" name="employeeName" required="" style="width:100%" id="emp">';
+                                          while ($rowEmp = mysqli_fetch_assoc($selectEmp)) {
+                                            $optionEmp.= '<option value='.$rowEmp['id'].'>'.$rowEmp['emp_name'].' - 0'.$rowEmp['emp_contact'].'</option>';
                                           }
-                                        $optionsPatientRooms.= "</select>";
-                                echo $optionsPatientRooms;
+                                        $optionEmp.= "</select>";
+                                echo $optionEmp;
                                 ?>
+
 
                                 </div>
 
-                                 <label for="example-text-input" class="col-sm-2 col-form-label">Amount</label>
-                                <div class="col-sm-4">
-                                    <input class="form-control" type="number" readonly placeholder="Amount" name="amount" id="example-text-input">
+                                 <label for="example-text-input" class="col-sm-3 col-form-label">Advanced Recieved Amount</label>
+                                <div class="col-sm-3">
+                                    <input class="form-control" id="recEmp" type="number" readonly placeholder="Amount" id="example-text-input">
                                 </div>
 
                             </div>
 
 
                             <div class="form-group row">
+
+                                <label for="example-text-input" class="col-sm-2 col-form-label">Amount</label>
+                                <div class="col-sm-4">
+                                    <input class="form-control" required="" id="salaryEmp" type="number" placeholder="Amount" name="amount" id="example-text-input">
+                                </div>
+
+
                                 <label class="col-sm-2 col-form-label">Date of Salary</label>
                                 <div class="col-sm-4">
                                     <div class="input-group ">
-                                        <input class="form-control date dateonly" name="dateofsalary" placeholder="dd/mm/yyyy" autoclear>
+                                        <input class="form-control date dateonly" required="" name="dateofsalary" placeholder="dd/mm/yyyy" autoclear>
                                         <div class="input-group-append bg-custom b-0"><span class="input-group-text"><i class="mdi mdi-calendar"></i></span></div>
                                     </div>
                                 </div>
                                
                             </div>
-
-                            
-
 
 
 
@@ -127,6 +138,32 @@ $(".dateonly").datetimepicker({
     todayBtn: true,
 });
 </script>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+      $('#emp').change(function(){
+        var emp = $(this).val();
+        $.ajax({
+          url:"getEmpRecAdvAmount.php",
+          method:"POST",
+          data:{
+            empId:emp
+          },
+          dataType:"text",
+          success:function(data){
+            $('#recEmp').html(data);
+            var allData = data;
+            console.log(data);
+            var splitArray = allData.split("|");
+
+
+            document.getElementById('recEmp').value= splitArray[1];
+            document.getElementById('salaryEmp').value= splitArray[0];
+          }
+        });
+      });
+    });
+  </script>
 </body>
 
 </html>

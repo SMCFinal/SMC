@@ -58,11 +58,11 @@
                                      <tr>
                                         <th scope="row">Gender</th>
                                         <?php
-                                        if ($fetch_selectQuery['emp_designation'] == '1') {
+                                        if ($fetch_selectQuery['emp_gender'] == 1) {
                                             echo '<td>Male</td>';
-                                        }elseif ($fetch_selectQuery['emp_designation'] == '2') {
+                                        }elseif ($fetch_selectQuery['emp_gender'] == 2) {
                                             echo '<td>Female</td>';
-                                        }elseif ($fetch_selectQuery['emp_designation'] == '3') {
+                                        }elseif ($fetch_selectQuery['emp_gender'] == 3) {
                                             echo '<td>Other</td>';
                                         }
                                         ?>
