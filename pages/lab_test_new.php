@@ -6,6 +6,11 @@
         header("LOCATION:../index.php");
     }
 
+    if (isset($_POST['addTest'])) {
+        echo $id = $_POST['patient'];
+        header("LOCATION: lab_test_patient_new.php?id=".$id."");
+    }
+
 include '../_partials/header.php';
 ?>
 <!-- Top Bar End -->
@@ -30,7 +35,7 @@ include '../_partials/header.php';
                                 <?php
                                     $select_option = mysqli_query($connect, "SELECT patient_registration.*, rooms.room_number FROM `patient_registration`
                                         INNER JOIN rooms ON rooms.id = patient_registration.room_id");
-                                        $options = '<select class="form-control select2" name="patientRoom" required="" style="width:100%">';
+                                        $options = '<select class="form-control select2" name="patient" required="" style="width:100%">';
                                           while ($row = mysqli_fetch_assoc($select_option)) {
                                             $options.= '<option value='.$row['id'].'>'.$row['patient_name'].' --- '.$row['room_number'].'</option>';
                                           }
@@ -45,8 +50,7 @@ include '../_partials/header.php';
                                 <label class="col-sm-2 col-form-label"></label>
                                 <div class="col-sm-10">
                                     <?php include '../_partials/cancel.php'?>
-                                    <a href="" type="submit" name="addMedicine" class="btn btn-primary waves-effect waves-light">Add Test</a>
-                                    <!-- <button ></button> -->
+                                    <button type="submit" name="addTest" class="btn btn-primary waves-effect waves-light">Add Test</button>
                                 </div>
                             </div>
 

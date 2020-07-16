@@ -209,7 +209,7 @@ $(document).ready(function() {
                         dataType : 'html',
                         success: function(res) {
                             console.log(res)
-                            window.location.href = 'order_paced.php';
+                            window.location.href = 'order_placed.php';
                         },
                         error:function(e){
                             console.log(e)

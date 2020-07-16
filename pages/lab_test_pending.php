@@ -33,36 +33,35 @@
                                                 <thead>
                                                 <tr>
                                                     <th>#</th>
+                                                    <th>Reference No. </th>
                                                     <th>Patient</th>
                                                     <th>Attendant Name</th>
                                                     <th>Address</th>
-                                                                                                       
-                                                    <!-- <th class="text-center"> <i class="fa fa-eye"></i></th> -->
                                                     <th class="text-center"> <i class="fa fa-edit"></i></th>
-                                                    <!-- <th  class="text-center"><i class="fa fa-trash"></i></th> -->
                                                 </tr>
                                                 </thead>
                                                 <tbody>
                                                     <?php 
-                                                    $retrieveRooms = mysqli_query($connect, "SELECT rooms.*, floors.floor_name FROM `rooms` INNER JOIN floors ON floors.id = rooms.floor_id");
+                                                    $retrieveLabsTests = mysqli_query($connect, "SELECT lab_order.id AS labId, lab_order.*, patient_registration.patient_name, patient_registration.attendent_name, patient_registration.patient_address, rooms.room_number, lab_test_category.* FROM `lab_order` 
+                                                        INNER JOIN patient_registration ON patient_registration.id = lab_order.pat_id
+                                                        INNER JOIN lab_test_category ON lab_test_category.id = lab_order.lab_test_id
+                                                        INNER JOIN rooms ON rooms.id = patient_registration.room_id
+                                                        WHERE lab_order.lab_status = '1' GROUP BY lab_order.reference_no");
 
                                                     $iteration = 1;
 
-                                                    while ($rowRooms = mysqli_fetch_assoc($retrieveRooms)) {
+                                                    while ($rowLabTests = mysqli_fetch_assoc($retrieveLabsTests)) {
                                                         
                                                         echo '
                                                         <tr>
                                                             <td>'.$iteration++.'</td>
-                                                            <td>'.$rowRooms['room_number'].'</td>
-                                                            <td>'.$rowRooms['floor_name'].'</td>
-                                                            <td>'.$rowRooms['room_price'].'</td>';
-
-                                                          
-                                                            
-                                                            // <td></td>
+                                                            <td>'.$rowLabTests['reference_no'].'</td>
+                                                            <td>'.$rowLabTests['patient_name'].'</td>
+                                                            <td>'.$rowLabTests['attendent_name'].'</td>
+                                                            <td>'.$rowLabTests['room_number'].'</td>';
                                                             
                                                              echo '
-                                                            <td class="text-center"><a href="lab_test_patient_view.php?id='.$rowRooms['id'].'" type="button" class="btn text-white btn-info waves-effect waves-light">View</a></td>
+                                                            <td class="text-center"><a href="lab_test_patient_view.php?ref='.$rowLabTests['reference_no'].'" type="button" class="btn text-white btn-info waves-effect waves-light">View</a></td>
                                                         </tr>
                                                         ';
                                                     }

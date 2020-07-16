@@ -11,16 +11,16 @@ $id = $_GET['ref_no'];
 $name = $_GET['name'];
 $room = $_GET['room'];
 
-if (isset($_POST['completeOrder'])) {
-    $ref_no = $_POST['refNo'];
+// if (isset($_POST['completeOrder'])) {
+//     $ref_no = $_POST['refNo'];
 
-    $updateQuery = mysqli_query($connect, "UPDATE medicine_order SET pharmacy_status = '0' WHERE reference_no = '$ref_no'");
-    if (!$updateQuery) {
-        $error = "Not Done. Please Try Again!";
-    }else {
-        header("LOCATION:pharmacy_list.php");
-    }
-}
+//     $updateQuery = mysqli_query($connect, "UPDATE medicine_order SET pharmacy_status = '0' WHERE reference_no = '$ref_no'");
+//     if (!$updateQuery) {
+//         $error = "Not Done. Please Try Again!";
+//     }else {
+//         header("LOCATION:pharmacy_list.php");
+//     }
+// }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -86,27 +86,24 @@ if (isset($_POST['completeOrder'])) {
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Medicine Name</th>
-                                    <th>Medicine Category</th>
-                                    <th>Quantity</th>
+                                    <th>Test Name</th>
+                                    <th>Test Price</th>
                                 </tr>
                             </thead>
                             <input type="hidden" name="refNo" value="<?php echo $id ?>">
                             <tbody>
                                 <?php 
                                     $itr = 1;
-                                        $queryListMedicines = mysqli_query($connect, "SELECT medicine_order.*, add_medicines.medicine_name, medicine_category.category_name FROM `medicine_order`
-                                            INNER JOIN add_medicines ON add_medicines.id = medicine_order.med_id
-                                            INNER JOIN medicine_category ON medicine_category.id = medicine_order.cat_id
-                                            WHERE medicine_order.reference_no = '$id'");
+                                        $queryListLabTest = mysqli_query($connect, "SELECT lab_order.*, lab_test_category.* FROM `lab_order`
+                                            INNER JOIN lab_test_category ON lab_test_category.id = lab_order.lab_test_id
+                                            WHERE lab_order.reference_no = '$id'");
                                        
-                                        while ($rowList = mysqli_fetch_assoc($queryListMedicines)) {
+                                        while ($rowList = mysqli_fetch_assoc($queryListLabTest)) {
                                             echo '
                                             <tr>
                                                 <td>'.$itr++.'</td>
-                                                <td>'.$rowList['medicine_name'].'</td>
-                                                <td>'.$rowList['category_name'].'</td>
-                                                <td>'.$rowList['med_qty'].'</td>
+                                                <td>'.$rowList['test_name'].'</td>
+                                                <td>'.$rowList['test_price'].'</td>
                                             </tr>
                                             ';
 
@@ -114,8 +111,11 @@ if (isset($_POST['completeOrder'])) {
                                         ?>
                             </tbody>
                         </table>
-
-                        <a href="lab_test_upload.php?<?php echo $id ?>" class="btn btn-primary btn-sm ml-3"style="float: right;">Upload</a>
+                        <?php
+                        echo 
+                        '<a href="lab_test_upload.php?id='.$id.'" class="btn btn-primary btn-sm ml-3"style="float: right;">Upload</a>';
+                        ?>
+                        
                          <!-- <button class="btn btn-primary btn-sm ml-3"  name="completeOrder" style="float: right;" type="submit"> Complete</button> -->
                      </form>
                     </div>

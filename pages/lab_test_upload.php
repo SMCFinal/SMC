@@ -7,14 +7,46 @@ if (empty($_SESSION["user"])) {
 
 $error = '';
 
-$id = $_GET['ref_no'];
-$name = $_GET['name'];
-$room = $_GET['room'];
+$id = $_GET['id'];
+// $name = $_GET['name'];
+// $room = $_GET['room'];
 
-if (isset($_POST['completeOrder'])) {
-    $ref_no = $_POST['refNo'];
+if (isset($_POST['Upload'])) {
+    $ref_no = $_POST['ref_no'];
+    $file= $_FILES['uploadFile'];
+    $file_name= $file['name'];
+    $file_name=preg_replace("/\s+/", "", $file_name);
+    $temp= $file['tmp_name'];
+
+    $file_ext=pathinfo($file_name,PATHINFO_EXTENSION);
+    $file_name=pathinfo($file_name,PATHINFO_FILENAME);
+
+    $newName = $file_name.date("miYis").'.'.$file_ext;
+
+    $saveto = "../_labFiles/".$newName;
+
+    if (move_uploaded_file($temp, $saveto)) {
+    
+    }else{
+      echo "Error File Uploading";
+    }
+
+
+    $querySum = mysqli_query($connect, "SELECT lab_order.*, SUM(lab_test_category.test_price) AS totalPriceLab, lab_test_category.* FROM `lab_order`
+                                            INNER JOIN lab_test_category ON lab_test_category.id = lab_order.lab_test_id
+                                            WHERE lab_order.reference_no = 'ref_no'");
+    $fetch_querySum = mysqli_fetch_assoc($querySum);
+    $totalTestPrice = $fetch_querySum['totalPriceLab'];
+    $patient = $fetch_querySum['pat_id'];
+
+
+
+
+
+
 
     $updateQuery = mysqli_query($connect, "UPDATE medicine_order SET pharmacy_status = '0' WHERE reference_no = '$ref_no'");
+
     if (!$updateQuery) {
         $error = "Not Done. Please Try Again!";
     }else {
@@ -64,11 +96,8 @@ if (isset($_POST['completeOrder'])) {
     </div>
     <div class="container-fluid p-0 fixed-top ">
         <div class="p-3" style="background-color: #60d09d">
-            <!-- <a href="index.html" class="logo "><img src="../assets/images/logo.png" height="20" alt="logo"></a> -->
             <h3 class=" d-inline text-white">Lab | SHAH MEDICAL &amp; SURGICAL CENTER</h3>
             <span class=" d-inline text-white" style="float: right;"><b>Developed By DCS PVT LTD.</b>
-                <!-- <a href="signout.php" class="btn btn-danger btn-sm ml-3">Logout </a> -->
-                <!-- <button  name="Deleteme"></button> -->
             </span>
         </div>
     </div>
@@ -82,18 +111,22 @@ if (isset($_POST['completeOrder'])) {
                                             <h4 class="mt-0 header-title">Upload</h4>
                                             <p class="text-muted m-b-30 font-14">Upload patient test result.<b><i> (Please upload PDF)</i></b>
                                             </p>
-            
-                                            <div class="m-b-30">
-                                                <form action="#" class="dropzone">
-                                                    <div class="fallback">
-                                                        <input name="file" type="file" multiple="multiple">
-                                                    </div>
-                                                </form>
+                                            <div align="right">
+                                                <a href="lab_test_upload.php?id=<?php echo $id ?>" class="btn btn-danger waves-effect waves-light">Remove File <i class="fa fa-trash"></i></a>
                                             </div>
-            
-                                            <div class="text-center m-t-15">
-                                                <button type="button" class="btn btn-primary waves-effect waves-light">Send Files</button>
-                                            </div>
+                                            <br>
+                                            <form action="#" method="POST" class="dropzone" enctype="multipart/form-data">
+                                                <div class="m-b-30">
+                                                        <input type="hidden" name="ref_no" required="" value="<?php echo $id ?>" >
+                                                        <div class="fallback">
+                                                            <input name="uploadFile" type="file">
+                                                        </div>
+                                                </div>
+                
+                                                <div class="text-center m-t-15" >
+                                                    <button name="Upload" class="btn btn-primary waves-effect waves-light" type="submit">Send Files</button>
+                                                </div>
+                                            </form>
             
                                         </div>
                                     </div>
@@ -132,6 +165,7 @@ setTimeout(function() {
                 }, 30000);
             });
         </script> -->
+        <?php echo $id = $_GET['id']; ?>
 </body>
 
 </html>

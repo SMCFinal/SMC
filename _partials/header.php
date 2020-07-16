@@ -126,6 +126,7 @@
                                 <li><a href="employee_select.php">Advance Payments</a></li>
                                 <li><a href="employee_advance_payments_list.php">Advance Payments List</a></li>
                                 <li><a href="employee_salary.php">Employees Salary</a></li>
+                                <li><a href="employee_salary_list.php">Employees Salary List</a></li>
 
                             </ul>
                         </li>

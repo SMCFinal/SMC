@@ -4,21 +4,26 @@
             if (empty($_SESSION["user"])) {
             header("LOCATION:../index.php");
         }
-        $notAdded = '';
 
-        if (isset($_POST['advPayment'])){ 
+        $id = $_GET['id'];
+
+        $retQuery = mysqli_query($connect, "SELECT * FROM employee_salary WHERE id = '$id'");
+        $fetch_retQuery = mysqli_fetch_assoc($retQuery);
+
+        if (isset($_POST['salary'])) {
+            $id = $_POST['id'];
             $employeeName = $_POST['employeeName'];
             $amount = $_POST['amount'];
-            $dateofpayment = $_POST['dateofpayment'];
-            $description = $_POST['description'];
+            $dateofsalary = $_POST['dateofsalary'];
 
-            $querypayment = mysqli_query($connect, "INSERT INTO emp_advance_payment(emp_id, adv_amount, adv_dop, adv_description)VALUES('$employeeName', '$amount', '$dateofpayment', '$description')");
-            if (!$querypayment) {
-                $notAdded = "Advance Payment not added!";
-            }else{
-               header('LOCATION:employee_advance_payments_list.php');
+            $updateSalaryQuery = mysqli_query($connect, "UPDATE employee_salary SET emp_id = '$employeeName', salary_amount = '$amount', salaray_dop = '$dateofsalary' WHERE id = '$id'");
+
+            // $salaryQuery = mysqli_query($connect, "INSERT INTO employee_salary(emp_id, salary_amount, salaray_dop)VALUES('$employeeName', '$amount', '$dateofsalary')");
+            
+            // $updateQuery = mysqli_query($connect, "UPDATE emp_advance_payment SET adv_status = '0'");
+            if ($updateSalaryQuery) {
+                header('LOCATION:employee_salary_list.php');
             }
-
         }
 
     include '../_partials/header.php';
@@ -28,7 +33,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-12">
-                <h5 class="page-title">Advance Payment</h5>
+                <h5 class="page-title">Employee Salary Edit</h5>
             </div>
         </div>
         <!-- end row -->
@@ -37,51 +42,49 @@
                 <div class="card m-b-30">
                     <div class="card-body">
                         <form method="POST">
+                            <input type="hidden" name="id" value="<?php echo $id ?>">
                             <div class="form-group row">
                                  <label for="example-text-input" class="col-sm-2 col-form-label">Employee Name</label>
                                 <div class="col-sm-4">
-                                <?php
+                                 <?php
                                 $selectEmp = mysqli_query($connect, "SELECT * FROM `employee_registration`");
-                                        $optionEmp = '<select class="form-control designation" name="employeeName" required="" style="width:100%">';
+                                        $optionEmp = '<select class="form-control designation" name="employeeName" required="" style="width:100%" id="emp">';
                                           while ($rowEmp = mysqli_fetch_assoc($selectEmp)) {
-                                            $optionEmp.= '<option value='.$rowEmp['id'].'>'.$rowEmp['emp_name'].' - 0'.$rowEmp['emp_contact'].'</option>';
+                                            if ($fetch_retQuery['emp_id'] == $rowEmp['id']) {
+                                                $optionEmp.= '<option value='.$rowEmp['id'].' selected>'.$rowEmp['emp_name'].' - 0'.$rowEmp['emp_contact'].'</option>';
+                                            }else {
+                                                $optionEmp.= '<option value='.$rowEmp['id'].'>'.$rowEmp['emp_name'].' - 0'.$rowEmp['emp_contact'].'</option>';
+                                            }
                                           }
                                         $optionEmp.= "</select>";
                                 echo $optionEmp;
                                 ?>
 
+
                                 </div>
 
-                                 <label for="example-text-input" class="col-sm-2 col-form-label">Amount</label>
+                                <label for="example-text-input" class="col-sm-2 col-form-label">Amount</label>
                                 <div class="col-sm-4">
-                                    <input class="form-control" type="number" placeholder="Amount" name="amount" id="example-text-input">
+                                    <input class="form-control" required="" id="salaryEmp" type="number" placeholder="Amount" name="amount" id="example-text-input" value="<?php echo $fetch_retQuery['salary_amount'] ?>">
                                 </div>
 
                             </div>
 
 
                             <div class="form-group row">
-                                <label class="col-sm-2 col-form-label">Date of Payment</label>
+
+                                
+
+
+                                <label class="col-sm-2 col-form-label">Date of Salary</label>
                                 <div class="col-sm-4">
                                     <div class="input-group ">
-                                        <input class="form-control date dateonly" name="dateofpayment" placeholder="dd/mm/yyyy" autoclear>
+                                        <input class="form-control date dateonly" required="" name="dateofsalary" placeholder="dd/mm/yyyy" autoclear value="<?php echo $fetch_retQuery['salaray_dop'] ?>">
                                         <div class="input-group-append bg-custom b-0"><span class="input-group-text"><i class="mdi mdi-calendar"></i></span></div>
                                     </div>
                                 </div>
                                
                             </div>
-
-                             <div class="form-group row">
-                                <label class="col-sm-2 col-form-label">Description</label>
-                                <div class="col-sm-10">
-                                    <div class="input-group ">
-                                      <textarea id="textarea" name="description" class="form-control" maxlength="225" rows="3" placeholder=""></textarea>
-                                       
-                                    </div>
-                                </div>
-                               
-                            </div>
-
 
 
 
@@ -90,7 +93,7 @@
                                 <div class="col-sm-10">
                                     <?php include '../_partials/cancel.php'; ?>
                                     
-                                    <button type="submit" name="advPayment" class="btn btn-primary waves-effect waves-light">Advance Payment</button>
+                                    <button type="submit" name="salary" class="btn btn-primary waves-effect waves-light">Update Salary</button>
                                     <!-- <a href="pharmacy_order_medicine_new_table.php" type="submit" name="patientMedicine" class=""></a> -->
                                 </div>
                             </div>
@@ -98,7 +101,6 @@
                         </form>
                     </div>
                 </div>
-                <h3><?php echo $notAdded ?></h3>
 
             </div> <!-- end col -->
         </div> <!-- end row -->
@@ -145,6 +147,32 @@ $(".dateonly").datetimepicker({
     todayBtn: true,
 });
 </script>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+      $('#emp').change(function(){
+        var emp = $(this).val();
+        $.ajax({
+          url:"getEmpRecAdvAmount.php",
+          method:"POST",
+          data:{
+            empId:emp
+          },
+          dataType:"text",
+          success:function(data){
+            $('#recEmp').html(data);
+            var allData = data;
+            console.log(data);
+            var splitArray = allData.split("|");
+
+
+            document.getElementById('recEmp').value= splitArray[1];
+            document.getElementById('salaryEmp').value= splitArray[0];
+          }
+        });
+      });
+    });
+  </script>
 </body>
 
 </html>
