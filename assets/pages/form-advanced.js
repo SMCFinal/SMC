@@ -34,7 +34,10 @@
             multidateSeparator: ","
         });
         jQuery('#date-range').datepicker({
-            toggleActive: true
+            toggleActive: true,
+            locale: {
+      format: 'M/DD/YY'
+    }
         });
 
         //Bootstrap-MaxLength

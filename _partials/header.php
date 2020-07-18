@@ -224,6 +224,23 @@
                             </ul>
                         </li>
 
+                        <li class="has_sub">
+                            <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-broadcast"></i> <span>  Reports</span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
+                            <ul class="list-unstyled">
+
+                                <!-- <li><a href="doctor_visit_charges_confirm.php">Doctor Visit Charges</a></li> -->
+                                <li><a href="report_areawise.php">Area wise Report</a></li>
+                                <li><a href="report_doctor.php">Doctor Report</a></li>
+                                <li><a href="report_pharmacy.php">Pharmacy Report</a></li>
+                                <li><a href="report_lab.php">Lab Report</a></li>
+                                <li><a href="report_surgeries.php">Surgery Report</a></li>
+                                <li><a href="report_expenses.php">Expenses Report</a></li>
+                                <li><a href="report_ot.php">OT Report</a></li>
+                                
+
+                            </ul>
+                        </li>
+
 
 
 
