@@ -45,7 +45,7 @@ include '../_partials/header.php';
                                 <label class="col-sm-2 col-form-label"></label>
                                 <div class="col-sm-10">
                                     <?php include '../_partials/cancel.php'?>
-                                    <a href="doctor_visit_charges_confirm.php" type="submit" name="addMedicine" class="btn btn-primary waves-effect waves-light">Select Doctor</a>
+                                    <a href="doctor_surgery_charges_list.php" type="submit" name="addMedicine" class="btn btn-primary waves-effect waves-light">Select Doctor</a>
                                     <!-- <button ></button> -->
                                 </div>
                             </div>

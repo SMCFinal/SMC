@@ -5,6 +5,12 @@
     if (empty($_SESSION["user"])) {
         header("LOCATION:../index.php");
     }
+    if (isset($_POST['discharge'])) {
+        $patient_id = $_POST['patient'];
+
+        header("LOCATION:discharge_patient_file.php?id=".$patient_id."");
+    }
+
 
 include '../_partials/header.php';
 ?>
@@ -30,7 +36,7 @@ include '../_partials/header.php';
                                 <?php
                                     $select_option = mysqli_query($connect, "SELECT patient_registration.*, rooms.room_number FROM `patient_registration`
                                         INNER JOIN rooms ON rooms.id = patient_registration.room_id");
-                                        $options = '<select class="form-control select2" name="patientRoom" required="" style="width:100%">';
+                                        $options = '<select class="form-control select2" name="patient" required="" style="width:100%">';
                                           while ($row = mysqli_fetch_assoc($select_option)) {
                                             $options.= '<option value='.$row['id'].'>'.$row['patient_name'].' --- '.$row['room_number'].'</option>';
                                           }
@@ -45,7 +51,10 @@ include '../_partials/header.php';
                                 <label class="col-sm-2 col-form-label"></label>
                                 <div class="col-sm-10">
                                     <?php include '../_partials/cancel.php'?>
-                                    <a href="discharge_patient_file.php" type="submit" name="addMedicine" class="btn btn-primary waves-effect waves-light">Discharge  </a>
+                                    <!-- <a href="discharge_patient_file.php" >Discharge  </a> -->
+
+                                    <button type="submit" name="discharge" class="btn btn-primary waves-effect waves-light">Discharge</button>
+                                    <!-- <a href="discharge_patient_file.php" type="submit" name="addMedicine" class="btn btn-primary waves-effect waves-light">Discharge  </a> -->
                                     <!-- <button ></button> -->
                                 </div>
                             </div>

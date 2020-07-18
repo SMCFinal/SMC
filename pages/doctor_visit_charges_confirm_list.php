@@ -28,11 +28,10 @@ include '../_partials/header.php';
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Name</th>
+                                    <th>Patient Name</th>
                                     <th>Dr. Name</th>
                                     <th>Case</th>
                                     <th>Visit Charges</th>
-                                   
                                     <th>Room No</th>
                                     <th class="text-center"> <i class="fa fa-eye"></i></th>
                                    
@@ -40,39 +39,28 @@ include '../_partials/header.php';
                             </thead>
                             <tbody>
                                 <?php
-                                    $retInventoryItems = mysqli_query($connect, "SELECT inventory_items.*, floors.floor_name , rooms.room_number FROM `inventory_items`
-                                        INNER JOIN floors ON floors.id = inventory_items.floor_id
-                                        INNER JOIN rooms ON rooms.id = inventory_items.room_id");
+                                    $retInventoryItems = mysqli_query($connect, "SELECT doctor_visit_charges.*, patient_registration.patient_name, patient_registration.room_id, patient_registration.patient_consultant, patient_registration.patient_disease, rooms.room_number, staff_members.name FROM `doctor_visit_charges` 
+                                        INNER JOIN patient_registration ON patient_registration.id = doctor_visit_charges.pat_id
+                                        INNER JOIN staff_members ON staff_members.id = patient_registration.patient_consultant
+                                        INNER JOIN rooms ON rooms.id = patient_registration.room_id GROUP BY patient_registration.id");
                                     $iteration = 1;
 
                                     while ($rowInventory = mysqli_fetch_assoc($retInventoryItems)) {
                                     	echo '
                                         <tr>
                                             <td>'.$iteration++.'</td>
-                                            <td>'.$rowInventory['item_name'].'</td>
-                                          
-                                            <td>'.$rowInventory['item_price'].'</td>
-                                            <td>'.substr($rowInventory['item_purchase_date'], 0,10).'</td>
-                                            <td>'.$rowInventory['floor_name'].'</td>
+                                            <td>'.$rowInventory['patient_name'].'</td>
+                                            <td>'.$rowInventory['name'].'</td>
+                                            <td>'.$rowInventory['patient_disease'].'</td>
+                                            <td>'.$rowInventory['visit_charges'].'</td>
                                             <td>'.$rowInventory['room_number'].'</td>
                                             <td class="text-center">
-                                                <a href="doctor_visit_charges_list.php" type="button" class="btn text-white btn-primary waves-effect waves-light btn-sm">View</a>
+                                                <a href="doctor_visit_charges_list.php?id='.$rowInventory['pat_id'].'" type="button" class="btn text-white btn-primary waves-effect waves-light btn-sm">View</a>
                                             </td>
-                                           
-
-                                           
-
-
                                         </tr>
                                     ';
                                     }
-
-                                    // <td class="text-center"><a href="./user_edit.php" type="button" class="btn text-white btn-warning waves-effect
-                                    //waves-light">Edit</a></td>
                                     ?>
-
-
-
                             </tbody>
                         </table>
                         <script type="text/javascript">

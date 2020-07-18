@@ -178,7 +178,7 @@
                             </ul>
                         </li>
 
-                         <li class="has_sub">
+                        <li class="has_sub">
                             <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-broadcast"></i> <span> Expenses</span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
                             <ul class="list-unstyled">
 
@@ -188,6 +188,44 @@
 
                             </ul>
                         </li>
+
+
+                        <li class="has_sub">
+                            <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-broadcast"></i> <span>  Doctor Charges</span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
+                            <ul class="list-unstyled">
+
+                                <!-- <li><a href="doctor_visit_charges_confirm.php">Doctor Visit Charges</a></li> -->
+                                <li><a href="doctor_visit_charges.php">Doctor Visit Charges</a></li>
+                                <li><a href="doctor_visit_charges_confirm_list.php">Doctor Charges List</a></li>
+                                <li><a href="doctor_surgery_charges.php">Doctor Visit Charges List</a></li>
+                                <!-- <li><a href="doctor_surgery_charges.php">Doctor Charges</a></li> -->
+                                <!-- <li><a href="doctor_surgery_charges_list.php">Doctor Charges List</a></li> -->
+<!--                                 <li><a href="doctor_visit_charges_list.php">Doctor Visit Charges List</a></li>
+ -->                                <!-- <li><a href="doctor_visit_charges_confirm.php">Expense List</a></li> -->
+
+                            </ul>
+                        </li>
+
+
+
+                        <li class="has_sub">
+                            <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-broadcast"></i> <span>  Anesthetic Charges</span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
+                            <ul class="list-unstyled">
+
+                                <!-- <li><a href="doctor_visit_charges_confirm.php">Doctor Visit Charges</a></li> -->
+                                <li><a href="anesthetic_surgery_charges.php">Anesthetic Charges</a></li>
+                                <!-- <li><a href="doctor_visit_charges_confirm_list.php">Doctor Charges List</a></li> -->
+                                <!-- <li><a href="doctor_surgery_charges.php">Doctor Visit /Charges List</a></li> -->
+                                <!-- <li><a href="doctor_surgery_charges.php">Doctor Charges</a></li> -->
+                                <!-- <li><a href="doctor_surgery_charges_list.php">Doctor Charges List</a></li> -->
+<!--                                 <li><a href="doctor_visit_charges_list.php">Doctor Visit Charges List</a></li>
+ -->                                <!-- <li><a href="doctor_visit_charges_confirm.php">Expense List</a></li> -->
+
+                            </ul>
+                        </li>
+
+
+
 
                         <li class="has_sub">
                             <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-broadcast"></i> <span> Users</span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>

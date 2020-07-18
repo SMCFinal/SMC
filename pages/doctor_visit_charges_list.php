@@ -5,6 +5,12 @@ if (empty($_SESSION["user"])) {
 	header("LOCATION:../index.php");
 }
 
+$id = $_GET['id'];
+
+
+
+// $fetch_queryData = mysqli_fetch_assoc($queryData);
+
 
 include '../_partials/header.php';
 ?>
@@ -28,34 +34,34 @@ include '../_partials/header.php';
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    
                                     <th>Dr. Name</th>
-                                    <th>Date</th>
-                                   
-                                   
-                                   
+                                    <th>Room No</th>
+                                    <th>Date &amp; Time</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php
-                                    $retInventoryItems = mysqli_query($connect, "SELECT inventory_items.*, floors.floor_name , rooms.room_number FROM `inventory_items`
-                                        INNER JOIN floors ON floors.id = inventory_items.floor_id
-                                        INNER JOIN rooms ON rooms.id = inventory_items.room_id");
+                                    $queryData = mysqli_query($connect, "SELECT doctor_visit_charges.*, patient_registration.patient_name, patient_registration.room_id, patient_registration.patient_consultant, patient_registration.patient_disease, rooms.room_number, staff_members.name FROM `doctor_visit_charges` 
+                                        INNER JOIN patient_registration ON patient_registration.id = doctor_visit_charges.pat_id
+                                        INNER JOIN staff_members ON staff_members.id = patient_registration.patient_consultant
+                                        INNER JOIN rooms ON rooms.id = patient_registration.room_id
+                                        WHERE doctor_visit_charges.pat_id = '$id'");
                                     $iteration = 1;
 
-                                    while ($rowInventory = mysqli_fetch_assoc($retInventoryItems)) {
+                                    while ($rowQuery = mysqli_fetch_assoc($queryData)) {
                                     	echo '
                                         <tr>
                                             <td>'.$iteration++.'</td>
-                                            <td>'.$rowInventory['item_name'].'</td>
-                                          
-                                            <td>'.$rowInventory['item_price'].'</td>
-                                            
-                                           
+                                            <td>'.$rowQuery['name'].'</td>
+                                            <td>'.$rowQuery['room_number'].'</td>';
 
-                                           
+                                            $timezone = date_default_timezone_set('Asia/Karachi');
+                                            $date = date('m/d/Y h:i:s a', time());
 
-
+                                            $Date_format = $rowQuery['visit_date']; 
+                                            $Date = date('d/M h:i:s A', strtotime($Date_format));
+                                            echo '
+                                            <td>'.$Date.'</td>
                                         </tr>
                                     ';
                                     }
