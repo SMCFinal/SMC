@@ -12,9 +12,10 @@
         INNER JOIN rooms ON rooms.id = patient_registration.room_id
 
         WHERE patient_registration.id = '$id'");
-    $fetch_selectPatient = mysqli_fetch_assoc($selectPatient);
 
+    $fetch_selectPatient = mysqli_fetch_assoc($selectPatient);
     if (isset($_POST[''])) {
+        $id = $_POST['pat_id'];
         $pat_id = $_POST['pat_id'];
         $city_id = $_POST['city_id'];
         $room_id = $_POST['room_id'];
@@ -27,12 +28,54 @@
         $anestheticCharges = $_POST['anestheticCharges'];
         $actualCharges = $_POST['actualCharges'];
         $paidAmount = $_POST['paidAmount'];
+
+
+        $queryDischargeCharges = mysqli_query($connect, "INSERT INTO `discharge_patients_charges`
+            (`pat_id`, `city_id`, `room_id`, `med_charges`, `room_charges`, `ot_charges`, `hospital_charges`, `lab_charges`, `dr_charges`, `anesthetic_charges`, `actual_charges`, `amount_paid`, `auto_date`) VALUES ('$pat_id', '$city_id', '$room_id', '$medCharges', '$roomCharges', '$OTCharges', '$hospitalCharges', '$labCharges', '$drCharges', 'anestheticCharges', '$actualCharges', '$paidAmount')");
+
+
+
+        $p_name = $_POST['p_name'];
+        $p_age = $_POST['p_age'];
+        $p_gender = $_POST['p_gender'];
+        $p_address = $_POST['p_address'];
+        $p_cnic = $_POST['p_cnic'];
+        $p_contact = $_POST['p_contact'];
+        $p_city = $_POST['p_city'];
+        $p_room = $_POST['p_room'];
+        $p_doa = $_POST['p_doa'];
+        $p_doop = $_POST['p_doop'];
+        $p_disease= $_POST['p_disease'];
+        $p_operation = $_POST['p_operation'];
+        $p_consultant = $_POST['p_consultant'];
+        $p_yearly = $_POST['p_yearly'];
+        $p_attendent = $_POST['p_attendent'];
+        $p_consultant_charges = $_POST['p_consultant_charges'];
+        $p_anes = $_POST['p_anes'];
+        $p_anes_charges = $_POST['p_anes_charges'];
+        $category = 'dischargePatient';
+        $days_stitches = 'dischargePatient';
+        $doctor_advice = 'dischargePatient';
+
+        $dischargePatientTable = mysqli_query($connect, "INSERT INTO `discharge_patients`
+            (`patient_name`, `patient_age`, `patient_gender`, `patient_address`, `patient_cnic`, `patient_contact`, `city_id`, `room_id`, `patient_doa`, `patient_doop`, `patient_disease`, `patient_operation`, `patient_consultant`, `patient_yearly_no`, `attendent_name`, `consultant_charges`, `anasthetic_name`, `anesthesia_charges`, `category`) VALUES 
+            ('$p_name', '$p_age', '$p_gender', '$p_address', '$p_cnic', '$p_contact', '$p_city', '$p_room', '$p_doa', '$p_doop', '$p_disease', '$p_operation', '$p_consultant', '$p_yearly', '$p_attendent', '$p_consultant_charges', '$p_anes', '$p_anes_charges', '$category')");
+
+        $updatePharmacyAmount = mysqli_query($connect, "UPDATE pharmacy_amount SET patient_payment_status = '0' WHERE patient_id = '$pat_id'");
+
+        $updateRooms = mysqli_query($connect, "UPDATE rooms SET status = '1' WHERE id = '$room_id'");
+
+
+        $updateLabTestReport = mysqli_query($connect, "UPDATE lab_test_report SET patient_payment_status = '0' WHERE pat_id = '$pat_id'");
+
+        $deletePatient = mysqli_query($connect, "DELETE FROM `patient_registration` WHERE id='$id'");
     }
 
 
 include '../_partials/header.php';
 ?>
 <!-- Top Bar End -->
+
 <div class="page-content-wrapper ">
     <div class="container-fluid">
         <div class="row">
@@ -45,6 +88,11 @@ include '../_partials/header.php';
             <div class="col-12">
                 <div class="card m-b-30">
                     <div class="card-body">
+
+
+
+
+                        <form method="POST">
                         <div class="row">
                             <div class="col-12">
                                 <div class="invoice-title">
@@ -488,7 +536,8 @@ include '../_partials/header.php';
                         }
 
                         ?>
-                        <form method="POST">
+                        <!-- <form method="POST"> -->
+
                             <div class="row">
                                 <div class="col text-right">
                                     <label> Medicines Charges:</label>
@@ -593,54 +642,59 @@ include '../_partials/header.php';
                                     <input type="number" name="actualCharges" value="" id="actualCharges" readonly class="form-control" placeholder="Actual Charges">
                                 </div>
                                 <div class="col-md-3">
-                                    <input type="number" name="paidAmount" value="" id="totalCharges" class="form-control" readonly placeholder="Total Charges"> </div>
+                                    <input type="number" name="paidAmount" value="" id="totalCharges" class="form-control" readonly placeholder="Total Charges"> 
+                                </div>
                             </div>
                             <br />
                             <div class="col-md-2" style="margin-top: 2%">
-                                            <label>دن بعد ٹانکیں کھولنے کیلئے تشریف لائی</label>
-                                        </div>
-                                        <div class="col-2" align="right" style="margin-top: 2%; ">
-                                            <input type="text" name="stitchesDays" required="" class="form-control" style="border: none; border-bottom: 1px solid black">
-                                        </div>
-                            <input type="text" name="pat_id" value="<?php echo $fetch_selectPatient['id'] ?>">
-                            <input type="text" name="city_id" value="<?php echo $fetch_selectPatient['city_id'] ?>">
-                            <input type="text" name="room_id" value="<?php echo $fetch_selectPatient['room_id'] ?>">
+                                <label>دن بعد ٹانکیں کھولنے کیلئے تشریف لائی</label>
+                            </div>
+                            <div class="col-2" align="right" style="margin-top: 2%; ">
+                                <input type="text" name="stitchesDays" required="" class="form-control" style="border: none; border-bottom: 1px solid black">
+                            </div>
+                            <input type="hidden" name="pat_id" value="<?php echo $fetch_selectPatient['id'] ?>">
+                            <input type="hidden" name="city_id" value="<?php echo $fetch_selectPatient['city_id'] ?>">
+                            <input type="hidden" name="room_id" value="<?php echo $fetch_selectPatient['room_id'] ?>">
 
                             <hr>
 
-                            <input type="text" name="" value="<?php echo $fetch_selectPatient['id'] ?>">
-                            <input type="text" name="" value="<?php echo $fetch_selectPatient['id'] ?>">
-                            <input type="text" name="" value="<?php echo $fetch_selectPatient['id'] ?>">
-                            <input type="text" name="" value="<?php echo $fetch_selectPatient['id'] ?>">
-                            <input type="text" name="" value="<?php echo $fetch_selectPatient['id'] ?>">
-                            <input type="text" name="" value="<?php echo $fetch_selectPatient['id'] ?>">
-                            <input type="text" name="" value="<?php echo $fetch_selectPatient['id'] ?>">
-                            <input type="text" name="" value="<?php echo $fetch_selectPatient['id'] ?>">
-                            <input type="text" name="" value="<?php echo $fetch_selectPatient['id'] ?>">
-                            <input type="text" name="" value="<?php echo $fetch_selectPatient['id'] ?>">
-                            <input type="text" name="" value="<?php echo $fetch_selectPatient['id'] ?>">
-                            <input type="text" name="" value="<?php echo $fetch_selectPatient['id'] ?>">
-                            <input type="text" name="" value="<?php echo $fetch_selectPatient['id'] ?>">
-                            <input type="text" name="" value="<?php echo $fetch_selectPatient['id'] ?>">
-                            <input type="text" name="" value="<?php echo $fetch_selectPatient['id'] ?>">
-                            <input type="text" name="" value="<?php echo $fetch_selectPatient['id'] ?>">
-                            <input type="text" name="" value="<?php echo $fetch_selectPatient['id'] ?>">
-                            <input type="text" name="" value="<?php echo $fetch_selectPatient['id'] ?>">
-                            <input type="text" name="" value="<?php echo $fetch_selectPatient['id'] ?>">
+                            
+                            <input type="hidden" name="p_name" value="<?php echo $fetch_selectPatient['patient_name'] ?>">
+                            <input type="hidden" name="p_age" value="<?php echo $fetch_selectPatient['patient_age'] ?>">
+                            <input type="hidden" name="p_gender" value="<?php echo $fetch_selectPatient['patient_gender'] ?>">
+                            <input type="hidden" name="p_address" value="<?php echo $fetch_selectPatient['patient_address'] ?>">
+                            <input type="hidden" name="p_cnic" value="<?php echo $fetch_selectPatient['patient_cnic'] ?>">
+                            <input type="hidden" name="p_contact" value="<?php echo $fetch_selectPatient['patient_contact'] ?>">
+                            <input type="hidden" name="p_city" value="<?php echo $fetch_selectPatient['city_id'] ?>">
+                            <input type="hidden" name="p_room" value="<?php echo $fetch_selectPatient['room_id'] ?>">
+                            <input type="hidden" name="p_doa" value="<?php echo $fetch_selectPatient['patient_doa'] ?>">
+                            <input type="hidden" name="p_doop" value="<?php echo $fetch_selectPatient['patient_doop'] ?>">
+                            <input type="hidden" name="p_disease" value="<?php echo $fetch_selectPatient['patient_disease'] ?>">
+                            <input type="hidden" name="p_operation" value="<?php echo $fetch_selectPatient['patient_operation'] ?>">
+                            <input type="hidden" name="p_consultant" value="<?php echo $fetch_selectPatient['patient_consultant'] ?>">
+                            <input type="hidden" name="p_yearly" value="<?php echo $fetch_selectPatient['patient_yearly_no'] ?>">
+                            <input type="hidden" name="p_attendent" value="<?php echo $fetch_selectPatient['attendent_name'] ?>">
+                            <input type="hidden" name="p_consultant_charges" value="<?php echo $fetch_selectPatient['consultant_charges'] ?>">
+                            <input type="hidden" name="p_anes" value="<?php echo $fetch_selectPatient['anasthetic_name'] ?>">
+                            <input type="hidden" name="p_anes_charges" value="<?php echo $fetch_selectPatient['anesthesia_charges'] ?>">
 
-                        </form>
-        <div class="d-print-none mo-mt-2">
-            <div class="float-right">
-                <!-- <a href="javascript:window.print()" class="btn btn-success waves-effect waves-light"><i class="fa fa-print"></i></a> -->
-                <button class="btn btn-primary waves-effect waves-light" type="submit" name="makeSlip">PrepareDischarge Slip</button>
-                <!-- <a href="#" class="btn btn-primary waves-effect waves-light">Send</a> -->
-            </div>
-        </div>
-                                        </div>
-                                    </div>
+                        <!-- </form> -->
+                            <div class="d-print-none mo-mt-2">
+                                <div class="float-right">
+                                    <!-- <a href="javascript:window.print()" class="btn btn-success waves-effect waves-light"><i class="fa fa-print"></i></a> -->
+                                    <button class="btn btn-primary waves-effect waves-light" type="submit" name="makeSlip">PrepareDischarge Slip</button>
+                                    <!-- <a href="#" class="btn btn-primary waves-effect waves-light">Send</a> -->
                                 </div>
                             </div>
-                        </div>
+                            
+
+
+
+
+
+                                        
+                                        </form>
+                          
                     </div>
                 </div> <!-- end col -->
             </div> <!-- end row -->
