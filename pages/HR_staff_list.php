@@ -41,7 +41,7 @@
                             </thead>
                             <tbody>
                                 <?php
-                                $selectQueryMembers = mysqli_query($connect, "SELECT staff_members.*, staff_category.* FROM `staff_members`
+                                $selectQueryMembers = mysqli_query($connect, "SELECT staff_members.*, staff_members.id AS staffId, staff_category.* FROM `staff_members`
                                 INNER JOIN staff_category ON staff_category.id = staff_members.category_id
                                 WHERE staff_members.status = '1'");
                                 $iteration = 1;
@@ -59,7 +59,7 @@
                                             <td>'.$rowMembers['end_time'].'</td>
                                             <td>'.$rowMembers['visit_charges'].'</td>
                                             <td class="text-center"><a href="HR_staff_view.php?id='.$rowMembers['cnic'].'" type="button" class="btn text-white btn-primary waves-effect waves-light btn-sm">View</a></td>
-                                             <td class="text-center"><a href="HR_staff_edit.php" class="btn btn-warning"  name="Deleteme" data-original-title="Deactivate User Access">Edit</a></td>';
+                                             <td class="text-center"><a href="HR_staff_edit.php?id='.$rowMembers['staffId'].'" class="btn btn-warning"  name="Deleteme" data-original-title="Deactivate User Access">Edit</a></td>';
                                             // <td class="text-center"><button class="btn btn-danger" onClick="deleteme('.$rowMembers['cnic'].')" name="Deleteme" data-original-title="Deactivate User Access">Discharge</button></td>
                                           
                                          

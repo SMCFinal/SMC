@@ -14,6 +14,7 @@
         $starttimeStaff = $_POST['starttimeStaff'];
         $endtimeStaff = $_POST['endtimeStaff'];
         $visitcharges = $_POST['visitchargesStaff'];
+        $contactStaff = $_POST['contactStaff'];
         
         if(empty($visitcharges)) {
             $visitcharges = 0;
@@ -25,7 +26,7 @@
         $fetch_checkMemberTable = mysqli_fetch_array($checkMemberTable);
 
         if ($fetch_checkMemberTable['countedStaff'] < 1) {
-            $createMember = mysqli_query($connect, "INSERT INTO staff_members(name, cnic, category_id, salary, date_of_joining, start_time, end_time, visit_charges)VALUES('$name', '$cnic', '$designationStaffId', '$salaryStaff', '$dateofjoiningStaff', '$starttimeStaff', '$endtimeStaff', '$visitcharges')");
+            $createMember = mysqli_query($connect, "INSERT INTO staff_members(name, cnic, category_id, salary, date_of_joining, start_time, end_time, visit_charges, contact)VALUES('$name', '$cnic', '$designationStaffId', '$salaryStaff', '$dateofjoiningStaff', '$starttimeStaff', '$endtimeStaff', '$visitcharges', '$contactStaff')");
 
             if (!$createMember) {
                 echo mysqli_error($connect);
@@ -94,6 +95,14 @@
                                     <div class="input-group ">
                                         <input class="form-control date dateonly" name="dateofjoiningStaff" placeholder="dd/mm/yyyy" autoclear>
                                         <div class="input-group-append bg-custom b-0"><span class="input-group-text"><i class="mdi mdi-calendar"></i></span></div>
+                                    </div>
+                                </div>
+
+                                <label class="col-sm-2 col-form-label">Contact</label>
+                                <div class="col-sm-4">
+                                    <div class="input-group ">
+                                        <input type="number" class="form-control" name="contactStaff" placeholder="Contact No" autoclear required="">
+                                        <!-- <div class="input-group-append bg-custom b-0"><span class="input-group-text"><i class="mdi mdi-calendar"></i></span></div> -->
                                     </div>
                                 </div>
                             </div>
