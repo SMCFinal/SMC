@@ -14,6 +14,20 @@
         WHERE patient_registration.id = '$id'");
     $fetch_selectPatient = mysqli_fetch_assoc($selectPatient);
 
+    if (isset($_POST[''])) {
+        $pat_id = $_POST['pat_id'];
+        $city_id = $_POST['city_id'];
+        $room_id = $_POST['room_id'];
+        $medCharges = $_POST['medCharges'];
+        $roomCharges = $_POST['roomCharges'];
+        $OTCharges = $_POST['OTCharges'];
+        $hospitalCharges = $_POST['hospitalCharges'];
+        $labCharges = $_POST['labCharges'];
+        $drCharges = $_POST['drCharges'];
+        $anestheticCharges = $_POST['anestheticCharges'];
+        $actualCharges = $_POST['actualCharges'];
+        $paidAmount = $_POST['paidAmount'];
+    }
 
 
 include '../_partials/header.php';
@@ -94,12 +108,7 @@ include '../_partials/header.php';
                                     </div>
                                     <!-- <div align="right">    -->
 
-                                        <div class="col-md-2" style="margin-top: 2%">
-                                            <label>دن بعد ٹانکیں کھولنے کیلئے تشریف لائی</label>
-                                        </div>
-                                        <div class="col-2" align="right" style="margin-top: 2%; ">
-                                            <input type="text" name="stitchesDays" class="form-control" style="border: none; border-bottom: 1px solid black">
-                                        </div>
+                                        
                                     <!-- </div> -->
                                 </div>
                             </div>
@@ -475,7 +484,7 @@ include '../_partials/header.php';
                         if ($roomHours > 2) {
                             $roomInvoicePrice = ($roomDays + 1) * $roomEmbedPrice;
                         }else {
-                            $roomInvoicePrice = $roomEmbedPrice * $room;
+                            $roomInvoicePrice = $roomEmbedPrice * $roomDays;
                         }
 
                         ?>
@@ -485,10 +494,10 @@ include '../_partials/header.php';
                                     <label> Medicines Charges:</label>
                                 </div>
                                 <div class="col-md-2">
-                                    <input type="number" value="<?php echo $fetch_queryTotal['medTotal'] ?>" readonly id="actMedChar" required="" onkeyUp="actCharges()" class="form-control" placeholder="Medicines Price">
+                                    <input type="number" value="<?php echo $fetch_queryTotal['medTotal'] ?>" readonly id="actMedChar" required="" onkeyUp="actCharges()" class="form-control" placeholder="Medicines Price" >
                                 </div>
                                 <div class="col-md-3">
-                                    <input type="number" value="<?php echo $fetch_queryTotal['medTotal'] ?>" class="form-control" id="totMedChar" required="" onkeyUp="totCharges()" placeholder="Medicines Price">
+                                    <input type="number" name="medCharges" value="<?php echo $fetch_queryTotal['medTotal'] ?>" class="form-control" id="totMedChar" required="" onkeyUp="totCharges()" placeholder="Medicines Price">
                                 </div>
                             </div>
                             <br />
@@ -500,7 +509,7 @@ include '../_partials/header.php';
                                     <input type="number" value="<?php echo $roomInvoicePrice ?>" readonly id="actRoomChar" required="" onkeyUp="actCharges()" class="form-control" placeholder="Room Charges">
                                 </div>
                                 <div class="col-md-3">
-                                    <input type="number" value="<?php echo $roomInvoicePrice ?>" id="totRoomChar" required="" onkeyUp="totCharges()" class="form-control" placeholder="Room Charges">
+                                    <input type="number" name="roomCharges" value="<?php echo $roomInvoicePrice ?>" id="totRoomChar" required="" onkeyUp="totCharges()" class="form-control" placeholder="Room Charges">
                                 </div>
                             </div>
                             <br />
@@ -512,7 +521,7 @@ include '../_partials/header.php';
                                     <input type="number" value="200" id="actOtChar" required="" onkeyUp="actCharges()" readonly class="form-control" placeholder="OT Charges">
                                 </div>
                                 <div class="col-md-3">
-                                    <input type="number" value="200" id="totOtChar" required="" onkeyUp="totCharges()" class="form-control" placeholder="OT Charges">
+                                    <input type="number" name="OTCharges" value="200" id="totOtChar" required="" onkeyUp="totCharges()" class="form-control" placeholder="OT Charges">
                                 </div>
                             </div>
                             <br />
@@ -521,10 +530,10 @@ include '../_partials/header.php';
                                     <label> Hospital Charges:</label>
                                 </div>
                                 <div class="col-md-2">
-                                    <input type="number" value="2" id="actHosChar" required="" onkeyUp="actCharges()" readonly class="form-control" placeholder="Hospital Charges">
+                                    <input type="number" value="200" id="actHosChar" required="" onkeyUp="actCharges()" readonly class="form-control" placeholder="Hospital Charges">
                                 </div>
                                 <div class="col-md-3">
-                                    <input type="number" value="" id="totHosChar" required="" onkeyUp="totCharges()" class="form-control" placeholder="Hospital Charges">
+                                    <input type="number" name="hospitalCharges" value="200" id="totHosChar" required="" onkeyUp="totCharges()" class="form-control" placeholder="Hospital Charges">
                                 </div>
                             </div>
                             <br />
@@ -536,7 +545,7 @@ include '../_partials/header.php';
                                     <input type="number" value="<?php echo $fetch_queryTotalLab['totalPrice'] ?>" id="actLabChar" required="" onkeyUp="actCharges()" readonly class="form-control" placeholder="Lab Charges">
                                 </div>
                                 <div class="col-md-3">
-                                    <input type="number" value="<?php echo $fetch_queryTotalLab['totalPrice'] ?>" id="totLabChar" required="" onkeyUp="totCharges()" class="form-control" placeholder="Lab Charges">
+                                    <input type="number" name="labCharges" value="<?php echo $fetch_queryTotalLab['totalPrice'] ?>" id="totLabChar" required="" onkeyUp="totCharges()" class="form-control" placeholder="Lab Charges">
                                 </div>
                             </div>
                             <br />
@@ -554,7 +563,7 @@ include '../_partials/header.php';
                                     <input type="number" value="<?php echo $fetch_doctorCharges['salary'] ?>" id="actDrChar" required="" onkeyUp="actCharges()" readonly class="form-control" placeholder="Doctor Charges">
                                 </div>
                                 <div class="col-md-3">
-                                    <input type="number" value="<?php echo $fetch_doctorCharges['salary'] ?>" id="TotDrChar" required="" onkeyUp="totCharges()" class="form-control" placeholder="Doctor Charges">
+                                    <input type="number" name="drCharges" value="<?php echo $fetch_doctorCharges['salary'] ?>" id="TotDrChar" required="" onkeyUp="totCharges()" class="form-control" placeholder="Doctor Charges">
                                 </div>
                             </div>
                             <br />
@@ -572,7 +581,7 @@ include '../_partials/header.php';
                                     <input type="number" value="<?php echo $fetch_anestheticCharges['salary'] ?>" id="actAnesChar" required="" onkeyUp="actCharges()" readonly class="form-control" placeholder="Anesthesia Charges">
                                 </div>
                                 <div class="col-md-3">
-                                    <input type="number" value="<?php echo $fetch_anestheticCharges['salary'] ?>" id="totAnesChar" required="" onkeyUp="totCharges()" class="form-control" placeholder="Anesthesia Charges">
+                                    <input type="number" name="anesthesiaCharges" value="<?php echo $fetch_anestheticCharges['salary'] ?>" id="totAnesChar" required="" onkeyUp="totCharges()" class="form-control" placeholder="Anesthesia Charges">
                                 </div>
                             </div>
                             <br />
@@ -581,17 +590,50 @@ include '../_partials/header.php';
                                     <label> Actual Charges:</label>
                                 </div>
                                 <div class="col-md-2">
-                                    <input type="number" value="" id="actualCharges" readonly class="form-control" placeholder="Actual Charges">
+                                    <input type="number" name="actualCharges" value="" id="actualCharges" readonly class="form-control" placeholder="Actual Charges">
                                 </div>
                                 <div class="col-md-3">
-                                    <input type="number" value="" id="totalCharges" class="form-control" readonly placeholder="Total Charges"> </div>
+                                    <input type="number" name="paidAmount" value="" id="totalCharges" class="form-control" readonly placeholder="Total Charges"> </div>
                             </div>
                             <br />
+                            <div class="col-md-2" style="margin-top: 2%">
+                                            <label>دن بعد ٹانکیں کھولنے کیلئے تشریف لائی</label>
+                                        </div>
+                                        <div class="col-2" align="right" style="margin-top: 2%; ">
+                                            <input type="text" name="stitchesDays" required="" class="form-control" style="border: none; border-bottom: 1px solid black">
+                                        </div>
+                            <input type="text" name="pat_id" value="<?php echo $fetch_selectPatient['id'] ?>">
+                            <input type="text" name="city_id" value="<?php echo $fetch_selectPatient['city_id'] ?>">
+                            <input type="text" name="room_id" value="<?php echo $fetch_selectPatient['room_id'] ?>">
+
+                            <hr>
+
+                            <input type="text" name="" value="<?php echo $fetch_selectPatient['id'] ?>">
+                            <input type="text" name="" value="<?php echo $fetch_selectPatient['id'] ?>">
+                            <input type="text" name="" value="<?php echo $fetch_selectPatient['id'] ?>">
+                            <input type="text" name="" value="<?php echo $fetch_selectPatient['id'] ?>">
+                            <input type="text" name="" value="<?php echo $fetch_selectPatient['id'] ?>">
+                            <input type="text" name="" value="<?php echo $fetch_selectPatient['id'] ?>">
+                            <input type="text" name="" value="<?php echo $fetch_selectPatient['id'] ?>">
+                            <input type="text" name="" value="<?php echo $fetch_selectPatient['id'] ?>">
+                            <input type="text" name="" value="<?php echo $fetch_selectPatient['id'] ?>">
+                            <input type="text" name="" value="<?php echo $fetch_selectPatient['id'] ?>">
+                            <input type="text" name="" value="<?php echo $fetch_selectPatient['id'] ?>">
+                            <input type="text" name="" value="<?php echo $fetch_selectPatient['id'] ?>">
+                            <input type="text" name="" value="<?php echo $fetch_selectPatient['id'] ?>">
+                            <input type="text" name="" value="<?php echo $fetch_selectPatient['id'] ?>">
+                            <input type="text" name="" value="<?php echo $fetch_selectPatient['id'] ?>">
+                            <input type="text" name="" value="<?php echo $fetch_selectPatient['id'] ?>">
+                            <input type="text" name="" value="<?php echo $fetch_selectPatient['id'] ?>">
+                            <input type="text" name="" value="<?php echo $fetch_selectPatient['id'] ?>">
+                            <input type="text" name="" value="<?php echo $fetch_selectPatient['id'] ?>">
+
                         </form>
         <div class="d-print-none mo-mt-2">
             <div class="float-right">
-                <a href="javascript:window.print()" class="btn btn-success waves-effect waves-light"><i class="fa fa-print"></i></a>
-                <a href="#" class="btn btn-primary waves-effect waves-light">Send</a>
+                <!-- <a href="javascript:window.print()" class="btn btn-success waves-effect waves-light"><i class="fa fa-print"></i></a> -->
+                <button class="btn btn-primary waves-effect waves-light" type="submit" name="makeSlip">PrepareDischarge Slip</button>
+                <!-- <a href="#" class="btn btn-primary waves-effect waves-light">Send</a> -->
             </div>
         </div>
                                         </div>
