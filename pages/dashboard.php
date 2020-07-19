@@ -104,6 +104,94 @@
                                
                             </div>
                             <!-- end row -->
+
+                            <div class="row">
+                                <div class="col-xl-3 col-md-6">
+                                    <div class="card mini-stat m-b-30" style="background-color:#DD4B39">
+                                        <div class="p-3  text-white">
+                                            <div class="mini-stat-icon">
+                                                <i class="mdi mdi-account-multiple float-right mb-0"></i>
+                                            </div>
+                                            <h6 class="text-uppercase mb-0">Total Staff</h6>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="border-bottom pb-4 text-center text-white">
+                                               <span style="  font-size: 100px"><?php echo $allUsers ?></span>
+                                            </div>
+                                            <!-- <div class="mt-4 text-muted">
+                                                
+                                               
+                                                
+                                            </div> -->
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-xl-3 col-md-6">
+                                    <div class="card mini-stat m-b-30" style="background-color: #00A65A">
+                                        <div class="p-3  text-white">
+                                            <div class="mini-stat-icon">
+                                                <i class="mdi mdi-account-multiple float-right mb-0"></i>
+                                            </div>
+                                            <h6 class="text-uppercase mb-0">Total Employee</h6>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="border-bottom pb-4 text-center text-white">
+                                               <span style="  font-size: 100px"><?php echo $allUsers ?></span>
+                                            </div>
+                                            <!-- <div class="mt-4 text-muted">
+                                                
+                                               
+                                                
+                                            </div> -->
+                                        </div>
+                                    </div>
+                                </div>
+
+                                
+                                <div class="col-xl-3 col-md-6">
+                                    <div class="card mini-stat m-b-30" style="background-color:#00C0EF ">
+                                        <div class="p-3  text-white">
+                                            <div class="mini-stat-icon">
+                                                <i class="mdi mdi-wheelchair-accessibility float-right mb-0"></i>
+                                            </div>
+                                            <h6 class="text-uppercase mb-0">Total Patients</h6>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="border-bottom pb-4 text-center text-white">
+                                               <span style="font-size: 100px"><?php echo $activeUsers ?></span>
+                                            </div>
+                                            <!-- <div class="mt-4 text-muted">
+                                                
+                                               
+                                                
+                                            </div> -->
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-3 col-md-6">
+                                    <div class="card mini-stat m-b-30" style="background-color: #F39C12">
+                                        <div class="p-3  text-white">
+                                            <div class="mini-stat-icon">
+                                                <i class="mdi mdi-hospital float-right mb-0"></i>
+                                            </div>
+                                            <h6 class="text-uppercase  mb-0">Discharge Patients</h6>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="border-bottom pb-4 text-center text-white">
+                                               <span style=" font-size: 100px"><?php echo $deactiveUsers ?></span>
+                                            </div>
+                                            <!-- <div class="mt-4 text-muted">
+                                                
+                                               
+                                                
+                                            </div> -->
+                                        </div>
+                                    </div>
+                                </div>
+                               
+                            </div>
+                            <!-- end row -->
     
                           
                            
