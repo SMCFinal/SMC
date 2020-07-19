@@ -35,8 +35,8 @@
                             </thead>
                             <tbody>
                                 <?php
-                                $selectQueryPatients = mysqli_query($connect, "SELECT patient_registration.*, staff_members.name FROM `patient_registration`
-                                INNER JOIN staff_members ON staff_members.id = patient_registration.patient_consultant AND category = 'currentPatient'");
+                                $selectQueryPatients = mysqli_query($connect, "SELECT discharge_patients.*, staff_members.name FROM discharge_patients
+                                INNER JOIN staff_members ON staff_members.id = discharge_patients.patient_consultant AND category = 'dischargePatient'");
                                 $iteration = 1;
 
                                 $timezone = date_default_timezone_set('Asia/Karachi');

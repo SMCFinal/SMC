@@ -70,6 +70,7 @@
                                 <li><a target="_blank" href="patient_active_view.php">View Current Patients</a></li>
 
                                 <li><a target="_blank" href="pharmacy_list.php">Pharmacy View</a></li>
+                                <li><a target="_blank" href="lab_test_list_view.php">Laboratory View</a></li>
                             </ul>
                         </li>
 

@@ -35,8 +35,8 @@
                             </thead>
                             <tbody>
                                 <?php
-                                $selectQueryPatients = mysqli_query($connect, "SELECT patient_registration.*, staff_members.name FROM `patient_registration`
-                                INNER JOIN staff_members ON staff_members.id = patient_registration.patient_consultant AND category = 'currentPatient'");
+                                $selectQueryPatients = mysqli_query($connect, "SELECT postpone_patient.*, staff_members.name FROM postpone_patient
+                                INNER JOIN staff_members ON staff_members.id = postpone_patient.patient_consultant AND category = 'postponePatient'");
                                 $iteration = 1;
 
                                 $timezone = date_default_timezone_set('Asia/Karachi');
@@ -57,11 +57,10 @@
                                             <td>'.$rowPatients['patient_disease'].'</td>
                                             <td>'."Dr. ".$rowPatients['name'].'</td>
                                             <td class="text-center">
-                                            <a href="patient_view.php?id='.$rowPatients['id'].'" type="button" class="btn text-white btn-info waves-effect waves-light btn-sm">View</a>&nbsp;&nbsp;&nbsp;';
+                                            <a href="patient_postpone_invoice.php?id='.$rowPatients['id'].'" type="button" class="btn text-white btn-info waves-effect waves-light btn-sm">View</a>&nbsp;&nbsp;&nbsp;';
 
                                             // if ($hourdiff < 4) {
                                                 echo '
-                                                <a href="patient_readmit.php?id='.$rowPatients['id'].'" type="button" class="btn text-white btn-primary waves-effect waves-light btn-sm">Re-admit</a>
 
                                                ';
                                             // }
@@ -70,6 +69,7 @@
                                         </tr>
                                     ';
                                 }
+                                                // <a href="patient_readmit.php?id='.$rowPatients['id'].'" type="button" class="btn text-white btn-primary waves-effect waves-light btn-sm">Re-admit</a>
                                             // <td class="text-center"><a href="./user_edit.php" type="button" class="btn text-white btn-warning waves-effect 
                                             //waves-light">Edit</a></td>
                                 ?>
