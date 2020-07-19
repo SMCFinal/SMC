@@ -57,7 +57,7 @@
                                             <td>'.$rowPatients['patient_disease'].'</td>
                                             <td>'."Dr. ".$rowPatients['name'].'</td>
                                             <td class="text-center">
-                                            <a href="patient_view.php?id='.$rowPatients['id'].'" type="button" class="btn text-white btn-info waves-effect waves-light btn-sm">View</a>&nbsp;&nbsp;&nbsp;';
+                                            <a href="discharge_patient_invoice.php?id='.$rowPatients['id'].'" type="button" class="btn text-white btn-info waves-effect waves-light btn-sm">View</a>&nbsp;&nbsp;&nbsp;';
 
                                             // if ($hourdiff < 4) {
                                                 echo '
