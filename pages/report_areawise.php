@@ -6,6 +6,17 @@
         header("LOCATION:../index.php");
     }
 
+    if (isset($_POST['report'])) {
+        $area = $_POST['area'];
+        // $DateStart = $_POST['start'];
+        // $DateEnd = $_POST['end'];
+
+        // $fromDate = date("Y-m-d", strtotime($DateStart));
+        // $toDate = date("Y-m-d", strtotime($DateEnd));
+        
+        header("LOCATION:report_areawise_list.php?id=".$area."");
+    }
+
 include '../_partials/header.php';
 ?>
 <!-- Top Bar End -->
@@ -27,19 +38,18 @@ include '../_partials/header.php';
                                 <label class="col-sm-2 col-form-label">Select Area</label>
                                 <div class="col-sm-6">
                                     <?php
-                                    $select_option = mysqli_query($connect, "SELECT patient_registration.*, rooms.room_number FROM `patient_registration`
-                                        INNER JOIN rooms ON rooms.id = patient_registration.room_id");
-                                        $options = '<select class="form-control select2" name="patientRoom" required="" style="width:100%">';
+                                    $select_option = mysqli_query($connect, "SELECT * FROM `area`");
+                                        $options = '<select class="form-control select2" name="area" required="" style="width:100%">';
                                          $options .= '<option value="all">All</option>';
                                           while ($row = mysqli_fetch_assoc($select_option)) {
-                                            $options.= '<option value='.$row['id'].'>'.$row['patient_name'].' --- '.$row['room_number'].'</option>';
+                                            $options.= '<option value='.$row['id'].'>'.$row['area_name'].'</option>';
                                           }
                                         $options.= "</select>";
                                     echo $options;
                                 ?>
                                 </div>
                             </div>
-                            <div class="form-group row">
+                            <!-- div class="form-group row">
                                 <label class="col-sm-2 col-form-label">Date Range</label>
                                 <div class="col-sm-6">
                                     <div class="input-daterange input-group" id="date-range">
@@ -47,13 +57,14 @@ include '../_partials/header.php';
                                         <input type="text" class="form-control" name="end" placeholder="End Date" />
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label"></label>
                                 <div class="col-sm-10">
                                     <?php include '../_partials/cancel.php'?>
-                                    <a href="report_areawise_list.php" type="submit" name="addMedicine" class="btn btn-primary waves-effect waves-light">Report</a>
+                                    <!-- <a href="" ></a> -->
                                     <!-- <button ></button> -->
+                                    <button type="submit" name="report" class="btn btn-primary waves-effect waves-light">Report</button>
                                 </div>
                             </div>
                         </form>

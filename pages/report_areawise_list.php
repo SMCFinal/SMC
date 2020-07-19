@@ -7,12 +7,37 @@
     }
     $id = $_GET['id'];
 
-    $selectPatient = mysqli_query($connect, "SELECT patient_registration.*, staff_members.name, staff_members.visit_charges, rooms.room_number, rooms.room_price  FROM `patient_registration`
-        INNER JOIN staff_members ON staff_members.id = patient_registration.patient_consultant
-        INNER JOIN rooms ON rooms.id = patient_registration.room_id
+    if ($id == 'all') {
+        $selectCurrentPatient = mysqli_query($connect, "SELECT area.area_name, patient_registration.patient_name, patient_registration.patient_age, patient_registration.patient_address, patient_registration.patient_consultant, staff_members.name  FROM patient_registration 
+    INNER JOIN staff_members ON staff_members.id = patient_registration.patient_consultant
+    INNER JOIN area ON area.id = patient_registration.city_id");
 
-        WHERE patient_registration.id = '$id'");
-    $fetch_selectPatient = mysqli_fetch_assoc($selectPatient);
+        $selectDischargedPatient = mysqli_query($connect, "SELECT area.area_name, discharge_patients.patient_name, discharge_patients.patient_age, discharge_patients.patient_address, discharge_patients.patient_consultant, staff_members.name  FROM discharge_patients 
+    INNER JOIN staff_members ON staff_members.id = discharge_patients.patient_consultant
+    INNER JOIN area ON area.id = discharge_patients.city_id");
+        
+$selectDischargedPatient = mysqli_query($connect, "SELECT area.area_name, postpone_patient.patient_name, postpone_patient.patient_age, postpone_patient.patient_address, postpone_patient.patient_consultant, staff_members.name  FROM postpone_patient 
+    INNER JOIN staff_members ON staff_members.id = postpone_patient.patient_consultant
+    INNER JOIN area ON area.id = postpone_patient.city_id");
+
+    }else {
+    $selectCurrentPatient = mysqli_query($connect, "SELECT area.area_name, patient_registration.patient_name, patient_registration.patient_age, patient_registration.patient_address, patient_registration.patient_consultant, staff_members.name  FROM patient_registration 
+    INNER JOIN staff_members ON staff_members.id = patient_registration.patient_consultant
+    INNER JOIN area ON area.id = patient_registration.city_id
+    WHERE patient_registration.city_id = '$id'");
+
+    $selectDischargedPatient = mysqli_query($connect, "SELECT area.area_name, discharge_patients.patient_name, discharge_patients.patient_age, discharge_patients.patient_address, discharge_patients.patient_consultant, staff_members.name  FROM discharge_patients 
+    INNER JOIN staff_members ON staff_members.id = discharge_patients.patient_consultant
+    INNER JOIN area ON area.id = discharge_patients.city_id
+    WHERE discharge_patients.city_id = '$id'");
+
+
+    $selectPostponePatient = mysqli_query($connect, "SELECT area.area_name, postpone_patient.patient_name, postpone_patient.patient_age, postpone_patient.patient_address, postpone_patient.patient_consultant, staff_members.name  FROM postpone_patient 
+    INNER JOIN staff_members ON staff_members.id = postpone_patient.patient_consultant
+    INNER JOIN area ON area.id = postpone_patient.city_id
+    WHERE postpone_patient.city_id = '$id'");
+
+    }
 
 
 
@@ -41,6 +66,7 @@ include '../_partials/header.php';
                                         <img src="../assets/logo.png" alt="logo" height="60" />
                                         <h3 align="center">SHAH MEDICAL AND SERGICAL CENTER</h3>
                                         <h4 class="text-center font-16">Address: Near Center Hospital, Saidu Sharif Swat.</h4>
+                                        <h5 class="text-center font-16">Area Wise Report</h5>
                                         <div class="d-print-none mo-mt-2">
                                            
                                         </div>
@@ -48,6 +74,7 @@ include '../_partials/header.php';
                                     </h3>
                                 </div>
                                 <hr>
+                                 <h5 class="text-center font-16">Currently Admit Patients</h5>
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="table-responsive">
@@ -55,35 +82,120 @@ include '../_partials/header.php';
                                                 <thead>
                                                     <tr>
                                                         <th>#</th>
-                                                        <th>First Name</th>
-                                                        <th>Last Name</th>
-                                                        <th>Username</th>
+                                                        <th>Patient Name</th>
+                                                        <th>Patient Age</th>
+                                                        <th>Area</th>
+                                                        <th>Patient Address</th>
+                                                        <th>Consultant</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr>
-                                                        <th scope="row">1</th>
-                                                        <td>Mark</td>
-                                                        <td>Otto</td>
-                                                        <td>@mdo</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th scope="row">2</th>
-                                                        <td>Jacob</td>
-                                                        <td>Thornton</td>
-                                                        <td>@fat</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th scope="row">3</th>
-                                                        <td>Larry</td>
-                                                        <td>the Bird</td>
-                                                        <td>@twitter</td>
-                                                    </tr>
+                                                    <?php
+
+                                                    $itrCurrent = 1;
+                                                    while ($rowDischarge = mysqli_fetch_assoc($selectCurrentPatient)) {
+                                                        echo '
+                                                        <tr>
+                                                            <td>'.$itrCurrent++.'</td>
+                                                            <td>'.$rowDischarge['patient_name'].'</td>
+                                                            <td>'.$rowDischarge['patient_age'].'</td>
+                                                            <td>'.$rowDischarge['area_name'].'</td>
+                                                            <td>'.$rowDischarge['patient_address'].'</td>
+                                                            <td>Dr. '.$rowDischarge['name'].'</td>
+                                                        </tr>
+                                                        ';
+                                                    }
+                                                    ?>
                                                 </tbody>
                                             </table>
                                         </div>
                                     </div>
                                 </div>
+
+                                <br>
+                                 <h5 class="text-center font-16">Dischared Patients</h5>
+
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="table-responsive">
+                                            <table class="table mb-0">
+                                                <thead>
+                                                    <tr>
+                                                        <th>#</th>
+                                                        <th>Patient Name</th>
+                                                        <th>Patient Age</th>
+                                                        <th>Area</th>
+                                                        <th>Patient Address</th>
+                                                        <th>Consultant</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <?php
+
+                                                    $itrCurrent = 1;
+                                                    while ($rowCurrent = mysqli_fetch_assoc($selectDischargedPatient)) {
+                                                        echo '
+                                                        <tr>
+                                                            <td>'.$itrCurrent++.'</td>
+                                                            <td>'.$rowCurrent['patient_name'].'</td>
+                                                            <td>'.$rowCurrent['patient_age'].'</td>
+                                                            <td>'.$rowCurrent['area_name'].'</td>
+                                                            <td>'.$rowCurrent['patient_address'].'</td>
+                                                            <td>Dr. '.$rowCurrent['name'].'</td>
+                                                        </tr>
+                                                        ';
+                                                    }
+                                                    ?>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                                <br>
+                                 <h5 class="text-center font-16">Postpone Patients</h5>
+
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="table-responsive">
+                                            <table class="table mb-0">
+                                                <thead>
+                                                    <tr>
+                                                        <th>#</th>
+                                                        <th>Patient Name</th>
+                                                        <th>Patient Age</th>
+                                                        <th>Area</th>
+                                                        <th>Patient Address</th>
+                                                        <th>Consultant</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <?php
+
+                                                    $itrCurrent = 1;
+                                                    while ($rowCurrent = mysqli_fetch_assoc($selectPostponePatient)) {
+                                                        echo '
+                                                        <tr>
+                                                            <td>'.$itrCurrent++.'</td>
+                                                            <td>'.$rowCurrent['patient_name'].'</td>
+                                                            <td>'.$rowCurrent['patient_age'].'</td>
+                                                            <td>'.$rowCurrent['area_name'].'</td>
+                                                            <td>'.$rowCurrent['patient_address'].'</td>
+                                                            <td>Dr. '.$rowCurrent['name'].'</td>
+                                                        </tr>
+                                                        ';
+                                                    }
+                                                    ?>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
                             </div>
                         </div>
                     </div>

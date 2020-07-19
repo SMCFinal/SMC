@@ -14,7 +14,7 @@
         WHERE patient_registration.id = '$id'");
 
     $fetch_selectPatient = mysqli_fetch_assoc($selectPatient);
-    if (isset($_POST[''])) {
+    if (isset($_POST['makeSlip'])) {
         $id = $_POST['pat_id'];
         $pat_id = $_POST['pat_id'];
         $city_id = $_POST['city_id'];
@@ -25,13 +25,23 @@
         $hospitalCharges = $_POST['hospitalCharges'];
         $labCharges = $_POST['labCharges'];
         $drCharges = $_POST['drCharges'];
-        $anestheticCharges = $_POST['anestheticCharges'];
+        $anestheticCharges = $_POST['anesthesiaCharges'];
         $actualCharges = $_POST['actualCharges'];
         $paidAmount = $_POST['paidAmount'];
+        $doctorAdvice = $_POST['doctorAdvice'];
+        $stitchesDays = $_POST['stitchesDays'];
 
+        $patient_operation_discharge = $_POST['p_operation'];
+        $pat_consultant = $_POST['p_consultant'];
+        $visitCharges = $_POST['visitCharges'];
+        if (empty($visitCharges)) {
+            $visitCharges = 0;
+        }else {
+            $visitCharges = $_POST['visitCharges'];
+        }
 
         $queryDischargeCharges = mysqli_query($connect, "INSERT INTO `discharge_patients_charges`
-            (`pat_id`, `city_id`, `room_id`, `med_charges`, `room_charges`, `ot_charges`, `hospital_charges`, `lab_charges`, `dr_charges`, `anesthetic_charges`, `actual_charges`, `amount_paid`, `auto_date`) VALUES ('$pat_id', '$city_id', '$room_id', '$medCharges', '$roomCharges', '$OTCharges', '$hospitalCharges', '$labCharges', '$drCharges', 'anestheticCharges', '$actualCharges', '$paidAmount')");
+            (`pat_id`, `city_id`, `room_id`, `med_charges`, `room_charges`, `ot_charges`, `hospital_charges`, `lab_charges`, `dr_charges`, `anesthetic_charges`, `actual_charges`, `amount_paid`, doctor_advice, days_stitches, pat_operation, pat_consultant, visit_charges) VALUES ('$pat_id', '$city_id', '$room_id', '$medCharges', '$roomCharges', '$OTCharges', '$hospitalCharges', '$labCharges', '$drCharges', '$anestheticCharges', '$actualCharges', '$paidAmount', '$doctorAdvice', '$stitchesDays', '$patient_operation_discharge', '$pat_consultant', '$visitCharges')");
 
 
 
@@ -54,12 +64,10 @@
         $p_anes = $_POST['p_anes'];
         $p_anes_charges = $_POST['p_anes_charges'];
         $category = 'dischargePatient';
-        $days_stitches = 'dischargePatient';
-        $doctor_advice = 'dischargePatient';
-
+        
         $dischargePatientTable = mysqli_query($connect, "INSERT INTO `discharge_patients`
-            (`patient_name`, `patient_age`, `patient_gender`, `patient_address`, `patient_cnic`, `patient_contact`, `city_id`, `room_id`, `patient_doa`, `patient_doop`, `patient_disease`, `patient_operation`, `patient_consultant`, `patient_yearly_no`, `attendent_name`, `consultant_charges`, `anasthetic_name`, `anesthesia_charges`, `category`) VALUES 
-            ('$p_name', '$p_age', '$p_gender', '$p_address', '$p_cnic', '$p_contact', '$p_city', '$p_room', '$p_doa', '$p_doop', '$p_disease', '$p_operation', '$p_consultant', '$p_yearly', '$p_attendent', '$p_consultant_charges', '$p_anes', '$p_anes_charges', '$category')");
+            (`patient_name`, `patient_age`, `patient_gender`, `patient_address`, `patient_cnic`, `patient_contact`, `city_id`, `room_id`, `patient_doa`, `patient_doop`, `patient_disease`, `patient_operation`, `patient_consultant`, `patient_yearly_no`, `attendent_name`, `consultant_charges`, `anasthetic_name`, `anesthesia_charges`, `category`, pat_id) VALUES 
+            ('$p_name', '$p_age', '$p_gender', '$p_address', '$p_cnic', '$p_contact', '$p_city', '$p_room', '$p_doa', '$p_doop', '$p_disease', '$p_operation', '$p_consultant', '$p_yearly', '$p_attendent', '$p_consultant_charges', '$p_anes', '$p_anes_charges', '$category', '$id')");
 
         $updatePharmacyAmount = mysqli_query($connect, "UPDATE pharmacy_amount SET patient_payment_status = '0' WHERE patient_id = '$pat_id'");
 
@@ -69,6 +77,11 @@
         $updateLabTestReport = mysqli_query($connect, "UPDATE lab_test_report SET patient_payment_status = '0' WHERE pat_id = '$pat_id'");
 
         $deletePatient = mysqli_query($connect, "DELETE FROM `patient_registration` WHERE id='$id'");
+
+        $dop = "0000-00-00 00:00:00";
+        $queryDoctorChargesSurgery = mysqli_query($connect, "INSERT INTO doctor_surgery_charges(pat_id, room_id, surgery_charges, pat_operation, pat_consultant, date_of_payment)VALUES('$id', '$p_room', '$drCharges', '$p_operation', '$p_consultant', '$dop')");
+
+        $queryDoctorChargesSurgery = mysqli_query($connect, "INSERT INTO anesthetic_surgery_charges(pat_id, room_id, surgery_anes_charges, pat_operation, pat_consultant, date_of_payment)VALUES('$id', '$p_room', '$anestheticCharges', '$p_operation', '$p_consultant', '$dop')");
     }
 
 
@@ -499,7 +512,7 @@ include '../_partials/header.php';
                                                         ';
                                                     }
 
-                                                     $queryTotalLab = mysqli_query($connect, "SELECT SUM(total_price) AS totalPrice FROM `lab_test_report` WHERE pat_id = '10'");
+                                                     $queryTotalLab = mysqli_query($connect, "SELECT SUM(total_price) AS totalPrice FROM `lab_test_report` WHERE pat_id = '$id'");
                                                         $fetch_queryTotalLab = mysqli_fetch_assoc($queryTotalLab);
                                                         echo '
                                                             <td></td>
@@ -634,6 +647,23 @@ include '../_partials/header.php';
                                 </div>
                             </div>
                             <br />
+                            <?php
+                            $queryVisitCharges = mysqli_query($connect, "SELECT SUM(visit_charges) AS sumVisitCharges, visit_charges, COUNT(*) AS countedVisit FROM `doctor_visit_charges` WHERE pat_id = '$id' AND visit_status = '1'");
+                            $fetch_queryVisitCharges = mysqli_fetch_assoc($queryVisitCharges);
+                            ?>
+                            <div class="row">
+                                <div class="col text-right">
+                                    <label> Visit Charges:</label>
+                                </div>
+                                <div class="col-md-2">
+                                    <input type="number" value="<?php echo $fetch_queryVisitCharges['sumVisitCharges'] ?>" id="actVisitCharges" required="" onkeyUp="actCharges()" readonly class="form-control" placeholder="Anesthesia Charges">
+                                </div>
+                                <div class="col-md-3">
+                                    <input type="number" name="visitCharges" value="<?php echo $fetch_queryVisitCharges['sumVisitCharges'] ?>" id="totVisitCharges" required="" onkeyUp="totCharges()" class="form-control" placeholder="Anesthesia Charges">
+
+                                </div>
+                            </div>
+                            <br />
                             <div class="row">
                                 <div class="col text-right">
                                     <label> Actual Charges:</label>
@@ -646,11 +676,11 @@ include '../_partials/header.php';
                                 </div>
                             </div>
                             <br />
-                            <div class="col-md-2" style="margin-top: 2%">
+                            <div class="col-md-4" style="margin-top: 2%">
                                 <label>دن بعد ٹانکیں کھولنے کیلئے تشریف لائی</label>
                             </div>
-                            <div class="col-2" align="right" style="margin-top: 2%; ">
-                                <input type="text" name="stitchesDays" required="" class="form-control" style="border: none; border-bottom: 1px solid black">
+                            <div class="col-3 col-md-offset-1" align="center" style="margin-top: 2%; ">
+                                <input type="text" name="stitchesDays" required="" placeholder="براہ کرم خالی جگہ کو بھریں" class="form-control" style="border: none; border-bottom: 1px solid black">
                             </div>
                             <input type="hidden" name="pat_id" value="<?php echo $fetch_selectPatient['id'] ?>">
                             <input type="hidden" name="city_id" value="<?php echo $fetch_selectPatient['city_id'] ?>">
@@ -682,7 +712,7 @@ include '../_partials/header.php';
                             <div class="d-print-none mo-mt-2">
                                 <div class="float-right">
                                     <!-- <a href="javascript:window.print()" class="btn btn-success waves-effect waves-light"><i class="fa fa-print"></i></a> -->
-                                    <button class="btn btn-primary waves-effect waves-light" type="submit" name="makeSlip">PrepareDischarge Slip</button>
+                                    <button class="btn btn-primary waves-effect waves-light btn-lg" type="submit" name="makeSlip">Prepare Discharge Slip</button>
                                     <!-- <a href="#" class="btn btn-primary waves-effect waves-light">Send</a> -->
                                 </div>
                             </div>
@@ -750,6 +780,8 @@ function actCharges() {
     totalChargesVar['actLabChar'] = parseInt(document.getElementById('actLabChar').value);
     totalChargesVar['actDrChar'] = parseInt(document.getElementById('actDrChar').value);
     totalChargesVar['actAnesChar'] = parseInt(document.getElementById('actAnesChar').value);
+    totalChargesVar['actVisitCharges'] = parseInt(document.getElementById('actVisitCharges').value);
+    // totalChargesVar['totVisitCharges'] = parseInt(document.getElementById('totVisitCharges').value);
     document.getElementById('actualCharges').value = '';
 
     for (let key in totalChargesVar) {
@@ -772,6 +804,7 @@ function totCharges() {
     totalChargesVar['totLabChar'] = parseInt(document.getElementById('totLabChar').value);
     totalChargesVar['TotDrChar'] = parseInt(document.getElementById('TotDrChar').value);
     totalChargesVar['totAnesChar'] = parseInt(document.getElementById('totAnesChar').value);
+    totalChargesVar['totVisitCharges'] = parseInt(document.getElementById('totVisitCharges').value);
     document.getElementById('totalCharges').value = '';
 
     for (let key in totalChargesVar) {

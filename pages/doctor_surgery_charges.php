@@ -6,6 +6,11 @@
         header("LOCATION:../index.php");
     }
 
+    if (isset($_POST['AddDoctor'])) {
+        $id = $_POST['doctor'];
+        header("LOCATION: doctor_surgery_charges_list.php?id=".$id."");
+    }
+
 include '../_partials/header.php';
 ?>
 <!-- Top Bar End -->
@@ -28,11 +33,12 @@ include '../_partials/header.php';
                                 <div class="col-sm-4"> 
 
                                 <?php
-                                    $select_option = mysqli_query($connect, "SELECT patient_registration.*, rooms.room_number FROM `patient_registration`
-                                        INNER JOIN rooms ON rooms.id = patient_registration.room_id");
-                                        $options = '<select class="form-control select2" name="patientRoom" required="" style="width:100%">';
+                                    $select_option = mysqli_query($connect, "SELECT staff_members.id AS dId, staff_members.*, staff_category.* FROM `staff_members`
+                                        INNER JOIN staff_category ON staff_category.id = staff_members.category_id
+                                        WHERE staff_category.category_name = 'Doctor' OR staff_category.category_name = 'Dr' OR staff_category.category_name = 'DR' OR staff_category.category_name = 'DOCTOR' OR staff_category.category_name = 'dr'");
+                                        $options = '<select class="form-control select2" name="doctor" required="" style="width:100%">';
                                           while ($row = mysqli_fetch_assoc($select_option)) {
-                                            $options.= '<option value='.$row['id'].'>'.$row['patient_name'].' --- '.$row['room_number'].'</option>';
+                                            $options.= '<option value='.$row['dId'].'>Dr. '.$row['name'].' - 0'.$row['contact'].'</option>';
                                           }
                                         $options.= "</select>";
                                     echo $options;
@@ -41,12 +47,11 @@ include '../_partials/header.php';
                                 </div>
                             </div>
 
-                             <div class="form-group row">
+                            <div class="form-group row">
                                 <label class="col-sm-2 col-form-label"></label>
                                 <div class="col-sm-10">
                                     <?php include '../_partials/cancel.php'?>
-                                    <a href="doctor_surgery_charges_list.php" type="submit" name="addMedicine" class="btn btn-primary waves-effect waves-light">Select Doctor</a>
-                                    <!-- <button ></button> -->
+                                    <button type="submit" name="AddDoctor" class="btn btn-primary waves-effect waves-light">Select Doctor</button>
                                 </div>
                             </div>
 

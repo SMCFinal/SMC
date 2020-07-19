@@ -5,14 +5,12 @@
     if (empty($_SESSION["user"])) {
         header("LOCATION:../index.php");
     }
-    $id = $_GET['id'];
 
-    $selectPatient = mysqli_query($connect, "SELECT patient_registration.*, staff_members.name, staff_members.visit_charges, rooms.room_number, rooms.room_price  FROM `patient_registration`
-        INNER JOIN staff_members ON staff_members.id = patient_registration.patient_consultant
-        INNER JOIN rooms ON rooms.id = patient_registration.room_id
+    $fromDate = $_GET['fromDate'];
+    $toDate = $_GET['toDate'];
 
-        WHERE patient_registration.id = '$id'");
-    $fetch_selectPatient = mysqli_fetch_assoc($selectPatient);
+
+    $selectOTItems = mysqli_query($connect, "SELECT * FROM ot_items WHERE ot_item_status = '1' AND DATE(ot_item_dop) BETWEEN '$fromDate' AND '$toDate'");
 
 
 
@@ -55,30 +53,34 @@ include '../_partials/header.php';
                                                 <thead>
                                                     <tr>
                                                         <th>#</th>
-                                                        <th>First Name</th>
-                                                        <th>Last Name</th>
-                                                        <th>Username</th>
+                                                        <th>OT Item Name</th>
+                                                        <th>Date of Purchase</th>
+                                                        <th>OT Item Quantity</th>
+                                                        <th>OT Item Price</th>
+                                                        <th>Total Price</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
+                                                    <?php
+                                                    $itr = 1;
+                                                    while ($row = mysqli_fetch_assoc($selectOTItems)) {
+                                                    echo '
                                                     <tr>
-                                                        <th scope="row">1</th>
-                                                        <td>Mark</td>
-                                                        <td>Otto</td>
-                                                        <td>@mdo</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th scope="row">2</th>
-                                                        <td>Jacob</td>
-                                                        <td>Thornton</td>
-                                                        <td>@fat</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th scope="row">3</th>
-                                                        <td>Larry</td>
-                                                        <td>the Bird</td>
-                                                        <td>@twitter</td>
-                                                    </tr>
+                                                        <td>'.$itr++.'</td>
+                                                        <td>'.$row['ot_item_name'].'</td>';
+                                                        $Date_format = $row['ot_item_dop']; 
+                                                        $Date = date('d/M h:i:s A', strtotime($Date_format));
+                                                        $qty = $row['ot_item_qty'];
+                                                        $indi_price = $row['ot_item_price'];
+                                                        $price = $qty * $qty;
+                                                        echo '
+                                                        <td>'.$Date.'</td>
+                                                        <td>'.$row['ot_item_qty'].'</td>
+                                                        <td>'.$row['ot_item_price'].'</td>
+                                                        <td>'.$price.'</td>
+                                                    </tr>';
+                                                    }
+                                                    ?>
                                                 </tbody>
                                             </table>
                                         </div>

@@ -5,15 +5,12 @@
     if (empty($_SESSION["user"])) {
         header("LOCATION:../index.php");
     }
-    $id = $_GET['id'];
+    $fromDate = $_GET['fromDate'];
+    $toDate = $_GET['toDate'];
 
-    $selectPatient = mysqli_query($connect, "SELECT patient_registration.*, staff_members.name, staff_members.visit_charges, rooms.room_number, rooms.room_price  FROM `patient_registration`
-        INNER JOIN staff_members ON staff_members.id = patient_registration.patient_consultant
-        INNER JOIN rooms ON rooms.id = patient_registration.room_id
-
-        WHERE patient_registration.id = '$id'");
-    $fetch_selectPatient = mysqli_fetch_assoc($selectPatient);
-
+    $query = mysqli_query($connect, "SELECT expense.*, expense_category.expense_name FROM `expense`
+INNER JOIN expense_category ON expense_category.id = expense.id
+WHERE expense.expense_status ='0' AND DATE(expense.auto_date) BETWEEN '$fromDate' AND '$toDate'");
 
 
 include '../_partials/header.php';
@@ -55,30 +52,32 @@ include '../_partials/header.php';
                                                 <thead>
                                                     <tr>
                                                         <th>#</th>
-                                                        <th>First Name</th>
-                                                        <th>Last Name</th>
-                                                        <th>Username</th>
+                                                        <th>Expense Name</th>
+                                                        <th>Expense Date</th>
+                                                        <th>Expense Amount</th>
+                                                        <th>Expense Description</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr>
-                                                        <th scope="row">1</th>
-                                                        <td>Mark</td>
-                                                        <td>Otto</td>
-                                                        <td>@mdo</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th scope="row">2</th>
-                                                        <td>Jacob</td>
-                                                        <td>Thornton</td>
-                                                        <td>@fat</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th scope="row">3</th>
-                                                        <td>Larry</td>
-                                                        <td>the Bird</td>
-                                                        <td>@twitter</td>
-                                                    </tr>
+                                                    <?php
+                                                    $itr = 1;
+
+                                                    while ($row = mysqli_fetch_assoc($query)) {
+                                                        echo '
+                                                        <tr>
+                                                            <td>'.$itr++.'</td>
+                                                            <td>'.$row['expense_name'].'</td>';
+                                            
+                                                            $Date_format = $row['expense_date']; 
+                                                            $Date = date('d/M h:i:s A', strtotime($Date_format));
+                                                            echo '
+                                                            <td>'.$Date.'</td>
+                                                            <td>'.$row['expense_amount'].'</td>
+                                                            <td>'.$row['expense_description'].'</td>
+                                                        </tr>
+                                                        ';
+                                                    }
+                                                    ?>
                                                 </tbody>
                                             </table>
                                         </div>

@@ -6,6 +6,11 @@
         header("LOCATION:../index.php");
     }
 
+    if (isset($_POST['addAnesthetic'])) {
+        $anesthetic = $_POST['anesthetic'];
+        header("LOCATION:anesthetic_surgery_charges_list.php?id=".$anesthetic."");
+    }
+
 include '../_partials/header.php';
 ?>
 <!-- Top Bar End -->
@@ -31,7 +36,7 @@ include '../_partials/header.php';
                                     $select_option = mysqli_query($connect, "SELECT staff_members.*, staff_category.category_name FROM `staff_members`
                                         INNER JOIN staff_category ON staff_category.id = staff_members.category_id
                                         WHERE staff_category.category_name = 'Anesthesia' OR staff_category.category_name = 'Anesthetic' OR staff_category.category_name = 'anesthesia'");
-                                        $options = '<select class="form-control select2" name="patientRoom" required="" style="width:100%">';
+                                        $options = '<select class="form-control select2" name="anesthetic" required="" style="width:100%">';
                                           while ($row = mysqli_fetch_assoc($select_option)) {
                                             $options.= '<option value='.$row['id'].'>'.$row['name'].' - 0'.$row['contact'].'</option>';
                                           }
@@ -46,7 +51,8 @@ include '../_partials/header.php';
                                 <label class="col-sm-2 col-form-label"></label>
                                 <div class="col-sm-10">
                                     <?php include '../_partials/cancel.php'?>
-                                    <a href="anesthetic_surgery_charges_list.php" type="submit" name="addMedicine" class="btn btn-primary waves-effect waves-light">Select Anesthetic</a>
+                                    <button type="submit" name="addAnesthetic" class="btn btn-primary waves-effect waves-light">Select Anesthetic</button>
+                                    <!-- <a href="anesthetic_surgery_charges_list.php" </a> -->
                                     <!-- <button ></button> -->
                                 </div>
                             </div>

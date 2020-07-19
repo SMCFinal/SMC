@@ -6,13 +6,26 @@
         header("LOCATION:../index.php");
     }
     $id = $_GET['id'];
+    $fromDate = $_GET['fromDate'];
+    $toDate = $_GET['toDate'];
 
-    $selectPatient = mysqli_query($connect, "SELECT patient_registration.*, staff_members.name, staff_members.visit_charges, rooms.room_number, rooms.room_price  FROM `patient_registration`
-        INNER JOIN staff_members ON staff_members.id = patient_registration.patient_consultant
-        INNER JOIN rooms ON rooms.id = patient_registration.room_id
+    if ($id == 'all') {
+        
+        $allPatientsQuery = mysqli_query($connect, "SELECT doctor_paid_amount.*, staff_members.name, discharge_patients.patient_name, discharge_patients.patient_operation, surgeries.surgery_name FROM `doctor_paid_amount` 
+INNER JOIN staff_members ON staff_members.id = doctor_paid_amount.d_id
+INNER JOIN discharge_patients ON discharge_patients.patient_consultant = doctor_paid_amount.d_id
+INNER JOIN surgeries ON surgeries.id = discharge_patients.patient_operation
+WHERE DATE(doctor_paid_amount.auto_date)  BETWEEN '$fromDate' AND '$toDate'");
 
-        WHERE patient_registration.id = '$id'");
-    $fetch_selectPatient = mysqli_fetch_assoc($selectPatient);
+    }else {
+
+        $allPatientsQuery = mysqli_query($connect, "SELECT doctor_paid_amount.*, staff_members.name, discharge_patients.patient_name, discharge_patients.patient_operation, surgeries.surgery_name FROM `doctor_paid_amount` 
+INNER JOIN staff_members ON staff_members.id = doctor_paid_amount.d_id
+INNER JOIN discharge_patients ON discharge_patients.patient_consultant = doctor_paid_amount.d_id
+INNER JOIN surgeries ON surgeries.id = discharge_patients.patient_operation
+WHERE doctor_paid_amount.d_id = '$id' AND DATE(doctor_paid_amount.auto_date)  BETWEEN '$fromDate' AND '$toDate'");
+
+    }
 
 
 
@@ -55,30 +68,37 @@ include '../_partials/header.php';
                                                 <thead>
                                                     <tr>
                                                         <th>#</th>
-                                                        <th>First Name</th>
-                                                        <th>Last Name</th>
-                                                        <th>Username</th>
+                                                        <th>Doctor Name</th>
+                                                        <th>Patient Name</th>
+                                                        <th>Surgery</th>
+                                                        <th>Surgery Price</th>
+                                                        <th>Visit Amount</th>
+                                                        <th>Total Paid</th>
+                                                        <th>Payment Date</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr>
-                                                        <th scope="row">1</th>
-                                                        <td>Mark</td>
-                                                        <td>Otto</td>
-                                                        <td>@mdo</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th scope="row">2</th>
-                                                        <td>Jacob</td>
-                                                        <td>Thornton</td>
-                                                        <td>@fat</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th scope="row">3</th>
-                                                        <td>Larry</td>
-                                                        <td>the Bird</td>
-                                                        <td>@twitter</td>
-                                                    </tr>
+                                                    <?php
+                                                    $itr = 1;
+                                                    while ($row = mysqli_fetch_assoc($allPatientsQuery)) {
+                                                        echo '
+                                                        <tr>
+                                                            <td>'.$itr++.'</td>
+                                                            <td>Dr. '.$row['name'].'</td>
+                                                            <td>'.$row['patient_name'].'</td>
+                                                            <td>'.$row['surgery_name'].'</td>
+                                                            <td>'.$row['total_surgery'].'</td>
+                                                            <td>'.$row['total_visit'].'</td>
+                                                            <td>'.$row['total_paid'].'</td>';
+                                            
+                                                            $Date_format = $row['auto_date']; 
+                                                            $Date = date('d/M h:i:s A', strtotime($Date_format));
+                                                            echo '
+                                                            <td>'.$Date.'</td>
+                                                        </tr>
+                                                        ';
+                                                    }
+                                                    ?>
                                                 </tbody>
                                             </table>
                                         </div>

@@ -68,6 +68,8 @@
                                 <li><a href="patients_list.php">View Patients</a></li>
                                 <!-- <li><a href="patient_new.php">View Rooms</a></li> -->
                                 <li><a target="_blank" href="patient_active_view.php">View Current Patients</a></li>
+
+                                <li><a target="_blank" href="pharmacy_list.php">Pharmacy View</a></li>
                             </ul>
                         </li>
 
@@ -197,11 +199,7 @@
                                 <!-- <li><a href="doctor_visit_charges_confirm.php">Doctor Visit Charges</a></li> -->
                                 <li><a href="doctor_visit_charges.php">Doctor Visit Charges</a></li>
                                 <li><a href="doctor_visit_charges_confirm_list.php">Doctor Charges List</a></li>
-                                <li><a href="doctor_surgery_charges.php">Doctor Visit Charges List</a></li>
-                                <!-- <li><a href="doctor_surgery_charges.php">Doctor Charges</a></li> -->
-                                <!-- <li><a href="doctor_surgery_charges_list.php">Doctor Charges List</a></li> -->
-<!--                                 <li><a href="doctor_visit_charges_list.php">Doctor Visit Charges List</a></li>
- -->                                <!-- <li><a href="doctor_visit_charges_confirm.php">Expense List</a></li> -->
+                                <li><a href="doctor_surgery_charges.php">Visit And Surgery Charges</a></li>
 
                             </ul>
                         </li>
@@ -233,7 +231,7 @@
                                 <li><a href="report_doctor.php">Doctor Report</a></li>
                                 <li><a href="report_pharmacy.php">Pharmacy Report</a></li>
                                 <li><a href="report_lab.php">Lab Report</a></li>
-                                <li><a href="report_surgeries.php">Surgery Report</a></li>
+                                <!-- <li><a href="report_surgeries.php">Surgery Report</a></li> -->
                                 <li><a href="report_expenses.php">Expenses Report</a></li>
                                 <li><a href="report_ot.php">OT Report</a></li>
                                 

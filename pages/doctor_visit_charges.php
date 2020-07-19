@@ -37,7 +37,11 @@ include '../_partials/header.php';
                                         INNER JOIN rooms ON rooms.id = patient_registration.room_id");
                                         $options = '<select class="form-control select2" name="patient" required="" style="width:100%">';
                                           while ($row = mysqli_fetch_assoc($select_option)) {
-                                            $options.= '<option value='.$row['id'].'>'.$row['patient_name'].' --- '.$row['room_number'].'</option>';
+                                            if ($row['patient_doop']) {
+                                                
+                                            }else{
+                                                $options.= '<option value='.$row['id'].'>'.$row['patient_name'].' --- '.$row['room_number'].'</option>';
+                                            }
                                           }
                                         $options.= "</select>";
                                     echo $options;

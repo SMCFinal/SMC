@@ -6,6 +6,17 @@
         header("LOCATION:../index.php");
     }
 
+    if (isset($_POST['report'])) {
+        // $doctor = $_POST['doctor'];
+        $DateStart = $_POST['start'];
+        $DateEnd = $_POST['end'];
+
+        $fromDate = date("Y-m-d", strtotime($DateStart));
+        $toDate = date("Y-m-d", strtotime($DateEnd));
+        
+        header("LOCATION:report_pharmacy_list.php?fromDate=".$fromDate."&toDate=".$toDate."");
+    }
+
 include '../_partials/header.php';
 ?>
 <!-- Top Bar End -->
@@ -53,7 +64,7 @@ include '../_partials/header.php';
                                 <label class="col-sm-2 col-form-label"></label>
                                 <div class="col-sm-10">
                                     <?php include '../_partials/cancel.php'?>
-                                    <a href="report_pharmacy_list.php" type="submit" name="addMedicine" class="btn btn-primary waves-effect waves-light">Report</a>
+                                    <button type="submit" name="report" class="btn btn-primary waves-effect waves-light">Report</button>
                                     <!-- <button ></button> -->
                                 </div>
                             </div>

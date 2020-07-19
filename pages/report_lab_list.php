@@ -5,14 +5,13 @@
     if (empty($_SESSION["user"])) {
         header("LOCATION:../index.php");
     }
-    $id = $_GET['id'];
+    $fromDate = $_GET['fromDate'];
+    $toDate = $_GET['toDate'];
 
-    $selectPatient = mysqli_query($connect, "SELECT patient_registration.*, staff_members.name, staff_members.visit_charges, rooms.room_number, rooms.room_price  FROM `patient_registration`
-        INNER JOIN staff_members ON staff_members.id = patient_registration.patient_consultant
-        INNER JOIN rooms ON rooms.id = patient_registration.room_id
-
-        WHERE patient_registration.id = '$id'");
-    $fetch_selectPatient = mysqli_fetch_assoc($selectPatient);
+    $query = mysqli_query($connect, "SELECT lab_test_report.*, discharge_patients.patient_name, rooms.room_number FROM `lab_test_report`
+INNER JOIN discharge_patients ON discharge_patients.pat_id = lab_test_report.pat_id
+INNER JOIN rooms ON rooms.id = discharge_patients.room_id
+WHERE lab_test_report.patient_payment_status = '0' AND DATE(lab_test_report.auto_date) BETWEEN '$fromDate' AND '$toDate'");
 
 
 
@@ -55,30 +54,32 @@ include '../_partials/header.php';
                                                 <thead>
                                                     <tr>
                                                         <th>#</th>
-                                                        <th>First Name</th>
-                                                        <th>Last Name</th>
-                                                        <th>Username</th>
+                                                        <th>Patient Name</th>
+                                                        <th>Room Number</th>
+                                                        <th>Tests Amount</th>
+                                                        <th>Test Date</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr>
-                                                        <th scope="row">1</th>
-                                                        <td>Mark</td>
-                                                        <td>Otto</td>
-                                                        <td>@mdo</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th scope="row">2</th>
-                                                        <td>Jacob</td>
-                                                        <td>Thornton</td>
-                                                        <td>@fat</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th scope="row">3</th>
-                                                        <td>Larry</td>
-                                                        <td>the Bird</td>
-                                                        <td>@twitter</td>
-                                                    </tr>
+                                                    <?php
+                                                    $itr = 1;
+                                                    while ($row = mysqli_fetch_assoc($query)) {
+                                                        echo '
+                                                        <tr>
+                                                            <td>'.$itr++.'</td>
+                                                            <td>'.$row['patient_name'].'</td>
+                                                            <td>'.$row['room_number'].'</td>
+                                                            <td>'.$row['total_price'].'</td>';
+                                            
+                                                            $Date_format = $row['patient_payment_status']; 
+                                                            $Date = date('d/M h:i:s A', strtotime($Date_format));
+                                                            echo '
+                                                            <td>'.$Date.'</td>
+                                                        </tr>
+                                                        ';
+                                                    }
+
+                                                    ?>
                                                 </tbody>
                                             </table>
                                         </div>
