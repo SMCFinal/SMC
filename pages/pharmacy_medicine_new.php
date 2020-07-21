@@ -21,12 +21,19 @@
             if ($fetch_checkTable['countedMedicines'] < 1) {
                 $addMedicineQuery = mysqli_query($connect, "INSERT INTO add_medicines(medicine_name, medicine_category)VALUES('$medicineName', '$medicineCategory')");
                 if (!$addMedicineQuery) {
-                    $notAdded = 'Medicine not added!';
+                    $notAdded = '<div class="alert alert-danger text-center" role="alert">
+                                Medicine not added!
+                             </div>';
                 }else {
-                    $added = 'Medicine Added!';
+
+                    $added = '<div class="alert alert-primary text-center" role="alert">
+                                Medicine Added!
+                             </div>';
                 }
             }else {
-                $alreadyExist = 'This medicine is already added!';
+                $alreadyExist = '<div class="alert alert-danger text-center" role="alert">
+                                This medicine is already added!
+                             </div>' ;
             }
         }
 
@@ -50,7 +57,7 @@ include '../_partials/header.php';
                             <div class="form-group row">
                                 <label for="example-text-input" class="col-sm-2 col-form-label">Name</label>
                                 <div class="col-sm-4">
-                                    <input class="form-control" type="text" placeholder="Medicine Name" name="nameMedicine" id="example-text-input">
+                                    <input class="form-control" required="" type="text" placeholder="Medicine Name" name="nameMedicine" id="example-text-input">
                                 </div>
 
                                 <label class="col-sm-2 col-form-label">Category</label>

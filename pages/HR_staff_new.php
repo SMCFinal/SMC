@@ -60,7 +60,7 @@
                 <div class="card m-b-30">
                     <div class="card-body">
                         <h4 class="mt-0 header-title">Staff Details</h4>
-                        <form method="POST">
+                        <form method="POST" autocomplete="off">
                             <div class="form-group row">
                                 <label for="example-text-input" class="col-sm-2 col-form-label">Name</label>
                                 <div class="col-sm-4">
@@ -172,7 +172,8 @@ $(".timeonly").datetimepicker({
 });
 
 $(".dateonly").datetimepicker({
-    format: "yyyy-mm-dd",
+    format: "dd-mm-yyyy",
+     pickTime: false,
     autoclose:true,
     todayBtn: true,
 });

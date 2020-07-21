@@ -20,9 +20,13 @@ if (empty($_SESSION["user"])) {
         $otQuery = mysqli_query($connect, "INSERT INTO ot_items(ot_item_name, ot_item_qty, ot_item_price, ot_item_dop)VALUES('$item_name', '$item_qty', '$item_price', '$dateOfpurchase')");
 
         if (!$otQuery) {
-            $notAdded = 'Item not added to inventory!';
+            $notAdded = '<div class="alert alert-danger text-center" role="alert">
+                                Item not added to inventory!
+                             </div>';
         }else {
-            $added = 'Item Added!';
+            $added = '<div class="alert alert-success text-center" role="alert">
+                                Item Added!
+                             </div>';
         }
     }
 
@@ -48,22 +52,22 @@ include '../_partials/header.php'
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">Name</label>
                                 <div class="col-sm-4">
-                                    <input class="form-control" name="name" type="text" placeholder="Item Name" id="example-text-input">
+                                    <input required="" class="form-control" name="name" type="text" placeholder="Item Name" id="example-text-input">
                                 </div>
                                 <label class="col-sm-2 col-form-label">Quantity</label>
                                 <div class="col-sm-4">
-                                    <input class="form-control" name="quantity" type="number" placeholder="Qty" value="">
+                                    <input required="" class="form-control" name="quantity" type="number" placeholder="Qty" value="">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">Price</label>
                                 <div class="col-sm-4">
-                                    <input class="form-control" name="price" type="number" placeholder="Item Price" id="example-text-input">
+                                    <input required="" class="form-control" name="price" type="number" placeholder="Item Price" id="example-text-input">
                                 </div>
                                 <label class="col-sm-2 col-form-label">Date of Purchase</label>
                                 <div class="col-sm-4">
                                     <div class="input-group">
-                                        <input class="form-control form_datetime" name="dateOfpurchase" placeholder="dd/mm/yyyy-hh:mm">
+                                        <input required="" class="form-control form_datetime" name="dateOfpurchase" placeholder="dd/mm/yyyy-hh:mm">
                                         <div class="input-group-append bg-custom b-0"><span class="input-group-text"><i class="mdi mdi-calendar"></i></span></div>
                                     </div>
                                 </div>

@@ -22,9 +22,13 @@
         $inventoryQuery = mysqli_query($connect, "INSERT INTO inventory_items(item_name, item_qty, item_price, item_purchase_date, floor_id, room_id)VALUES('$item_name', '$item_qty', '$item_price', '$dateOfpurchase', '$floor_no', '$room_no')");
 
         if (!$inventoryQuery) {
-            $notAdded = 'Item not added to inventory!';
+            $notAdded = '<div class="alert alert-danger text-center" role="alert">
+                                Item not added to inventory!
+                             </div>';
         }else {
-            $added = 'Item Added!';
+            $added = '<div class="alert alert-success text-center" role="alert">
+                                Item Added!
+                             </div>';
         }
     }
 
@@ -50,22 +54,22 @@
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">Name</label>
                                 <div class="col-sm-4">
-                                    <input class="form-control" name="name" type="text" placeholder="Item Name" id="example-text-input">
+                                    <input class="form-control" required="" name="name" type="text" placeholder="Item Name" id="example-text-input">
                                 </div>
                                 <label class="col-sm-2 col-form-label">Quantity</label>
                                 <div class="col-sm-4">
-                                    <input class="form-control" name="quantity" type="number" placeholder="Qty" value="">
+                                    <input class="form-control" required="" name="quantity" type="number" placeholder="Qty" value="">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">Price</label>
                                 <div class="col-sm-4">
-                                    <input class="form-control" name="price" type="text" placeholder="Item Price" id="example-text-input">
+                                    <input class="form-control" required="" name="price" type="text" placeholder="Item Price" id="example-text-input">
                                 </div>
                                 <label class="col-sm-2 col-form-label">Date of Purchase</label>
                                 <div class="col-sm-4">
                                     <div class="input-group">
-                                        <input class="form-control form_datetime" name="dateOfpurchase" placeholder="dd/mm/yyyy-hh:mm">
+                                        <input class="form-control form_datetime" required="" name="dateOfpurchase" placeholder="dd/mm/yyyy">
                                         <div class="input-group-append bg-custom b-0"><span class="input-group-text"><i class="mdi mdi-calendar"></i></span></div>
                                     </div>
                                 </div>
@@ -78,7 +82,7 @@
                                     <?php
                                         $select_option = mysqli_query($connect, "SELECT * FROM floors");
                                   
-                                            $options = '<select class="form-control floor"  name="floor_no" required="" style="width:100%">';
+                                            $options = '<select class="form-control floor" required  name="floor_no" required="" style="width:100%">';
                                               while ($row = mysqli_fetch_assoc($select_option)) {
                                                 $options.= '<option value='.$row['id'].'>'.$row['floor_name'].'</option>';
                                               }
@@ -93,7 +97,7 @@
 
                                 <?php
                                     $select_option = mysqli_query($connect, "SELECT * FROM rooms");
-                                        $options = '<select class="form-control room" name="room_no" required="" style="width:100%">';
+                                        $options = '<select required class="form-control room" name="room_no" required="" style="width:100%">';
                                           while ($row = mysqli_fetch_assoc($select_option)) {
                                             $options.= '<option value='.$row['id'].'>'.$row['room_number'].'</option>';
                                           }
@@ -136,7 +140,7 @@
 <?php include('../_partials/datetimepicker.php') ?>
 <script type="text/javascript">
 $(".form_datetime").datetimepicker({
-    format: "yyyy-mm-dd hh:ii"
+    format: "yyyy-mm-dd"
 });
 </script>
 <script type="text/javascript" src="../assets/js/select2.min.js"></script>

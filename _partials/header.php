@@ -31,6 +31,7 @@
     <link rel="stylesheet" type="text/css" href="../assets/css/select2.min.css">
     <link rel="stylesheet" type="text/css" href="../assets/bootstrap-slider.min.css">
     <link rel="stylesheet" type="text/css" href="../assets/bootstrap-datetimepicker.css">
+    <!-- <link href="../assets/plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css" rel="stylesheet"> -->
 </head>
 
 <body class="fixed-left">
