@@ -31,6 +31,10 @@
     <link rel="stylesheet" type="text/css" href="../assets/css/select2.min.css">
     <link rel="stylesheet" type="text/css" href="../assets/bootstrap-slider.min.css">
     <link rel="stylesheet" type="text/css" href="../assets/bootstrap-datetimepicker.css">
+    <link rel="stylesheet" type="text/css" href="../assets/bootstrap-datepicker.min.css">
+    
+    
+
     <!-- <link href="../assets/plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css" rel="stylesheet"> -->
 </head>
 

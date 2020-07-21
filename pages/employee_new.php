@@ -114,8 +114,8 @@
                                 <label class="col-sm-2 col-form-label">Date of Joining</label>
                                 <div class="col-sm-4">
                                     <div class="input-group ">
-                                        <input class="form-control date dateonly" name="dateofjoiningEmp" placeholder="dd/mm/yyyy" autoclear>
-                                        <div class="input-group-append bg-custom b-0"><span class="input-group-text"><i class="mdi mdi-calendar"></i></span></div>
+                                        <input class="form-control " type="date" name="dateofjoiningEmp" placeholder="dd/mm/yyyy" autoclear>
+                                        <!-- <div class="input-group-append bg-custom b-0"><span class="input-group-text"><i class="mdi mdi-calendar"></i></span></div> -->
                                     </div>
                                 </div>
                                  <label for="example-text-input" class="col-sm-2 col-form-label">Address</label>

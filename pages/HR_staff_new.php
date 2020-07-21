@@ -60,7 +60,7 @@
                 <div class="card m-b-30">
                     <div class="card-body">
                         <h4 class="mt-0 header-title">Staff Details</h4>
-                        <form method="POST" autocomplete="off">
+                        <form method="POST" autocomplete="on">
                             <div class="form-group row">
                                 <label for="example-text-input" class="col-sm-2 col-form-label">Name</label>
                                 <div class="col-sm-4">
@@ -93,8 +93,8 @@
                                 <label class="col-sm-2 col-form-label">Date of Joining</label>
                                 <div class="col-sm-4">
                                     <div class="input-group ">
-                                        <input class="form-control date dateonly" name="dateofjoiningStaff" placeholder="dd/mm/yyyy" autoclear>
-                                        <div class="input-group-append bg-custom b-0"><span class="input-group-text"><i class="mdi mdi-calendar"></i></span></div>
+                                        <input class="form-control" type="date" name="dateofjoiningStaff" placeholder="dd/mm/yyyy" autoclear>
+                                      <!--   <div class="input-group-append bg-custom b-0"><span class="input-group-text"><i class="mdi mdi-calendar"></i></span></div> -->
                                     </div>
                                 </div>
 
@@ -110,15 +110,15 @@
                                 <label class="col-sm-2 col-form-label">Start Time</label>
                                 <div class="col-sm-4">
                                     <div class="input-group ">
-                                        <input class="form-control date  timeonly" name="starttimeStaff" placeholder="hh:mm">
-                                        <div class="input-group-append bg-custom b-0"><span class="input-group-text"><i class="mdi mdi-calendar"></i></span></div>
+                                        <input class="form-control " type="time" name="starttimeStaff" placeholder="hh:mm">
+                                        <!-- <div class="input-group-append bg-custom b-0"><span class="input-group-text"><i class="mdi mdi-calendar"></i></span></div> -->
                                     </div>
                                 </div>
                                 <label class="col-sm-2 col-form-label">End Time</label>
                                 <div class="col-sm-4">
                                     <div class="input-group">
-                                        <input class="form-control date  timeonly" name="endtimeStaff" placeholder="hh:mm">
-                                        <div class="input-group-append bg-custom b-0"><span class="input-group-text"><i class="mdi mdi-calendar"></i></span></div>
+                                        <input class="form-control   " type="time" name="endtimeStaff" placeholder="hh:mm">
+                                        <!-- <div class="input-group-append bg-custom b-0"><span class="input-group-text"><i class="mdi mdi-calendar"></i></span></div> -->
                                     </div>
                                 </div>
                             </div>
@@ -172,6 +172,7 @@ $(".timeonly").datetimepicker({
 });
 
 $(".dateonly").datetimepicker({
+
     format: "dd-mm-yyyy",
      pickTime: false,
     autoclose:true,
@@ -211,6 +212,7 @@ $('.attendant').select2({
 
 
 </script>
+<!-- <script type="text/javascript" src="../assets/bootstrap-datepicker.min.js"></script> -->
 </body>
 
 </html>

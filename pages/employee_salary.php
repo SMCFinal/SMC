@@ -70,8 +70,8 @@
                                 <label class="col-sm-2 col-form-label">Date of Salary</label>
                                 <div class="col-sm-4">
                                     <div class="input-group ">
-                                        <input class="form-control date dateonly" required="" name="dateofsalary" placeholder="dd/mm/yyyy" autoclear>
-                                        <div class="input-group-append bg-custom b-0"><span class="input-group-text"><i class="mdi mdi-calendar"></i></span></div>
+                                        <input class="form-control " type="date" required="" name="dateofsalary" placeholder="dd/mm/yyyy" autoclear>
+                                        <!-- <div class="input-group-append bg-custom b-0"><span class="input-group-text"><i class="mdi mdi-calendar"></i></span></div> -->
                                     </div>
                                 </div>
                                

@@ -69,8 +69,8 @@
                                 <label class="col-sm-2 col-form-label">Date of Purchase</label>
                                 <div class="col-sm-4">
                                     <div class="input-group">
-                                        <input class="form-control form_datetime" required="" name="dateOfpurchase" placeholder="dd/mm/yyyy">
-                                        <div class="input-group-append bg-custom b-0"><span class="input-group-text"><i class="mdi mdi-calendar"></i></span></div>
+                                        <input class="form-control " type="date" required="" name="dateOfpurchase" placeholder="dd/mm/yyyy">
+                                        <!-- <div class="input-group-append bg-custom b-0"><span class="input-group-text"><i class="mdi mdi-calendar"></i></span></div> -->
                                     </div>
                                 </div>
                             </div>
