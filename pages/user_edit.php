@@ -52,11 +52,6 @@
                             <div class="row">
                                 <div class="col-sm-12">
                                     <div class="float-right page-breadcrumb">
-                                        <!-- <ol class="breadcrumb">
-                                            <li class="breadcrumb-item"><a href="#">Drixo</a></li>
-                                            <li class="breadcrumb-item"><a href="#">Forms</a></li>
-                                            <li class="breadcrumb-item active">Form Elements</li>
-                                        </ol> -->
                                     </div>
                                     <h5 class="page-title">Edit User</h5>
                                 </div>
@@ -66,8 +61,8 @@
                                 <div class="col-12">
                                     <div class="card m-b-30">
                                         <div class="card-body">
-                                            <h4 class="mt-0 header-title">Heading</h4>
-                                            <p class="text-muted m-b-30 font-14">Example Text</p>
+                                            <!-- <h4 class="mt-0 header-title">Heading</h4> -->
+                                            <!-- <p class="text-muted m-b-30 font-14">Example Text</p> -->
             								<form method="POST">
                                             <div class="form-group row">
                                                 <label for="example-text-input" class="col-sm-2 col-form-label">Name</label>
@@ -104,8 +99,45 @@
                                                 <label class="col-sm-2 col-form-label" >Role</label>
                                                 <div class="col-sm-10">
                                                     <select class="form-control" name="editRole">
+                                                        <?php
+                                                        if ($fetch_selectUser['user_role'] == '1') {
+                                                        echo '
+                                                        <option value="1" selected>Administrator</option>
+                                                        <option value="2">Manager</option>
+                                                        <option value="3">Counter Screen</option>
+                                                        <option value="4">Laboratory</option>
+                                                        <option value="5">Pharmacy</option>';
+                                                        }elseif ($fetch_selectUser['user_role'] == '2') {
+                                                        echo '
+                                                        <option value="1">Administrator</option>
+                                                        <option value="2" selected>Manager</option>
+                                                        <option value="3">Counter Screen</option>
+                                                        <option value="4">Laboratory</option>
+                                                        <option value="5">Pharmacy</option>';
+                                                        }elseif ($fetch_selectUser['user_role'] == '3') {
+                                                        echo '
                                                         <option value="1">Administrator</option>
                                                         <option value="2">Manager</option>
+                                                        <option value="3" selected>Counter Screen</option>
+                                                        <option value="4">Laboratory</option>
+                                                        <option value="5">Pharmacy</option>';
+                                                        }elseif ($fetch_selectUser['user_role'] == '4') {
+                                                        echo '
+                                                        <option value="1">Administrator</option>
+                                                        <option value="2">Manager</option>
+                                                        <option value="3">Counter Screen</option>
+                                                        <option value="4" selected>Laboratory</option>
+                                                        <option value="5">Pharmacy</option>';
+                                                        }elseif ($fetch_selectUser['user_role'] == '5') {
+                                                        echo '
+                                                        <option value="1">Administrator</option>
+                                                        <option value="2">Manager</option>
+                                                        <option value="3">Counter Screen</option>
+                                                        <option value="4">Laboratory</option>
+                                                        <option value="5" selected>Pharmacy</option>';
+                                                        }
+
+                                                        ?>
                                                     </select>
                                                 </div>
                                             </div>
@@ -161,7 +193,7 @@
                                                 <label for="example-password-input" class="col-sm-2 col-form-label"></label>
                                                 <div class="col-sm-10">
                                                    <!-- <button type="button" class="btn btn-secondary waves-effect">Cancel</button> -->
-
+                                            <?php include '../_partials/cancel.php'; ?>
                                              <button type="submit" name="updateUser" class="btn btn-primary waves-effect waves-light">Update User</button>
                                                 </div>
                                             </div>

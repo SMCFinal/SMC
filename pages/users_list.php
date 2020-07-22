@@ -35,7 +35,6 @@
                                     <th>Password</th>
                                     <th class="text-center"> <i class="fa fa-edit"></i>
                                     </th>
-                                    <!-- <th class="text-center"><i class="fa fa-trash"></i></th> -->
                                 </tr>
                             </thead>
                             <tbody>
@@ -45,6 +44,9 @@
                                 $iterationUser = 1;
                                 $admin = 'Admininistration';
                                 $manager = 'Manager';
+                                $CounterScreen = 'Counter Screen';
+                                $Laboratory = 'Laboratory';
+                                $Pharmacy = 'Pharmacy';
 
                                 $active = 'Active';
                                 $inActive = 'In-Active';
@@ -58,9 +60,17 @@
                                         <td>'.$userRow['email'].'</td>';
                                         if ($userRow['user_role'] == '1') {
                                             echo '<td>'.$admin.'</td>';
-                                        }else {
-                                            echo '<td>'.$manager.'</td>';
+                                        }elseif ($userRow['user_role'] == '2') {
+                                            echo '<td>'.$manager.'</td>';   
+                                        }elseif ($userRow['user_role'] == '3') {
+                                            echo '<td>'.$CounterScreen.'</td>';   
+                                        }elseif ($userRow['user_role'] == '4') {
+                                            echo '<td>'.$Laboratory.'</td>';   
+                                        }elseif ($userRow['user_role'] == '5') {
+                                            echo '<td>'.$Pharmacy.'</td>';   
                                         }
+
+
 
                                         if ($userRow['status'] == '1') {
                                             echo '<td>'.$active.'</td>';

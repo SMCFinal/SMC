@@ -140,13 +140,20 @@
         )");
 
 
+        $description = "Dear ".$p_attendent.", your patient has been postpone. Thank You! SMC";
+                
+        $insertMsg = mysqli_query($connect, "INSERT INTO message_tbl
+                    (from_device, to_device, message_body, status)
+                    VALUES
+                    ('1', '$p_contact', '$description', '1')");
+
+
         $deletequery = mysqli_query($connect, "DELETE FROM `patient_registration` WHERE id='$pat_id'");
 
         $update = mysqli_query($connect, "UPDATE rooms SET status = '1' WHERE id = '$p_room'");
         if (!$postponePatientQuery) {
-            header("LOCATION: patients_postponed_list.php");
         }else {
-            echo "Done";
+            header("LOCATION: patients_postponed_list.php");
         }
 
 

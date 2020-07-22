@@ -1,3 +1,9 @@
+<?php
+    include('../_stream/config.php');
+    $sesssionEmail = $_SESSION["user"];
+    $query = mysqli_query($connect, "SELECT user_role FROM login_user WHERE email = '$sesssionEmail' ");
+    $fetch_query = mysqli_fetch_assoc($query);
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -61,13 +67,17 @@
                 <div id="sidebar-menu">
                     <ul>
                         <li class="menu-title">Main</li>
+                        <?php if ($fetch_query['user_role'] == '1' OR $fetch_query['user_role'] == '2') {?>
                         <li>
                             <a href="dashboard.php" class="waves-effect">
                                 <i class="dripicons-meter"></i>
                                 <span> Dashboard </span>
                             </a>
                         </li>
-                          <li class="has_sub">
+                    <?php } ?>
+                        <?php if ($fetch_query['user_role'] == '2' OR $fetch_query['user_role'] == '3' OR $fetch_query['user_role'] == '4' OR $fetch_query['user_role'] == '5') {
+                            ?>
+                        <li class="has_sub">
                             <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-flash"></i> <span> Quick Access </span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
                             <ul class="list-unstyled">
                                 <li><a href="patients_list.php">View Patients</a></li>
@@ -78,7 +88,10 @@
                                 <li><a target="_blank" href="lab_test_list_view.php">Laboratory View</a></li>
                             </ul>
                         </li>
+                        <?php  } ?>
 
+                        <?php if ($fetch_query['user_role'] == '2') {
+                            ?>
                         <li class="has_sub">
                             <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-wheelchair-accessibility"></i> <span> Patients </span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
                             <ul class="list-unstyled">
@@ -88,12 +101,11 @@
                                 <li><a href="patients_observation.php">Patients Observation</a></li>
                                 <li><a href="patients_discharge.php">Patient Discharge</a></li>
                                 <li><a href="patients_discharge_list.php">Patient Discharge List</a></li>
-
-
-
                             </ul>
                         </li>
+                        <?php } ?>
 
+                        <?php if ($fetch_query['user_role'] == '2') {?>
                          <li class="has_sub">
                             <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-glassdoor"></i> <span> Rooms</span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
                             <ul class="list-unstyled">
@@ -103,6 +115,9 @@
                                 <li><a href="floors_list.php">Floors List</a></li>
                             </ul>
                         </li>
+                        
+
+
                          <li class="has_sub">
                             <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-pulse"></i> <span> Surgeries</span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
                             <ul class="list-unstyled">
@@ -231,7 +246,9 @@
 
                             </ul>
                         </li>
+                        <?php } ?>
 
+                        <?php if ($fetch_query['user_role'] == '1') {?>
                         <li class="has_sub">
                             <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-document"></i> <span>  Reports</span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
                             <ul class="list-unstyled">
@@ -259,6 +276,7 @@
                                 <li><a href="users_list.php">Users List</a></li>
                             </ul>
                         </li>
+                    <?php } ?>
                     </ul>
                 </div>
                 <div class="clearfix"></div>

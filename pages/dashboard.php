@@ -19,6 +19,29 @@
     $deactiveUsersQuery = mysqli_query($connect, "SELECT COUNT(*)AS deactiveUsers FROM login_user WHERE status = '0'");
     $fetch_deactiveUsersQuery = mysqli_fetch_assoc($deactiveUsersQuery);
     $deactiveUsers = $fetch_deactiveUsersQuery['deactiveUsers'];
+
+
+    $countedEmp = mysqli_query($connect, "SELECT COUNT(*)AS countedEmp FROM `employee_registration` WHERE emp_status = '1'");
+    $fetch_countedEmp = mysqli_fetch_assoc($countedEmp);
+    $totalEmp = $fetch_countedEmp['countedEmp'];
+
+
+    $countedStaff = mysqli_query($connect, "SELECT COUNT(*)AS countedStaff FROM staff_members WHERE status = '1'");
+    $fetch_countedStaff = mysqli_fetch_assoc($countedStaff);
+    $totalStaff = $fetch_countedStaff['countedStaff'];
+
+
+    $countedPatients = mysqli_query($connect, "SELECT COUNT(*)AS countedPatients FROM `patient_registration`");
+    $fetch_countedPatients = mysqli_fetch_assoc($countedPatients);
+    $totalPatients = $fetch_countedPatients['countedPatients'];
+
+
+    $countedDischarge = mysqli_query($connect, "SELECT COUNT(*)AS countedDischarge FROM `discharge_patients`");
+    $fetch_countedDischarge = mysqli_fetch_assoc($countedDischarge);
+    $totalDischarge = $fetch_countedDischarge['countedDischarge'];
+
+
+
 ?>
 
  <div class="page-content-wrapper ">
@@ -27,12 +50,6 @@
 
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <!-- <div class="float-right page-breadcrumb">
-                                        <ol class="breadcrumb">
-                                            <li class="breadcrumb-item"><a href="#">Drixo</a></li>
-                                            <li class="breadcrumb-item active">Dashboard</li>
-                                        </ol>
-                                    </div> -->
                                     <h5 class="page-title">Dashboard</h5>
                                 </div>
                             </div>
@@ -116,7 +133,7 @@
                                         </div>
                                         <div class="card-body">
                                             <div class="border-bottom pb-4 text-center text-white">
-                                               <span style="  font-size: 100px"><?php echo $allUsers ?></span>
+                                               <span style="  font-size: 100px"><?php echo $totalStaff ?></span>
                                             </div>
                                             <!-- <div class="mt-4 text-muted">
                                                 
@@ -137,7 +154,7 @@
                                         </div>
                                         <div class="card-body">
                                             <div class="border-bottom pb-4 text-center text-white">
-                                               <span style="  font-size: 100px"><?php echo $allUsers ?></span>
+                                               <span style="  font-size: 100px"><?php echo $totalEmp ?></span>
                                             </div>
                                             <!-- <div class="mt-4 text-muted">
                                                 
@@ -159,7 +176,7 @@
                                         </div>
                                         <div class="card-body">
                                             <div class="border-bottom pb-4 text-center text-white">
-                                               <span style="font-size: 100px"><?php echo $activeUsers ?></span>
+                                               <span style="font-size: 100px"><?php echo $totalPatients ?></span>
                                             </div>
                                             <!-- <div class="mt-4 text-muted">
                                                 
@@ -179,13 +196,8 @@
                                         </div>
                                         <div class="card-body">
                                             <div class="border-bottom pb-4 text-center text-white">
-                                               <span style=" font-size: 100px"><?php echo $deactiveUsers ?></span>
+                                               <span style=" font-size: 100px"><?php echo $totalDischarge ?></span>
                                             </div>
-                                            <!-- <div class="mt-4 text-muted">
-                                                
-                                               
-                                                
-                                            </div> -->
                                         </div>
                                     </div>
                                 </div>

@@ -1,5 +1,8 @@
 <?php
 include('../_stream/config.php');
+if (empty($_SESSION["user"])) {
+    header("LOCATION:../index.php");
+}
 	$id = $_GET['del_id'];
 	$room_id = $_GET['room_id'];
 

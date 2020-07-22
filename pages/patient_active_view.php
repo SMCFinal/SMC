@@ -1,5 +1,10 @@
 <?php
 include '../_stream/config.php';
+session_start();
+if (empty($_SESSION["user"])) {
+    header("LOCATION:../index.php");
+}
+include '../_stream/config.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -43,7 +48,7 @@ include '../_stream/config.php';
             <!-- <a href="index.html" class="logo "><img src="../assets/images/logo.png" height="20" alt="logo"></a> -->
             <h3 class=" d-inline text-white">Patients | SHAH MEDICAL &amp; SURGICAL CENTER</h3>
             <span  class=" d-inline text-white" style="float: right;"><b>Developed By DCS PVT LTD.</b>
-             <button class="btn btn-danger btn-sm ml-3" name="Deleteme" >Logout</button>
+            <a href="signout.php" class="btn btn-danger btn-sm ml-3">Logout </a>
          </span>
         </div>
     </div>
@@ -52,10 +57,10 @@ include '../_stream/config.php';
         <div class="row">
             <?php
 $selectPat = mysqli_query($connect, "SELECT patient_registration.*,rooms.*, floors.*, staff_members.name FROM `patient_registration`
-INNER JOIN rooms ON rooms.id = patient_registration.room_id
-INNER JOIN floors ON floors.id = rooms.floor_id
-INNER JOIN staff_members ON staff_members.id = patient_registration.patient_consultant
-WHERE patient_registration.category = 'currentPatient'");
+    INNER JOIN rooms ON rooms.id = patient_registration.room_id
+    INNER JOIN floors ON floors.id = rooms.floor_id
+    INNER JOIN staff_members ON staff_members.id = patient_registration.patient_consultant
+    WHERE patient_registration.category = 'currentPatient'");
 
 $itr = 1;
 

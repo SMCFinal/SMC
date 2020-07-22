@@ -12,16 +12,29 @@
     $fetch_userQuery = mysqli_fetch_array($result_query);
     
     if (empty($fetch_userQuery)) {
-      $valid_login = "Enter a valid Login";
+      $valid_login = '<div class="alert alert-danger" style="background:#D52520; color:white" role="alert">Enter a valid Login</div>';
     }else {
       $user_status = $fetch_userQuery['status'];
+      $user_role = $fetch_userQuery['user_role'];
       if ($user_status == 1) {
         session_start();
         $_SESSION["user"] = $user_email;
         $_SESSION["id"] = $id;
-        header("LOCATION:pages/dashboard.php");
+        if ($user_role == '1') {
+            header("LOCATION:pages/dashboard.php");    
+        }elseif ($user_role == '2') {
+            header("LOCATION:pages/dashboard.php");
+        }elseif ($user_role == '3') {
+            header("LOCATION:pages/patient_active_view.php");
+        }elseif ($user_role == '4') {
+            header("LOCATION:pages/lab_test_list_view.php");
+        }elseif ($user_role == '5') {
+            header("LOCATION:pages/pharmacy_list.php");
+        }
+        
       }else {
-        $valid_login = "Access Denied. You have been restricted.";
+        $valid_login = ' <div class="alert alert-danger" style="background:#D52520; color:white" role="alert">
+            Access Denied. You have been restricted.</div>';
       }
     }
 }
@@ -95,10 +108,9 @@
                                     </div>
                                 </div>
                                  <button type="button"  class="btn btn-primary waves-effect waves-light d-none" id="alertify-error">Click me</button>
-                                <h4><?php echo $valid_login ?></h4>
+                            <h5 align="center"><?php echo $valid_login ?></h5>
                             </div>
                         </div>
-                        <!-- end row -->
                     </div>
                 </div>
             </div>

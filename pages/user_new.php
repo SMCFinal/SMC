@@ -1,6 +1,9 @@
 <?php
     include('../_stream/config.php');
-
+    session_start();
+    if (empty($_SESSION["user"])) {
+        header("LOCATION:../index.php");
+    }
     $userAlreadyinDatabase = '';
     $userNotAdded = '';
     $userAdded = '';
@@ -85,6 +88,9 @@
                                     <select class="form-control" name="addUser_role">
                                         <option value="1">Administrator</option>
                                         <option value="2">Manager</option>
+                                        <option value="3">Counter Screen</option>
+                                        <option value="4">Laboratory</option>
+                                        <option value="5">Pharmacy</option>
                                     </select>
                                 </div>
                             </div>

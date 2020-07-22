@@ -82,6 +82,10 @@
         $queryDoctorChargesSurgery = mysqli_query($connect, "INSERT INTO doctor_surgery_charges(pat_id, room_id, surgery_charges, pat_operation, pat_consultant, date_of_payment)VALUES('$id', '$p_room', '$drCharges', '$p_operation', '$p_consultant', '$dop')");
 
         $queryDoctorChargesSurgery = mysqli_query($connect, "INSERT INTO anesthetic_surgery_charges(pat_id, room_id, surgery_anes_charges, pat_operation, pat_consultant, date_of_payment)VALUES('$id', '$p_room', '$anestheticCharges', '$p_operation', '$p_consultant', '$dop')");
+
+        if ($queryDischargeCharges) {
+            header("LOCATION:patients_discharge_list.php");
+        }
     }
 
 

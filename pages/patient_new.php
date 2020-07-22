@@ -104,9 +104,15 @@
            ");
 
         if (!$queryAddPatient) {
-            echo mysqli_error($connect);
             $notAdded = 'Not added';
         }else {
+            $description = "Dear ".$attendantName.", your patient has been admitted. Thank You! SMC";
+                
+                $insertMsg = mysqli_query($connect, "INSERT INTO message_tbl
+                    (from_device, to_device, message_body, status)
+                    VALUES
+                    ('1', '$patient_contact', '$description', '1')");
+
             $updateRoom = mysqli_query($connect, "UPDATE rooms SET status = '0' WHERE id = '$patientRoom'");
             header("LOCATION: patients_list.php");
         }
