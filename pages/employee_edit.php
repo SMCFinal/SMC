@@ -10,12 +10,7 @@
 
     $id = $_GET['id'];
 
-    $query = mysqli_query($connect, "SELECT employee_registration.*, employee_designation.designation_name FROM `employee_registration`
-                                    INNER JOIN employee_designation ON employee_designation.id = employee_registration.emp_designation
-                                    WHERE employee_registration.id = '$id'");
-    $fetch_query = mysqli_fetch_assoc($query);
-
-    
+        
         if (isset($_POST["updateEmp"])) {
         $id = $_POST['id'];
         $name = $_POST['nameEmp'];
@@ -27,12 +22,8 @@
         $dateofjoiningEmp = $_POST['dateofjoiningEmp'];
         $address = $_POST['addressEmp'];
         
-        
-        // $checkMemberTable = mysqli_query($connect, "SELECT COUNT(*)AS countedEmp FROM `employee_registration` WHERE emp_cnic = '$cnic'");
-        // $fetch_checkMemberTable = mysqli_fetch_array($checkMemberTable);
 
-        // if ($fetch_checkMemberTable['countedEmp'] < 1) {
-            $updaetEmpQuery = mysqli_query($connect, "UPDATE employee_registration SET emp_name = '$name', 
+            $updateEmpQuery = mysqli_query($connect, "UPDATE employee_registration SET emp_name = '$name', 
                 emp_cnic = '$cnic', 
                 emp_contact = '$contact', 
                 emp_gender = '$gender', 
@@ -43,17 +34,12 @@
                 WHERE id = '$id'");
 
 
-            if (!$updaetEmpQuery) {
+            if (!$updateEmpQuery) {
                 echo mysqli_error($connect);
                 $error = "Employee not added! Try Again.";
             }else{
                 header("LOCATION:employee_list.php");
             }
-        // }else {
-        //     $alreadyAdded = '<div class="alert alert-dark" role="alert">
-        //                                 Employee Already Added!
-        //                              </div>';
-        // }
     }
 
 
@@ -75,9 +61,15 @@
                         <h4 class="mt-0 header-title">Employees Details</h4>
                         <form method="POST">
                             <div class="form-group row">
+                                <?php 
+                                $query = mysqli_query($connect, "SELECT employee_registration.*, employee_designation.designation_name FROM `employee_registration`
+                                    INNER JOIN employee_designation ON employee_designation.id = employee_registration.emp_designation
+                                    WHERE employee_registration.id = '$id'");
+                                $fetch_query = mysqli_fetch_assoc($query);
+                                ?>
                                 <label for="example-text-input" class="col-sm-2 col-form-label">Name</label>
                                 <div class="col-sm-4">
-                                    <input class="form-control" type="text" placeholder="Name" name="nameEmp" id="example-text-input" value="<?php echo $fetch_query['emp_name'] ?>" required="">
+                                    <input class="form-control"  type="text" placeholder="Name" name="nameEmp" id="example-text-input"  required="" value="<?php echo $fetch_query['emp_name'] ?>">
                                 </div>
                                 <label for="example-text-input" class="col-sm-2 col-form-label">CNIC</label>
                                 <div class="col-sm-4">
