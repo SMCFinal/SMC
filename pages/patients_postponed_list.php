@@ -61,7 +61,7 @@
 
                                             // if ($hourdiff < 4) {
                                                 echo '
-
+                                                <a href="postpone_patient_readmit.php?id='.$rowPatients['id'].'" type="button" class="btn text-white btn-primary waves-effect waves-light btn-sm">Re-admit</a>
                                                ';
                                             // }
                                             echo '
@@ -69,7 +69,7 @@
                                         </tr>
                                     ';
                                 }
-                                                // <a href="patient_readmit.php?id='.$rowPatients['id'].'" type="button" class="btn text-white btn-primary waves-effect waves-light btn-sm">Re-admit</a>
+                                                // 
                                             // <td class="text-center"><a href="./user_edit.php" type="button" class="btn text-white btn-warning waves-effect 
                                             //waves-light">Edit</a></td>
                                 ?>

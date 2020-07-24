@@ -61,7 +61,7 @@
 
                                             // if ($hourdiff < 4) {
                                                 echo '
-                                                <a href="patient_readmit.php?id='.$rowPatients['id'].'" type="button" class="btn text-white btn-primary waves-effect waves-light btn-sm">Re-admit</a>
+                                                <a href="discharge_patient_readmit.php?id='.$rowPatients['id'].'" type="button" class="btn text-white btn-primary waves-effect waves-light btn-sm">Re-admit</a>
 
                                                ';
                                             // }

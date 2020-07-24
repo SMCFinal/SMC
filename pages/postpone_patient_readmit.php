@@ -6,6 +6,10 @@
         header("LOCATION:../index.php");
     }
 
+    $patId = $_GET['id'];
+    $retPatientData = mysqli_query($connect, "SELECT * FROM postpone_patient WHERE id = '$patId'");
+    $fetch_retPatientData = mysqli_fetch_assoc($retPatientData);
+
     $notAdded = '';
 
     $date = date_default_timezone_set('Asia/Karachi');
@@ -127,7 +131,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-12">
-                <h5 class="page-title">Add New Patient</h5>
+                <h5 class="page-title">Re-admit Postpone Patient</h5>
             </div>
         </div>
         <!-- end row -->
@@ -146,12 +150,12 @@
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">Name</label>
                                 <div class="col-sm-4">
-                                    <input class="form-control" name="patientName" type="text" placeholder="Patient Name" id="example-text-input">
+                                    <input class="form-control" name="patientName" value="<?php echo $fetch_retPatientData['patient_name'] ?>" type="text" placeholder="Patient Name" id="example-text-input">
                                 </div>
 
                                  <label class="col-sm-2 col-form-label">Age</label>
                                 <div class="col-sm-4">
-                                    <input class="form-control" name="patientAge" type="number" placeholder="Patient Age" value="" id="example-text-input">
+                                    <input class="form-control" name="patientAge" value="<?php echo $fetch_retPatientData['patient_age'] ?>" type="number" placeholder="Patient Age" value="" id="example-text-input">
                                 </div>
                               
                             </div>
@@ -159,33 +163,75 @@
                                
                                 <label class="col-sm-2 col-form-label">Gender</label>
                                 <div class="col-sm-4">
-                                    <div class="form-check-inline">
-                                        <label class="form-check-label">
-                                            <input type="radio" class="form-check-input" value="1" name="patientGender">Male
-                                        </label>
-                                    </div>
-                                    <div class="form-check-inline">
-                                        <label class="form-check-label">
-                                            <input type="radio" class="form-check-input" value="2" name="patientGender">Female
-                                        </label>
-                                    </div>
-                                    <div class="form-check-inline">
-                                        <label class="form-check-label">
-                                            <input type="radio" class="form-check-input" value="3" name="patientGender">Other
-                                        </label>
-                                    </div>
+                                    <?php
+                                        if ($fetch_retPatientData['patient_gender'] == '1') {
+                                            echo '
+                                            <div class="form-check-inline">
+                                                <label class="form-check-label">
+                                                    <input type="radio" class="form-check-input" value="1" name="patientGender" checked>Male
+                                                </label>
+                                            </div>
+                                            <div class="form-check-inline">
+                                                <label class="form-check-label">
+                                                    <input type="radio" class="form-check-input" value="2" name="patientGender">Female
+                                                </label>
+                                            </div>
+                                            <div class="form-check-inline">
+                                                <label class="form-check-label">
+                                                    <input type="radio" class="form-check-input" value="3" name="patientGender">Other
+                                                </label>
+                                            </div>
+                                            ';    
+                                        }elseif ($fetch_retPatientData['patient_gender'] == '2') {
+                                            echo '
+                                            <div class="form-check-inline">
+                                                <label class="form-check-label">
+                                                    <input type="radio" class="form-check-input" value="1" name="patientGender">Male
+                                                </label>
+                                            </div>
+                                            <div class="form-check-inline">
+                                                <label class="form-check-label">
+                                                    <input type="radio" class="form-check-input" value="2" name="patientGender" checked>Female
+                                                </label>
+                                            </div>
+                                            <div class="form-check-inline">
+                                                <label class="form-check-label">
+                                                    <input type="radio" class="form-check-input" value="3" name="patientGender">Other
+                                                </label>
+                                            </div>
+                                            ';
+                                        }elseif ($fetch_retPatientData['patient_gender'] == '3') {
+                                            echo '
+                                            <div class="form-check-inline">
+                                                <label class="form-check-label">
+                                                    <input type="radio" class="form-check-input" value="1" name="patientGender">Male
+                                                </label>
+                                            </div>
+                                            <div class="form-check-inline">
+                                                <label class="form-check-label">
+                                                    <input type="radio" class="form-check-input" value="2" name="patientGender">Female
+                                                </label>
+                                            </div>
+                                            <div class="form-check-inline">
+                                                <label class="form-check-label">
+                                                    <input type="radio" class="form-check-input" value="3" name="patientGender" checked>Other
+                                                </label>
+                                            </div>
+                                            ';
+                                        }
+                                    ?>
                                 </div>
 
                                 <label class="col-sm-2 col-form-label">Case</label>
                                 <div class="col-sm-4">
-                                    <input class="form-control" type="text" name="patientDisease" placeholder="Patient Case" value="" id="example-text-input">
+                                    <input class="form-control" type="text" value="<?php echo $fetch_retPatientData['patient_disease'] ?>" name="patientDisease" placeholder="Patient Case" value="" id="example-text-input">
                                 </div>
 
                             </div>
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">Address</label>
                                 <div class="col-sm-4">
-                                    <input type="text" id="textarea" class="form-control" name="patientAddress" placeholder="Address">
+                                    <input type="text" id="textarea" value="<?php echo $fetch_retPatientData['patient_address'] ?>" class="form-control" name="patientAddress" placeholder="Address">
                                 </div>
                                 <label class="col-sm-2 col-form-label">City</label>
                                 <div class="col-sm-4">
@@ -193,7 +239,11 @@
                                 $select_option_city = mysqli_query($connect, "SELECT * FROM area");
                                     $optionsCity = '<select class="form-control select2" name="address_city" required="" style="width:100%">';
                                       while ($rowCity = mysqli_fetch_assoc($select_option_city)) {
+                                        if ($rowCity['id'] == $fetch_retPatientData['city_id']) {
+                                            $optionsCity.= '<option value='.$rowCity['id'].' selected>'.$rowCity['area_name'].'</option>';
+                                        }else {
                                         $optionsCity.= '<option value='.$rowCity['id'].'>'.$rowCity['area_name'].'</option>';
+                                        }
                                       }
                                     $optionsCity.= "</select>";
                                 echo $optionsCity;
@@ -205,11 +255,11 @@
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">CNIC</label>
                                 <div class="col-sm-4">
-                                    <input type="number" class="form-control" name="patientCnic" placeholder="CNIC">
+                                    <input type="number" class="form-control" value="<?php echo $fetch_retPatientData['patient_cnic'] ?>" name="patientCnic" placeholder="CNIC">
                                 </div>
                                 <label class="col-sm-2 col-form-label">Contact</label>
                                 <div class="col-sm-4">
-                                    <input type="number" class="form-control" name="patientContact" placeholder="Patient Contact">
+                                    <input type="number" value="<?php echo $fetch_retPatientData['patient_contact'] ?>" class="form-control" name="patientContact" placeholder="Patient Contact">
                                 </div>
                             </div>
                             <hr>
@@ -237,7 +287,7 @@
                                 WHERE staff_members.status = '1' AND staff_category.category_name = 'Doctor'");
                                     $optionsDoctor = '<select class="form-control select2" name="patientConsultant" required="" style="width:100%">';
                                       while ($rowDoctor = mysqli_fetch_assoc($selectDoctor)) {
-                                        $optionsDoctor.= '<option value='.$rowDoctor['staffID'].'>'.$rowDoctor['name'].'</option>';
+                                            $optionsDoctor.= '<option value='.$rowDoctor['staffID'].'>'.$rowDoctor['name'].'</option>';
                                       }
                                     $optionsDoctor.= "</select>";
                                 echo $optionsDoctor;
@@ -266,7 +316,7 @@
 
                                <label class="col-sm-2 col-form-label">Attendant Name</label>
                                 <div class="col-sm-4">
-                                    <input class="form-control" name="attendantName" type="text" placeholder="Attendant Name" id="example-text-input">
+                                    <input class="form-control" value="<?php echo $fetch_retPatientData['attendent_name'] ?>" name="attendantName" type="text" placeholder="Attendant Name" id="example-text-input">
                                 </div>
                                 
                             </div>
