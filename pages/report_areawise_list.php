@@ -12,11 +12,11 @@
     INNER JOIN staff_members ON staff_members.id = patient_registration.patient_consultant
     INNER JOIN area ON area.id = patient_registration.city_id");
 
-        $selectDischargedPatient = mysqli_query($connect, "SELECT area.area_name, discharge_patients.patient_name, discharge_patients.patient_age, discharge_patients.patient_address, discharge_patients.patient_consultant, staff_members.name  FROM discharge_patients 
+    $selectDischargedPatient = mysqli_query($connect, "SELECT area.area_name, discharge_patients.patient_name, discharge_patients.patient_age, discharge_patients.patient_address, discharge_patients.patient_consultant, staff_members.name  FROM discharge_patients 
     INNER JOIN staff_members ON staff_members.id = discharge_patients.patient_consultant
     INNER JOIN area ON area.id = discharge_patients.city_id");
         
-$selectDischargedPatient = mysqli_query($connect, "SELECT area.area_name, postpone_patient.patient_name, postpone_patient.patient_age, postpone_patient.patient_address, postpone_patient.patient_consultant, staff_members.name  FROM postpone_patient 
+$selectPostponePatient = mysqli_query($connect, "SELECT area.area_name, postpone_patient.patient_name, postpone_patient.patient_age, postpone_patient.patient_address, postpone_patient.patient_consultant, staff_members.name  FROM postpone_patient 
     INNER JOIN staff_members ON staff_members.id = postpone_patient.patient_consultant
     INNER JOIN area ON area.id = postpone_patient.city_id");
 

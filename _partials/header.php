@@ -276,7 +276,18 @@
                                 <li><a href="users_list.php">Users List</a></li>
                             </ul>
                         </li>
+
+
+                        <li class="has_sub">
+                            <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-money"></i> <span> Approve Expense</span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
+                            <ul class="list-unstyled">
+                                <li><a href="expense_clear.php">Expense List</a></li>
+                            </ul>
+                        </li>
                     <?php } ?>
+
+                        
+
                     </ul>
                 </div>
                 <div class="clearfix"></div>
