@@ -551,6 +551,18 @@ include '../_partials/header.php';
                         
                         ?>
                         <!-- <form method="POST"> -->
+                            <div class="row">
+                                <div class="col text-right">
+                                    <label> Advance Charges:</label>
+                                </div>
+                                <!-- <div class="col-md-2">
+                                    <input type="number" value="<?php echo $fetch_queryTotal['medTotal'] ?>" readonly id="actMedChar" required="" onkeyUp="actCharges()" class="form-control" placeholder="Medicines Price" >
+                                </div> -->
+                                <div class="col-md-3">
+                                    <span><?php echo "Rs. ".$fetch_queryDischargePatientAllData['advance_payment'] ?></span>
+                                    <!-- <input type="number" name="medCharges" value="<?php echo $fetch_queryTotal['medTotal'] ?>" class="form-control" id="totMedChar" required="" onkeyUp="totCharges()" placeholder="Medicines Price"> -->
+                                </div>
+                            </div>
 
                             <div class="row">
                                 <div class="col text-right">
@@ -681,7 +693,8 @@ include '../_partials/header.php';
                                     <input type="number" name="actualCharges" value="" id="actualCharges" readonly class="form-control" placeholder="Actual Charges">
                                 </div> -->
                                 <div class="col-md-3">
-                                    <span style="font-size: 120%"><strong><?php echo "Rs. ".$fetch_queryDischargePatientAllData['amount_paid'] ?></strong></span>
+                                    <?php $totalPaidedAmount = $fetch_queryDischargePatientAllData['amount_paid'] - $fetch_queryDischargePatientAllData['advance_payment']; ?>
+                                    <span style="font-size: 120%"><strong><?php echo "Rs. ".$totalPaidedAmount ?></strong></span>
                                     <!-- <input type="number" name="paidAmount" value="" id="totalCharges" class="form-control" readonly placeholder="Total Charges">  -->
                                 </div>
                             </div>

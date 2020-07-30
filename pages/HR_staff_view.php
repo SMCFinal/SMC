@@ -78,6 +78,11 @@
                                         <td><?php echo $fetch_selectQuery['visit_charges'] ?></td>
                                     </tr>
 
+                                    <tr>
+                                        <th scope="row">Contact</th>
+                                        <td><?php echo "0".$fetch_selectQuery['contact'] ?></td>
+                                    </tr>
+
                                    
 
                                 </tbody>

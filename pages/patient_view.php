@@ -133,6 +133,11 @@
                                         <th scope="row">Yearly No</th>
                                         <td><?php echo $fetch_selectQuery['patient_yearly_no'] ?></td>
                                     </tr>
+
+                                    <tr>
+                                        <th scope="row">Advance Payment</th>
+                                        <td><?php echo "Rs. ".$fetch_selectQuery['advance_payment'] ?></td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>

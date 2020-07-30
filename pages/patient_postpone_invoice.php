@@ -164,6 +164,7 @@ include '../_partials/header.php';
                                             ?>
                                             <br>
                                             <b>Postpone Date: </b><?php echo $dishcargeTime = date('d/M/Y h:i:s A') ?><br>
+                                            <b>Advance Payment: </b><?php echo "Rs. ".$fetch_selectPatient['advance_payment']  ?>
                                         </address>
                                     </div>
                                 </div>

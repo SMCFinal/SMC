@@ -67,11 +67,16 @@
         $p_anes = $_POST['p_anes'];
         $p_anes_charges = $_POST['p_anes_charges'];
         $category = 'postponePatient';
+        $p_advance = $_POST['p_advance'];
+
 
 
 
         if (empty($p_doop)) {
             $p_doop = '0000-00-00';
+        }
+        if (empty($p_advance)) {
+            $p_advance = '0';
         }
 
         if (empty($p_operation)) {
@@ -114,7 +119,8 @@
             anesthesia_charges,
             category,
             pat_id,
-            doctor_advice
+            doctor_advice,
+            advance_payment
             )VALUES(
             '$p_name', 
             '$p_age', 
@@ -136,7 +142,8 @@
             '$p_anes_charges', 
             '$category', 
             '$id',
-            '$doctorAdvice'
+            '$doctorAdvice',
+            '$p_advance'
         )");
 
 
@@ -232,6 +239,7 @@ include '../_partials/header.php';
                                             ?>
                                             <br>
                                             <b>Date Of PostPone: </b><?php echo $dishcargeTime = date('d/M/Y h:i:s A') ?><br>
+                                            <b>Advance Payment: </b><?php echo "Rs. ".$fetch_selectPatient['advance_payment']  ?>
                                         </address>
                                     </div>
                                 </div>
@@ -782,6 +790,7 @@ include '../_partials/header.php';
                             <input type="hidden" name="p_consultant_charges" value="<?php echo $fetch_postpond_data['consultant_charges'] ?>">
                             <input type="hidden" name="p_anes" value="<?php echo $fetch_postpond_data['anasthetic_name'] ?>">
                             <input type="hidden" name="p_anes_charges" value="<?php echo $fetch_postpond_data['anesthesia_charges'] ?>">
+                            <input type="hidden" name="p_advance" value="<?php echo $fetch_postpond_data['advance_payment'] ?>">
 
                         <!-- </form> -->
                             <div class="d-print-none mo-mt-2">

@@ -60,7 +60,7 @@ $selectPat = mysqli_query($connect, "SELECT patient_registration.*,rooms.*, floo
     INNER JOIN rooms ON rooms.id = patient_registration.room_id
     INNER JOIN floors ON floors.id = rooms.floor_id
     INNER JOIN staff_members ON staff_members.id = patient_registration.patient_consultant
-    WHERE patient_registration.category = 'currentPatient'");
+    WHERE patient_registration.category = 'currentPatient' ORDER BY rooms.id ASC");
 
 $itr = 1;
 
@@ -72,19 +72,19 @@ while ($rowPatientView = mysqli_fetch_assoc($selectPat)) {
                             <div class="table-responsive">
                                 <table class="table mb-0">
                                     <thead>
-                                        <tr>
+                                        <tr style="background-color:#60D09D; color:black">
                                             <th>Patient Name</th>
-                                            <td>' . $rowPatientView['patient_name'] . '</td>
+                                            <td><b>'.$rowPatientView['patient_name'] . '</b></td>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
+                                        <tr >
                                             <th>Doctor Name</th>
                                             <td>' . "Dr. " . $rowPatientView['name'] . '</td>
                                         </tr>
-                                        <tr>
+                                        <tr style="background-color:#60D09D; color:black">
                                             <th>Floor/Room</th>
-                                            <td>' . $rowPatientView['floor_name'] . " <b> | </b> " . $rowPatientView['room_number'] . '</td>
+                                            <td><b>' . $rowPatientView['floor_name'] . " <b> | </b> " . $rowPatientView['room_number'] . '</b></td>
                                         </tr>
                                         <tr>
                                             <th>Patient Case</th>

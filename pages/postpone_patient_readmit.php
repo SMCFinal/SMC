@@ -44,6 +44,11 @@
         $attendantName = $_POST['attendantName'];
         $patient_cnic = $_POST['patientCnic'];
         $patient_contact = $_POST['patientContact'];
+        $advance_payment = $_POST['advance_payment'];
+
+        if (empty($advance_payment)) {
+            $advance_payment = '0';
+        }
 
         $currentPatient = 'currentPatient';
 
@@ -81,7 +86,8 @@
             anasthetic_name,
             anesthesia_charges,
             added_by,
-            updated_by
+            updated_by,
+            advance_payment
             )VALUES(
             '$name', 
             '$Age', 
@@ -103,7 +109,8 @@
             '$anasthetic_name',
             '$anesthesia_charges',
             '$added_by',
-            '$updated_by'
+            '$updated_by',
+            '$advance_payment'
             )
            ");
 
@@ -320,6 +327,13 @@
                                 </div>
                                 
                             </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Advance Payment</label>
+                                <div class="col-sm-4">
+                                    <input class="form-control"  name="advance_payment" type="number" placeholder="Advance Payment" id="example-text-input" required="">
+                                </div>
+                            </div><hr>
                            
                             <input type="hidden" name="category" value="currentPatient">
                             <div class="form-group row">
