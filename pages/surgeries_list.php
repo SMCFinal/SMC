@@ -11,32 +11,33 @@
 
     if (isset($_POST['addSurgery'])) {
         $Name = $_POST['Name'];
-        $specialist = $_POST['specialist'];
+        $adm_charges = $_POST['adm_charges'];
+        $ot_charges = $_POST['ot_charges'];
+        $anes_charges = $_POST['anes_charges'];
+        $total_charges = $adm_charges + $ot_charges + $anes_charges;
 
-        for ($i=0; $i <sizeof($specialist) ; $i++) { 
-            $specialistDefined = $specialist[$i];
+        $checkQuery = mysqli_query($connect, "SELECT COUNT(*) AS countSurgeries FROM `surgeries` WHERE surgery_name = '$Name'");
+        $fetch_checkQuery = mysqli_fetch_assoc($checkQuery);
+        if ($fetch_checkQuery['countSurgeries'] < 1) {
+            $insertQuery = mysqli_query($connect, "INSERT INTO surgeries(`surgery_name`, `admission_charges`, `ot_charges`, `anethesia_charges`, `total_charges`)VALUES('$Name', '$adm_charges', '$ot_charges', '$anes_charges', '$total_charges')");
+
+        if (!$insertQuery) {
+            $error ='<div align="center" class="alert alert-danger" role="alert">
+                           Not Added! Try agian!
+                         </div>';
+        }else {
+            $added = '
+            <div align="center" class="alert alert-primary" role="alert">
+                            Surgery Added!
+                         </div>';
+        }
+        }else {
+            $error = '<div align="center" class="alert alert-danger" role="alert">
+                            Surgery details already added!
+                         </div>';
+        }
+        
             
-            // $countQuery = mysqli_query($connect, "SELECT COUNT(*)AS CountedSurgeries FROM surgeries WHERE surgery_name = '$Name'");
-            // $fetch_countQuery = mysqli_fetch_assoc($countQuery);
-
-
-            // if ($fetch_countQuery['CountedSurgeries'] == 0) {
-                $insertQuery = mysqli_query($connect, "INSERT INTO surgeries(surgery_name, member_id)VALUES('$Name', '$specialistDefined')");
-                if (!$insertQuery) {
-                    $error = 'Not Added! Try agian!';
-                }else {
-                    $added = '
-                    <div class="alert alert-primary" role="alert">
-                                    Surgery Added!
-                                 </div>';
-                }
-            }
-            // else {
-            //     $alreadyAdded = '<div class="alert alert-dark" role="alert">
-            //                         Area Already Added!
-            //                      </div>';
-            // }
-            // }
     }
 
 
@@ -64,21 +65,25 @@
                                     <input class="form-control" placeholder="Name" type="text" id="example-text-input" name="Name" required="">
                                 </div>
 
-                                <label class="col-sm-2 col-form-label">Specialist</label>
+
+                                <label for="example-text-input" class="col-sm-2 col-form-label">Admission Charges</label>
                                 <div class="col-sm-4">
-                                   <?php
-                                    $select_option_specialist = mysqli_query($connect, "SELECT staff_members.*, staff_category.category_name FROM `staff_members`
-                                                                                    INNER JOIN staff_category ON staff_category.id = staff_members.category_id
-                                                                                    WHERE staff_category.category_name = 'Doctor' OR staff_category.category_name = 'Anesthesia'");
-                                        $optionsSurgery = '<select class="form-control specialist" multiple="multiple" name="specialist[]" required="" style="width:100%">';
-                                          while ($rowSurgery = mysqli_fetch_assoc($select_option_specialist)) {
-                                            $optionsSurgery.= '<option value='.$rowSurgery['id'].'>'.$rowSurgery['name'].'</option>';
-                                          }
-                                        $optionsSurgery.= "</select>";
-                                    echo $optionsSurgery;
-                                    ?>
+                                    <input class="form-control" placeholder="Admission Charges" type="number" id="example-text-input" name="adm_charges" required="">
                                 </div>
                             </div>
+
+                            <div class="form-group row">
+                                <label for="example-text-input" class="col-sm-2 col-form-label">OT Charges</label>
+                                <div class="col-sm-4">
+                                    <input class="form-control" placeholder="OT Charges" type="number" id="example-text-input" name="ot_charges" required="">
+                                </div>
+
+                                <label for="example-text-input" class="col-sm-2 col-form-label">Anethesia Charges</label>
+                                <div class="col-sm-4">
+                                    <input class="form-control" placeholder="Anethesia Charges" type="number" id="example-text-input" name="anes_charges" required="">
+                                </div>
+                            </div>
+
                             
                             <div class="form-group row">
                                 <label for="example-password-input" class="col-sm-2 col-form-label"></label>
@@ -107,7 +112,10 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Name</th>
-                                    <th>Specialist</th>
+                                    <th>Admission Charges</th>
+                                    <th>OT Charges</th>
+                                    <th>Anethesia Charges</th>
+                                    <th>Total Charges</th>
                                     <th class="text-center"> <i class="fa fa-edit"></i>
                                     </th>
                                     <th class="text-center"><i class="fa fa-trash"></i></th>
@@ -115,8 +123,7 @@
                             </thead>
                             <tbody>
                                 <?php
-                                $retSurgeryData = mysqli_query($connect, "SELECT surgeries.*, staff_members.name FROM `surgeries`
-                                INNER JOIN staff_members ON staff_members.id = surgeries.member_id WHERE surgeries.status = '1'");
+                                $retSurgeryData = mysqli_query($connect, "SELECT * FROM `surgeries` WHERE status = '1'");
 
                                 $iteration = 1;
 
@@ -125,7 +132,10 @@
                                     <tr>
                                         <td>'.$iteration++.'</td>
                                         <td>'.$rowSurgery['surgery_name'].'</td>
-                                        <td>'.$rowSurgery['name'].'</td>
+                                        <td>'.$rowSurgery['admission_charges'].'</td>
+                                        <td>'.$rowSurgery['ot_charges'].'</td>
+                                        <td>'.$rowSurgery['anethesia_charges'].'</td>
+                                        <td>'.$rowSurgery['total_charges'].'</td>
                                         <td class="text-center"><a href="surgery_list_edit.php?id='.$rowSurgery['id'].'" type="button" class="btn text-white btn-warning waves-effect waves-light">Edit</a></td>
                                         <td class="text-center"><a type="button"  onClick="deleteme('.$rowSurgery['id'].')" class="btn text-white btn-danger waves-effect waves-light">Delete</a></td>
                                     </tr>
@@ -138,7 +148,7 @@
                     </div>
                     <script type="text/javascript">
                         function deleteme(delid){
-                          if (confirm("Do you want to PostPone Patient?")) {
+                          if (confirm("Do you want to Delete Surgery?")) {
                             window.location.href = 'surgeryDelete.php?del_id='+delid+'';
                             return true;
                           }

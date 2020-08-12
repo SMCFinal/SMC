@@ -14,6 +14,7 @@
         WHERE patient_registration.id = '$id'");
 
     $fetch_selectPatient = mysqli_fetch_assoc($selectPatient);
+    $surgeryId = $fetch_selectPatient['patient_operation'];
     if (isset($_POST['makeSlip'])) {
         $id = $_POST['pat_id'];
         $pat_id = $_POST['pat_id'];
@@ -602,27 +603,37 @@ include '../_partials/header.php';
                                 </div>
                             </div>
                             <br />
+
+                            <?php
+                            $surgeryChargesTable = mysqli_query($connect, "SELECT patient_registration.patient_operation, surgeries.*
+                                FROM patient_registration
+                                INNER JOIN surgeries ON surgeries.id = patient_registration.patient_operation
+                                WHERE patient_registration.id = '$id'");
+                            $fetch_surgeryChargesTable = mysqli_fetch_assoc($surgeryChargesTable);
+
+                            $doctorCharges = $fetch_selectPatient['consultant_charges'] - $fetch_surgeryChargesTable['total_charges'];
+                            ?>
                             <div class="row">
                                 <div class="col text-right">
                                     <label> OT Charges:</label>
                                 </div>
                                 <div class="col-md-2">
-                                    <input type="number" value="200" id="actOtChar" required="" onkeyUp="actCharges()" readonly class="form-control" placeholder="OT Charges">
+                                    <input type="number" value="<?php echo $fetch_surgeryChargesTable['ot_charges'] ?>" id="actOtChar" required="" onkeyUp="actCharges()" readonly class="form-control" placeholder="OT Charges">
                                 </div>
                                 <div class="col-md-3">
-                                    <input type="number" name="OTCharges" value="200" id="totOtChar" required="" onkeyUp="totCharges()" class="form-control" placeholder="OT Charges">
+                                    <input type="number" name="OTCharges" value="<?php echo $fetch_surgeryChargesTable['ot_charges'] ?>" id="totOtChar" required="" onkeyUp="totCharges()" class="form-control" placeholder="OT Charges">
                                 </div>
                             </div>
                             <br />
                             <div class="row">
                                 <div class="col text-right">
-                                    <label> Hospital Charges:</label>
+                                    <label> Admission Charges:</label>
                                 </div>
                                 <div class="col-md-2">
-                                    <input type="number" value="200" id="actHosChar" required="" onkeyUp="actCharges()" readonly class="form-control" placeholder="Hospital Charges">
+                                    <input type="number" value="<?php echo $fetch_surgeryChargesTable['admission_charges'] ?>" id="actHosChar" required="" onkeyUp="actCharges()" readonly class="form-control" placeholder="Hospital Charges">
                                 </div>
                                 <div class="col-md-3">
-                                    <input type="number" name="hospitalCharges" value="200" id="totHosChar" required="" onkeyUp="totCharges()" class="form-control" placeholder="Hospital Charges">
+                                    <input type="number" name="hospitalCharges" value="<?php echo $fetch_surgeryChargesTable['admission_charges'] ?>" id="totHosChar" required="" onkeyUp="totCharges()" class="form-control" placeholder="Hospital Charges">
                                 </div>
                             </div>
                             <br />
@@ -638,21 +649,15 @@ include '../_partials/header.php';
                                 </div>
                             </div>
                             <br />
-                            <?php
-                            $doctorCharges = mysqli_query($connect, "SELECT patient_registration.*, staff_members.salary, staff_members.visit_charges FROM `patient_registration` 
-                                INNER JOIN staff_members ON staff_members.id = patient_registration.patient_consultant
-                                WHERE patient_registration.id = '$id'");
-                            $fetch_doctorCharges = mysqli_fetch_assoc($doctorCharges);
-                            ?>
                             <div class="row">
                                 <div class="col text-right">
                                     <label> Doctor Charges:</label>
                                 </div>
                                 <div class="col-md-2">
-                                    <input type="number" value="<?php echo $fetch_doctorCharges['salary'] ?>" id="actDrChar" required="" onkeyUp="actCharges()" readonly class="form-control" placeholder="Doctor Charges">
+                                    <input type="number" value="<?php echo  $doctorCharges  ?>" id="actDrChar" required="" onkeyUp="actCharges()" readonly class="form-control" placeholder="Doctor Charges">
                                 </div>
                                 <div class="col-md-3">
-                                    <input type="number" name="drCharges" value="<?php echo $fetch_doctorCharges['salary'] ?>" id="TotDrChar" required="" onkeyUp="totCharges()" class="form-control" placeholder="Doctor Charges">
+                                    <input type="number" name="drCharges" value="<?php echo  $doctorCharges  ?>" id="TotDrChar" required="" onkeyUp="totCharges()" class="form-control" placeholder="Doctor Charges">
                                 </div>
                             </div>
                             <br />
@@ -667,10 +672,10 @@ include '../_partials/header.php';
                                     <label> Anesthesia Charges:</label>
                                 </div>
                                 <div class="col-md-2">
-                                    <input type="number" value="<?php echo $fetch_anestheticCharges['salary'] ?>" id="actAnesChar" required="" onkeyUp="actCharges()" readonly class="form-control" placeholder="Anesthesia Charges">
+                                    <input type="number" value="<?php echo $fetch_surgeryChargesTable['anethesia_charges'] ?>" id="actAnesChar" required="" onkeyUp="actCharges()" readonly class="form-control" placeholder="Anesthesia Charges">
                                 </div>
                                 <div class="col-md-3">
-                                    <input type="number" name="anesthesiaCharges" value="<?php echo $fetch_anestheticCharges['salary'] ?>" id="totAnesChar" required="" onkeyUp="totCharges()" class="form-control" placeholder="Anesthesia Charges">
+                                    <input type="number" name="anesthesiaCharges" value="<?php echo $fetch_surgeryChargesTable['anethesia_charges'] ?>" id="totAnesChar" required="" onkeyUp="totCharges()" class="form-control" placeholder="Anesthesia Charges">
                                 </div>
                             </div>
                             <br />
@@ -683,10 +688,10 @@ include '../_partials/header.php';
                                     <label> Visit Charges:</label>
                                 </div>
                                 <div class="col-md-2">
-                                    <input type="number" value="<?php echo $fetch_queryVisitCharges['sumVisitCharges'] ?>" id="actVisitCharges" required="" onkeyUp="actCharges()" readonly class="form-control" placeholder="Anesthesia Charges">
+                                    <input type="number" value="<?php echo $fetch_queryVisitCharges['sumVisitCharges'] ?>" id="actVisitCharges" required="" onkeyUp="actCharges()" readonly class="form-control" placeholder="Visit Charges">
                                 </div>
                                 <div class="col-md-3">
-                                    <input type="number" name="visitCharges" value="<?php echo $fetch_queryVisitCharges['sumVisitCharges'] ?>" id="totVisitCharges" required="" onkeyUp="totCharges()" class="form-control" placeholder="Anesthesia Charges">
+                                    <input type="number" name="visitCharges" value="<?php echo $fetch_queryVisitCharges['sumVisitCharges'] ?>" id="totVisitCharges" required="" onkeyUp="totCharges()" class="form-control" placeholder="Visit Charges">
 
                                 </div>
                             </div>

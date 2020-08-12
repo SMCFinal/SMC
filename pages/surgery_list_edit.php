@@ -18,21 +18,19 @@
     if (isset($_POST['updateSurgery'])) {
         $id = $_POST['id'];
         $updateName = $_POST['updateName'];
+        $adm_charges = $_POST['adm_charges'];
+        $ot_charges = $_POST['ot_charges'];
+        $anes_charges = $_POST['anes_charges'];
+        $total_charges = $adm_charges + $ot_charges + $anes_charges;
 
-        // $countQuery = mysqli_query($connect, "SELECT COUNT(*)AS countedFloors FROM floors WHERE floor_name = '$floorName'");
-        // $fetch_countQuery = mysqli_fetch_assoc($countQuery);
-
-
-        // if ($fetch_countQuery['countedFloors'] == 0) {
-            $updateQuery = mysqli_query($connect, "UPDATE surgeries SET surgery_name = '$updateName' WHERE id = '$id'");
-            if (!$updateQuery) {
-                    $error = '<div class="alert alert-danger" role="alert">Surgery not updated!</div>';
-                }else {
-                   header("LOCATION:surgeries_list.php");
-                }
+    
+        $updateQuery = mysqli_query($connect, "UPDATE surgeries SET surgery_name = '$updateName', admission_charges = '$adm_charges', ot_charges = '$ot_charges', anethesia_charges = '$anes_charges', total_charges = '$total_charges' WHERE id = '$id'");
+        if (!$updateQuery) {
+                $error = '<div class="alert alert-danger" role="alert">Surgery not updated!</div>';
+            }else {
+               header("LOCATION:surgeries_list.php");
             }
-    // }
-
+        }
 
     include('../_partials/header.php');
 ?>
@@ -56,6 +54,24 @@
                                 <label for="example-text-input" class="col-sm-2 col-form-label">Name</label>
                                 <div class="col-sm-4">
                                     <input class="form-control" placeholder="Name" type="text" value="<?php echo $fetch_selectQuery['surgery_name'] ?>" id="example-text-input" name="updateName" required="">
+                                </div>
+
+
+                            <label for="example-text-input" class="col-sm-2 col-form-label">Admission Charges</label>
+                                <div class="col-sm-4">
+                                    <input class="form-control" placeholder="Admission Charges" value="<?php echo $fetch_selectQuery['admission_charges'] ?>" type="number" id="example-text-input" name="adm_charges" required="">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="example-text-input" class="col-sm-2 col-form-label">OT Charges</label>
+                                <div class="col-sm-4">
+                                    <input class="form-control" placeholder="OT Charges" type="number" id="example-text-input" value="<?php echo $fetch_selectQuery['ot_charges'] ?>" name="ot_charges" required="">
+                                </div>
+
+                                <label for="example-text-input" class="col-sm-2 col-form-label">Anethesia Charges</label>
+                                <div class="col-sm-4">
+                                    <input class="form-control" placeholder="Anethesia Charges" type="number" id="example-text-input" value="<?php echo $fetch_selectQuery['anethesia_charges'] ?>" name="anes_charges" required="">
                                 </div>
                             </div>
                             <input type="hidden" name="id" value="<?php echo $id ?>">
