@@ -19,6 +19,7 @@
         $consCharges = $_POST['ConsultantPrice'];
         $anesthesiaSpecialist = $_POST['specialist'];
         $anesthesia_charges = $_POST['anesthesia_charges'];
+        $patientConsultant = $_POST['patientConsultant'];
 
         $updateQuery = mysqli_query($connect, 
             "UPDATE patient_registration SET 
@@ -26,7 +27,8 @@
             patient_operation = '$surgery',  
             consultant_charges = '$consCharges', 
             anasthetic_name = '$anesthesiaSpecialist', 
-            anesthesia_charges = '$anesthesia_charges' 
+            anesthesia_charges = '$anesthesia_charges',
+            patient_consultant = '$patientConsultant'
             WHERE id = '$id'");
 
         if (!$updateQuery) {
@@ -89,14 +91,23 @@
                                 <!-- <div class="col-sm-4"> -->
                                     <label for="patient Name" class="col-sm-2 col-form-label">Consultant</label>
                                 <div class="col-sm-4">
-                                    <input class="form-control" required value="<?php echo "Dr. ".$fetch_selectQuery['name'] ?>" readonly placeholder=""  type="text" name="ptaient_name" id="">
+                                <?php
+                                $selectDoctor = mysqli_query($connect, "SELECT staff_members.id AS staffID, staff_members.*, staff_category.* FROM `staff_members`
+                                INNER JOIN staff_category ON staff_category.id = staff_members.category_id
+                                WHERE staff_members.status = '1' AND staff_category.category_name = 'Doctor'");
+                                    $optionsDoctor = '<select class="form-control surgery_name" name="patientConsultant" required="" style="width:100%">';
+                                      while ($rowDoctor = mysqli_fetch_assoc($selectDoctor)) {
+
+                                        if ($fetch_selectQuery['patient_consultant'] === $rowDoctor['staffID']) {
+                                            $optionsDoctor.= '<option value='.$rowDoctor['staffID'].' selected>'.$rowDoctor['name'].'</option>';
+                                        }else {
+                                            $optionsDoctor.= '<option value='.$rowDoctor['staffID'].'>'.$rowDoctor['name'].'</option>';
+                                        }
+                                    }
+                                    $optionsDoctor.= "</select>";
+                                echo $optionsDoctor;
+                                ?>
                                 </div>
-                                    <!-- <select class="form-control consultant" name="specialist" required="" id="specialist" style="width:100%"> -->
-                                        
-                                    <!-- </select> -->
-                                    <?php
-                                    ?>
-                                <!-- </div> -->
                             </div>
                             <div class="form-group row">
                                 <label for="example-email-input" class="col-sm-2 col-form-label">Consultant Charges</label>
@@ -178,7 +189,7 @@ $(".form_datetime").datetimepicker({
 <script type="text/javascript" src="../assets/js/select2.min.js"></script>
 <script type="text/javascript">
 $('.surgery_name').select2({
-    placeholder: 'Surgery Name',
+    placeholder: 'Select Option',
     allowClear: true
 
 });
@@ -187,6 +198,8 @@ $('.consultant').select2({
     allowClear: true
 
 });
+
+
 </script>
 
 <!-- <script type="text/javascript">
@@ -231,6 +244,8 @@ $('.consultant').select2({
       });
     });
   </script>
+
+
 </body>
 
 </html>

@@ -777,7 +777,7 @@ include '../_partials/header.php';
  })
 }
 
-document.getElementById('printButton').addEventListener ("click", print)
+    document.getElementById('printButton').addEventListener ("click", print)
 
 
 

@@ -27,10 +27,10 @@
         $explodeDoctor = explode(":", $designation);
         $designationStaffId = $explodeDoctor[1];
 
-        $checkMemberTable = mysqli_query($connect, "SELECT COUNT(*)AS countedStaff FROM `staff_members` WHERE cnic = '$cnic'");
-        $fetch_checkMemberTable = mysqli_fetch_array($checkMemberTable);
+        // $checkMemberTable = mysqli_query($connect, "SELECT COUNT(*)AS countedStaff FROM `staff_members` WHERE cnic = '$cnic'");
+        // $fetch_checkMemberTable = mysqli_fetch_array($checkMemberTable);
 
-        if ($fetch_checkMemberTable['countedStaff'] < 1) {
+        // if ($fetch_checkMemberTable['countedStaff'] < 1) {
             $updateMember = mysqli_query($connect, "UPDATE staff_members SET name = '$name', cnic = '$cnic', category_id = '$designationStaffId', salary = '$salaryStaff', date_of_joining = '$dateofjoiningStaff', start_time = '$starttimeStaff', end_time = '$endtimeStaff', visit_charges = '$visitcharges', contact = '$contact' WHERE id = '$id'");
             
             // $createMember = mysqli_query($connect, "INSERT INTO staff_members(name, cnic, category_id, salary, date_of_joining, start_time, end_time, visit_charges)VALUES('$name', '$cnic', '$designationStaffId', '$salaryStaff', '$dateofjoiningStaff', '$starttimeStaff', '$endtimeStaff', '$visitcharges')");
@@ -44,11 +44,11 @@
                              </div>';
                              header("LOCATION: HR_staff_list.php");
             }
-        }else {
-            $alreadyAdded = '<div class="alert alert-dark" role="alert">
-                                        Staff Member Already in Database!
-                                     </div>';
-        }
+        // }else {
+            // $alreadyAdded = '<div class="alert alert-dark" role="alert">
+                                        // Staff Member Already in Database!
+                                     // </div>';
+        // }
     }
 
 
