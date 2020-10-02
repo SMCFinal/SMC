@@ -94,8 +94,8 @@ include '../_partials/header.php';
 ?>
 <!-- Top Bar End -->
 
-<div class="page-content-wrapper " style="font-size: 80%">
-    <div class="container-fluid">
+<div class="page-content-wrapper " >
+    <div class="container-fluid"><br>
         <div class="row">
             <div class="col-sm-12">
                 <h5 class="page-title d-inline" >Patient Discharge Slip</h5>
@@ -119,7 +119,7 @@ include '../_partials/header.php';
                                     <!-- <h4 class="float-right font-16"><strong>MR # 12345</strong></h4> -->
                                     <h3 class="m-t-0 text-center">
                                         <img src="../assets/logo.png" alt="logo" height="60" />
-                                        <h3 align="center" style="font-size: 130%">SHAH MEDICAL AND SERGICAL CENTER</h3>
+                                        <h3 align="center" style="font-size: 130%">SHAH MEDICAL CENTER</h3>
                                         <h4 class="text-center font-16" style="font-size: 110%">Address: Near Center Hospital, Saidu Sharif Swat.</h4>
                                         <h4 class="float-right font-16" style="font-size: 80%"><strong>M.R No # <?php echo $fetch_selectPatient['patient_yearly_no'] ?></strong></h4>
                                         <br>
@@ -187,363 +187,12 @@ include '../_partials/header.php';
                             </div>
                         </div>
                         <hr>
-                        <h3 class="panel-title font-20" style="font-size: 120%"><strong><u>Patient History</u></strong></h3>
-                        <div class="row">
-                            <div class="col-4" style="border-right: 1px solid #ccc;">
-                                <div class="panel panel-default">
-                                    <div class="p-2">
-                                        <?php
+                        <?php
                                         $queryDischargesId = mysqli_query($connect, "SELECT pat_id FROM `discharge_patients_charges` WHERE id = '$id'");
                                         $fetch_queryDischargesId = mysqli_fetch_assoc($queryDischargesId);
                                         $dischargeID = $fetch_queryDischargesId['pat_id'];
                                         ?>
-                                    </div>
-                                    <div class="">
-                                        <div class="table-responsive">
-                                            <span style="font-weight: bold; font-size: 100%">Blood Pressure</span>
-                                            <table class="table">
-                                                <thead>
-                                                    <tr>
-                                                        <td><strong>BP Low</strong></td>
-                                                        <td class="text-center"><strong>BP High</strong></td>
-                                                        <td class="text-center"><strong>Date</strong>
-                                                        </td>
-                                                    </tr> 
-                                                </thead> 
-                                                <tbody>
-                                                    <?php
-                                                    $queryBP = mysqli_query($connect, "SELECT * FROM `pat_observation_bp` WHERE pat_id = '$dischargeID'");
-                                                    while ($rowBP = mysqli_fetch_assoc($queryBP)) {
-                                                        echo '
-                                                        <tr>
-                                                            <td align="center">'.$rowBP['bp_low'].'</td>
-                                                            <td align="center">'.$rowBP['bp_high'].'</td>';
-                                                            $BPDate_format = $rowBP['manual_date']; 
-                                                            $BPDate = date('d/M h:i:s A', strtotime($BPDate_format));
-                                                            echo '
-                                                            <td align="right">'.$BPDate.'</td>
-                                                        </tr>
-                                                        ';
-                                                    }
-                                                    ?>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            <hr style="color: black">
-                            </div>
-
-
-                            <div class="col-4" style="border-right: 1px solid #ccc ">
-                                <div class="panel panel-default">
-                                    <div class="p-2">
-                                        <!-- <br><br> -->
-                                    </div>
-                                    <div class="">
-                                        <div class="table-responsive">
-                                            <span style="font-weight: bold; font-size: 100%;">Drain</span>
-                                            <table class="table">
-                                                <thead>
-                                                    <tr>
-                                                        <td><strong>Drain</strong></td>
-                                                        <td class="text-center"><strong>Date</strong>
-                                                        </td>
-                                                    </tr> 
-                                                </thead> 
-                                                <tbody>
-                                                    <?php
-                                                    $queryDrain = mysqli_query($connect, "SELECT * FROM `pat_observation_drain` WHERE pat_id = '$dischargeID'");
-                                                    while ($rowDrain = mysqli_fetch_assoc($queryDrain)) {
-                                                        echo '
-                                                        <tr>
-                                                            <td align="center">'.$rowDrain['drain_measurement'].'</td>';
-                                                            $DrainDate_format = $rowDrain['manual_date']; 
-                                                            $DrainDate = date('d/M h:i:s A', strtotime($DrainDate_format));
-                                                            echo '
-                                                            <td align="right">'.$DrainDate.'</td>
-                                                        </tr>
-                                                        ';
-                                                    }
-                                                    ?>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                                <hr style="color: black">
-                            </div>
-
-                            <div class="col-4">
-                                <div class="panel panel-default">
-                                    <div class="p-2">
-                                        <!-- <br><br> -->
-                                    </div>
-                                    <div class="">
-                                        <div class="table-responsive">
-                                            <span style="font-weight: bold; font-size: 100%;">N/G</span>
-                                            <table class="table">
-                                                <thead>
-                                                    <tr>
-                                                        <td><strong>N/G</strong></td>
-                                                        <td class="text-center"><strong>Date</strong>
-                                                        </td>
-                                                    </tr> 
-                                                </thead> 
-                                                <tbody>
-                                                    <?php
-                                                    $queryNG = mysqli_query($connect, "SELECT * FROM `pat_observation_ng` WHERE pat_id = '$dischargeID'");
-                                                    while ($rowNG = mysqli_fetch_assoc($queryNG)) {
-                                                        echo '
-                                                        <tr>
-                                                            <td align="center">'.$rowNG['ng_measurement'].'</td>';
-                                                            $NGDate_format = $rowNG['manual_date']; 
-                                                            $NGDate = date('d/M h:i:s A', strtotime($NGDate_format));
-                                                            echo '
-                                                            <td align="right">'.$NGDate.'</td>
-                                                        </tr>
-                                                        ';
-                                                    }
-                                                    ?>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                                <hr style="color: black">
-                            </div>
-
-                            <div class="col-4" style="border-right: 1px solid #ccc ">
-                                <div class="panel panel-default">
-                                    <div class="p-2">
-                                        <br><br>
-                                    </div>
-                                    <div class="">
-                                        <div class="table-responsive">
-                                            <span style="font-weight: bold; font-size: 100%;">Pulse</span>
-                                            <table class="table" style="    margin-top: 1.5%;">
-                                                <thead>
-                                                    <tr>
-                                                        <td><strong>Pulse</strong></td>
-                                                        <td class="text-center"><strong>Date</strong>
-                                                        </td>
-                                                    </tr> 
-                                                </thead> 
-                                                <tbody>
-                                                    <?php
-                                                    $queryPulse = mysqli_query($connect, "SELECT * FROM `pat_observation_pulse` WHERE pat_id = '$dischargeID'");
-                                                    while ($rowPulse = mysqli_fetch_assoc($queryPulse)) {
-                                                        echo '
-                                                        <tr>
-                                                            <td align="center">'.$rowPulse['pulse_rate'].'</td>';
-                                                            $PulseDate_format = $rowPulse['manual_date']; 
-                                                            $PulseDate = date('d/M h:i:s A', strtotime($PulseDate_format));
-                                                            echo '
-                                                            <td align="right">'.$PulseDate.'</td>
-                                                        </tr>
-                                                        ';
-                                                    }
-                                                    ?>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-
-                            <div class="col-4" style="border-right: 1px solid #ccc ">
-                                <div class="panel panel-default">
-                                    <div class="p-2">
-                                        <br><br>
-                                    </div>
-                                    <div class="">
-                                        <div class="table-responsive">
-                                            <span style="font-weight: bold; font-size: 100%;">Respiratory</span>
-                                            <table class="table" style="    margin-top: 1.5%;">
-                                                <thead>
-                                                    <tr>
-                                                        <td><strong>Respiratory</strong></td>
-                                                        <td class="text-center"><strong>Date</strong>
-                                                        </td>
-                                                    </tr> 
-                                                </thead> 
-                                                <tbody>
-                                                    <?php
-                                                    $queryRespiratory = mysqli_query($connect, "SELECT * FROM `pat_observation_respiratory` WHERE pat_id = '$dischargeID'");
-                                                    while ($rowRespiratory = mysqli_fetch_assoc($queryRespiratory)) {
-                                                        echo '
-                                                        <tr>
-                                                            <td align="center">'.$rowRespiratory['respiratory_measurement'].'</td>';
-                                                            $RespiratoryDate_format = $rowRespiratory['manual_date']; 
-                                                            $RespiratoryDate = date('d/M h:i:s A', strtotime($RespiratoryDate_format));
-                                                            echo '
-                                                            <td align="right">'.$RespiratoryDate.'</td>
-                                                        </tr>
-                                                        ';
-                                                    }
-                                                    ?>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-
-                            <div class="col-4">
-                                <div class="panel panel-default">
-                                    <div class="p-2">
-                                        <br><br>
-                                    </div>
-                                    <div class="">
-                                        <div class="table-responsive">
-                                            <span style="font-weight: bold; font-size: 100%;">Urine</span>
-                                            <table class="table" style="    margin-top: 1.5%;">
-                                                <thead>
-                                                    <tr>
-                                                        <td><strong>Urine</strong></td>
-                                                        <td class="text-center"><strong>Date</strong>
-                                                        </td>
-                                                    </tr> 
-                                                </thead> 
-                                                <tbody>
-                                                    <?php
-                                                    $queryUrine = mysqli_query($connect, "SELECT * FROM `pat_observation_urine` WHERE pat_id = '$dischargeID'");
-                                                    while ($rowUrine = mysqli_fetch_assoc($queryUrine)) {
-                                                        echo '
-                                                        <tr>
-                                                            <td align="center">'.$rowUrine['urine_measurement'].'</td>';
-                                                            $UrineDate_format = $rowUrine['manual_date']; 
-                                                            $UrineDate = date('d/M h:i:s A', strtotime($UrineDate_format));
-                                                            echo '
-                                                            <td align="right">'.$UrineDate.'</td>
-                                                        </tr>
-                                                        ';
-                                                    }
-                                                    ?>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> <!-- end row -->
-                        <hr>
-                        <div class="row">
-                            <div class="col-6">
-                                <div class="panel panel-default">
-                                    <div class="p-2">
-                                        <h3 class="panel-title font-20" style="font-size: 120%"><strong>Pharmacy Medicine Details: </strong></h3>
-                                    </div>
-                                    <div class="">
-                                        <div class="table-responsive">
-                                            <table class="table table-bordered">
-                                                <thead>
-                                                    <tr>
-                                                        <td><strong>S.No.</strong></td>
-                                                        <td><strong>Category - Medicine Name</strong></td>
-                                                        <td><strong>Quantity</strong></td>
-                                                        <td><strong>Date</strong></td>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <?php
-                                                    $itrMed = 1;
-                                                    $retMedicinesQuery = mysqli_query($connect, "SELECT add_medicines.*, medicine_category.*, medicine_order.* FROM add_medicines
-                                                        INNER JOIN medicine_order ON medicine_order.med_id = add_medicines.id
-                                                        INNER JOIN medicine_category ON medicine_category.id = add_medicines.medicine_category
-                                                        WHERE medicine_order.patient_id = '$dischargeID'");
-
-                                                    while ($rowMedicinesQuery = mysqli_fetch_assoc($retMedicinesQuery)) {
-                                                        echo '
-                                                        <tr>
-                                                            <td>'.$itrMed++.'</td>
-                                                            <td>'.$rowMedicinesQuery['category_name'].' - '.$rowMedicinesQuery['medicine_name'].'</td>
-                                                            <td>'.$rowMedicinesQuery['med_qty'].'</td>';
-
-                                                            $timezone = date_default_timezone_set('Asia/Karachi');
-                                                            $MedDate_format = $rowMedicinesQuery['order_date']; 
-                                                            $MedDate = date('d/M h:i:s A', strtotime($MedDate_format));
-                                                            echo '
-                                                            <td>'.$MedDate.'</td>
-                                                        </tr>
-                                                        ';
-                                                    }
-
-                                                    $queryTotal = mysqli_query($connect, "SELECT SUM(medicines_total) AS medTotal FROM `pharmacy_amount` WHERE patient_id = '$dischargeID'");
-                                                    $fetch_queryTotal = mysqli_fetch_assoc($queryTotal);
-                                                    echo '
-                                                        <td></td>
-                                                        <td align="right"><strong>Total</strong></td>
-                                                        <td><strong>Rs. '.$fetch_queryTotal['medTotal'].'</strong></td>
-                                                        <td></td>
-
-                                                    ';
-                                                    ?>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div> 
-                            </div> 
-
-
-                            <div class="col-6">
-                                <div class="panel panel-default">
-                                    <div class="p-2">
-                                        <h3 class="panel-title font-20" style="font-size: 120%"><strong>Laboratory Test Details: </strong></h3>
-                                    </div>
-                                    <div class="">
-                                        <div class="table-responsive">
-                                            <table class="table table-bordered">
-                                                <thead>
-                                                    <tr>
-                                                        <td><strong>S.No.</strong></td>
-                                                        <td><strong>Test</strong></td>
-                                                        <td><strong>Price</strong></td>
-                                                        <td><strong>Date</strong></td>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <?php
-                                                    $itrLab = 1;
-                                                    $retLabTestQuery = mysqli_query($connect, "SELECT lab_order.*, lab_test_category.* FROM `lab_order` 
-                                                        INNER JOIN lab_test_category ON lab_test_category.id = lab_order.lab_test_id
-                                                        WHERE lab_order.pat_id = '$dischargeID'");
-
-                                                    while ($rowLabTestQuery = mysqli_fetch_assoc($retLabTestQuery)) {
-                                                        echo '
-                                                        <tr>
-                                                            <td>'.$itrLab++.'</td>
-                                                            <td>'.$rowLabTestQuery['test_name'].'</td>
-                                                            <td>'.$rowLabTestQuery['test_price'].'</td>';
-                                                            
-                                                            $timezone = date_default_timezone_set('Asia/Karachi');
-                                                            $LabDate_format = $rowLabTestQuery['auto_date']; 
-                                                            $LabDate = date('d/M h:i:s A', strtotime($LabDate_format));
-                                                            echo '
-                                                            <td>'.$LabDate.'</td>
-                                                        </tr>
-                                                        ';
-                                                    }
-
-                                                     $queryTotalLab = mysqli_query($connect, "SELECT SUM(total_price) AS totalPrice FROM `lab_test_report` WHERE pat_id = '$dischargeID'");
-                                                        $fetch_queryTotalLab = mysqli_fetch_assoc($queryTotalLab);
-                                                        echo '
-                                                            <td></td>
-                                                            <td align="right"><strong>Total</strong></td>
-                                                            <td><strong>Rs. '.$fetch_queryTotalLab['totalPrice'].'</strong></td>
-                                                            <td></td>';
-                                                    ?>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div> 
-                            </div>
-                        </div>
-                        <hr>
+                        
                         <?php
                         // $dischargeID
                         $queryDischargePatientAllData = mysqli_query($connect, "SELECT * FROM `discharge_patients_charges` WHERE id = '$id' AND pat_id = '$dischargeID'");
@@ -562,7 +211,7 @@ include '../_partials/header.php';
                                     <span><?php echo "Rs. ".$fetch_queryDischargePatientAllData['advance_payment'] ?></span>
                                     <!-- <input type="number" name="medCharges" value="<?php echo $fetch_queryTotal['medTotal'] ?>" class="form-control" id="totMedChar" required="" onkeyUp="totCharges()" placeholder="Medicines Price"> -->
                                 </div>
-                            </div>
+                            </div><br>
 
                             <div class="row">
                                 <div class="col text-right">
@@ -605,7 +254,7 @@ include '../_partials/header.php';
                             <br />
                             <div class="row">
                                 <div class="col text-right">
-                                    <label> Hospital Charges:</label>
+                                    <label> Admission Charges:</label>
                                 </div>
                                 <!-- <div class="col-md-2">
                                     <input type="number" value="200" id="actHosChar" required="" onkeyUp="actCharges()" readonly class="form-control" placeholder="Hospital Charges">

@@ -129,7 +129,7 @@ include '../_partials/header.php';
                                     <!-- <h4 class="float-right font-16"><strong>MR # 12345</strong></h4> -->
                                     <h3 class="m-t-0 text-center">
                                         <img src="../assets/logo.png" alt="logo" height="60" />
-                                        <h3 align="center">SHAH MEDICAL AND SERGICAL CENTER</h3>
+                                        <h3 align="center">SHAH MEDICAL CENTER</h3>
                                         <h4 class="text-center font-16">Address: Near Center Hospital, Saidu Sharif Swat.</h4>
                                         <h4 class="float-right font-16"><strong>M.R No # <?php echo $fetch_selectPatient['patient_yearly_no'] ?></strong></h4>
                                         <br>
@@ -654,10 +654,10 @@ include '../_partials/header.php';
                                     <label> Doctor Charges:</label>
                                 </div>
                                 <div class="col-md-2">
-                                    <input type="number" value="<?php echo  $doctorCharges  ?>" id="actDrChar" required="" onkeyUp="actCharges()" readonly class="form-control" placeholder="Doctor Charges">
+                                    <input type="number" value="<?php echo  ($doctorCharges-$roomInvoicePrice)  ?>" id="actDrChar" required="" onkeyUp="actCharges()" readonly class="form-control" placeholder="Doctor Charges">
                                 </div>
                                 <div class="col-md-3">
-                                    <input type="number" name="drCharges" value="<?php echo  $doctorCharges  ?>" id="TotDrChar" required="" onkeyUp="totCharges()" class="form-control" placeholder="Doctor Charges">
+                                    <input type="number" name="drCharges" value="<?php echo  ($doctorCharges-$roomInvoicePrice)  ?>" id="TotDrChar" required="" onkeyUp="totCharges()" class="form-control" placeholder="Doctor Charges">
                                 </div>
                             </div>
                             <br />

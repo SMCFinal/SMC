@@ -286,6 +286,15 @@
                         </li>
                     <?php } ?>
 
+
+                        <?php if ($fetch_query['user_role'] == '2') {?>
+                        <li>
+                            <a href="../AndroidAppDownload/SMC.apk" class="waves-effect">
+                                <i class="fa fa-android"></i>
+                                <span> SMS Application </span>
+                            </a>
+                        </li>
+                        <?php } ?>
                         
 
                     </ul>
