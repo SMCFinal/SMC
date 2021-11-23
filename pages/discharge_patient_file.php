@@ -94,9 +94,29 @@
         $dop = "0000-00-00 00:00:00";
         $queryDoctorChargesSurgery = mysqli_query($connect, "INSERT INTO doctor_surgery_charges(pat_id, room_id, surgery_charges, pat_operation, pat_consultant, date_of_payment)VALUES('$id', '$p_room', '$drCharges', '$p_operation', '$p_consultant', '$dop')");
 
-        $queryDoctorChargesSurgery = mysqli_query($connect, "INSERT INTO anesthetic_surgery_charges(pat_id, room_id, surgery_anes_charges, pat_operation, pat_consultant, date_of_payment)VALUES('$id', '$p_room', '$anestheticCharges', '$p_operation', '$p_consultant', '$dop')");
 
-        if ($queryDischargeCharges) {
+
+
+
+
+        $queryDoctorChargesSurgery = mysqli_query($connect, "INSERT INTO anesthetic_surgery_charges(
+            anesthetic_id, 
+            pat_id, 
+            room_id,  
+            surgery_anes_charges, 
+            pat_operation, 
+            pat_consultant, 
+            date_of_payment
+            )VALUES(
+            '$p_anes', 
+            '$id', 
+            '$p_room', 
+            '$anestheticCharges', 
+            '$p_operation', 
+            '$p_consultant', 
+            '$dop')");
+
+        if ($queryDoctorChargesSurgery) {
             header("LOCATION:patients_discharge_list.php");
         }
     }

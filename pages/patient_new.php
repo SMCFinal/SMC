@@ -19,12 +19,33 @@
     $pickYearlyPostpone = mysqli_query($connect, "SELECT COUNT(*)AS yearlyPostponeCounted FROM `postpone_patient` WHERE auto_date LIKE '%$currentYear%'");
     $fetch_pickYearlyPostpone = mysqli_fetch_assoc($pickYearlyPostpone);
 
+
+
     $pickYearlyDischarge = mysqli_query($connect, "SELECT COUNT(*)AS yearlyDischargeCounted FROM discharge_patients WHERE auto_date LIKE  '%$currentYear%'");
     $fetch_pickYearlyDischarge = mysqli_fetch_assoc($pickYearlyDischarge);
     
-    $yearlyCountedPatients = $fetch_pickYearly['yearlyCounted'] + $fetch_pickYearlyPostpone['yearlyPostponeCounted'] + $fetch_pickYearlyDischarge['yearlyDischargeCounted'];
+   $yearlyCountedPatients = $fetch_pickYearly['yearlyCounted'] + $fetch_pickYearlyPostpone['yearlyPostponeCounted'] + $fetch_pickYearlyDischarge['yearlyDischargeCounted'];
 
     $newPatient = $currentYearNewPatient."0".($yearlyCountedPatients + 1);
+
+
+    $autoDate = date('Y-m-d');
+
+
+
+
+
+    // O
+    $fetch_pickYearlyPostpone['yearlyPostponeCounted'];
+
+    // 1
+    $fetch_pickYearly['yearlyCounted'];
+
+    $fetch_pickYearlyDischarge['yearlyDischargeCounted'];
+
+
+
+
 
     if (isset($_POST['patientRegister'])) {
         $yearlyNumber = $_POST['patientYearlyNumber'];
@@ -41,6 +62,7 @@
         $patient_cnic = $_POST['patientCnic'];
         $patient_contact = $_POST['patientContact'];
         $advance_payment = $_POST['advance_payment'];
+        $autoDate = $_POST['autoDate'];
 
         $currentPatient = 'currentPatient';
 
@@ -83,7 +105,8 @@
             anesthesia_charges,
             added_by,
             updated_by,
-            advance_payment
+            advance_payment,
+            auto_date
             )VALUES(
             '$name', 
             '$Age', 
@@ -106,7 +129,8 @@
             '$anesthesia_charges',
             '$added_by',
             '$updated_by',
-            '$advance_payment'
+            '$advance_payment',
+            '$autoDate'
             )
            ");
 
@@ -143,6 +167,7 @@
                 <div class="card m-b-30">
                     <div class="card-body">
                         <form method="POST">
+                            <input type="hidden" name="autoDate" value="<?php echo $autoDate ?>">
                             <div class="form-group row">
                                 <label class="col-sm-2 offset-sm-6 col-form-label">M.R No.</label>
                                 <div class="col-sm-4">
@@ -153,12 +178,12 @@
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">Name</label>
                                 <div class="col-sm-4">
-                                    <input class="form-control" name="patientName" type="text" placeholder="Patient Name" id="example-text-input">
+                                    <input class="form-control" name="patientName" type="text" placeholder="Patient Name" id="example-text-input" required="">
                                 </div>
 
                                  <label class="col-sm-2 col-form-label">Age</label>
                                 <div class="col-sm-4">
-                                    <input class="form-control" name="patientAge" type="number" placeholder="Patient Age" value="" id="example-text-input">
+                                    <input class="form-control" name="patientAge" type="number" placeholder="Patient Age" value="" id="example-text-input" required="">
                                 </div>
                               
                             </div>
@@ -185,14 +210,14 @@
 
                                 <label class="col-sm-2 col-form-label">Case</label>
                                 <div class="col-sm-4">
-                                    <input class="form-control" type="text" name="patientDisease" placeholder="Patient Case" value="" id="example-text-input">
+                                    <input class="form-control" type="text" name="patientDisease" placeholder="Patient Case" value="" id="example-text-input" required="">
                                 </div>
 
                             </div>
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">Address</label>
                                 <div class="col-sm-4">
-                                    <input type="text" id="textarea" class="form-control" name="patientAddress" placeholder="Address">
+                                    <input type="text" id="textarea" class="form-control" name="patientAddress" placeholder="Address" required="">
                                 </div>
                                 <label class="col-sm-2 col-form-label">City</label>
                                 <div class="col-sm-4">
@@ -212,11 +237,11 @@
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">CNIC</label>
                                 <div class="col-sm-4">
-                                    <input type="number" class="form-control" name="patientCnic" placeholder="CNIC">
+                                    <input type="number" class="form-control" name="patientCnic" placeholder="CNIC" required="">
                                 </div>
                                 <label class="col-sm-2 col-form-label">Contact</label>
                                 <div class="col-sm-4">
-                                    <input type="number" class="form-control" name="patientContact" placeholder="Patient Contact">
+                                    <input type="number" class="form-control" name="patientContact" placeholder="Patient Contact" required="">
                                 </div>
                             </div>
                             <hr>
@@ -231,7 +256,7 @@
                                 <label class="col-sm-2 col-form-label">Date of Admission</label>
                                 <div class="col-sm-4">
                                     <div class="input-group">
-                                        <input  class="form-control form_datetime" name="patientDateOfAdmission" value="<?php echo $date ?>" placeholder="dd/mm/yyyy-hh:mm" autoclear="">
+                                        <input  class="form-control form_datetime" name="patientDateOfAdmission" value="<?php echo $date ?>" placeholder="dd/mm/yyyy-hh:mm" autoclear="" required="">
                                         <div class="input-group-append bg-custom b-0"><span class="input-group-text"><i class="mdi mdi-calendar"></i></span></div>
                                     </div>
                                 </div>
@@ -268,12 +293,9 @@
                           
                                 </div>
 
-
-
-
                                <label class="col-sm-2 col-form-label">Attendant Name</label>
                                 <div class="col-sm-4">
-                                    <input class="form-control" name="attendantName" type="text" placeholder="Attendant Name" id="example-text-input">
+                                    <input class="form-control" name="attendantName" type="text" placeholder="Attendant Name" id="example-text-input" required="">
                                 </div>
 
                             </div>
@@ -281,7 +303,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">Advance Payment</label>
                                 <div class="col-sm-4">
-                                    <input class="form-control" name="advance_payment" type="number" placeholder="Attendant Name" id="example-text-input" required="">
+                                    <input class="form-control" name="advance_payment" type="number" placeholder="Advance Payment" id="example-text-input" required="">
                                 </div>
                             </div><hr>
                            

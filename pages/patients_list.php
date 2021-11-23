@@ -30,6 +30,7 @@
                                     <th>Date of Admission</th>
                                     <th>Disease</th>
                                     <th>Consultant</th>
+                                    <th>Change Room</th>
                                     <th class="text-center"><i class="mdi mdi-eye"></i> / <i class="fa fa-trash"></i></th>
                                 </tr>
                             </thead>
@@ -56,6 +57,11 @@
                                             <td>'.$newAdmisison.'</td>
                                             <td>'.$rowPatients['patient_disease'].'</td>
                                             <td>'."Dr. ".$rowPatients['name'].'</td>
+                                            <td class="text-center">
+                                            <a href="changeRoom.php?id='.$rowPatients['id'].'" type="button" class="btn text-white btn-warning waves-effect waves-light btn-sm">Edit Room</a>&nbsp;&nbsp;&nbsp;
+                                            </td>
+
+
                                             <td class="text-center">
                                             <a href="patient_view.php?id='.$rowPatients['id'].'" type="button" class="btn text-white btn-primary waves-effect waves-light btn-sm">View</a>&nbsp;&nbsp;&nbsp;';
 

@@ -15,34 +15,9 @@
 
     $fetch_selectPatient = mysqli_fetch_assoc($selectPatient);
 
-
+    $error = '';
     if (isset($_POST['makeSlip'])) {
         $id = $_POST['pat_id'];
-        // $pat_id = $_POST['pat_id'];
-        // $city_id = $_POST['city_id'];
-        // $room_id = $_POST['room_id'];
-        // $medCharges = $_POST['medCharges'];
-        // $roomCharges = $_POST['roomCharges'];
-        // $OTCharges = $_POST['OTCharges'];
-        // $hospitalCharges = $_POST['hospitalCharges'];
-        // $labCharges = $_POST['labCharges'];
-        // $drCharges = $_POST['drCharges'];
-        // $anestheticCharges = $_POST['anesthesiaCharges'];
-        // $actualCharges = $_POST['actualCharges'];
-        // $paidAmount = $_POST['paidAmount'];
-        // $stitchesDays = $_POST['stitchesDays'];
-
-        // $patient_operation_discharge = $_POST['p_operation'];
-        // $pat_consultant = $_POST['p_consultant'];
-        // $visitCharges = $_POST['visitCharges'];
-        // if (empty($visitCharges)) {
-        //     $visitCharges = 0;
-        // }else {
-        //     $visitCharges = $_POST['visitCharges'];
-        // }
-
-        // $queryDischargeCharges = mysqli_query($connect, "INSERT INTO `discharge_patients_charges`
-        //     (`pat_id`, `city_id`, `room_id`, `med_charges`, `room_charges`, `ot_charges`, `hospital_charges`, `lab_charges`, `dr_charges`, `anesthetic_charges`, `actual_charges`, `amount_paid`, doctor_advice, days_stitches, pat_operation, pat_consultant, visit_charges) VALUES ('$pat_id', '$city_id', '$room_id', '$medCharges', '$roomCharges', '$OTCharges', '$hospitalCharges', '$labCharges', '$drCharges', '$anestheticCharges', '$actualCharges', '$paidAmount', '$doctorAdvice', '$stitchesDays', '$patient_operation_discharge', '$pat_consultant', '$visitCharges')");
 
 
 
@@ -155,10 +130,12 @@
                     ('1', '$p_contact', '$description', '1')");
 
 
-        $deletequery = mysqli_query($connect, "DELETE FROM `patient_registration` WHERE id='$pat_id'");
+        // $deletequery = mysqli_query($connect, "DELETE FROM `patient_registration` WHERE id='$pat_id'");
 
         $update = mysqli_query($connect, "UPDATE rooms SET status = '1' WHERE id = '$p_room'");
         if (!$postponePatientQuery) {
+            $error = mysqli_error($connect);
+            $error = "Done";
         }else {
             header("LOCATION: patients_postponed_list.php");
         }
@@ -175,7 +152,8 @@ include '../_partials/header.php';
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-12">
-                <h5 class="page-title">Prepare Patient Discharge Slip (Postpone)</h5>
+                <h5 class="page-title">Prepare Patient Discharge Slip (Postpone) 
+                    <?php echo $error ?> </h5>
             </div>
         </div>
         <!-- end row -->

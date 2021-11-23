@@ -10,17 +10,48 @@
     
     $fetch_selectQuery = mysqli_fetch_assoc($selectQuery);
 
+
     $notAdded = '';
 
     if (isset($_POST["addsurgery"])) {
         $id = $_POST['id'];
         $patientDateOfsurgery = $_POST['patientDateOfsurgery'];
+        
         $surgery = $_POST['surgery'];
+        $name = $_POST['name'];
+        
         $consCharges = $_POST['ConsultantPrice'];
+        
         $anesthesiaSpecialist = $_POST['specialist'];
         $anesthesia_charges = $_POST['anesthesia_charges'];
+        
+        
         $patientConsultant = $_POST['patientConsultant'];
 
+        $setDoctorMessage = mysqli_query($connect, "SELECT * FROM `staff_members` WHERE id = '$patientConsultant'");
+        $fetch_setDoctorMessage = mysqli_fetch_assoc($setDoctorMessage);
+        $doctorContact = "0".$fetch_setDoctorMessage['contact'];
+
+        $setAnesthesiaMessage = mysqli_query($connect, "SELECT * FROM `staff_members` WHERE id = '$anesthesiaSpecialist'");
+        $fetch_setAnesthesiaMessage = mysqli_fetch_assoc($setAnesthesiaMessage);
+        $anesthesiaContact = "0".$fetch_setAnesthesiaMessage['contact'];
+
+        $setSurgeries = mysqli_query($connect, "SELECT * FROM `surgeries` WHERE id = '$surgery'");
+        $fetch_setSurgeries = mysqli_fetch_assoc($setSurgeries);
+        $setSurgeryName = $fetch_setSurgeries['surgery_name'];
+
+        $message = "Patient ".$name." has been admitted for ".$setSurgeryName." surgery. "."Shah Medical Center";
+
+        $zakriyaContact = '03464120026';
+
+
+        $insertMessageDoctor = mysqli_query($connect, "INSERT INTO message_tbl(from_device, to_device, message_body)VALUES('1', '$doctorContact', '$message')");
+
+        $insertMessageAnesthesia = mysqli_query($connect, "INSERT INTO message_tbl(from_device, to_device, message_body)VALUES('1', '$anesthesiaContact', '$message')");
+
+
+        $insertMessageZakriya = mysqli_query($connect, "INSERT INTO message_tbl(from_device, to_device, message_body)VALUES('1', '$zakriyaContact', '$message')");
+        
         $updateQuery = mysqli_query($connect, 
             "UPDATE patient_registration SET 
             patient_doop = '$patientDateOfsurgery', 
@@ -62,6 +93,7 @@
                                 <label for="patient Name" class="col-sm-2 col-form-label">Patient Name</label>
                                 <div class="col-sm-4">
                                     <input class="form-control"  value="<?php echo $fetch_selectQuery['patient_name'] ?>" readonly placeholder=""  type="text" name="ptaient_name" id="">
+                                    <input class="form-control"  value="<?php echo $fetch_selectQuery['patient_name'] ?>" type="hidden" name="name" id="">
                                 </div>
                                 <label class="col-sm-2 col-form-label">Date of Surgery</label>
                                 <div class="col-sm-4">
@@ -91,7 +123,9 @@
                                 <!-- <div class="col-sm-4"> -->
                                     <label for="patient Name" class="col-sm-2 col-form-label">Consultant</label>
                                 <div class="col-sm-4">
+                                
                                 <?php
+                                // print_r($fetch_selectQuery['patient_consultant']);
                                 $selectDoctor = mysqli_query($connect, "SELECT staff_members.id AS staffID, staff_members.*, staff_category.* FROM `staff_members`
                                 INNER JOIN staff_category ON staff_category.id = staff_members.category_id
                                 WHERE staff_members.status = '1' AND staff_category.category_name = 'Doctor'");
