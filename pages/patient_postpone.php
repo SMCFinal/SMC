@@ -130,12 +130,11 @@
                     ('1', '$p_contact', '$description', '1')");
 
 
-        // $deletequery = mysqli_query($connect, "DELETE FROM `patient_registration` WHERE id='$pat_id'");
+        $deletequery = mysqli_query($connect, "DELETE FROM `patient_registration` WHERE id='$pat_id'");
 
         $update = mysqli_query($connect, "UPDATE rooms SET status = '1' WHERE id = '$p_room'");
-        if (!$postponePatientQuery) {
+        if (!$update) {
             $error = mysqli_error($connect);
-            $error = "Done";
         }else {
             header("LOCATION: patients_postponed_list.php");
         }

@@ -24,15 +24,12 @@
     $pickYearlyDischarge = mysqli_query($connect, "SELECT COUNT(*)AS yearlyDischargeCounted FROM discharge_patients WHERE auto_date LIKE  '%$currentYear%'");
     $fetch_pickYearlyDischarge = mysqli_fetch_assoc($pickYearlyDischarge);
     
-   $yearlyCountedPatients = $fetch_pickYearly['yearlyCounted'] + $fetch_pickYearlyPostpone['yearlyPostponeCounted'] + $fetch_pickYearlyDischarge['yearlyDischargeCounted'];
+    $yearlyCountedPatients = $fetch_pickYearly['yearlyCounted'] + $fetch_pickYearlyPostpone['yearlyPostponeCounted'] + $fetch_pickYearlyDischarge['yearlyDischargeCounted'];
 
-    $newPatient = $currentYearNewPatient."0".($yearlyCountedPatients + 1);
+    $newPatient = $currentYearNewPatient."0".($yearlyCountedPatients + 2);
 
 
     $autoDate = date('Y-m-d');
-
-
-
 
 
     // O
