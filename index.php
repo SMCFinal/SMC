@@ -30,6 +30,8 @@
             header("LOCATION:pages/lab_test_list_view.php");
         }elseif ($user_role == '5') {
             header("LOCATION:pages/pharmacy_list.php");
+        }elseif ($user_role == '6') {
+            header("LOCATION:pages/dashboardCustom.php");
         }
         
       }else {

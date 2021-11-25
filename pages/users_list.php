@@ -47,6 +47,7 @@
                                 $CounterScreen = 'Counter Screen';
                                 $Laboratory = 'Laboratory';
                                 $Pharmacy = 'Pharmacy';
+                                $GroundFloorCounter = 'Ground Floor Counter';
 
                                 $active = 'Active';
                                 $inActive = 'In-Active';
@@ -68,6 +69,8 @@
                                             echo '<td>'.$Laboratory.'</td>';   
                                         }elseif ($userRow['user_role'] == '5') {
                                             echo '<td>'.$Pharmacy.'</td>';   
+                                        }elseif ($userRow['user_role'] == '6') {
+                                            echo '<td>'.$GroundFloorCounter.'</td>';   
                                         }
 
 

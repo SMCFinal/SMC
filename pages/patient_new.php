@@ -16,17 +16,17 @@
     $fetch_pickYearly = mysqli_fetch_assoc($pickYearly);
 
 
-    $pickYearlyPostpone = mysqli_query($connect, "SELECT COUNT(*)AS yearlyPostponeCounted FROM `postpone_patient` WHERE auto_date LIKE '%$currentYear%'");
+    $pickYearlyPostpone = mysqli_query($connect, "SELECT COUNT(*)AS yearlyPostponeCounted FROM `postpone_patient` WHERE patient_doa LIKE '%$currentYear%'");
     $fetch_pickYearlyPostpone = mysqli_fetch_assoc($pickYearlyPostpone);
 
 
 
-    $pickYearlyDischarge = mysqli_query($connect, "SELECT COUNT(*)AS yearlyDischargeCounted FROM discharge_patients WHERE auto_date LIKE  '%$currentYear%'");
+    $pickYearlyDischarge = mysqli_query($connect, "SELECT COUNT(*)AS yearlyDischargeCounted FROM discharge_patients WHERE patient_doa LIKE '%$currentYear%'");
     $fetch_pickYearlyDischarge = mysqli_fetch_assoc($pickYearlyDischarge);
     
-    $yearlyCountedPatients = $fetch_pickYearly['yearlyCounted'] + $fetch_pickYearlyPostpone['yearlyPostponeCounted'] + $fetch_pickYearlyDischarge['yearlyDischargeCounted'];
+    $yearlyCountedPatients = ($fetch_pickYearly['yearlyCounted'] + $fetch_pickYearlyPostpone['yearlyPostponeCounted']) + $fetch_pickYearlyDischarge['yearlyDischargeCounted'];
 
-    $newPatient = $currentYearNewPatient."0".($yearlyCountedPatients + 2);
+    $newPatient = $currentYearNewPatient."0".($yearlyCountedPatients + 1);
 
 
     $autoDate = date('Y-m-d');
@@ -60,6 +60,7 @@
         $patient_contact = $_POST['patientContact'];
         $advance_payment = $_POST['advance_payment'];
         $autoDate = $_POST['autoDate'];
+        $organization = $_POST['organization'];
 
         $currentPatient = 'currentPatient';
 
@@ -103,7 +104,8 @@
             added_by,
             updated_by,
             advance_payment,
-            auto_date
+            auto_date,
+            organization
             )VALUES(
             '$name', 
             '$Age', 
@@ -127,7 +129,8 @@
             '$added_by',
             '$updated_by',
             '$advance_payment',
-            '$autoDate'
+            '$autoDate',
+            '$organization'
             )
            ");
 
@@ -140,6 +143,27 @@
                     (from_device, to_device, message_body, status)
                     VALUES
                     ('1', '$patient_contact', '$description', '1')");
+
+                $description_one = "New Patient ".$name.", (".$organization.") has been admitted! Thank You! FROM: SMC";
+
+                $contact_one = '03466459796';
+                $contact_sec = '03464120026';
+                $contact_third = '03359967977';
+
+                $insertMsgOne =  mysqli_query($connect, "INSERT INTO message_tbl
+                    (from_device, to_device, message_body, status)
+                    VALUES
+                    ('1', '$contact_one', '$description_one', '1')");
+
+                $insertMsgSec =  mysqli_query($connect, "INSERT INTO message_tbl
+                    (from_device, to_device, message_body, status)
+                    VALUES
+                    ('1', '$contact_sec', '$description_one', '1')");
+
+                $insertMsgThird =  mysqli_query($connect, "INSERT INTO message_tbl
+                    (from_device, to_device, message_body, status)
+                    VALUES
+                    ('1', '$contact_third', '$description_one', '1')");
 
             $updateRoom = mysqli_query($connect, "UPDATE rooms SET status = '0' WHERE id = '$patientRoom'");
             header("LOCATION: patients_list.php");
@@ -171,7 +195,25 @@
                                     <input class="form-control" type="text" value="<?php echo $newPatient ?>" placeholder="Yearly No." name="patientYearlyNumber" id="example-text-input" readonly>
                                 </div>
                             </div>
-                        <h4 class="mb-4 page-title"><u>Patient Details</u></h4>
+                            <h4 class="mb-4 page-title"><u>Patient Details</u></h4>
+
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Organization</label>
+                                <div class="col-sm-4">
+                                    <?php
+                                        $select_option_city = mysqli_query($connect, "SELECT * FROM select_organization");
+                                            $optionsCity = '<select class="form-control Orgselect2" name="organization" required="" style="width:100%">';
+                                            
+                                              while ($rowCity = mysqli_fetch_assoc($select_option_city)) {
+                                                $optionsCity.= '<option value='.$rowCity['org_name'].'>'.$rowCity['org_name'].'</option>';
+                                              }
+                                            $optionsCity.= "</select>";
+                                        echo $optionsCity;
+                                    ?>
+                                </div>                             
+                            </div>
+                            <hr>
+
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">Name</label>
                                 <div class="col-sm-4">
@@ -342,19 +384,23 @@
     });
 </script>
 <script type="text/javascript" src="../assets/js/select2.min.js"></script>
-        <script type="text/javascript">
-            $('.select2').select2({
+<script type="text/javascript">
+$('.select2').select2({
   placeholder: 'Select an option',
-  allowClear:true
+  allowClear: true
   
 });
 
-             $('.attendant').select2({
+$('.attendant').select2({
   placeholder: 'Select an option',
   allowClear:true
-  
 });
-        </script>
+
+$('.Orgselect2').select2({
+  placeholder: 'Select an option',
+  allowClear:true
+});
+</script>
 </body>
 
 </html>

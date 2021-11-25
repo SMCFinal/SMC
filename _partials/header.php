@@ -93,6 +93,14 @@
                         <?php if ($fetch_query['user_role'] == '2') {
                             ?>
                         <li class="has_sub">
+                            <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-building"></i> <span> Organizations</span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
+                            <ul class="list-unstyled">
+
+                                <li><a href="select_organization.php">Organizations List</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="has_sub">
                             <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-wheelchair-accessibility"></i> <span> Patients </span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
                             <ul class="list-unstyled">
                                 <li><a href="patient_new.php">Patient Registration</a></li>
@@ -100,7 +108,9 @@
                                 <li><a href="patients_postponed_list.php">Postponed Patients</a></li>
                                 <li><a href="patients_observation.php">Patients Observation</a></li>
                                 <li><a href="patients_discharge.php">Patient Discharge</a></li>
-                                <li><a href="patients_discharge_list.php">Patient Discharge List</a></li>
+                                <li><a href="ptcl_patients_discharge_list.php">PTCL Patients List</a></li>
+                                <li><a href="sehatcard_patients_discharge_list.php">Sehat Card Patients List</a></li>
+                                <li><a href="general_patients_discharge_list.php">General Patients List</a></li>
                             </ul>
                         </li>
                         <?php } ?>
@@ -131,6 +141,7 @@
                                 <li><a href="areas_list.php">Areas List</a></li>
                             </ul>
                         </li>
+
 
                         <li class="has_sub">
                             <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-user-group"></i> <span> HR Staff</span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
@@ -295,7 +306,51 @@
                             </a>
                         </li>
                         <?php } ?>
-                        
+
+                        <?php if($fetch_query['user_role'] == '6'){ ?>
+                        <li>
+                            <a href="dashboardCustom.php" class="waves-effect">
+                                <i class="dripicons-meter"></i>
+                                <span> Dashboard </span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="patients_list_ground.php" class="waves-effect">
+                                <i class="fa fa-id-card"></i>
+                                <span> Current Patients </span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="patients_postponed_list_ground.php" class="waves-effect">
+                                <i class="fa fa-times"></i>
+                                <span> Postponed Patients </span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="ptcl_patients_discharge_list_ground.php" class="waves-effect">
+                                <i class="fa fa-phone"></i>
+                                <span> PTCL Patients List </span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="sehatcard_patients_discharge_list_ground.php" class="waves-effect">
+                                <i class="fa fa-credit-card"></i>
+                                <span> Sehat Card Patients List </span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="general_patients_discharge_list_ground.php" class="waves-effect">
+                                <i class="mdi mdi-wheelchair-accessibility"></i>
+                                <span> General Patients List </span>
+                            </a>
+                        </li>
+
+                        <?php  } ?>
 
                     </ul>
                 </div>
@@ -321,9 +376,7 @@
                                     <img src="../assets/images/user.png" alt="user" class="rounded-circle" style="border:1px solid #54CC96; box-shadow: 1px 1px 3px 1px #ccc">
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-animated profile-dropdown ">
-                                    <a class="dropdown-item" href="#"><i class="mdi mdi-account-circle m-r-5 text-muted"></i> Profile</a>
-                                    <a class="dropdown-item" href="#"><span class="badge badge-success mt-1 float-right">5</span><i class="mdi mdi-settings m-r-5 text-muted"></i> Settings</a>
-                                    <a class="dropdown-item" href="#"><i class="mdi mdi-lock-open-outline m-r-5 text-muted"></i> Lock screen</a>
+                                    
                                     <a class="dropdown-item" href="signout.php"><i class="mdi mdi-logout m-r-5 text-muted"></i> Logout</a>
                                 </div>
                             </li>

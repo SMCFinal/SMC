@@ -12,7 +12,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-12">
-                <h5 class="page-title">Discharged Patients </h5>
+                <h5 class="page-title">Sehat Card Discharged Patients </h5>
             </div>
         </div>
         <!-- end row -->
@@ -20,7 +20,7 @@
             <div class="col-12">
                 <div class="card m-b-30">
                     <div class="card-body">
-                        <h4 class="mt-0 header-title text-center">Discharged Patients List</h4>
+                        <h4 class="mt-0 header-title text-center">Sehat Card Discharged Patients List</h4>
                         <table id="datatable" class="table  dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                             <thead>
                                 <tr>
@@ -31,13 +31,13 @@
                                     <th>Disease</th>
                                     <th>Consultant</th>
                                     <th>Organization</th>
-                                    <th class="text-center"><i class="mdi mdi-eye"></i> / <i class="fa fa-sign-in"></i></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php
                                 $selectQueryPatients = mysqli_query($connect, "SELECT discharge_patients.*, staff_members.name FROM discharge_patients
                                 INNER JOIN staff_members ON staff_members.id = discharge_patients.patient_consultant AND category = 'dischargePatient'
+                                AND discharge_patients.organization LIKE '%Sehat Card%'
                                 ORDER BY discharge_patients.id DESC");
                                 $iteration = 1;
 
@@ -62,17 +62,7 @@
                                                 echo '<td><span class="badge badge-secondary">General</span></td>';
                                             }else {
                                                 echo '<td><span class="badge badge-success">'.$rowPatients['organization'].'</span></td>';
-                                            }
-
-                                            echo '<td class="text-center">
-                                            <a href="select_option.php?id='.$rowPatients['id'].'" type="button" class="btn text-white btn-info waves-effect waves-light btn-sm">View</a>&nbsp;&nbsp;&nbsp;';
-
-                                            // if ($hourdiff < 4) {
-                                                echo '
-                                                <a href="discharge_patient_readmit.php?id='.$rowPatients['id'].'" type="button" class="btn text-white btn-primary waves-effect waves-light btn-sm">Re-admit</a>
-
-                                               ';
-                                            // }
+                                            }                                            
                                             echo '
                                             </td>
                                         </tr>

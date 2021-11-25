@@ -19,6 +19,7 @@
         $checkUserTable = mysqli_query($connect, "SELECT COUNT(*)AS countedUsers FROM `login_user` WHERE email = '$email'");
         $fetch_checkUserTable = mysqli_fetch_array($checkUserTable);
 
+
         if ($fetch_checkUserTable['countedUsers'] < 1) {
             $createUser = mysqli_query($connect, "INSERT INTO login_user(name, username, email, password, user_role, contact)VALUES('$name', '$userName', '$email', '$password', '$role', '$contact')");
 
@@ -91,6 +92,7 @@
                                         <option value="3">Counter Screen</option>
                                         <option value="4">Laboratory</option>
                                         <option value="5">Pharmacy</option>
+                                        <option value="6">Ground Floor Counter</option>
                                     </select>
                                 </div>
                             </div>

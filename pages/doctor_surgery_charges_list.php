@@ -12,7 +12,7 @@
         INNER JOIN discharge_patients ON discharge_patients.pat_id = doctor_surgery_charges.pat_id
         INNER JOIN surgeries ON surgeries.id = doctor_surgery_charges.pat_operation
         INNER JOIN staff_members ON staff_members.id = doctor_surgery_charges.pat_consultant
-        WHERE doctor_surgery_charges.payment_status = '1' AND doctor_surgery_charges.payment_status = '$id'");
+        WHERE doctor_surgery_charges.payment_status = '1' AND doctor_surgery_charges.pat_consultant = '$id'");
 
 
     $queryDoctorName = mysqli_query($connect, "SELECT * FROM `staff_members` WHERE id = '$id'");
@@ -45,7 +45,7 @@
 
         $updatePaymentDoctor = mysqli_query($connect, "UPDATE doctor_surgery_charges SET payment_status = '0', date_of_payment = '$currentDate' WHERE pat_consultant = '$id'");
 
-        $updateVisitsPayments = mysqli_query($connect, "UPDATE doctor_visit_charges SET visit_status = '0' WHERE doctor_id = '$id'");
+        $updateVisitsPayments = mysqli_query($connect, "UPDATE doctor_visit_charges SET charges_status = '0' WHERE doctor_id = '$id'");
 
 
 
@@ -107,7 +107,7 @@ include '../_partials/header.php';
                                         INNER JOIN rooms ON rooms.id = doctor_visit_charges.room_id
                                         INNER JOIN staff_members ON staff_members.id = doctor_visit_charges.doctor_id
                                         INNER JOIN surgeries ON surgeries.id = discharge_patients.patient_operation
-                                        WHERE doctor_visit_charges.visit_status = '1' AND doctor_visit_charges.doctor_id = '$id'");
+                                        WHERE doctor_visit_charges.visit_status = '0' AND doctor_visit_charges.charges_status = '1' AND doctor_visit_charges.doctor_id = '$id'");
                                       
                                         while ($rowVisits = mysqli_fetch_assoc($queryVisits)) {
                                             echo '
@@ -130,8 +130,9 @@ include '../_partials/header.php';
                                         $totalSurgeryAmount = mysqli_query($connect, "SELECT SUM(surgery_charges)AS surgerySum FROM `doctor_surgery_charges` WHERE pat_consultant = '$id' AND payment_status = '1'");
                                         $fetch_totalSurgeryAmount = mysqli_fetch_assoc($totalSurgeryAmount);
 
-                                        $totalVisitAmount = mysqli_query($connect, "SELECT SUM(visit_charges)AS visitSum FROM `doctor_visit_charges` WHERE doctor_id = '$id' AND visit_status = '1'");
+                                        $totalVisitAmount = mysqli_query($connect, "SELECT SUM(visit_charges)AS visitSum FROM `doctor_visit_charges` WHERE doctor_id = '$id' AND visit_status = '0' AND charges_status = '1'");
                                         $fetch_totalVisitAmount = mysqli_fetch_assoc($totalVisitAmount);
+                                        
                                         echo '
                                             <tr>
                                                 <td></td>

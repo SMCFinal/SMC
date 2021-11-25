@@ -40,9 +40,11 @@
         $fetch_setSurgeries = mysqli_fetch_assoc($setSurgeries);
         $setSurgeryName = $fetch_setSurgeries['surgery_name'];
 
-        $message = "Patient ".$name." has been admitted for ".$setSurgeryName." surgery. "."Shah Medical Center";
+        $message = "Patient ".$name." has been admitted for ".$setSurgeryName." surgery. "." SMC";
 
         $zakriyaContact = '03464120026';
+        $contact_one = '03466459796';
+        $contact_third = '03359967977';
 
 
         $insertMessageDoctor = mysqli_query($connect, "INSERT INTO message_tbl(from_device, to_device, message_body)VALUES('1', '$doctorContact', '$message')");
@@ -51,6 +53,10 @@
 
 
         $insertMessageZakriya = mysqli_query($connect, "INSERT INTO message_tbl(from_device, to_device, message_body)VALUES('1', '$zakriyaContact', '$message')");
+
+        $insertMessageSec = mysqli_query($connect, "INSERT INTO message_tbl(from_device, to_device, message_body)VALUES('1', '$contact_one', '$message')");
+
+        $insertMessageThird = mysqli_query($connect, "INSERT INTO message_tbl(from_device, to_device, message_body)VALUES('1', '$contact_third', '$message')");
         
         $updateQuery = mysqli_query($connect, 
             "UPDATE patient_registration SET 
