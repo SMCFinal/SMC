@@ -134,37 +134,37 @@
             )
            ");
 
+        $description = "Dear ".$attendantName.", your patient has been admitted. Thank You! SMC";
+                
+        $insertMsg = mysqli_query($connect, "INSERT INTO message_tbl
+            (from_device, to_device, message_body, status)
+            VALUES
+            ('1', '$patient_contact', '$description', '1')");
+
+        $description_one = "New Patient ".$name.", (".$organization.") has been admitted! Thank You! FROM: SMC";
+
+        $contact_one = '03466459796';
+        $contact_sec = '03464120026';
+        $contact_third = '03359967977';
+
+        $insertMsgOne =  mysqli_query($connect, "INSERT INTO message_tbl
+            (from_device, to_device, message_body, status)
+            VALUES
+            ('1', '$contact_one', '$description_one', '1')");
+
+        $insertMsgSec =  mysqli_query($connect, "INSERT INTO message_tbl
+            (from_device, to_device, message_body, status)
+            VALUES
+            ('1', '$contact_sec', '$description_one', '1')");
+
+        $insertMsgThird =  mysqli_query($connect, "INSERT INTO message_tbl
+            (from_device, to_device, message_body, status)
+            VALUES
+            ('1', '$contact_third', '$description_one', '1')");
+
         if (!$queryAddPatient) {
             $notAdded = 'Not added';
         }else {
-            $description = "Dear ".$attendantName.", your patient has been admitted. Thank You! SMC";
-                
-                $insertMsg = mysqli_query($connect, "INSERT INTO message_tbl
-                    (from_device, to_device, message_body, status)
-                    VALUES
-                    ('1', '$patient_contact', '$description', '1')");
-
-                $description_one = "New Patient ".$name.", (".$organization.") has been admitted! Thank You! FROM: SMC";
-
-                $contact_one = '03466459796';
-                $contact_sec = '03464120026';
-                $contact_third = '03359967977';
-
-                $insertMsgOne =  mysqli_query($connect, "INSERT INTO message_tbl
-                    (from_device, to_device, message_body, status)
-                    VALUES
-                    ('1', '$contact_one', '$description_one', '1')");
-
-                $insertMsgSec =  mysqli_query($connect, "INSERT INTO message_tbl
-                    (from_device, to_device, message_body, status)
-                    VALUES
-                    ('1', '$contact_sec', '$description_one', '1')");
-
-                $insertMsgThird =  mysqli_query($connect, "INSERT INTO message_tbl
-                    (from_device, to_device, message_body, status)
-                    VALUES
-                    ('1', '$contact_third', '$description_one', '1')");
-
             $updateRoom = mysqli_query($connect, "UPDATE rooms SET status = '0' WHERE id = '$patientRoom'");
             header("LOCATION: patients_list.php");
         }
@@ -210,7 +210,7 @@
                                             $optionsCity.= "</select>";
                                         echo $optionsCity;
                                     ?>
-                                </div>                             
+                                </div>
                             </div>
                             <hr>
 
