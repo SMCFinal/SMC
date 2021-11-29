@@ -12,7 +12,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-12">
-                <h5 class="page-title">Sehat Card Discharged Patients </h5>
+                <h5 class="page-title">Other Discharged Patients </h5>
             </div>
         </div>
         <!-- end row -->
@@ -20,7 +20,7 @@
             <div class="col-12">
                 <div class="card m-b-30">
                     <div class="card-body">
-                        <h4 class="mt-0 header-title text-center">Sehat Card Discharged Patients List</h4>
+                        <h4 class="mt-0 header-title text-center">Other Discharged Patients List</h4>
                         <table id="datatable" class="table  dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                             <thead>
                                 <tr>
@@ -38,7 +38,7 @@
                                 <?php
                                 $selectQueryPatients = mysqli_query($connect, "SELECT discharge_patients.*, staff_members.name FROM discharge_patients
                                 INNER JOIN staff_members ON staff_members.id = discharge_patients.patient_consultant AND category = 'dischargePatient'
-                                AND discharge_patients.organization LIKE '%Sehat%'
+                                AND discharge_patients.organization LIKE '%Other%'
                                 ORDER BY discharge_patients.id DESC");
                                 $iteration = 1;
 
@@ -62,7 +62,7 @@
                                             if (empty($rowPatients['organization'])) {
                                                 echo '<td><span class="badge badge-secondary">General</span></td>';
                                             }else {
-                                                echo '<td><span class="badge badge-success">Sehat Card</span></td>';
+                                                echo '<td><span class="badge badge-success">'.$rowPatients['organization'].'</span></td>';
                                             }
 
                                             echo '<td class="text-center">

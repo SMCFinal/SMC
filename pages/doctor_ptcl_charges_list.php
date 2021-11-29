@@ -12,7 +12,7 @@
         INNER JOIN discharge_patients ON discharge_patients.pat_id = doctor_surgery_charges.pat_id
         INNER JOIN surgeries ON surgeries.id = doctor_surgery_charges.pat_operation
         INNER JOIN staff_members ON staff_members.id = doctor_surgery_charges.pat_consultant
-        WHERE doctor_surgery_charges.payment_status = '1' AND discharge_patients.organization LIKE '%General%'  AND doctor_surgery_charges.pat_consultant = '$id'");
+        WHERE doctor_surgery_charges.payment_status = '1' AND discharge_patients.organization LIKE '%PTCL%'  AND doctor_surgery_charges.pat_consultant = '$id'");
 
 
     $queryDoctorName = mysqli_query($connect, "SELECT * FROM `staff_members` WHERE id = '$id'");
@@ -186,7 +186,7 @@ include '../_partials/header.php';
                                         INNER JOIN rooms ON rooms.id = doctor_visit_charges.room_id
                                         INNER JOIN staff_members ON staff_members.id = doctor_visit_charges.doctor_id
                                         INNER JOIN surgeries ON surgeries.id = discharge_patients.patient_operation
-                                        WHERE doctor_visit_charges.visit_status = '0' AND doctor_visit_charges.charges_status = '1' AND discharge_patients.organization LIKE '%General%' AND doctor_visit_charges.doctor_id = '$id'");
+                                        WHERE doctor_visit_charges.visit_status = '0' AND doctor_visit_charges.charges_status = '1' AND discharge_patients.organization LIKE '%PTCL%' AND doctor_visit_charges.doctor_id = '$id'");
                                       
                                         while ($rowVisits = mysqli_fetch_assoc($queryVisits)) {
                                             echo '

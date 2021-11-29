@@ -65,44 +65,44 @@ $selectPat = mysqli_query($connect, "SELECT patient_registration.*,rooms.*, floo
 $itr = 1;
 
 while ($rowPatientView = mysqli_fetch_assoc($selectPat)) {
-	echo '
-                <div class="col-xl-4 col-md-6 mb-2">
-                    <div class="card ">
-                        <div class="card-body" style="box-shadow: 30px 30px 30px #ccc">
-                            <div class="table-responsive">
-                                <table class="table mb-0">
-                                    <thead>
-                                        <tr style="background-color:#60D09D; color:black">
-                                            <th>Patient Name</th>
-                                            <td><b>'.$rowPatientView['patient_name'] . '</b></td>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr >
-                                            <th>Doctor Name</th>
-                                            <td>' . "Dr. " . $rowPatientView['name'] . '</td>
-                                        </tr>
-                                        <tr style="background-color:#60D09D; color:black">
-                                            <th>Floor/Room</th>
-                                            <td><b>' . $rowPatientView['floor_name'] . " <b> | </b> " . $rowPatientView['room_number'] . '</b></td>
-                                        </tr>
-                                        <tr>
-                                            <th>Patient Case</th>
-                                            <td>' . $rowPatientView['patient_disease'] . '</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Village Name</th>
-                                            <td>' . $rowPatientView['patient_address'] . '</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
+    echo '
+    <div class="col-xl-4 col-md-6 mb-2">
+        <div class="card ">
+            <div class="card-body" style="box-shadow: 30px 30px 30px #ccc">
+                <div class="table-responsive">
+                    <table class="table mb-0">
+                        <thead>
+                            <tr style="background-color:#60D09D; color:black; font-size: 18px;">
+                                <th>Patient Name</th>
+                                <td><b>'.$rowPatientView['patient_name'] . '</b></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="font-size: 18px;">
+                                <th>Doctor Name</th>
+                                <td>' . "Dr. " . $rowPatientView['name'] . '</td>
+                            </tr>
+                            <tr style="font-size: 18px; background-color:#60D09D; color:black">
+                                <th>Floor/Room</th>
+                                <td><b>' . $rowPatientView['floor_name'] . " <b> | </b> " . $rowPatientView['room_number'] . '</b></td>
+                            </tr>
+                            <tr>
+                                <th>Patient Case</th>
+                                <td>' . $rowPatientView['patient_disease'] . '</td>
+                            </tr>
+                            <tr>
+                                <th>Village Name</th>
+                                <td>' . $rowPatientView['patient_address'] . '</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
+            </div>
+        </div>
+    </div>
 
-                ';
-}
+    ';
+    }
 ?>
         </div>
         <!-- end row -->

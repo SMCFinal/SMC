@@ -108,9 +108,12 @@
                                 <li><a href="patients_postponed_list.php">Postponed Patients</a></li>
                                 <li><a href="patients_observation.php">Patients Observation</a></li>
                                 <li><a href="patients_discharge.php">Patient Discharge</a></li>
+                                <li><a href="patients_discharge_list.php">All Discharge Patients</a></li>
                                 <li><a href="ptcl_patients_discharge_list.php">PTCL Patients List</a></li>
                                 <li><a href="sehatcard_patients_discharge_list.php">Sehat Card Patients List</a></li>
                                 <li><a href="general_patients_discharge_list.php">General Patients List</a></li>
+                                <li><a href="other_patients_discharge_list.php">Other Patients List</a></li>
+                                <li><a href="ground_floor_admit.php">Ground Floor Patients</a></li>
                             </ul>
                         </li>
                         <?php } ?>
@@ -143,31 +146,7 @@
                         </li>
 
 
-                        <li class="has_sub">
-                            <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-user-group"></i> <span> HR Staff</span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
-                            <ul class="list-unstyled">
-
-                                <li><a href="HR_staff_new.php">Staff Registration</a></li>
-                                <li><a href="HR_staff_list.php">Staff List</a></li>
-                                <li><a href="HR_staff_category.php">Staff Category</a></li>
-
-                            </ul>
-                        </li>
-
-                        <li class="has_sub">
-                            <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-user-group"></i> <span>Employees</span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
-                            <ul class="list-unstyled">
-                                <li><a href="employee_designations.php">Add Designations</a></li>
-
-                                <li><a href="employee_new.php">Add Employee</a></li>
-                                <li><a href="employee_list.php">Employees List</a></li>
-                                <li><a href="employee_select.php">Advance Payments</a></li>
-                                <li><a href="employee_advance_payments_list.php">Advance Payments List</a></li>
-                                <li><a href="employee_salary.php">Employees Salary</a></li>
-                                <li><a href="employee_salary_list.php">Employees Salary List</a></li>
-
-                            </ul>
-                        </li>
+                        
                          <li class="has_sub">
                             <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-briefcase"></i> <span> Pharmacy</span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
                             <ul class="list-unstyled">
@@ -228,6 +207,10 @@
                         </li>
 
 
+       
+                        <?php } ?>
+
+                        <?php if ($fetch_query['user_role'] == '1') {?>
                         <li class="has_sub">
                             <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-wallet"></i> <span>  Doctor Charges</span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
                             <ul class="list-unstyled">
@@ -235,7 +218,10 @@
                                 <li><a href="doctor_payment_list.php">Doctor Payment List</a></li>
                                 <li><a href="doctor_visit_charges.php">Doctor Visit Charges</a></li>
                                 <li><a href="doctor_visit_charges_confirm_list.php">Doctor Charges List</a></li>
-                                <li><a href="doctor_surgery_charges.php">Visit And Surgery Charges</a></li>
+                                <li><a href="doctor_surgery_charges.php">Visit & Surgery Charges</a></li>
+                                <li><a href="doctor_sehatcard_charges.php">Dr Charges Sehat Card</a></li>
+                                <li><a href="doctor_ptcl_charges.php">Dr Charges PTCL</a></li>
+                                <li><a href="doctor_others_charges.php">Dr Charges Other</a></li>
 
                             </ul>
                         </li>
@@ -248,32 +234,47 @@
 
                                 <li><a href="anesthetic_surgery_charges.php">Anesthetic Charges</a></li>
                                 <li><a href="anesthetic_payment_list.php">Anesthetic Payment List</a></li>
-                                <!-- <li><a href="doctor_visit_charges_confirm_list.php">Doctor Charges List</a></li> -->
-                                <!-- <li><a href="doctor_surgery_charges.php">Doctor Visit /Charges List</a></li> -->
-                                <!-- <li><a href="doctor_surgery_charges.php">Doctor Charges</a></li> -->
-                                <!-- <li><a href="doctor_surgery_charges_list.php">Doctor Charges List</a></li> -->
-<!--                                 <li><a href="doctor_visit_charges_list.php">Doctor Visit Charges List</a></li>
- -->                                <!-- <li><a href="doctor_visit_charges_confirm.php">Expense List</a></li> -->
+                            </ul>
+                        </li>
+
+                        <li class="has_sub">
+                            <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-user-group"></i> <span> HR Staff</span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
+                            <ul class="list-unstyled">
+
+                                <li><a href="HR_staff_new.php">Staff Registration</a></li>
+                                <li><a href="HR_staff_list.php">Staff List</a></li>
+                                <li><a href="HR_staff_category.php">Staff Category</a></li>
 
                             </ul>
                         </li>
-                        <?php } ?>
 
-                        <?php if ($fetch_query['user_role'] == '1') {?>
+                        <li class="has_sub">
+                            <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-user-group"></i> <span>Employees</span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
+                            <ul class="list-unstyled">
+                                <li><a href="employee_designations.php">Add Designations</a></li>
+
+                                <li><a href="employee_new.php">Add Employee</a></li>
+                                <li><a href="employee_list.php">Employees List</a></li>
+                                <li><a href="employee_select.php">Advance Payments</a></li>
+                                <li><a href="employee_advance_payments_list.php">Advance Payments List</a></li>
+                                <li><a href="employee_salary.php">Employees Salary</a></li>
+                                <li><a href="employee_salary_list.php">Employees Salary List</a></li>
+
+                            </ul>
+                        </li>
+
+
                         <li class="has_sub">
                             <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-document"></i> <span>  Reports</span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
                             <ul class="list-unstyled">
-
-                                <!-- <li><a href="doctor_visit_charges_confirm.php">Doctor Visit Charges</a></li> -->
                                 <li><a href="report_areawise.php">Area wise Report</a></li>
                                 <li><a href="report_doctor.php">Doctor Report</a></li>
                                 <li><a href="report_pharmacy.php">Pharmacy Report</a></li>
                                 <li><a href="report_lab.php">Lab Report</a></li>
-                                <!-- <li><a href="report_surgeries.php">Surgery Report</a></li> -->
                                 <li><a href="report_expenses.php">Expenses Report</a></li>
                                 <li><a href="report_ot.php">OT Report</a></li>
-                                
-
+                                <li><a href="report_pat.php">Patient Custom Report</a></li>
+                                <li><a href="report_pat_daily.php">Patient Daily Report</a></li>
                             </ul>
                         </li>
 
@@ -308,6 +309,7 @@
                         <?php } ?>
 
                         <?php if($fetch_query['user_role'] == '6'){ ?>
+
                         <li>
                             <a href="dashboardCustom.php" class="waves-effect">
                                 <i class="dripicons-meter"></i>
@@ -316,6 +318,27 @@
                         </li>
 
                         <li>
+                            <a href="ground_floor_new_patient.php" class="waves-effect">
+                                <i class="mdi mdi-wheelchair-accessibility"></i>
+                                <span> Add Patient </span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="patients_today_list_ground.php" class="waves-effect">
+                                <i class="dripicons-list"></i>
+                                <span> Today's Patients List </span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="patients_list_ground.php" class="waves-effect">
+                                <i class="dripicons-list"></i>
+                                <span> All Patients List </span>
+                            </a>
+                        </li>
+
+                        <!-- <li>
                             <a href="patients_list_ground.php" class="waves-effect">
                                 <i class="fa fa-id-card"></i>
                                 <span> Current Patients </span>
@@ -348,7 +371,7 @@
                                 <i class="mdi mdi-wheelchair-accessibility"></i>
                                 <span> General Patients List </span>
                             </a>
-                        </li>
+                        </li> -->
 
                         <?php  } ?>
 

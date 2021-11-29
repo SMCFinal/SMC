@@ -31,6 +31,7 @@
                                     <th>Disease</th>
                                     <th>Consultant</th>
                                     <th>Change Room</th>
+                                    <th>Edit Surgery</th>
                                     <th class="text-center"><i class="mdi mdi-eye"></i> / <i class="fa fa-trash"></i></th>
                                 </tr>
                             </thead>
@@ -47,6 +48,9 @@
                                 while ($rowPatients = mysqli_fetch_assoc($selectQueryPatients)) {
                                     // echo $rowPatients['patient_doa'];
                                 $hourdiff = round((strtotime($date) - strtotime($rowPatients['patient_doa']))/3600, 1);
+                                    if ($rowPatients['room_id'] === '0') {
+                                        
+                                    }else {
                                     echo '
                                         <tr>
                                             <td>'.$iteration++.'</td>
@@ -57,9 +61,13 @@
                                             echo '
                                             <td>'.$newAdmisison.'</td>
                                             <td>'.$rowPatients['patient_disease'].'</td>
-                                            <td>'."Dr. ".$rowPatients['name'].'</td>
+                                            <td>'.$rowPatients['name'].'</td>
                                             <td class="text-center">
                                             <a href="changeRoom.php?id='.$rowPatients['id'].'" type="button" class="btn text-white btn-warning waves-effect waves-light btn-sm">Edit Room</a>&nbsp;&nbsp;&nbsp;
+                                            </td>
+
+                                            <td class="text-center">
+                                            <a href="change_consultant.php?id='.$rowPatients['id'].'" type="button" class="btn text-white btn-success waves-effect waves-light btn-sm">Edit Surgery</a>&nbsp;&nbsp;&nbsp;
                                             </td>
 
 
@@ -77,9 +85,11 @@
                                             </td>
                                         </tr>
                                     ';
+                                    }
                                 }
                                             // <td class="text-center"><a href="./user_edit.php" type="button" class="btn text-white btn-warning waves-effect 
                                             //waves-light">Edit</a></td>
+
                                 ?>
                                 
                                     

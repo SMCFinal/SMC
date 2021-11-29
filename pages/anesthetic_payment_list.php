@@ -29,20 +29,16 @@ include '../_partials/header.php';
                                 <tr>
                                     <th>#</th>
                                     <th>Anesthetic Name</th>
-                                    <th>Charges</th>
-                                    <th>Surgery</th>
-                                   
-                                    <th>Date</th>
-                                   
-                                   
+                                    <th>Total</th>
+                                    <th>Payment Date/Time</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php
-                                    $retInventoryItems = mysqli_query($connect, "SELECT anethetic_paid_amount.*, staff_members.*, discharge_patients.patient_operation, surgeries.surgery_name FROM `anethetic_paid_amount`
-                                        INNER JOIN staff_members ON staff_members.id = anethetic_paid_amount.aneshthetic_id
-                                        INNER JOIN discharge_patients ON discharge_patients.anasthetic_name = anethetic_paid_amount.aneshthetic_id
-                                        INNER JOIN surgeries ON surgeries.id = discharge_patients.patient_operation");
+                                    $retInventoryItems = mysqli_query($connect, "SELECT anethetic_paid_amount.*, staff_members.name FROM `anethetic_paid_amount`
+                                        INNER JOIN staff_members ON staff_members.id = anethetic_paid_amount.aneshthetic_id 
+                                        ORDER BY anethetic_paid_amount.ref_no DESC;");
                                     $iteration = 1;
 
                                     while ($rowInventory = mysqli_fetch_assoc($retInventoryItems)) {
@@ -51,12 +47,10 @@ include '../_partials/header.php';
                                             <td>'.$iteration++.'</td>
                                             <td>'.$rowInventory['name'].'</td>
                                             <td>'.$rowInventory['paid_amount'].'</td>
-                                            <td>'.$rowInventory['surgery_name'].'</td>';
-                                            
-                                            $Date_format = $rowInventory['auto_date']; 
-                                            $Date = date('d/M h:i:s A', strtotime($Date_format));
-                                            echo '
-                                            <td>'.$Date.'</td>
+                                            <td>'.$rowInventory['auto_date'].'</td>
+                                            <td>
+                                                <a href="printListAnesthesia.php?a_id='.$rowInventory['aneshthetic_id'].'&refNo='.$rowInventory['ref_no'].'" class="btn btn-info">View</a>
+                                            </td>
                                         </tr>
                                     ';
                                     }

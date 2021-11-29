@@ -126,7 +126,7 @@
 
                                     <tr>
                                         <th scope="row">Refered by / Consultant</th>
-                                        <td><?php echo "Dr. ".$fetch_selectQuery['name'] ?></td>
+                                        <td><?php echo $fetch_selectQuery['name'] ?></td>
                                     </tr>
 
                                     <tr>

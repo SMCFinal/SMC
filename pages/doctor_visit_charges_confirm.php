@@ -8,9 +8,9 @@
     $id = $_GET['id'];
 
     $QueryPatient = mysqli_query($connect, "SELECT patient_registration.*, staff_members.*, rooms.* FROM `patient_registration`
-INNER JOIN staff_members ON staff_members.id = patient_registration.patient_consultant
-INNER JOIN rooms ON rooms.id = patient_registration.room_id
-WHERE patient_registration.id = '$id'");
+        INNER JOIN staff_members ON staff_members.id = patient_registration.patient_consultant
+        INNER JOIN rooms ON rooms.id = patient_registration.room_id
+        WHERE patient_registration.id = '$id'");
 
     $fetch_QueryPatient = mysqli_fetch_assoc($QueryPatient);
 

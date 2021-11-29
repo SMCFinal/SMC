@@ -26,7 +26,8 @@
     $retPatDetail = mysqli_query($connect, "SELECT * FROM pat_details WHERE pat_id = '$patIdFooter'");
     $fetch_retPatDetail = mysqli_fetch_assoc($retPatDetail);
 
-include '../_partials/header.php';
+    include '../_partials/header.php';
+
 ?>
 <div class="page-content-wrapper " >
     <div class="container-fluid"><br>
@@ -105,6 +106,7 @@ include '../_partials/header.php';
                                                 <strong>Doctor Advice:</strong><br>
                                             </address>
                                             <?php 
+                                                
                                                 echo '<p>';
                                                     for ($i=0; $i < sizeof($explodeAdvice) ; $i++) { 
                                                         echo $explodeAdvice[$i]."<br>";
@@ -120,9 +122,12 @@ include '../_partials/header.php';
                                             <address>
                                                 <strong>Procedure:</strong><br>
                                             </address>
+
                                             <?php 
+                                                $retPatDetailsData = mysqli_query($connect, "SELECT * FROM pat_details WHERE pat_id = '$patIdFooter'");
+                                                $fetch_retPatDetailsData = mysqli_fetch_assoc($retPatDetailsData);
                                                 echo '<p>';
-                                                    echo $fetch_retPatDetail['procedureCounter'];
+                                                    echo $fetch_retPatDetailsData['procedureCounter'];
                                                 echo '</p>';
                                             ?>
                                         </div>
@@ -130,21 +135,18 @@ include '../_partials/header.php';
                                 </div>
                             </div>
                             <hr>
-
-                            <!-- <div class="row" align="center" style="font-weight: bold;">                                 -->
                                 <div class="col-md-12" style="margin-top: 2%; margin-bottom: 2%;">
-                                    <label>.دن بعد ٹانکیں کھولنے کیلئے تشریف لائی</label><span> "<?php echo $fetch_retPatDetail['stitchesDays'] ?></span>"
-                                </div> 
-
-                                <div class="col-md-12" style="margin-top: 2%; margin-bottom: 2%;">
-                                    <label>.دن بعد معائنہ کے لیے دوبارہ آئیں</label><span> "<?php echo $fetch_retPatDetail['visitAfterDays'] ?></span>"
+                                    <label>.دن بعد معائنہ کے لیے دوبارہ آئیں</label><span> "<?php echo $fetch_retPatDetailsData['visitAfterDays'] ?></span>"
                                 </div>
 
 
                                 <div class="col-md-12" style="margin-top: 2%; margin-bottom: 2%;">
-                                    <label>دن کے بعد کیتھیٹر کھولیں۔</label><span> "<?php echo $fetch_retPatDetail['catheterAfterDays'] ?></span>"
-                                </div>   
-                            <!-- </div> -->
+                                    <label>. دن کے بعد کیتھیٹر نکلوائیں</label><span> "<?php echo $fetch_retPatDetailsData['catheterAfterDays'] ?></span>"
+                                </div>  
+
+                                <div class="col-md-12" style="margin-top: 2%; margin-bottom: 2%;">
+                                    <label>.دن بعد ٹانکیں نکلوائیں</label><span> "<?php echo $fetch_retPatDetailsData['stitchesDays'] ?></span>"
+                                </div>  
                             <hr>
                             </form>
                     <!-- </div> -->

@@ -773,7 +773,7 @@ include '../_partials/header.php';
                             </style>
                             <div class="row" align="center">                                
                                 <div class="col-md-3" style="margin-top: 2%">
-                                    <label style="color: green">.دن بعد ٹانکیں کھولنے کیلئے تشریف لائی</label>
+                                    <label style="color: green">.دن بعد ٹانکیں نکلوائیں</label>
                                     <input type="number" name="stitchesDays" required="" placeholder="براہ کرم خالی جگہ کو بھریں" class="customText form-control" style="border: none; border-bottom: 1px solid green; color: green !important">
                                 </div> 
                                 <div class="col-md-1"></div>
@@ -786,7 +786,7 @@ include '../_partials/header.php';
 
 
                                 <div class="col-md-3" style="margin-top: 2%">
-                                    <label style="color: green">دن کے بعد کیتھیٹر کھولیں۔</label>
+                                    <label style="color: green">. دن کے بعد کیتھیٹر نکلوائیں</label>
                                     <input type="number" name="catheterAfterDays" required="" placeholder="براہ کرم خالی جگہ کو بھریں" class="customText form-control" style="border: none; border-bottom: 1px solid green; color: green !important">
                                 </div>   
                             </div>

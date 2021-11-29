@@ -54,7 +54,7 @@
                                 <div class="col-12">
                                     <div class="card m-b-30">
                                         <div class="card-body">                                           
-            								<form method="POST">
+                                            <form method="POST">
                                             <div class="form-group row">
                                                 <label class="col-sm-2 col-form-label">Room No.</label>
                                                     <div class="col-sm-4"> 

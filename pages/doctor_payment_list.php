@@ -15,7 +15,7 @@ include '../_partials/header.php';
         <div class="row">
             <div class="col-sm-12">
 
-                <h5 class="page-title">Doctor Visit</h5>
+                <h5 class="page-title">Doctors Payments List</h5>
             </div>
         </div>
         <!-- end row -->
@@ -32,17 +32,19 @@ include '../_partials/header.php';
                                     <th>Surgery Charges</th>
                                     <th>Visit Charges</th>
                                     <th>Total</th>
-                                    <th>Date</th>
-                                   
-                                   
+                                    <th>Payment Date/Time</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php
-                                    $retDoctorData = mysqli_query($connect, "SELECT doctor_paid_amount.*, staff_members.*, discharge_patients.patient_operation, surgeries.surgery_name FROM `doctor_paid_amount`
-                                        INNER JOIN staff_members ON staff_members.id = doctor_paid_amount.d_id
-                                        INNER JOIN discharge_patients ON discharge_patients.patient_consultant = doctor_paid_amount.d_id
-                                        INNER JOIN surgeries ON surgeries.id = discharge_patients.patient_operation");
+                                    // $retDoctorData = mysqli_query($connect, "SELECT doctor_paid_amount.*, staff_members.*, discharge_patients.patient_operation, surgeries.surgery_name FROM `doctor_paid_amount`
+                                    //     INNER JOIN staff_members ON staff_members.id = doctor_paid_amount.d_id
+                                    //     INNER JOIN discharge_patients ON discharge_patients.patient_consultant = doctor_paid_amount.d_id
+                                    //     INNER JOIN surgeries ON surgeries.id = discharge_patients.patient_operation");
+
+                                    $retDoctorData = mysqli_query($connect, "SELECT doctor_paid_amount.*, staff_members.name FROM `doctor_paid_amount`
+                                        INNER JOIN staff_members ON staff_members.id = doctor_paid_amount.d_id ORDER BY doctor_paid_amount.ref_no DESC");
                                     $iteration = 1;
 
                                     while ($rowDoctorData = mysqli_fetch_assoc($retDoctorData)) {
@@ -52,12 +54,11 @@ include '../_partials/header.php';
                                             <td>Dr. '.$rowDoctorData['name'].'</td>
                                             <td>'.$rowDoctorData['total_surgery'].'</td>
                                             <td>'.$rowDoctorData['total_visit'].'</td>
-                                            <td>'.$rowDoctorData['total_paid'].'</td>';
-                                            
-                                            $Date_format = $rowDoctorData['auto_date']; 
-                                            $Date = date('d/M h:i:s A', strtotime($Date_format));
-                                            echo '
-                                            <td>'.$Date.'</td>
+                                            <td>'.$rowDoctorData['total_paid'].'</td>
+                                            <td>'.$rowDoctorData['auto_date'].'</td>
+                                            <td>
+                                                <a href="printList.php?d_id='.$rowDoctorData['d_id'].'&refNo='.$rowDoctorData['ref_no'].'" class="btn btn-info">View</a>
+                                            </td>
                                         </tr>
                                     ';
                                     }

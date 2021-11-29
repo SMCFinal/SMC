@@ -44,6 +44,7 @@
         $attendantName = $_POST['attendantName'];
         $patient_cnic = $_POST['patientCnic'];
         $patient_contact = $_POST['patientContact'];
+        $organization = $_POST['organization'];
 
         $currentPatient = 'currentPatient';
         $advance_payment = $_POST['advance_payment'];
@@ -87,7 +88,8 @@
             anesthesia_charges,
             added_by,
             updated_by,
-            advance_payment
+            advance_payment,
+            organization
             )VALUES(
             '$name', 
             '$Age', 
@@ -110,7 +112,8 @@
             '$anesthesia_charges',
             '$added_by',
             '$updated_by',
-            '$advance_payment'
+            '$advance_payment',
+            '$organization'
             )
            ");
 
@@ -150,10 +153,28 @@
                             <div class="form-group row">
                                 <label class="col-sm-2 offset-sm-6 col-form-label">M.R No.</label>
                                 <div class="col-sm-4">
-                                    <input class="form-control" type="text" value="<?php echo $newPatient ?>" placeholder="Yearly No." name="patientYearlyNumber" id="example-text-input" readonly>
+                                    <input class="form-control" type="text" value="<?php echo $fetch_retPatientData['patient_yearly_no'] ?>" placeholder="Yearly No." name="patientYearlyNumber" id="example-text-input" readonly>
                                 </div>
                             </div>
                         <h4 class="mb-4 page-title"><u>Patient Details</u></h4>
+
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Organization</label>
+                                <div class="col-sm-4">
+                                    <?php
+                                        $select_option_org = mysqli_query($connect, "SELECT * FROM select_organization");
+                                            $optionsOrg = '<select class="form-control Orgselect2" name="organization" required="" style="width:100%">';
+                                            
+                                              while ($rowOrg = mysqli_fetch_assoc($select_option_org)) {
+                                                $optionsOrg.= '<option value='.$rowOrg['org_name'].'>'.$rowOrg['org_name'].'</option>';
+                                              }
+                                            $optionsOrg.= "</select>";
+                                        echo $optionsOrg;
+                                    ?>
+                                </div>                             
+                            </div>
+
+
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">Name</label>
                                 <div class="col-sm-4">
