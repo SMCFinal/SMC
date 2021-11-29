@@ -12,7 +12,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-12">
-                <h5 class="page-title">General Discharged Patients </h5>
+                <h5 class="page-title">Private Discharged Patients </h5>
             </div>
         </div>
         <!-- end row -->
@@ -20,7 +20,7 @@
             <div class="col-12">
                 <div class="card m-b-30">
                     <div class="card-body">
-                        <h4 class="mt-0 header-title text-center">General Discharged Patients List</h4>
+                        <h4 class="mt-0 header-title text-center">Private Discharged Patients List</h4>
                         <table id="datatable" class="table  dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                             <thead>
                                 <tr>
@@ -46,7 +46,6 @@
                                 $date = date('m/d/Y h:i:s a', time());
 
                                 while ($rowPatients = mysqli_fetch_assoc($selectQueryPatients)) {
-                                    // echo $rowPatients['patient_doa'];
                                 $hourdiff = round((strtotime($date) - strtotime($rowPatients['patient_doa']))/3600, 1);
                                     echo '
                                         <tr>

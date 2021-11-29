@@ -111,7 +111,7 @@
                                 <li><a href="patients_discharge_list.php">All Discharge Patients</a></li>
                                 <li><a href="ptcl_patients_discharge_list.php">PTCL Patients List</a></li>
                                 <li><a href="sehatcard_patients_discharge_list.php">Sehat Card Patients List</a></li>
-                                <li><a href="general_patients_discharge_list.php">General Patients List</a></li>
+                                <li><a href="general_patients_discharge_list.php">Private Patients List</a></li>
                                 <li><a href="other_patients_discharge_list.php">Other Patients List</a></li>
                                 <li><a href="ground_floor_admit.php">Ground Floor Patients</a></li>
                             </ul>
@@ -218,7 +218,7 @@
                                 <li><a href="doctor_payment_list.php">Doctor Payment List</a></li>
                                 <li><a href="doctor_visit_charges.php">Doctor Visit Charges</a></li>
                                 <li><a href="doctor_visit_charges_confirm_list.php">Doctor Charges List</a></li>
-                                <li><a href="doctor_surgery_charges.php">Visit & Surgery Charges</a></li>
+                                <li><a href="doctor_surgery_charges.php">Dr Charges Private</a></li>
                                 <li><a href="doctor_sehatcard_charges.php">Dr Charges Sehat Card</a></li>
                                 <li><a href="doctor_ptcl_charges.php">Dr Charges PTCL</a></li>
                                 <li><a href="doctor_others_charges.php">Dr Charges Other</a></li>
