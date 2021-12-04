@@ -269,6 +269,7 @@
                             <ul class="list-unstyled">
                                 <li><a href="report_areawise.php">Area wise Report</a></li>
                                 <li><a href="report_doctor.php">Doctor Report</a></li>
+                                <li><a href="report_doctor_unpaid.php">Un-Paid Doctor Report</a></li>
                                 <li><a href="report_pharmacy.php">Pharmacy Report</a></li>
                                 <li><a href="report_lab.php">Lab Report</a></li>
                                 <li><a href="report_expenses.php">Expenses Report</a></li>

@@ -43,6 +43,7 @@
         $p_anes_charges = $_POST['p_anes_charges'];
         $category = 'postponePatient';
         $p_advance = $_POST['p_advance'];
+        $p_auto_date = $_POST['p_auto_date'];
 
 
 
@@ -95,7 +96,8 @@
             category,
             pat_id,
             doctor_advice,
-            advance_payment
+            advance_payment,
+            auto_date
             )VALUES(
             '$p_name', 
             '$p_age', 
@@ -118,7 +120,8 @@
             '$category', 
             '$id',
             '$doctorAdvice',
-            '$p_advance'
+            '$p_advance',
+            '$p_auto_date'
         )");
 
 
@@ -165,6 +168,11 @@ include '../_partials/header.php';
 
 
                         <form method="POST">
+                        <?php
+                        $timezoneNew = date_default_timezone_set('Asia/Karachi');
+                        $dateNew = date('Y-m-d', time());
+                        echo '<input type="hidden" name="p_auto_date" value='.$dateNew.'>';
+                        ?>
                         <div class="row">
                             <div class="col-12">
                                 <div class="invoice-title">

@@ -138,19 +138,14 @@
             )
            ");
 
-        $insertPatientDateData = mysqli_query($connect, "INSERT INTO patient_registraion_date(pat_mr)VALUES('$yearlyNumber')");
+        $customDateFor = date('Y-m-d H:i:s');
+
+        $insertPatientDateData = mysqli_query($connect, "INSERT INTO patient_registraion_date(pat_mr, pat_date)VALUES('$yearlyNumber', '$customDateFor')");
 
 
         if (!$queryAddPatient) {
             $notAdded = 'Not added';
         }else {
-            $description = "Dear ".$name.", Welcome to Shah Medical & Surgical Center. Thank You!";
-                
-                $insertMsg = mysqli_query($connect, "INSERT INTO message_tbl
-                    (from_device, to_device, message_body, status)
-                    VALUES
-                    ('1', '$patient_contact', '$description', '1')");
-
             header("LOCATION: patients_today_list_ground.php");
         }
     }

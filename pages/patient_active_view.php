@@ -74,13 +74,13 @@ while ($rowPatientView = mysqli_fetch_assoc($selectPat)) {
                         <thead>
                             <tr style="background-color:#60D09D; color:black; font-size: 18px;">
                                 <th>Patient Name</th>
-                                <td><b>'.$rowPatientView['patient_name'] . '</b></td>
+                                <td><b>'.$rowPatientView['patient_name'] . " (" . $rowPatientView['organization'] . ")" .'</b></td>
                             </tr>
                         </thead>
                         <tbody>
                             <tr style="font-size: 18px;">
                                 <th>Doctor Name</th>
-                                <td>' . "Dr. " . $rowPatientView['name'] . '</td>
+                                <td>' . $rowPatientView['name'] . '</td>
                             </tr>
                             <tr style="font-size: 18px; background-color:#60D09D; color:black">
                                 <th>Floor/Room</th>

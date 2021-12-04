@@ -29,6 +29,8 @@
                                     <th>Name</th>
                                     <th>Age</th>
                                     <th>Address</th>
+                                    <th>Organization</th>
+                                    <th>Contact</th>
                                     <th>Date of Admission</th>
                                     <th>Consultant</th>
                                     <th class="text-center"><i class="mdi mdi-eye"></i> / <i class="fa fa-trash"></i></th>
@@ -57,6 +59,8 @@
                                             <td>'.$rowPatients['patient_name'].'</td>
                                             <td>'.$rowPatients['patient_age'].'</td>
                                             <td>'.$rowPatients['area_name'].'</td>
+                                            <td>'.$rowPatients['organization'].'</td>
+                                            <td>'.$rowPatients['patient_contact'].'</td>
                                             ';
 
                                             $dateAdmisison = $rowPatients['pat_date']; 

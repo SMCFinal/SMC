@@ -7,6 +7,7 @@
     }
 
     $id = $_GET['id'];
+    
     $queryDoctorCharges = mysqli_query($connect, "SELECT doctor_surgery_charges.*, rooms.room_number, discharge_patients.patient_name, discharge_patients.patient_doop, surgeries.surgery_name, staff_members.name, discharge_patients.organization FROM `doctor_surgery_charges` 
         INNER JOIN rooms ON rooms.id = doctor_surgery_charges.room_id
         INNER JOIN discharge_patients ON discharge_patients.pat_id = doctor_surgery_charges.pat_id

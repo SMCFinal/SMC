@@ -27,6 +27,7 @@
                                     <th>#</th>
                                     <th>M.R No.</th>
                                     <th>Name</th>
+                                    <th>Organization</th>
                                     <th>Date of Admission</th>
                                     <th>Disease</th>
                                     <th>Consultant</th>
@@ -55,7 +56,8 @@
                                         <tr>
                                             <td>'.$iteration++.'</td>
                                             <td>'.$rowPatients['patient_yearly_no'].'</td>
-                                            <td>'.$rowPatients['patient_name'].'</td>';
+                                            <td>'.$rowPatients['patient_name'].'</td>
+                                            <td>'.$rowPatients['organization'].'</td>';
                                             $dateAdmisison = $rowPatients['patient_doa']; 
                                             $newAdmisison = date('d/M/Y h:i:s A', strtotime($dateAdmisison));
                                             echo '

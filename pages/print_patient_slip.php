@@ -43,7 +43,7 @@
 
                                     <div class="col-md-10">
                                         <div class="invoice-title">
-                                            <p style="color: black; font-size:12px;" align="right"><b>SHAH MEDICAL &amp; SURGICAL CENTER</b></p>
+                                            <p style="color: black; font-size:17px;" align="right"><b>SHAH MEDICAL CENTER</b></p>
                                             <p style="color: black; font-size:11px; margin-top: -12px; font-weight: bold;" align="right">Saidu Sharif, Swat.</p>
                                             <p style="color: black; font-size:11px; margin-top: -12px; font-weight: bold;" align="right">Appoint Receipt</p>
                                             <p style="color: black; font-size:11px; margin-top: -12px; font-weight: bold;" align="right">Patient Copy</p>
@@ -127,7 +127,7 @@
 
                                     <div class="col-md-10">
                                         <div class="invoice-title">
-                                            <p style="color: black; font-size:12px;" align="right"><b>SHAH MEDICAL &amp; SURGICAL CENTER</b></p>
+                                            <p style="color: black; font-size:17px;" align="right"><b>SHAH MEDICAL CENTER</b></p>
                                             <p style="color: black; font-size:11px; margin-top: -12px; font-weight: bold;" align="right">Saidu Sharif, Swat.</p>
                                             <p style="color: black; font-size:11px; margin-top: -12px; font-weight: bold;" align="right">Appoint Receipt</p>
                                             <p style="color: black; font-size:11px; margin-top: -12px; font-weight: bold;" align="right">Center Copy</p>

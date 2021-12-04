@@ -119,18 +119,23 @@
                   '$dop')");
 
 
+        $timezoneNew = date_default_timezone_set('Asia/Karachi');
+        $dateNew = date('Y-m-d H:i:s', time());
+
         $detailPatQuery = mysqli_query($connect, "INSERT INTO pat_details(
             stitchesDays,
              visitAfterDays,
                catheterAfterDays,
                 procedureCounter,
-                 pat_id
+                 pat_id,
+                  dateandtime
         )VALUES(
             '$stitchesDays',
              '$visitAfterDays',
                '$catheterAfterDays',
                 '$procedureCounter',
-                 '$id'
+                 '$id',
+                  '$dateNew'
         )
         ");
 
@@ -158,8 +163,6 @@ include '../_partials/header.php';
             <div class="col-12">
                 <div class="card m-b-30">
                     <div class="card-body">
-
-
 
 
                         <form method="POST">
@@ -401,7 +404,7 @@ include '../_partials/header.php';
                                     <div class="">
                                         <div class="table-responsive">
                                             <span style="font-weight: bold; font-size: 100%;">Respiratory</span>
-                                            <table class="table" style="    margin-top: 1.5%;">
+                                            <table class="table" style=" margin-top: 1.5%;">
                                                 <thead>
                                                     <tr>
                                                         <td><strong>Respiratory</strong></td>

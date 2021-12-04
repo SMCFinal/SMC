@@ -27,6 +27,8 @@
                                     <th>#</th>
                                     <th>M.R No.</th>
                                     <th>Name</th>
+                                    <th>Organization</th>
+                                    <th>Contact</th>
                                     <th>Date of Admission</th>
                                     <th>Consultant</th>
                                     <th class="text-center"><i class="mdi mdi-eye"></i> / <i class="fa fa-trash"></i></th>
@@ -37,13 +39,13 @@
 
                                 $date = date_default_timezone_set('Asia/Karachi');
                                 $currentYear = date('Y');
-                                $currentYearNewPatient = date('Y-m-d');
+                                echo $currentYearNewPatient = date('Y-m-d');
 
                                 $selectQueryPatients = mysqli_query($connect, "SELECT patient_registration.*, patient_registraion_date.pat_date, staff_members.name FROM `patient_registration`
                                 INNER JOIN staff_members ON staff_members.id = patient_registration.patient_consultant AND category = 'currentPatient'
                                 INNER JOIN patient_registraion_date ON patient_registraion_date.pat_mr = patient_registration.patient_yearly_no
                                 WHERE patient_registraion_date.pat_date LIKE '%$currentYearNewPatient%'
-                                ORDER BY patient_registration.id DESC;");
+                                ORDER BY patient_registration.id DESC");
 
                                 $iteration = 1;
 
@@ -56,7 +58,9 @@
                                         <tr>
                                             <td>'.$iteration++.'</td>
                                             <td>'.$rowPatients['patient_yearly_no'].'</td>
-                                            <td>'.$rowPatients['patient_name'].'</td>';
+                                            <td>'.$rowPatients['patient_name'].'</td>
+                                            <td>'.$rowPatients['organization'].'</td>
+                                            <td>'.$rowPatients['patient_contact'].'</td>';
 
                                             $dateAdmisison = $rowPatients['pat_date']; 
                                             $newAdmisison = date('d/M/Y h:i:s A', strtotime($dateAdmisison));
