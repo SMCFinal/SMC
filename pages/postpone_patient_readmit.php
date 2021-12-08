@@ -45,6 +45,7 @@
         $patient_cnic = $_POST['patientCnic'];
         $patient_contact = $_POST['patientContact'];
         $advance_payment = $_POST['advance_payment'];
+        $organization = $_POST['organization'];
 
         if (empty($advance_payment)) {
             $advance_payment = '0';
@@ -87,7 +88,8 @@
             anesthesia_charges,
             added_by,
             updated_by,
-            advance_payment
+            advance_payment,
+            organization
             )VALUES(
             '$name', 
             '$Age', 
@@ -110,7 +112,8 @@
             '$anesthesia_charges',
             '$added_by',
             '$updated_by',
-            '$advance_payment'
+            '$advance_payment',
+            '$organization'
             )
            ");
 
@@ -150,10 +153,26 @@
                             <div class="form-group row">
                                 <label class="col-sm-2 offset-sm-6 col-form-label">M.R No.</label>
                                 <div class="col-sm-4">
-                                    <input class="form-control" type="text" value="<?php echo $newPatient ?>" placeholder="Yearly No." name="patientYearlyNumber" id="example-text-input" readonly>
+                                    <input class="form-control" type="text" value="<?php echo $fetch_retPatientData['patient_yearly_no'] ?>" placeholder="Yearly No." name="patientYearlyNumber" id="example-text-input" readonly>
                                 </div>
                             </div>
-                        <h4 class="mb-4 page-title"><u>Patient Details</u></h4>
+                            <h4 class="mb-4 page-title"><u>Patient Details</u></h4>
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Organization</label>
+                                <div class="col-sm-4">
+                                    <?php
+                                        $select_option_city = mysqli_query($connect, "SELECT * FROM select_organization");
+                                            $optionsCity = '<select class="form-control Orgselect2" name="organization" required="" style="width:100%">';
+                                            
+                                              while ($rowCity = mysqli_fetch_assoc($select_option_city)) {
+                                                $optionsCity.= '<option value='.$rowCity['org_name'].'>'.$rowCity['org_name'].'</option>';
+                                              }
+                                            $optionsCity.= "</select>";
+                                        echo $optionsCity;
+                                    ?>
+                                </div>
+                            </div>
+                            <hr>
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">Name</label>
                                 <div class="col-sm-4">
