@@ -38,8 +38,8 @@
                                 <?php
                                 $selectQueryPatients = mysqli_query($connect, "SELECT discharge_patients.*, staff_members.name FROM discharge_patients
                                 INNER JOIN staff_members ON staff_members.id = discharge_patients.patient_consultant AND category = 'dischargePatient'
-                                AND discharge_patients.organization LIKE '%General%'
-                                ORDER BY discharge_patients.patient_doa DESC");
+                                AND discharge_patients.organization LIKE '%Private%'
+                                ORDER BY discharge_patients.id DESC");
                                 $iteration = 1;
 
                                 $timezone = date_default_timezone_set('Asia/Karachi');
@@ -57,7 +57,7 @@
                                             echo '
                                             <td>'.$newAdmisison.'</td>
                                             <td>'.$rowPatients['patient_disease'].'</td>
-                                            <td>'."Dr. ".$rowPatients['name'].'</td>';
+                                            <td>'.$rowPatients['name'].'</td>';
                                             if (empty($rowPatients['organization'])) {
                                                 echo '<td><span class="badge badge-secondary">General</span></td>';
                                             }else {

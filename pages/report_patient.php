@@ -5,27 +5,33 @@
     if (empty($_SESSION["user"])) {
         header("LOCATION:../index.php");
     }
-
+    
     $fromDate = $_GET['fromDate'];
     $toDate = $_GET['toDate'];
-    
-    $selectCurrentPatient = mysqli_query($connect, "SELECT area.area_name, patient_registration.patient_name, patient_registration.patient_age, patient_registration.organization, patient_registration.patient_doa, patient_registration.patient_address, patient_registration.patient_consultant, staff_members.name  FROM patient_registration 
+
+    $selectCurrentPatient = mysqli_query($connect, "SELECT area.area_name, patient_registration.patient_yearly_no, patient_registration.patient_name, patient_registration.room_id, patient_registration.patient_age, patient_registration.organization, patient_registration.patient_doa, patient_registration.patient_address, patient_registration.patient_consultant, patient_registration.patient_operation, surgeries.surgery_name, staff_members.name, rooms.room_number FROM patient_registration
         INNER JOIN staff_members ON staff_members.id = patient_registration.patient_consultant
         INNER JOIN area ON area.id = patient_registration.city_id
-        WHERE DATE(patient_registration.patient_doa) BETWEEN '$fromDate' AND '$toDate';
+        INNER JOIN rooms ON rooms.id = patient_registration.room_id
+        INNER JOIN surgeries ON surgeries.id = patient_registration.patient_operation
+        WHERE DATE(patient_registration.patient_doa) BETWEEN '$fromDate' AND '$toDate'
         ");
 
 
-     $selectDischargePatient = mysqli_query($connect, "SELECT area.area_name, discharge_patients.patient_name, discharge_patients.patient_age, discharge_patients.organization, discharge_patients.patient_doa, discharge_patients.patient_address, discharge_patients.patient_consultant, staff_members.name, discharge_patients.auto_date FROM discharge_patients 
-        INNER JOIN staff_members ON staff_members.id = discharge_patients.patient_consultant
-        INNER JOIN area ON area.id = discharge_patients.city_id
-            WHERE DATE(discharge_patients.auto_date) BETWEEN '$fromDate' AND '$toDate';
+     $selectDischargePatient = mysqli_query($connect, "SELECT area.area_name, discharge_patients.patient_yearly_no, discharge_patients.patient_name, discharge_patients.patient_age, discharge_patients.organization, discharge_patients.patient_doa, discharge_patients.patient_address, discharge_patients.patient_consultant, staff_members.name, discharge_patients.auto_date, surgeries.surgery_name, rooms.room_number FROM discharge_patients 
+         INNER JOIN staff_members ON staff_members.id = discharge_patients.patient_consultant
+         INNER JOIN area ON area.id = discharge_patients.city_id
+         INNER JOIN rooms ON rooms.id = discharge_patients.room_id
+         INNER JOIN surgeries ON surgeries.id = discharge_patients.patient_operation
+           WHERE DATE(discharge_patients.auto_date) BETWEEN '$fromDate' AND '$toDate'
             ");
 
-     $selectPostponePatient = mysqli_query($connect, "SELECT area.area_name, postpone_patient.patient_name, postpone_patient.patient_age, postpone_patient.patient_doa,  postpone_patient.auto_date, postpone_patient.patient_address, postpone_patient.patient_consultant, staff_members.name  FROM postpone_patient 
+     $selectPostponePatient = mysqli_query($connect, "SELECT area.area_name, postpone_patient.patient_yearly_no, postpone_patient.patient_name, postpone_patient.patient_age, postpone_patient.patient_doa,  postpone_patient.auto_date, postpone_patient.patient_address, postpone_patient.patient_consultant, staff_members.name,surgeries.surgery_name, rooms.room_number FROM postpone_patient 
         INNER JOIN staff_members ON staff_members.id = postpone_patient.patient_consultant
         INNER JOIN area ON area.id = postpone_patient.city_id
-            WHERE DATE(postpone_patient.auto_date) BETWEEN '$fromDate' AND '$toDate';
+        INNER JOIN rooms ON rooms.id = postpone_patient.room_id
+        INNER JOIN surgeries ON surgeries.id = postpone_patient.patient_operation
+            WHERE DATE(postpone_patient.auto_date) BETWEEN '$fromDate' AND '$toDate'
             ");
 
 
@@ -36,7 +42,7 @@ include '../_partials/header.php';
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-12">
-                <h5 class="page-title d-inline">Patient Report</h5>
+                <h5 class="page-title d-inline">Patient Report Manual</h5>
                  <a type="button" href="#" id="printButton"   class="btn btn-success waves-effect waves-light float-right btn-lg mb-3"><i class="fa fa-print"></i> Print</a>
                 
             </div>
@@ -57,6 +63,11 @@ include '../_partials/header.php';
                                     </h3>
                                 </div>
 
+                                <?php
+                                    $rowCountCurrent = mysqli_num_rows($selectCurrentPatient); 
+                                    if ($rowCountCurrent > 0) {
+                                ?>
+
                                 <div class="row">
                                     <div class="col-12">
                                         <h6>Current Patients</h6>
@@ -65,12 +76,15 @@ include '../_partials/header.php';
                                                 <thead>
                                                     <tr>
                                                         <th>#</th>
+                                                        <th>MR No</th>
                                                         <th>Name</th>
                                                         <th>Age</th>
                                                         <th>Area</th>
                                                         <th>Org</th>
                                                         <th>Address</th>
                                                         <th>Consultant</th>
+                                                        <th>Room</th>
+                                                        <th>Surgery</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -81,12 +95,15 @@ include '../_partials/header.php';
                                                         echo '
                                                         <tr>
                                                             <td>'.$itrCurrent++.'</td>
+                                                            <td>'.$rowCurrent['patient_yearly_no'].'</td>
                                                             <td>'.$rowCurrent['patient_name'].'</td>
                                                             <td>'.$rowCurrent['patient_age'].'</td>
                                                             <td>'.$rowCurrent['area_name'].'</td>
                                                             <td>'.$rowCurrent['organization'].'</td>
                                                             <td>'.$rowCurrent['patient_address'].'</td>
                                                             <td>'.$rowCurrent['name'].'</td>
+                                                            <td>'.$rowCurrent['room_number'].'</td>
+                                                            <td>'.$rowCurrent['surgery_name'].'</td>
                                                         </tr>
                                                         ';
                                                     }
@@ -97,6 +114,21 @@ include '../_partials/header.php';
                                     </div>
                                 </div>
 
+                                <?php 
+                                    }else {
+                                        echo '
+                                        <div class="row" style="margin-top: 80px !important">
+                                            <div class="col-12">
+                                                <h6 align="center">No Current Patients</h6>
+                                            </div>
+                                        </div>
+                                        ';
+                                    } 
+
+                                    $rowCountDischarge = mysqli_num_rows($selectDischargePatient); 
+                                    if ($rowCountDischarge > 0) {
+                                ?>
+
                                 <div class="row">
                                     <div class="col-12">
                                         <h6>Discharge Patients</h6>
@@ -105,12 +137,15 @@ include '../_partials/header.php';
                                                 <thead>
                                                     <tr>
                                                         <th>#</th>
+                                                        <th>MR No</th>
                                                         <th>Name</th>
                                                         <th>Age</th>
                                                         <th>Area</th>
                                                         <th>Org</th>
                                                         <th>Address</th>
                                                         <th>Consultant</th>
+                                                        <th>Room</th>
+                                                        <th>Surgery</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -121,12 +156,15 @@ include '../_partials/header.php';
                                                         echo '
                                                         <tr>
                                                             <td>'.$itrDischarge++.'</td>
+                                                            <td>'.$rowDischarge['patient_yearly_no'].'</td>
                                                             <td>'.$rowDischarge['patient_name'].'</td>
                                                             <td>'.$rowDischarge['patient_age'].'</td>
                                                             <td>'.$rowDischarge['area_name'].'</td>
                                                             <td>'.$rowDischarge['organization'].'</td>
                                                             <td>'.$rowDischarge['patient_address'].'</td>
                                                             <td>'.$rowDischarge['name'].'</td>
+                                                            <td>'.$rowDischarge['room_number'].'</td>
+                                                            <td>'.$rowDischarge['surgery_name'].'</td>
                                                         </tr>
                                                         ';
                                                     }
@@ -137,6 +175,20 @@ include '../_partials/header.php';
                                     </div>
                                 </div>
 
+                                <?php 
+                                    }else {
+                                        echo '
+                                        <div class="row" style="margin-top: 30px !important">
+                                            <div class="col-12">
+                                                <h6 align="center">No Discharge Patients</h6>
+                                            </div>
+                                        </div>
+                                        ';
+                                    } 
+
+                                    $rowCountPostPoned = mysqli_num_rows($selectPostponePatient); 
+                                    if ($rowCountPostPoned > 0) {
+                                ?>
 
                                 <div class="row">
                                     <div class="col-12">
@@ -146,11 +198,15 @@ include '../_partials/header.php';
                                                 <thead>
                                                     <tr>
                                                         <th>#</th>
+                                                        <th>MR No</th>
                                                         <th>Name</th>
                                                         <th>Age</th>
                                                         <th>Area</th>
+                                                        <th>Org</th>
                                                         <th>Address</th>
                                                         <th>Consultant</th>
+                                                        <th>Room</th>
+                                                        <th>Surgery</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -161,11 +217,14 @@ include '../_partials/header.php';
                                                         echo '
                                                         <tr>
                                                             <td>'.$itrPostpone++.'</td>
+                                                            <td>'.$rowPostpone['patient_yearly_no'].'</td>
                                                             <td>'.$rowPostpone['patient_name'].'</td>
                                                             <td>'.$rowPostpone['patient_age'].'</td>
                                                             <td>'.$rowPostpone['area_name'].'</td>
                                                             <td>'.$rowPostpone['patient_address'].'</td>
                                                             <td>'.$rowPostpone['name'].'</td>
+                                                            <td>'.$rowPostpone['room_number'].'</td>
+                                                            <td>'.$rowPostpone['surgery_name'].'</td>
                                                         </tr>
                                                         ';
                                                     }
@@ -175,6 +234,18 @@ include '../_partials/header.php';
                                         </div>
                                     </div>
                                 </div>
+
+                                <?php    
+                                    }else {
+                                        echo '
+                                        <div class="row" style="margin-top: 20px !important">
+                                            <div class="col-12">
+                                                <h6 align="center">No Postpone Patients</h6>
+                                            </div>
+                                        </div>
+                                        ';
+                                    } 
+                                ?>
                             </div>
                         </div>
                     <!-- </div> -->

@@ -7,12 +7,12 @@
     }
 
     $id = $_GET['id'];
-    $queryDoctorCharges = mysqli_query($connect, "SELECT doctor_surgery_charges.*, rooms.room_number, discharge_patients.patient_name, discharge_patients.patient_doop, surgeries.surgery_name, staff_members.name, discharge_patients.organization FROM `doctor_surgery_charges` 
+    $queryDoctorCharges = mysqli_query($connect, "SELECT doctor_surgery_charges.*, rooms.room_number, discharge_patients.patient_doa, discharge_patients.patient_name, discharge_patients.patient_doop, surgeries.surgery_name, staff_members.name, discharge_patients.organization FROM `doctor_surgery_charges` 
         INNER JOIN rooms ON rooms.id = doctor_surgery_charges.room_id
         INNER JOIN discharge_patients ON discharge_patients.pat_id = doctor_surgery_charges.pat_id
         INNER JOIN surgeries ON surgeries.id = doctor_surgery_charges.pat_operation
         INNER JOIN staff_members ON staff_members.id = doctor_surgery_charges.pat_consultant
-        WHERE doctor_surgery_charges.payment_status = '1' AND discharge_patients.organization LIKE '%Sehat%'  AND doctor_surgery_charges.pat_consultant = '$id'");
+        WHERE doctor_surgery_charges.payment_status = '1' AND discharge_patients.organization LIKE '%Sehat%'  AND doctor_surgery_charges.pat_consultant = '$id' ORDER BY discharge_patients.patient_doa DESC");
 
 
     $queryDoctorName = mysqli_query($connect, "SELECT * FROM `staff_members` WHERE id = '$id'");
@@ -275,8 +275,14 @@ include '../_partials/header.php';
                         </table><br>
                         <div align="center">
                             <?php include '../_partials/cancel.php'; ?>
-                            <button type="submit" name="payDoctorCharges" class="btn btn-primary waves-effect waves-light">Pay Doctor</button>
-                             <!-- <a href="" ></a> -->
+                            <?php
+                                if ($total === 0) {
+                                    echo '<button class="btn btn-primary waves-effect waves-light" disabled>No Pay!</button>';
+                                }else {
+                                    echo '<button type="submit" name="payDoctorCharges" class="btn btn-primary waves-effect waves-light">Pay Doctor</button>
+                                 ';
+                                }
+                            ?>
                         </div>
                         </div>                            
                     </div>

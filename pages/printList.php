@@ -71,8 +71,11 @@
                                                                         <td>'.$chargesQueryFetch['pat_name'].'</td>
                                                                         <td>'.$chargesQueryFetch['sur_name'].'</td>
                                                                         <td>'.$chargesQueryFetch['org_name'].'</td>
-                                                                        <td>'.$chargesQueryFetch['room_name'].'</td>
-                                                                        <td>'.$chargesQueryFetch['op_vi_time'].'</td>
+                                                                        <td>'.$chargesQueryFetch['room_name'].'</td>';
+                                                                        $old_date_timestamp = strtotime($chargesQueryFetch['op_vi_time']);
+                                                                        $new_date = date('dM,Y h:i A', $old_date_timestamp); 
+                                                                        echo '
+                                                                        <td>'.$new_date.'</td>
                                                                         <td>'.$chargesQueryFetch['sur_charges'].'</td>
                                                                         <td>'.$chargesQueryFetch['vis_cahrges'].'</td>';
                                                                         $sumSurgeryAmount = $sumSurgeryAmount + $chargesQueryFetch['sur_charges'];

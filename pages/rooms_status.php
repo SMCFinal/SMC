@@ -78,7 +78,7 @@
                                                                  '.$rowRooms['patient_name'].' 
                                                                  </span><br>
                                                                 <span ><i class="fa fa-user-md text-dark" style="font-size: 20px;padding-right: 5px"></i>
-                                                                '."Dr. ".$rowRooms['name'].'
+                                                                '.$rowRooms['name'].'
                                                                 </span><br>
                                                                 <span ><i class="fa fa-address-card text-dark" style="font-size: 20px;padding-right: 5px"></i>
                                                                 '.$rowRooms['area_name'].'

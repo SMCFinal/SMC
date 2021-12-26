@@ -38,11 +38,6 @@ include '../_partials/header.php';
                             </thead>
                             <tbody>
                                 <?php
-                                    // $retDoctorData = mysqli_query($connect, "SELECT doctor_paid_amount.*, staff_members.*, discharge_patients.patient_operation, surgeries.surgery_name FROM `doctor_paid_amount`
-                                    //     INNER JOIN staff_members ON staff_members.id = doctor_paid_amount.d_id
-                                    //     INNER JOIN discharge_patients ON discharge_patients.patient_consultant = doctor_paid_amount.d_id
-                                    //     INNER JOIN surgeries ON surgeries.id = discharge_patients.patient_operation");
-
                                     $retDoctorData = mysqli_query($connect, "SELECT doctor_paid_amount.*, staff_members.name FROM `doctor_paid_amount`
                                         INNER JOIN staff_members ON staff_members.id = doctor_paid_amount.d_id ORDER BY doctor_paid_amount.ref_no DESC");
                                     $iteration = 1;
@@ -54,8 +49,11 @@ include '../_partials/header.php';
                                             <td>Dr. '.$rowDoctorData['name'].'</td>
                                             <td>'.$rowDoctorData['total_surgery'].'</td>
                                             <td>'.$rowDoctorData['total_visit'].'</td>
-                                            <td>'.$rowDoctorData['total_paid'].'</td>
-                                            <td>'.$rowDoctorData['auto_date'].'</td>
+                                            <td>'.$rowDoctorData['total_paid'].'</td>';
+                                            $old_date_timestamp = strtotime($rowDoctorData['auto_date']);
+                                            $new_date = date('d M/Y h:i:s A', $old_date_timestamp); 
+                                            echo '
+                                            <td>'.$new_date.'</td>
                                             <td>
                                                 <a href="printList.php?d_id='.$rowDoctorData['d_id'].'&refNo='.$rowDoctorData['ref_no'].'" class="btn btn-info">View</a>
                                             </td>

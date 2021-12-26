@@ -38,7 +38,7 @@ include '../_partials/header.php';
                                 <?php
                                     $retInventoryItems = mysqli_query($connect, "SELECT anethetic_paid_amount.*, staff_members.name FROM `anethetic_paid_amount`
                                         INNER JOIN staff_members ON staff_members.id = anethetic_paid_amount.aneshthetic_id 
-                                        ORDER BY anethetic_paid_amount.ref_no DESC;");
+                                        ORDER BY anethetic_paid_amount.ref_no DESC");
                                     $iteration = 1;
 
                                     while ($rowInventory = mysqli_fetch_assoc($retInventoryItems)) {
@@ -46,8 +46,11 @@ include '../_partials/header.php';
                                         <tr>
                                             <td>'.$iteration++.'</td>
                                             <td>'.$rowInventory['name'].'</td>
-                                            <td>'.$rowInventory['paid_amount'].'</td>
-                                            <td>'.$rowInventory['auto_date'].'</td>
+                                            <td>'.$rowInventory['paid_amount'].'</td>';
+                                            $old_date_timestamp = strtotime($rowInventory['auto_date']);
+                                            $new_date = date('d M/Y h:i:s A', $old_date_timestamp); 
+                                            echo '
+                                            <td>'.$new_date.'</td>
                                             <td>
                                                 <a href="printListAnesthesia.php?a_id='.$rowInventory['aneshthetic_id'].'&refNo='.$rowInventory['ref_no'].'" class="btn btn-info">View</a>
                                             </td>

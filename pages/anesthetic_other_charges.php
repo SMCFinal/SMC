@@ -7,7 +7,7 @@
 
     if (isset($_POST['addAnesthetic'])) {
         $anesthetic = $_POST['anesthetic'];
-        header("LOCATION:anesthetic_surgery_charges_list.php?id=".$anesthetic."");
+        header("LOCATION:anesthetic_other_charges_list.php?id=".$anesthetic."");
     }
 
 include '../_partials/header.php';
@@ -17,7 +17,7 @@ include '../_partials/header.php';
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-12">
-                <h5 class="page-title">Anesthetic Charges (Private) </h5>
+                <h5 class="page-title">Anesthetic Charges (Other) </h5>
             </div>
         </div>
         <!-- end row -->

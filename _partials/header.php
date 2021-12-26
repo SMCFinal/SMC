@@ -8,7 +8,6 @@
 <html lang="en">
 
 <head>
-
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
@@ -38,9 +37,6 @@
     <link rel="stylesheet" type="text/css" href="../assets/bootstrap-slider.min.css">
     <link rel="stylesheet" type="text/css" href="../assets/bootstrap-datetimepicker.css">
     <link rel="stylesheet" type="text/css" href="../assets/bootstrap-datepicker.min.css">
-    
-    
-
     <!-- <link href="../assets/plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css" rel="stylesheet"> -->
 </head>
 
@@ -212,7 +208,7 @@
 
                         <?php if ($fetch_query['user_role'] == '1') {?>
                         <li class="has_sub">
-                            <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-wallet"></i> <span>  Doctor Charges</span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
+                            <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-user-md"></i> <span>  Doctor Charges</span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
                             <ul class="list-unstyled">
 
                                 <li><a href="doctor_payment_list.php">Doctor Payment List</a></li>
@@ -226,13 +222,21 @@
                             </ul>
                         </li>
 
-
+                        <li class="has_sub">
+                            <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-bed"></i> <span>  OT Daily Charges</span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
+                            <ul class="list-unstyled">
+                                <li><a href="ot_charges_list.php">OT Charges List</a></li>
+                            </ul>
+                        </li>
 
                         <li class="has_sub">
                             <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-wallet"></i> <span>  Anesthetic Charges</span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
                             <ul class="list-unstyled">
 
-                                <li><a href="anesthetic_surgery_charges.php">Anesthetic Charges</a></li>
+                                <li><a href="anesthetic_surgery_charges.php">ANA Private Charges</a></li>
+                                <li><a href="anesthetic_sehatcard_charges.php">ANA SehatCard Charges</a></li>
+                                <li><a href="anesthetic_ptcl_charges.php">ANA PTCL Charges</a></li>
+                                <li><a href="anesthetic_other_charges.php">ANA Other Charges</a></li>
                                 <li><a href="anesthetic_payment_list.php">Anesthetic Payment List</a></li>
                             </ul>
                         </li>
