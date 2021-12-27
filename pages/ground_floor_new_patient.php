@@ -7,6 +7,7 @@
     }
 
     $notAdded = '';
+    $alreadyAddedPat = '';
 
     $date = date_default_timezone_set('Asia/Karachi');
     $currentYear = date('Y');
@@ -57,7 +58,10 @@
         $currentPatient = 'currentPatient';
 
 
+        $checkQueryPatient = mysqli_query($connect, "SELECT COUNT(*) AS countedContacts FROM patient_registration WHERE patient_contact = '$patient_contact'");
 
+        $fetch_checkQueryPatient = mysqli_fetch_assoc($checkQueryPatient);
+        $counted = $fetch_checkQueryPatient['countedContacts'];
 
         $disease = "NONE";
         $Address = "NONE";
@@ -84,70 +88,78 @@
         
         // Till here
         
-        $queryAddPatient = mysqli_query($connect, 
-            "INSERT INTO patient_registration(
-            patient_name, 
-            patient_age, 
-            patient_gender, 
-            patient_address, 
-            city_id,
-            room_id, 
-            patient_doa, 
-            patient_disease, 
-            patient_consultant, 
-            attendent_name, 
-            category, 
-            patient_yearly_no,
-            patient_cnic,
-            patient_contact,
-            patient_doop,
-            patient_operation,
-            consultant_charges,
-            anasthetic_name,
-            anesthesia_charges,
-            added_by,
-            updated_by,
-            advance_payment,
-            auto_date,
-            organization
-            )VALUES(
-            '$name', 
-            '$Age', 
-            '$Gender', 
-            '$Address', 
-            '$address_city', 
-            '$patientRoom', 
-            '$DateOfAdmission', 
-            '$disease', 
-            '$consultant', 
-            '$attendantName', 
-            '$currentPatient',
-            '$yearlyNumber', 
-            '$patient_cnic', 
-            '$patient_contact',
-            '$patient_doop',
-            '$patient_operation',
-            '$consultant_charges',
-            '$anasthetic_name',
-            '$anesthesia_charges',
-            '$added_by',
-            '$updated_by',
-            '$advance_payment',
-            '$autoDate',
-            '$organization'
-            )
-           ");
-
-        $customDateFor = date('Y-m-d H:i:s');
-
-        $insertPatientDateData = mysqli_query($connect, "INSERT INTO patient_registraion_date(pat_mr, pat_date)VALUES('$yearlyNumber', '$customDateFor')");
-
-
-        if (!$queryAddPatient) {
-            $notAdded = 'Not added';
+        if ($counted > 0) {
+            $alreadyAddedPat = '
+                <div class="alert alert-danger text-center" style="color: red !important" role="alert">
+                  Patient Contact Already added!
+                </div>';
         }else {
-            header("LOCATION: patients_today_list_ground.php");
+            $queryAddPatient = mysqli_query($connect, 
+                "INSERT INTO patient_registration(
+                patient_name, 
+                patient_age, 
+                patient_gender, 
+                patient_address, 
+                city_id,
+                room_id, 
+                patient_doa, 
+                patient_disease, 
+                patient_consultant, 
+                attendent_name, 
+                category, 
+                patient_yearly_no,
+                patient_cnic,
+                patient_contact,
+                patient_doop,
+                patient_operation,
+                consultant_charges,
+                anasthetic_name,
+                anesthesia_charges,
+                added_by,
+                updated_by,
+                advance_payment,
+                auto_date,
+                organization
+                )VALUES(
+                '$name', 
+                '$Age', 
+                '$Gender', 
+                '$Address', 
+                '$address_city', 
+                '$patientRoom', 
+                '$DateOfAdmission', 
+                '$disease', 
+                '$consultant', 
+                '$attendantName', 
+                '$currentPatient',
+                '$yearlyNumber', 
+                '$patient_cnic', 
+                '$patient_contact',
+                '$patient_doop',
+                '$patient_operation',
+                '$consultant_charges',
+                '$anasthetic_name',
+                '$anesthesia_charges',
+                '$added_by',
+                '$updated_by',
+                '$advance_payment',
+                '$autoDate',
+                '$organization'
+                )
+               ");
+
+            $customDateFor = date('Y-m-d H:i:s');
+
+            $insertPatientDateData = mysqli_query($connect, "INSERT INTO patient_registraion_date(pat_mr, pat_date)VALUES('$yearlyNumber', '$customDateFor')");
+
+
+            if (!$queryAddPatient) {
+                $notAdded = '<div class="alert alert-danger text-center" style="color: red !important" role="alert">Not added</div>';
+            }else {
+                header("LOCATION: patients_today_list_ground.php");
+            }
         }
+        
     }
 
 
@@ -155,6 +167,7 @@
 ?>
 <link rel="stylesheet" type="text/css" href="../assets/bootstrap-datetimepicker.css">
 <!-- Top Bar End -->
+
 <div class="page-content-wrapper ">
     <div class="container-fluid">
         <div class="row">
@@ -162,6 +175,10 @@
                 <h5 class="page-title">Add New Patient (Ground Floor Registration)</h5>
             </div>
         </div>
+        <h5>
+            <?php echo $notAdded; ?>
+            <?php echo $alreadyAddedPat; ?>
+        </h5>
         <!-- end row -->
         <div class="row">
             <div class="col-12">
@@ -292,10 +309,8 @@
                             
                         </form>
                     </div>
-                    <h3>
-                        <?php echo $notAdded; ?>
-                    </h3>
                 </div>
+                    
             </div> <!-- end col -->
         </div> <!-- end row -->
     </div><!-- container fluid -->

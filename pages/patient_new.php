@@ -7,6 +7,7 @@
     }
 
     $notAdded = '';
+    $alreadyAddedPat = '';
 
     $date = date_default_timezone_set('Asia/Karachi');
     $currentYear = date('Y');
@@ -79,7 +80,18 @@
         }
         
         // Till here
+
+        $checkQueryPatient = mysqli_query($connect, "SELECT COUNT(*) AS countedContacts FROM patient_registration WHERE patient_contact = '$patient_contact'");
+
+        $fetch_checkQueryPatient = mysqli_fetch_assoc($checkQueryPatient);
+        $counted = $fetch_checkQueryPatient['countedContacts'];
         
+        if ($counted > 0) {
+            $alreadyAddedPat = '
+                <div class="alert alert-danger text-center" style="color: red !important" role="alert">
+                  Patient Contact Already added!
+                </div>';
+        }else {
         $queryAddPatient = mysqli_query($connect, 
             "INSERT INTO patient_registration(
             patient_name, 
@@ -163,11 +175,12 @@
             ('1', '$contact_third', '$description_one', '1')");
 
         if (!$queryAddPatient) {
-            $notAdded = 'Not added';
+            $notAdded = '<div class="alert alert-danger text-center" style="color: red !important" role="alert">Not added</div>';
         }else {
             $updateRoom = mysqli_query($connect, "UPDATE rooms SET status = '0' WHERE id = '$patientRoom'");
             header("LOCATION: patients_list.php");
         }
+    }
     }
 
 
@@ -182,6 +195,11 @@
                 <h5 class="page-title">Add New Patient</h5>
             </div>
         </div>
+
+        <h5>
+            <?php echo $notAdded; ?>
+            <?php echo $alreadyAddedPat; ?>
+        </h5>
         <!-- end row -->
         <div class="row">
             <div class="col-12">
@@ -357,9 +375,6 @@
                             
                         </form>
                     </div>
-                    <h3>
-                        <?php echo $notAdded; ?>
-                    </h3>
                 </div>
             </div> <!-- end col -->
         </div> <!-- end row -->
