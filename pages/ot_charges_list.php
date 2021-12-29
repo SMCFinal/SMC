@@ -103,6 +103,15 @@ include '../_partials/header.php';
                                                         ';
                                                     }
                                                     ?>
+                                                    <!-- <tr>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th style="text-align: right;">Total: </th>
+                                                        <th><?php echo $currentSumPriceRoom ?></th>
+                                                        <th><?php echo $currentSumPriceAdmission ?></th>
+                                                        <th><?php echo $currentSumPriceOT ?></th>
+                                                    </tr> -->
                                                 </tbody>
                                             </table>
                                         </div>
@@ -165,19 +174,17 @@ include '../_partials/header.php';
                                                     }
                                                     ?>
                                                 </tbody>
-                                                <tfoot>
+                                                <!-- <tfoot>
                                                     <tr>
                                                         <th></th>
                                                         <th></th>
                                                         <th></th>
                                                         <th style="text-align: right;">Total: </th>
-                                                        <th><?php echo $dischargeSumPriceRoom + $currentSumPriceRoom ?></th>
-                                                        <th><?php echo $dischargeSumPriceAdmission + $currentSumPriceAdmission ?></th>
-                                                        <th><?php echo $dischargeSumPriceOT + $currentSumPriceOT ?></th>
-
-                                                        
+                                                        <th><?php echo $dischargeSumPriceRoom ?></th>
+                                                        <th><?php echo $dischargeSumPriceAdmission ?></th>
+                                                        <th><?php echo $dischargeSumPriceOT ?></th>
                                                     </tr>
-                                                </tfoot>
+                                                </tfoot> -->
                                             </table>
                                         </div>
                                     </div>
@@ -195,6 +202,90 @@ include '../_partials/header.php';
                                     } 
 
                                 ?>
+
+                                <hr style="border-top: 10px solid cornflowerblue !important;">
+
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="table-responsive">
+                                            <table class="table mb-0">
+                                                <tbody>
+                                                    <?php
+                                                        $rowCountCurrent = mysqli_num_rows($selectCurrentPatient);
+                                                        $rowCountDischarge = mysqli_num_rows($selectDischargePatient);
+                                                        if ($rowCountDischarge > 0 && $rowCountCurrent > 0) {
+                                                    ?>
+                                                    <tr>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th style="text-align: right;">Total: </th>
+                                                        <th>Rooms: <?php echo $dischargeSumPriceRoom + $currentSumPriceRoom ?></th>
+                                                        <th>Admission: <?php echo $dischargeSumPriceAdmission + $currentSumPriceAdmission ?></th>
+                                                        <th>OT: <?php echo $dischargeSumPriceOT + $currentSumPriceOT ?></th>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th style="text-align: right;">Sub Total: </th>
+                                                        <th style="text-align:center;"><?php echo $dischargeSumPriceRoom + $dischargeSumPriceAdmission + $dischargeSumPriceOT + $currentSumPriceRoom + $currentSumPriceAdmission + $currentSumPriceOT ?></th>
+                                                    </tr>
+                                                    <?php 
+                                                        }elseif ($rowCountDischarge > 0) {
+                                                    ?>
+                                                    <tr>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th style="text-align: right;">Total: </th>
+                                                        <th>Rooms: <?php echo $dischargeSumPriceRoom?></th>
+                                                        <th>Admission: <?php echo $dischargeSumPriceAdmission?></th>
+                                                        <th>OT: <?php echo $dischargeSumPriceOT?></th>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th style="text-align: right;">Sub Total: </th>
+                                                        <th><?php echo $dischargeSumPriceRoom + $dischargeSumPriceAdmission + $dischargeSumPriceOT?></th>
+                                                    </tr>
+                                                    <?php 
+                                                        }elseif ($rowCountCurrent > 0) {
+                                                    ?>
+                                                    <tr>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th style="text-align: right;">Total: </th>
+                                                        <th style="text-align: center;">Rooms: <?php echo $currentSumPriceRoom ?></th>
+                                                        <th style="text-align: center;">Admission: <?php echo $currentSumPriceAdmission ?></th>
+                                                        <th style="text-align: center;">OT: <?php echo $currentSumPriceOT ?></th>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th style="text-align: right;">Sub Total: </th>
+                                                        <th><?php echo $currentSumPriceRoom + $currentSumPriceAdmission + $currentSumPriceOT ?></th>
+                                                    </tr>
+                                                    <?php      
+                                                        }
+                                                    ?>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     <!-- </div> -->

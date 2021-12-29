@@ -338,10 +338,25 @@
 
                         <li>
                             <a href="patients_list_ground.php" class="waves-effect">
-                                <i class="dripicons-list"></i>
+                                <i class="fa fa-users"></i>
                                 <span> All Patients List </span>
                             </a>
                         </li>
+
+                        <li>
+                            <a href="patients_discharge_ground.php" class="waves-effect">
+                                <i class="fa fa-hospital-o"></i>
+                                <span> Discharged Patients </span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="patients_postpone_ground.php" class="waves-effect">
+                                <i class="fa fa-times"></i>
+                                <span> Postponed Patients </span>
+                            </a>
+                        </li>
+
 
                         <!-- <li>
                             <a href="patients_list_ground.php" class="waves-effect">
