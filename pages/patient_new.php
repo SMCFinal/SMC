@@ -13,6 +13,8 @@
     $currentYear = date('Y');
     $currentYearNewPatient = date('Y-');
 
+
+
     $pickYearly = mysqli_query($connect, "SELECT COUNT(*)AS yearlyCounted FROM `patient_registration` WHERE auto_date LIKE '%$currentYear%'");
     $fetch_pickYearly = mysqli_fetch_assoc($pickYearly);
 

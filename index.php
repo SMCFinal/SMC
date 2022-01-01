@@ -114,15 +114,15 @@
                             <h5 align="center"><?php echo $valid_login ?></h5>
                             </div>
                             <!-- Modal -->
-                            <div class="modal fade" id="myModal" role="dialog">
+                            <div class="modal fade" id="myModal" role="dialog" style="background-color: #111316;">
                                 <div class="modal-dialog modal-lg">
                                   <div class="modal-content">
-                                    <div class="modal-header">
+                                    <div class="modal-header"  style="display: none;">
                                       <button type="button" class="close" data-dismiss="modal">&times;</button>
                                       <!-- <h4 class="modal-title">Modal Header</h4> -->
                                     </div>
-                                    <div class="modal-body">
-                                    <h5><i><span style="color: red">*</span>New Features Added!</i></h5>
+                                    <div class="modal-body" style="background-color: #111316">
+                                    <!-- <h5><i><span style="color: red">*</span>New Features Added!</i></h5>
                                       <p>List of all the new features.</p>
                                       <strong>Anethesia Module Changes!</strong><br>
                                       <ul class="list-group">
@@ -157,6 +157,12 @@
                                             OT Report Total Charges Bug Fixed!
                                             <span class="badge badge-success badge-pill"><i class="fa fa-check"></i></span>
                                           </li>
+
+                                          <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            OT Report Observation patients list added with room charges!
+                                            <span class="badge badge-success badge-pill"><i class="fa fa-check"></i></span>
+                                          </li>
+
                                         </ul>
                                         <br>
                                         <strong>Patient List!</strong>
@@ -191,10 +197,36 @@
                                             <span class="badge badge-success badge-pill"><i class="fa fa-check"></i></span>
                                           </li>
                                         </ul>
+
+                                        <ul class="list-group">
+                                          <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            Discharge Patient Charges Slip changed!
+                                            <span class="badge badge-success badge-pill"><i class="fa fa-check"></i></span>
+                                          </li>
+                                        </ul>
+
+                                        <ul class="list-group">
+                                          <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            Sum Others Bugs fixed!
+                                            <span class="badge badge-success badge-pill"><i class="fa fa-check"></i></span>
+                                          </li>
+                                        </ul> -->
+
+                                        <div style="display: flex; justify-content: center;">
+                                            <img src="hny.jpg" width="550">
+                                        </div>
                                     </div>
 
-                                    <div class="modal-footer">
-                                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    <div class="modal-footer"  style="margin-top: -3px; background-color: #111316;">
+                                        <div class="row" style="background-color: #111316;">
+                                            <div class="col-md-12">
+                                                <div style="color: white; display:flex; justify-content: center;">
+                                                    <p style="padding-right: 182px;">Happy New Year 2022 From Team IT Tech!</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                      <button style="background-color:  grey" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        <br>
                                     </div>
                                   </div>
                                 </div>
@@ -227,7 +259,7 @@
 
         <script>
             jQuery(function(){
-               jQuery('#myBtn').click();
+               jQuery('#msyBtn').click();
             });
         </script>
 

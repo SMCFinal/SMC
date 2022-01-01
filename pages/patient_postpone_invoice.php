@@ -93,7 +93,16 @@
 include '../_partials/header.php';
 ?>
 <!-- Top Bar End -->
+<style type="text/css">
+    body {
+        color: black;
+    }
 
+    .custom {
+        font-size: 13px;
+    }
+
+</style>
 <div class="page-content-wrapper " style="font-size: 80%">
     <div class="container-fluid"><br>
         <div class="row">
@@ -175,7 +184,7 @@ include '../_partials/header.php';
                                         </address>
                                             <?php 
 
-                                        echo '<textarea readonly="" class="form-control" name="doctorAdvice" rows="12" required="" style="font-size: 90%">';
+                                        echo '<textarea style="border: none; background-color: #ffffff !important" readonly="" class="form-control" name="doctorAdvice" rows="12" required="" style="font-size: 90%">';
                                             // echo "<br>";
                                             for ($i=0; $i < sizeof($explodeAdvice) ; $i++) { 
                                                 echo $explodeAdvice[$i];
@@ -214,7 +223,7 @@ include '../_partials/header.php';
                                                 <tbody>
                                                     <?php
                                                     $itrMed = 1;
-                                                    $retMedicinesQuery = mysqli_query($connect, "SELECT add_medicines.*, medicine_category.*, medicine_order.* FROM add_medicines
+                                                    $retMe0dicinesQuery = mysqli_query($connect, "SELECT add_medicines.*, medicine_category.*, medicine_order.* FROM add_medicines
                                                         INNER JOIN medicine_order ON medicine_order.med_id = add_medicines.id
                                                         INNER JOIN medicine_category ON medicine_category.id = add_medicines.medicine_category
                                                         WHERE medicine_order.patient_id = '$dischargeID'");
@@ -378,7 +387,13 @@ include '../_partials/header.php';
 
 
 
-
+                            <div class="row custom">
+                                <div class="col-md-8">
+                                    <label style="margin-bottom: 0rem !important">This is a computer generated report, therefore signatures are not required. </label><br>
+                                    <label>Developed By: <i>Asif Ullah</i></label>
+                                    <hr>
+                                </div>     
+                            </div>
                                         
                                         </form>
                           

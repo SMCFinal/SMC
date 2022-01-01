@@ -72,17 +72,17 @@ while ($rowPatientView = mysqli_fetch_assoc($selectPat)) {
                 <div class="table-responsive">
                     <table class="table mb-0">
                         <thead>
-                            <tr style="background-color:#60D09D; color:black; font-size: 18px;">
+                            <tr style="background-color:#60D09D; color:black; font-size: 20px;">
                                 <th>Patient Name</th>
                                 <td><b>'.$rowPatientView['patient_name'] . " (" . $rowPatientView['organization'] . ")" .'</b></td>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr style="font-size: 18px;">
+                            <tr style="font-size: 20px;">
                                 <th>Doctor Name</th>
                                 <td>' . $rowPatientView['name'] . '</td>
                             </tr>
-                            <tr style="font-size: 18px; background-color:#60D09D; color:black">
+                            <tr style="font-size: 20px; background-color:#60D09D; color:black">
                                 <th>Floor/Room</th>
                                 <td><b>' . $rowPatientView['floor_name'] . " <b> | </b> " . $rowPatientView['room_number'] . '</b></td>
                             </tr>

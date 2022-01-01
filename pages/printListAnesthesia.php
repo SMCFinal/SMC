@@ -11,6 +11,20 @@
     include '../_partials/header.php';
 
 ?>
+<style type="text/css">
+    body, td {
+        color: black;
+    }
+    
+    table {
+        font-size: 13px;
+    }
+
+    table { page-break-inside:auto }
+    tr    { page-break-inside:avoid; page-break-after:auto }
+    thead { display:table-header-group }
+    tfoot { display:table-footer-group }
+</style>
 <div class="page-content-wrapper " >
     <div class="container-fluid"><br>
         <div class="row">

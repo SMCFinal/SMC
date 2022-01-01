@@ -31,6 +31,11 @@
 
     include '../_partials/header.php';
 ?>
+<style type="text/css">
+    table {
+        font-size: 13px !important;
+    }
+</style>
 <!-- Top Bar End -->
 <div class="page-content-wrapper ">
     <div class="container-fluid">
@@ -52,7 +57,7 @@
                                     <!-- <h4 class="float-right font-16"><strong>MR # 12345</strong></h4> -->
                                     <h3 class="m-t-0 text-center">
                                         <img src="../assets/logo.png" alt="logo" height="60" />
-                                        <h3 align="center">SHAH MEDICAL AND SURGICAL CENTER</h3>
+                                        <h3 align="center">SHAH MEDICAL CENTER</h3>
                                     </h3>
                                 </div>
                                 <div class="row">

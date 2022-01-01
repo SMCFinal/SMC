@@ -10,6 +10,10 @@
     $currentDate = date('Y-m-d');
     
     
+     $selectObservationPatient = mysqli_query($connect, "SELECT patient_registration.patient_name, patient_registration.patient_address, patient_registration.patient_yearly_no, rooms.room_price FROM `patient_registration`
+        INNER JOIN rooms ON rooms.id = patient_registration.room_id
+        WHERE patient_registration.organization LIKE '%Private%' AND patient_registration.auto_date < CURRENT_DATE");
+
     $selectCurrentPatient = mysqli_query($connect, "SELECT patient_registration.patient_name, patient_registration.patient_address, patient_registration.patient_yearly_no, rooms.room_price, surgeries.admission_charges, surgeries.ot_charges, surgeries.surgery_name FROM `patient_registration`
         INNER JOIN rooms ON rooms.id = patient_registration.room_id
         INNER JOIN surgeries ON surgeries.id = patient_registration.patient_operation
@@ -20,11 +24,25 @@
      $selectDischargePatient = mysqli_query($connect, "SELECT discharge_patients.patient_name, discharge_patients.patient_address, discharge_patients.patient_yearly_no, rooms.room_price, surgeries.admission_charges, surgeries.ot_charges, surgeries.surgery_name FROM `discharge_patients`
         INNER JOIN rooms ON rooms.id = discharge_patients.room_id
         INNER JOIN surgeries ON surgeries.id = discharge_patients.patient_operation
-        WHERE DATE(discharge_patients.patient_doa) LIKE '%$currentDate%' AND discharge_patients.organization LIKE '%Private%';
+        WHERE DATE(discharge_patients.auto_date) LIKE '%$currentDate%' AND discharge_patients.organization LIKE '%Private%';
             ");
 
 include '../_partials/header.php';
 ?>
+<style type="text/css">
+    body, td {
+        color: black;
+    }
+    
+    table {
+        font-size: 13px;
+    }
+
+    table { page-break-inside:auto }
+    tr    { page-break-inside:avoid; page-break-after:auto }
+    thead { display:table-header-group }
+    tfoot { display:table-footer-group }
+</style>
 <!-- Top Bar End -->
 <div class="page-content-wrapper ">
     <div class="container-fluid">
@@ -56,13 +74,75 @@ include '../_partials/header.php';
                                 </div>
 
                                 <?php
+                                    $rowCountObservation = mysqli_num_rows($selectObservationPatient); 
+                                    if ($rowCountObservation > 0) {
+                                ?>
+                                <div class="custom">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <h6 align="center">Old Patients</h6>
+                                        <div class="table-responsive">
+                                            <table class="table mb-0">
+                                                <thead>
+                                                    <tr>
+                                                        <th>#</th>
+                                                        <th>Name</th>
+                                                        <th>MR No</th>
+                                                        <th>Room</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <?php
+                                                    $observationPatientSum = 0;
+
+                                                    $itrCurrent = 1;
+                                                    while ($rowObservation = mysqli_fetch_assoc($selectObservationPatient)) {
+                                                        echo '
+                                                        <tr>
+                                                            <td>'.$itrCurrent++.'. </td>
+                                                            <td style="width: 15%">'.$rowObservation['patient_name'].'</td>
+                                                            <td>'.$rowObservation['patient_yearly_no'].'</td>
+                                                            <td>'.$rowObservation['room_price'].'</td>
+                                                            ';
+
+                                                            $observationPatientSum = $observationPatientSum + $rowObservation['room_price'];
+                                                        echo '
+                                                        </tr>
+                                                        ';
+                                                    }
+                                                    ?>
+                                                    <!-- <tr>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th style="text-align: right;">Total: </th>
+                                                        <th><?php echo $currentSumPriceRoom ?></th>
+                                                        <th><?php echo $currentSumPriceAdmission ?></th>
+                                                        <th><?php echo $currentSumPriceOT ?></th>
+                                                    </tr> -->
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <?php
+                                    }else {
+                                        echo '
+                                        <div class="row" style="margin-top: 80px !important">
+                                            <div class="col-12">
+                                                <h6 align="center">No Old Patients</h6>
+                                            </div>
+                                        </div>
+                                        ';
+                                    } 
                                     $rowCountCurrent = mysqli_num_rows($selectCurrentPatient); 
                                     if ($rowCountCurrent > 0) {
                                 ?>
 
                                 <div class="row">
                                     <div class="col-12">
-                                        <h6 align="center">Current Patients</h6>
+                                        <h6 align="center">Admitted Patients</h6>
                                         <div class="table-responsive">
                                             <table class="table mb-0">
                                                 <thead>
@@ -123,7 +203,7 @@ include '../_partials/header.php';
                                         echo '
                                         <div class="row" style="margin-top: 80px !important">
                                             <div class="col-12">
-                                                <h6 align="center">No Current Patients</h6>
+                                                <h6 align="center">No Admitted Patients</h6>
                                             </div>
                                         </div>
                                         ';
@@ -213,14 +293,14 @@ include '../_partials/header.php';
                                                     <?php
                                                         $rowCountCurrent = mysqli_num_rows($selectCurrentPatient);
                                                         $rowCountDischarge = mysqli_num_rows($selectDischargePatient);
-                                                        if ($rowCountDischarge > 0 && $rowCountCurrent > 0) {
+                                                        if ($rowCountDischarge > 0 OR $rowCountCurrent > 0 OR $rowCountObservation > 0) {
                                                     ?>
                                                     <tr>
                                                         <th></th>
                                                         <th></th>
                                                         <th></th>
                                                         <th style="text-align: right;">Total: </th>
-                                                        <th>Rooms: <?php echo $dischargeSumPriceRoom + $currentSumPriceRoom ?></th>
+                                                        <th>Rooms: <?php echo $dischargeSumPriceRoom + $currentSumPriceRoom + $observationPatientSum  ?></th>
                                                         <th>Admission: <?php echo $dischargeSumPriceAdmission + $currentSumPriceAdmission ?></th>
                                                         <th>OT: <?php echo $dischargeSumPriceOT + $currentSumPriceOT ?></th>
                                                     </tr>
@@ -232,7 +312,7 @@ include '../_partials/header.php';
                                                         <th></th>
                                                         <th></th>
                                                         <th style="text-align: right;">Sub Total: </th>
-                                                        <th style="text-align:center;"><?php echo $dischargeSumPriceRoom + $dischargeSumPriceAdmission + $dischargeSumPriceOT + $currentSumPriceRoom + $currentSumPriceAdmission + $currentSumPriceOT ?></th>
+                                                        <th style="text-align:center;"><?php echo $dischargeSumPriceRoom + $dischargeSumPriceAdmission + $dischargeSumPriceOT + $currentSumPriceRoom + $currentSumPriceAdmission + $currentSumPriceOT + $observationPatientSum ?></th>
                                                     </tr>
                                                     <?php 
                                                         }elseif ($rowCountDischarge > 0) {
@@ -279,12 +359,35 @@ include '../_partials/header.php';
                                                         <th><?php echo $currentSumPriceRoom + $currentSumPriceAdmission + $currentSumPriceOT ?></th>
                                                     </tr>
                                                     <?php      
+                                                        }elseif ($rowCountObservation > 0) {
+                                                    ?>
+                                                    <tr>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th style="text-align: center;"></th>
+                                                        <th style="text-align: center;"></th>
+                                                        <th style="text-align: right;">Total: </th>
+                                                        <th style="text-align: ;"><?php echo $observationPatientSum ?></th>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th style="text-align: right;">Sub Total: </th>
+                                                        <th><?php echo $observationPatientSum ?></th>
+                                                    </tr>
+                                                    <?php      
                                                         }
                                                     ?>
                                                 </tbody>
                                             </table>
                                         </div>
                                     </div>
+                                </div>
                                 </div>
                             </div>
                         </div>

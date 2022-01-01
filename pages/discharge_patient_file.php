@@ -73,6 +73,10 @@
         $p_anes_charges = $_POST['p_anes_charges'];
         $p_organization = $_POST['p_organization'];
 
+        $dateCustomForDischarge = date_default_timezone_set('Asia/Karachi');
+        $autoDateForDischarge = date('Y-m-d');
+
+
         $p_advance = $_POST['p_advance'];
         if (empty($p_advance)) {
             $p_advance = '0';
@@ -80,8 +84,8 @@
         $category = 'dischargePatient';
         
         $dischargePatientTable = mysqli_query($connect, "INSERT INTO `discharge_patients`
-            (`patient_name`, `patient_age`, `patient_gender`, `patient_address`, `patient_cnic`, `patient_contact`, `city_id`, `room_id`, `patient_doa`, `patient_doop`, `patient_disease`, `patient_operation`, `patient_consultant`, `patient_yearly_no`, `attendent_name`, `consultant_charges`, `anasthetic_name`, `anesthesia_charges`, `category`, `pat_id`, `advance_payment`, `organization`) VALUES 
-            ('$p_name', '$p_age', '$p_gender', '$p_address', '$p_cnic', '$p_contact', '$p_city', '$p_room', '$p_doa', '$p_doop', '$p_disease', '$p_operation', '$p_consultant', '$p_yearly', '$p_attendent', '$p_consultant_charges', '$p_anes', '$p_anes_charges', '$category', '$id', '$p_advance', '$p_organization')");
+            (`patient_name`, `patient_age`, `patient_gender`, `patient_address`, `patient_cnic`, `patient_contact`, `city_id`, `room_id`, `patient_doa`, `patient_doop`, `patient_disease`, `patient_operation`, `patient_consultant`, `patient_yearly_no`, `attendent_name`, `consultant_charges`, `anasthetic_name`, `anesthesia_charges`, `category`, `pat_id`, `advance_payment`, `organization`, `auto_date`) VALUES 
+            ('$p_name', '$p_age', '$p_gender', '$p_address', '$p_cnic', '$p_contact', '$p_city', '$p_room', '$p_doa', '$p_doop', '$p_disease', '$p_operation', '$p_consultant', '$p_yearly', '$p_attendent', '$p_consultant_charges', '$p_anes', '$p_anes_charges', '$category', '$id', '$p_advance', '$p_organization', '$autoDateForDischarge')");
 
         $updatePharmacyAmount = mysqli_query($connect, "UPDATE pharmacy_amount SET patient_payment_status = '0' WHERE patient_id = '$pat_id'");
 

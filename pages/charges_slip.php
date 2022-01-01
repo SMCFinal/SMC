@@ -28,19 +28,27 @@
 
 include '../_partials/header.php';
 ?>
+<style type="text/css">
+    body {
+        color: black;
+    }
+
+    .custom {
+        font-size: 13px;
+    }
+
+</style>
 <div class="page-content-wrapper " >
     <div class="container-fluid"><br>
         <div class="row">
             <div class="col-sm-12">
                 <h5 class="page-title d-inline" >Patient Discharge Slip</h5>
-                <a type="button" href="#" id="printButton"   class="btn btn-success waves-effect waves-light float-right btn-lg mb-3"><i class="fa fa-print"></i> Print</a>
+                <a type="button" href="#" id="printButton" class="btn btn-success waves-effect waves-light float-right btn-lg mb-3"><i class="fa fa-print"></i> Print</a>
             </div>
         </div>
         <!-- end row -->
         <div class="row" id="printElement">
             <div class="col-12">
-                <!-- <div class="card m-b-30" > -->
-                    <!-- <div class="card-body" > -->
                         <form method="POST">
                             <div class="row">
                                 <div class="col-12">
@@ -56,31 +64,16 @@ include '../_partials/header.php';
 
                                     <hr>
 
-                                    <div class="row">
+                                    <div class="row custom" style="margin-bottom: -20px">
                                         <div class="col-6">
                                             <address>
                                                 <strong><u>Patient Info</u></strong><br>
                                                 <b>Patient Name: </b><?php echo $fetch_selectPatient['patient_name'] ?><br>
-                                                <b>Patient Address: </b><?php echo $fetch_selectPatient['patient_address'] ?><br>
-                                                <b>Patient Contact: </b><?php echo $fetch_selectPatient['patient_contact'] ?><br>
-                                                <b>Patient CNIC: </b><?php echo $fetch_selectPatient['patient_cnic'] ?><br>
-                                                <b>Patient Gender: </b>
-                                                <?php 
-                                                    if ($fetch_selectPatient['patient_gender'] == 1 ) {
-                                                        echo 'Male';
-                                                    }elseif ($fetch_selectPatient['patient_gender'] == 2) {
-                                                        echo 'Female';
-                                                    }else {
-                                                        echo 'Other';
-                                                    } 
-                                                ?><br>
+                                                <b>Room No. : </b><?php echo $fetch_selectPatient['room_number'] ?><br>
                                             </address>
                                         </div>
                                         <div class="col-6 text-right">
-                                            <address>
-                                                <b>Doctor Name: </b><?php echo $fetch_selectPatient['name'] ?><br>
-                                                <b>Room No. : </b><?php echo $fetch_selectPatient['room_number'] ?><br>
-                                                <b>Patient Case: </b><?php echo $fetch_selectPatient['patient_disease'] ?><br>
+                                            <address><br>
                                                 <b>Date Of Admission: </b>
                                                 <?php
                                                 
@@ -97,7 +90,6 @@ include '../_partials/header.php';
                                                 ?>
                                                 <br>
                                                 <b>Date Of Discharge: </b><?php echo $dateOfDischarge ?><br>
-                                                <!-- <b>Date Of Discharge: </b><?php echo $fetch_retPatDetail = date('d/M/Y h:i:s A') ?><br> -->
                                             </address>
                                         </div>
                                     </div>
@@ -116,113 +108,122 @@ include '../_partials/header.php';
                                     $fetch_queryDischargePatientAllData = mysqli_fetch_assoc($queryDischargePatientAllData);
                                 ?>
 
-
-                                <div class="row">
-                                    <div class="col text-right">
+                                <div class="row custom">
+                                    <?php
+                                        if ($fetch_queryDischargePatientAllData['advance_payment'] !== '0') {
+                                    ?>
+                                    <div class="col-md-4" >
                                         <label> Advance Charges:</label>
-                                    </div>
-                                    
-                                    <div class="col-md-3">
                                         <span><?php echo "Rs. ".$fetch_queryDischargePatientAllData['advance_payment'] ?></span>
                                     </div>
-                                </div><br>
+                                    <?php
+                                        }
 
-                                <div class="row">
-                                    <div class="col text-right">
+                                        if ($fetch_queryDischargePatientAllData['med_charges'] !== '0') {
+                                    ?>
+
+                                    <div class="col-md-4" >
                                         <label> Medicines Charges:</label>
-                                    </div>
-                                    
-                                    <div class="col-md-3">
                                         <span><?php echo "Rs. ".$fetch_queryDischargePatientAllData['med_charges'] ?></span>
                                     </div>
-                                </div>
-                                <br />
-                                <div class="row">
-                                    <div class="col text-right">
-                                        <label> Room Charges:</label>
-                                    </div>
+
+                                    <?php
+                                        }
+
+                                        if ($fetch_queryDischargePatientAllData['room_charges'] !== '0') {
+                                    ?>
                                     
-                                    <div class="col-md-3">
+                                    <div class="col-md-4">
+                                        <label> Room Charges:</label>
                                         <span><?php echo "Rs. ".$fetch_queryDischargePatientAllData['room_charges'] ?></span>
                                     </div>
-                                </div>
-                                <br />
-                                <div class="row">
-                                    <div class="col text-right">
+
+                                    <?php
+                                        }
+
+                                        if ($fetch_queryDischargePatientAllData['ot_charges'] !== '0') {
+                                    ?>
+
+                                    <div class="col-md-4" >
                                         <label> OT Charges:</label>
-                                    </div>
-                                    
-                                    <div class="col-md-3">
                                         <span><?php echo "Rs. ".$fetch_queryDischargePatientAllData['ot_charges'] ?></span>
                                     </div>
-                                </div>
-                                <br />
-                                <div class="row">
-                                    <div class="col text-right">
+
+                                    <?php
+                                        }
+
+                                        if ($fetch_queryDischargePatientAllData['hospital_charges'] !== '0') {
+                                    ?>
+
+                                    <div class="col-md-4" >
                                         <label> Admission Charges:</label>
-                                    </div>
-                                   
-                                    <div class="col-md-3">
                                         <span><?php echo "Rs. ".$fetch_queryDischargePatientAllData['hospital_charges'] ?></span>
                                     </div>
-                                </div>
-                                <br />
-                                <div class="row">
-                                    <div class="col text-right">
+
+                                    <?php
+                                        }
+
+                                        if ($fetch_queryDischargePatientAllData['lab_charges'] !== '0') {
+                                    ?>
+
+                                    <div class="col-md-4">
                                         <label> Lab Charges:</label>
-                                    </div>
-                                    
-                                    <div class="col-md-3">
                                         <span><?php echo "Rs. ".$fetch_queryDischargePatientAllData['lab_charges'] ?></span>
                                     </div>
-                                </div>
-                                <br />
-                                
-                                <div class="row">
-                                    <div class="col text-right">
+
+                                    <?php
+                                        }
+
+                                        if ($fetch_queryDischargePatientAllData['dr_charges'] !== '0') {
+                                    ?>
+
+                                    <div class="col-md-4" >
                                         <label> Doctor Charges:</label>
-                                    </div>
-                                    <div class="col-md-3">
                                         <span><?php echo "Rs. ".$fetch_queryDischargePatientAllData['dr_charges'] ?></span>
                                     </div>
-                                </div>
-                                <br />
-                                
-                                <div class="row">
-                                    <div class="col text-right">
+
+                                    <?php
+                                        }
+
+                                        if ($fetch_queryDischargePatientAllData['anesthetic_charges'] !== '0') {
+                                    ?>
+
+                                    <div class="col-md-4" >
                                         <label> Anesthesia Charges:</label>
-                                    </div>
-                                    
-                                    <div class="col-md-3">
                                         <span><?php echo "Rs. ".$fetch_queryDischargePatientAllData['anesthetic_charges'] ?></span>
                                     </div>
-                                </div>
-                                <br />
-                                
-                                <div class="row">
-                                    <div class="col text-right">
-                                        <label> Visit Charges:</label>
-                                    </div>
-                                    
-                                    <div class="col-md-3">
-                                        <span><?php echo "Rs. ".$fetch_queryDischargePatientAllData['visit_charges'] ?></span>
 
+                                    <?php
+                                        }
+
+                                        if ($fetch_queryDischargePatientAllData['visit_charges'] !== '0') {
+                                    ?>
+
+                                    <div class="col-md-4">
+                                        <label> Visit Charges:</label>
+                                        <span><?php echo "Rs. ".$fetch_queryDischargePatientAllData['visit_charges'] ?></span>
+                                    </div>
+
+                                    <?php
+                                        }
+                                    ?>
+                                </div>
+
+                                <div class="row custom">
+                                    <div class="col-md-4"></div>
+                                    <div class="col-md-4"></div>
+                                    <div class="col-md-4">
+                                        <label> Total Charges:</label>
+                                         <?php $totalPaidedAmount = $fetch_queryDischargePatientAllData['amount_paid'] - $fetch_queryDischargePatientAllData['advance_payment']; ?>
+                                        <span><strong><?php echo "Rs. ".$totalPaidedAmount ?></strong></span>
                                     </div>
                                 </div>
-                                <br />
-                                <div class="row">
-                                    <div class="col text-right">
-                                        <label style="font-size: 100%"> Total Charges:</label>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <?php $totalPaidedAmount = $fetch_queryDischargePatientAllData['amount_paid'] - $fetch_queryDischargePatientAllData['advance_payment']; ?>
-                                        <span style="font-size: 100%"><strong><?php echo "Rs. ".$totalPaidedAmount ?></strong></span>
-                                    </div>
-                                </div>
-                                <br>
-                                <div class="row">                                
-                                    <div class="col-md-12">
-                                        <label>Signature: </label><span>______________________</span>
+
+                                <div class="row custom">
+                                    <div class="col-md-8">
+                                        <label style="margin-bottom: 0rem !important">This is a computer generated report, therefore signatures are not required. </label><br>
+                                        <label>Developed By: <i>Asif Ullah</i></label>
+                                        <hr>
                                     </div>     
                                 </div>
                             </form>    

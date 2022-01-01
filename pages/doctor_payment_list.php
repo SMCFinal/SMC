@@ -46,7 +46,7 @@ include '../_partials/header.php';
                                     	echo '
                                         <tr>
                                             <td>'.$iteration++.'</td>
-                                            <td>Dr. '.$rowDoctorData['name'].'</td>
+                                            <td>'.$rowDoctorData['name'].'</td>
                                             <td>'.$rowDoctorData['total_surgery'].'</td>
                                             <td>'.$rowDoctorData['total_visit'].'</td>
                                             <td>'.$rowDoctorData['total_paid'].'</td>';

@@ -24,7 +24,7 @@
          INNER JOIN area ON area.id = discharge_patients.city_id
          INNER JOIN rooms ON rooms.id = discharge_patients.room_id
          INNER JOIN surgeries ON surgeries.id = discharge_patients.patient_operation
-            WHERE DATE(discharge_patients.auto_date)  = '$currentDate'
+            WHERE DATE(discharge_patients.patient_doop) LIKE '%$currentDate%'
             ");
 
      $selectPostponePatient = mysqli_query($connect, "SELECT area.area_name, postpone_patient.patient_yearly_no, postpone_patient.patient_name, postpone_patient.patient_age, postpone_patient.patient_doa,  postpone_patient.auto_date, postpone_patient.patient_address, postpone_patient.patient_consultant, staff_members.name,surgeries.surgery_name, rooms.room_number FROM postpone_patient 
@@ -32,12 +32,32 @@
         INNER JOIN area ON area.id = postpone_patient.city_id
         INNER JOIN rooms ON rooms.id = postpone_patient.room_id
         INNER JOIN surgeries ON surgeries.id = postpone_patient.patient_operation
-            WHERE DATE(postpone_patient.auto_date)  = '$currentDate'
+            WHERE DATE(postpone_patient.patient_doa)  = '$currentDate'
             ");
 
 
 include '../_partials/header.php';
 ?>
+<style>
+
+    body, td {
+        color: black;
+    }
+    
+    table {
+        font-size: 12px !important;
+    }
+
+    table { page-break-inside:auto }
+    tr    { page-break-inside:avoid; page-break-after:auto }
+    thead { display:table-header-group }
+    tfoot { display:table-footer-group }
+    
+    .custom {
+        font-size: 12px;
+        color: black;
+    }
+</style>
 <!-- Top Bar End -->
 <div class="page-content-wrapper ">
     <div class="container-fluid">
@@ -49,7 +69,7 @@ include '../_partials/header.php';
             </div>
         </div>
         <!-- end row -->
-        <div class="row">
+        <div class="row custom">
             <div class="col-12">
                 <!-- <div class="card m-b-30" > -->
                     <!-- <div class="card-body"> -->
@@ -59,7 +79,7 @@ include '../_partials/header.php';
                                     <!-- <h4 class="float-right font-16"><strong>Current Patients</strong></h4> -->
                                     <h3 class="m-t-0 text-center">
                                         <img src="../assets/logo.png" alt="logo" height="60" />
-                                        <h3 align="center">SHAH MEDICAL AND SERGICAL CENTER</h3>
+                                        <h5 align="center">SHAH MEDICAL CENTER</h5>
                                         <?php 
                                             $dateCustom = date_default_timezone_set('Asia/Karachi');
                                             $currentDateCustom = date('Y-m-d, "l"');
@@ -69,6 +89,7 @@ include '../_partials/header.php';
                                 </div>
 
                                 <?php
+                                    // echo $currentDate;
                                     $rowCountCurrent = mysqli_num_rows($selectCurrentPatient); 
                                     if ($rowCountCurrent > 0) {
                                 ?>
@@ -84,7 +105,6 @@ include '../_partials/header.php';
                                                         <th>MR No</th>
                                                         <th>Name</th>
                                                         <th>Age</th>
-                                                        <th>Area</th>
                                                         <th>Org</th>
                                                         <th>Address</th>
                                                         <th>Consultant</th>
@@ -103,7 +123,6 @@ include '../_partials/header.php';
                                                             <td>'.$rowCurrent['patient_yearly_no'].'</td>
                                                             <td>'.$rowCurrent['patient_name'].'</td>
                                                             <td>'.$rowCurrent['patient_age'].'</td>
-                                                            <td>'.$rowCurrent['area_name'].'</td>
                                                             <td>'.$rowCurrent['organization'].'</td>
                                                             <td>'.$rowCurrent['patient_address'].'</td>
                                                             <td>'.$rowCurrent['name'].'</td>
@@ -145,7 +164,6 @@ include '../_partials/header.php';
                                                         <th>MR No</th>
                                                         <th>Name</th>
                                                         <th>Age</th>
-                                                        <th>Area</th>
                                                         <th>Org</th>
                                                         <th>Address</th>
                                                         <th>Consultant</th>
@@ -164,7 +182,6 @@ include '../_partials/header.php';
                                                             <td>'.$rowDischarge['patient_yearly_no'].'</td>
                                                             <td>'.$rowDischarge['patient_name'].'</td>
                                                             <td>'.$rowDischarge['patient_age'].'</td>
-                                                            <td>'.$rowDischarge['area_name'].'</td>
                                                             <td>'.$rowDischarge['organization'].'</td>
                                                             <td>'.$rowDischarge['patient_address'].'</td>
                                                             <td>'.$rowDischarge['name'].'</td>
@@ -206,8 +223,6 @@ include '../_partials/header.php';
                                                         <th>MR No</th>
                                                         <th>Name</th>
                                                         <th>Age</th>
-                                                        <th>Area</th>
-                                                        <th>Org</th>
                                                         <th>Address</th>
                                                         <th>Consultant</th>
                                                         <th>Room</th>
@@ -225,7 +240,6 @@ include '../_partials/header.php';
                                                             <td>'.$rowPostpone['patient_yearly_no'].'</td>
                                                             <td>'.$rowPostpone['patient_name'].'</td>
                                                             <td>'.$rowPostpone['patient_age'].'</td>
-                                                            <td>'.$rowPostpone['area_name'].'</td>
                                                             <td>'.$rowPostpone['patient_address'].'</td>
                                                             <td>'.$rowPostpone['name'].'</td>
                                                             <td>'.$rowPostpone['room_number'].'</td>

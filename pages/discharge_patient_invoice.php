@@ -29,6 +29,16 @@
     include '../_partials/header.php';
 
 ?>
+<style type="text/css">
+    body {
+        color: black;
+    }
+
+    .custom {
+        font-size: 13px;
+    }
+
+</style>
 <div class="page-content-wrapper " >
     <div class="container-fluid"><br>
         <div class="row">
@@ -148,6 +158,14 @@
                                     <label>.دن بعد ٹانکیں نکلوائیں</label><span> "<?php echo $fetch_retPatDetailsData['stitchesDays'] ?></span>"
                                 </div>  
                             <hr>
+
+                            <div class="row custom">
+                                <div class="col-md-8">
+                                    <label style="margin-bottom: 0rem !important">This is a computer generated report, therefore signatures are not required. </label><br>
+                                    <label>Developed By: <i>Asif Ullah</i></label>
+                                    <hr>
+                                </div>     
+                            </div>
                             </form>
                     <!-- </div> -->
                 <!-- </div>  -->

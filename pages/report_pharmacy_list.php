@@ -18,6 +18,11 @@ WHERE pharmacy_amount.order_status = '0' AND  DATE(pharmacy_amount.dateoforder) 
 
 include '../_partials/header.php';
 ?>
+<style type="text/css">
+    table {
+        font-size: 13px !important;
+    }
+</style>
 <!-- Top Bar End -->
 <div class="page-content-wrapper ">
     <div class="container-fluid">
@@ -39,7 +44,7 @@ include '../_partials/header.php';
                                     <!-- <h4 class="float-right font-16"><strong>MR # 12345</strong></h4> -->
                                     <h3 class="m-t-0 text-center">
                                         <img src="../assets/logo.png" alt="logo" height="60" />
-                                        <h3 align="center">SHAH MEDICAL AND SERGICAL CENTER</h3>
+                                        <h3 align="center">SHAH MEDICAL CENTER</h3>
                                         <h4 class="text-center font-16">Address: Near Center Hospital, Saidu Sharif Swat.</h4>
                                         <div class="d-print-none mo-mt-2">
                                            
@@ -47,7 +52,7 @@ include '../_partials/header.php';
                                         <br>
                                     </h3>
                                 </div>
-                                <hr>
+                                <!-- <hr> -->
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="table-responsive">

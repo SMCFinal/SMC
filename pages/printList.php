@@ -8,14 +8,30 @@
     $id = $_GET['d_id'];
     $ref = $_GET['refNo'];
 
+    $staff = mysqli_query($connect, "SELECT * FROM `staff_members` WHERE id = '$id'");
+    $staff_fetch = mysqli_fetch_assoc($staff);
     include '../_partials/header.php';
 
 ?>
+<style type="text/css">
+    body, td {
+        color: black;
+    }
+    
+    table {
+        font-size: 13px;
+    }
+
+    table { page-break-inside:auto }
+    tr    { page-break-inside:avoid; page-break-after:auto }
+    thead { display:table-header-group }
+    tfoot { display:table-footer-group }
+</style>
 <div class="page-content-wrapper " >
     <div class="container-fluid"><br>
         <div class="row">
             <div class="col-sm-12">
-                <h5 class="page-title d-inline" >Doctor Charges</h5>
+                <h5 class="page-title d-inline">Doctor Charges</h5>
                 <a type="button" href="#" id="printButton"   class="btn btn-success waves-effect waves-light float-right btn-lg mb-3"><i class="fa fa-print"></i> Print</a>
             </div>
         </div>
@@ -31,6 +47,7 @@
                                         <h3 class="m-t-0 text-center">
                                             <img src="../assets/logo.png" alt="logo" height="60" />
                                             <h3 align="center" style="font-size: 130%">SHAH MEDICAL CENTER</h3>
+                                            <p class="text-center"><b><?php echo $staff_fetch['name'] ?></b></p>
                                             <!-- <br> -->
                                         </h3>
                                     </div>
@@ -41,7 +58,7 @@
                                             <!-- <div class="card m-b-30"> -->
                                                 <form method="POST">
                                                 <!-- <div class="card-body"> -->
-                                                    <div class="table-responsive" >
+                                                    <div class="table-responsive table-bordered" >
                                                         <table class="table mb-0">
                                                             <thead>
                                                                 <tr>
@@ -104,19 +121,6 @@
 
                                                                 echo '
                                                                     <tr>
-                                                                        <td style="border-top:none; border-bottom:none"></td>
-                                                                        <td style="border-top:none; border-bottom:none"></td>
-                                                                        <td style="border-top:none; border-bottom:none"></td>
-                                                                        <td style="border-top:none; border-bottom:none"></td>
-                                                                        <td style="border-top:none; border-bottom:none"></td>
-                                                                        <td style="border-top:none; border-bottom:none" align="right"></td>
-                                                                        <td style="border-top:none; border-bottom:none"></td>
-                                                                        <td style="border-top:none; border-bottom:none"></td>
-                                                                    </tr>
-                                                                ';
-
-                                                                echo '
-                                                                    <tr>
                                                                         <td></td>
                                                                         <td></td>
                                                                         <td></td>
@@ -140,7 +144,6 @@
 
                                 </div>
                             </div>
-                            <hr>
                             </form>
                     <!-- </div> -->
                 <!-- </div>  -->
