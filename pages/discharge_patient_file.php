@@ -15,6 +15,17 @@
 
     $fetch_selectPatient = mysqli_fetch_assoc($selectPatient);
     $surgeryId = $fetch_selectPatient['patient_operation'];
+
+    $sur_details = mysqli_query($connect, "SELECT patient_registration.id, patient_registration.patient_operation, surgeries.surgery_name FROM `patient_registration`
+        INNER JOIN staff_members ON staff_members.id = patient_registration.patient_consultant
+        INNER JOIN surgeries ON surgeries.id = patient_registration.patient_operation
+
+        WHERE patient_registration.id = '$id'");
+
+    $fetch_surg_details = mysqli_fetch_assoc($sur_details);
+
+
+
     if (isset($_POST['makeSlip'])) {
         $id = $_POST['pat_id'];
         $pat_id = $_POST['pat_id'];
@@ -205,7 +216,7 @@ include '../_partials/header.php';
                                         <address>
                                             <b>Doctor Name: </b><?php echo $fetch_selectPatient['name'] ?><br>
                                             <b>Room No. : </b><?php echo $fetch_selectPatient['room_number'] ?><br>
-                                            <b>Patient Case: </b><?php echo $fetch_selectPatient['patient_disease'] ?><br>
+                                            <b>Surgery: </b><?php echo $fetch_surg_details['surgery_name'] ?><br>
                                             <b>Date Of Admission: </b>
                                             <?php
                                             

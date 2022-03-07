@@ -26,6 +26,17 @@
     $retPatDetail = mysqli_query($connect, "SELECT * FROM pat_details WHERE pat_id = '$patIdFooter'");
     $fetch_retPatDetail = mysqli_fetch_assoc($retPatDetail);
 
+
+    $surgeryId = $fetch_selectPatient['patient_operation'];
+
+    $sur_details = mysqli_query($connect, "SELECT discharge_patients.id, discharge_patients.patient_operation, surgeries.surgery_name FROM `discharge_patients`
+        INNER JOIN surgeries ON surgeries.id = discharge_patients.patient_operation
+
+        WHERE discharge_patients.id = '$id'");
+
+    $fetch_surg_details = mysqli_fetch_assoc($sur_details);
+
+
     include '../_partials/header.php';
 
 ?>
@@ -89,7 +100,7 @@
                                             <address>
                                                 <b>Doctor Name: </b><?php echo $fetch_selectPatient['name'] ?><br>
                                                 <b>Room No. : </b><?php echo $fetch_selectPatient['room_number'] ?><br>
-                                                <b>Patient Case: </b><?php echo $fetch_selectPatient['patient_disease'] ?><br>
+                                                <b>Surgery: </b><?php echo $fetch_surg_details['surgery_name'] ?><br>
                                                 <b>Date Of Admission: </b>
                                                 <?php
                                                 
@@ -199,4 +210,4 @@
     document.getElementById('printButton').addEventListener ("click", print);
 </script>
 </body>
-</html>12
+</html>
