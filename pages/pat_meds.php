@@ -231,7 +231,19 @@
                             <!-- <div style="position: absolute; padding-left: 50%; margin-top: 660%;"> -->
                             <div style="position: absolute; padding-left: 15%; margin-top: 250%;">
                                 <p align="center" style="font-size: 150%;">
-                                    <b><?php echo $fetch_selectPatient['organization'] ?></b>
+                                    <b>
+                                    <?php
+                                        $dis = $fetch_selectPatient['organization'];
+                                        $card = "Sehat";
+                                        if (strpos($dis, $card) !== false) {
+                                            echo "Sehat Card";
+                                            // echo $dis;
+                                        }else {
+                                            // echo "Sehat Card";
+                                            echo $dis;        
+                                        }
+                                        ?>
+                                    </b>
                                 </p>
                                 <img src="../assets/triangle-removebg-preview.png" style="" width="100">
                                 <h3 align="center" style="font-size: 90%">Diagnosis</h3>
@@ -241,8 +253,10 @@
                             <!-- <div style="position: absolute; margin-top: 920%;"> -->
                             <div style="position: absolute; margin-top: 375%;">
                                 <p style="padding-left: 0 !important; font-size: 110%;">
-                                    <img src="../assets/arrow.png" width="40">
-                                    <?php echo $fetch_selectPatient['patient_disease'] ?></p>
+                                    • <?php 
+                                        echo $fetch_selectPatient['patient_disease'];
+                                     ?>
+                                </p>
                             </div>
                         </div>
 

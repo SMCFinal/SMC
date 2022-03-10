@@ -57,7 +57,7 @@
                                         <tr>
                                             <td>'.$iteration++.'</td>
                                             <td>
-                                                <a href="pat_meds.php?id='.$rowPatients['id'].' type="button" style="background-color: #efefef; box-shadow: 3px 3px 3px 3px #ccc;" class="btn">
+                                                <a href="pat_meds.php?id='.$rowPatients['id'].'" type="button" style="background-color: #efefef; box-shadow: 3px 3px 3px 3px #ccc;" class="btn">
                                                 '.$rowPatients['patient_yearly_no'].'
                                                 </a>
                                             </td>
