@@ -56,7 +56,11 @@
                                     echo '
                                         <tr>
                                             <td>'.$iteration++.'</td>
-                                            <td>'.$rowPatients['patient_yearly_no'].'</td>
+                                            <td>
+                                                <a href="pat_meds.php?id='.$rowPatients['id'].' type="button" style="background-color: #efefef; box-shadow: 3px 3px 3px 3px #ccc;" class="btn">
+                                                '.$rowPatients['patient_yearly_no'].'
+                                                </a>
+                                            </td>
                                             <td>'.$rowPatients['patient_name'].'</td>
                                             <td>'.$rowPatients['organization'].'</td>';
                                             $dateAdmisison = $rowPatients['patient_doa']; 
@@ -66,11 +70,11 @@
                                             <td>'.$rowPatients['patient_disease'].'</td>
                                             <td>'.$rowPatients['name'].'</td>
                                             <td class="text-center">
-                                            <a href="changeRoom.php?id='.$rowPatients['id'].'" type="button" class="btn text-white btn-warning waves-effect waves-light btn-sm">Edit Room</a>&nbsp;&nbsp;&nbsp;
+                                            <a href="changeRoom.php?id='.$rowPatients['id'].'" type="button" class="btn text-white btn-warning waves-effect waves-light btn-sm"> <i class="fa fa-pencil"></i>&nbsp;Room</a>&nbsp;&nbsp;&nbsp;
                                             </td>
 
                                             <td class="text-center">
-                                            <a href="change_consultant.php?id='.$rowPatients['id'].'" type="button" class="btn text-white btn-success waves-effect waves-light btn-sm">Edit Surgery</a>&nbsp;&nbsp;&nbsp;
+                                            <a href="change_consultant.php?id='.$rowPatients['id'].'" type="button" class="btn text-white btn-success waves-effect waves-light btn-sm"><i class="fa fa-pencil"></i>&nbsp; Surgery</a>&nbsp;&nbsp;&nbsp;
                                             </td>
 
 
@@ -101,12 +105,12 @@
                             </tbody>
                         </table>
                         <script type="text/javascript">
-                        function deleteme(delid,room){
-                          if (confirm("Do you want to PostPone Patient?")) {
-                            window.location.href = 'temporary_disable.php?del_id='+delid+'&room_id='+room+'';
-                            return true;
-                          }
-                        }
+                            function deleteme(delid,room){
+                              if (confirm("Do you want to PostPone Patient?")) {
+                                window.location.href = 'temporary_disable.php?del_id='+delid+'&room_id='+room+'';
+                                return true;
+                              }
+                            }
                       </script>
                     </div>
                 </div>
