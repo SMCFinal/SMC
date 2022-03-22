@@ -128,9 +128,10 @@ include '../_partials/header.php';
                                     <!-- <h4 class="float-right font-16"><strong>MR # 12345</strong></h4> -->
                                     <h3 class="m-t-0 text-center">
                                         <img src="../assets/logo.png" alt="logo" height="60" />
-                                        <h3 align="center" style="font-size: 130%">SHAH MEDICAL AND SERGICAL CENTER</h3>
-                                        <h4 class="text-center font-16" style="font-size: 110%">Address: Near Center Hospital, Saidu Sharif Swat.</h4>
-                                        <h4 class="float-right font-16" style="font-size: 80%"><strong>M.R No # <?php echo $fetch_selectPatient['patient_yearly_no'] ?></strong></h4>
+                                        <h3 align="center" style="font-size: 130%">SHAH MEDICAL CENTER</h3>
+                                        <h4 class="text-center font-16" style="font-size: 110%">Saidu Road, Opposite to Central Hospital, Saidu Sharif, Swat.</h4>
+                                        
+                                        <h4 class="float-right font-16" style="font-size: 90%"><strong>M.R No # <?php echo $fetch_selectPatient['patient_yearly_no'] ?></strong></h4>
                                         <br>
                                     </h3>
                                 </div>

@@ -6,6 +6,7 @@
         header("LOCATION:../index.php");
     }
     $id = $_GET['id'];
+    $patCustomId = $_GET['pat_id'];
 
     $selectPatient = mysqli_query($connect, "SELECT discharge_patients.*, staff_members.name, staff_members.visit_charges, rooms.room_number, rooms.room_price  FROM `discharge_patients`
         INNER JOIN staff_members ON staff_members.id = discharge_patients.patient_consultant
@@ -16,7 +17,7 @@
 
     $patIdFooter = $fetch_selectPatient['pat_id'];
 
-    $queryAdvice = mysqli_query($connect, "SELECT doctor_advice FROM `discharge_patients_charges` WHERE id= '$id'");
+    $queryAdvice = mysqli_query($connect, "SELECT doctor_advice FROM `discharge_patients_charges` WHERE pat_id= '$patCustomId'");
     $fetch_queryAdvice = mysqli_fetch_assoc($queryAdvice);
 
     $advice = $fetch_queryAdvice['doctor_advice'];
@@ -70,8 +71,21 @@
                                         <h3 class="m-t-0 text-center">
                                             <img src="../assets/logo.png" alt="logo" height="60" />
                                             <h3 align="center" style="font-size: 130%">SHAH MEDICAL CENTER</h3>
-                                            <h4 class="text-center font-16" style="font-size: 110%">Address: Near Center Hospital, Saidu Sharif Swat.</h4>
-                                            <h4 class="float-right font-16" style="font-size: 80%"><strong>M.R No # <?php echo $fetch_selectPatient['patient_yearly_no'] ?></strong></h4>
+                                            <h4 class="text-center font-16" style="font-size: 110%">Saidu Road, Opposite to Central Hospital, Saidu Sharif, Swat.</h4>
+                                            <h4 class="text-center font-16" style="font-size: 110%">
+                                                ( <?php
+                                                    $dis = $fetch_selectPatient['organization'];
+                                                    $card = "Sehat";
+                                                    if (strpos($dis, $card) !== false) {
+                                                        echo "Sehat Card";
+                                                    }else {
+                                                        echo $dis;        
+                                                    }
+                                                     
+                                                ?> )
+                                            </h4>
+
+                                            <h4 class="float-right font-16" style="font-size: 90%"><strong>M.R No # <?php echo $fetch_selectPatient['patient_yearly_no'] ?></strong></h4>
                                             <br>
                                         </h3>
                                     </div>
@@ -162,7 +176,7 @@
 
 
                                 <div class="col-md-12" style="margin-top: 2%; margin-bottom: 2%;">
-                                    <label>. دن کے بعد کیتھیٹر نکلوائیں</label><span> "<?php echo $fetch_retPatDetailsData['catheterAfterDays'] ?></span>"
+                                    <label>.دن کے بعد کیتھیٹر نکلوائیں</label><span> "<?php echo $fetch_retPatDetailsData['catheterAfterDays'] ?></span>"
                                 </div>  
 
                                 <div class="col-md-12" style="margin-top: 2%; margin-bottom: 2%;">

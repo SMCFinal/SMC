@@ -6,7 +6,7 @@
     }
 
     $id = $_GET['id'];
-
+    $patCustomId = $_GET['pat_id'];
 
     include('../_partials/header.php');
 ?>
@@ -30,8 +30,8 @@
                         <?php
 	                        echo '
 		                        <div align="center">
-		                        	<a href="discharge_patient_invoice.php?id='.$id.'" class="btn btn-info btn-lg">Discharge Slip</a>
-		                        	<a href="charges_slip.php?id='.$id.'" class="btn btn-success btn-lg">View Fee Slip</a>
+		                        	<a href="discharge_patient_invoice.php?id='.$id.'&pat_id='.$patCustomId.'" class="btn btn-info btn-lg">Discharge Slip</a>
+		                        	<a href="charges_slip.php?id='.$id.'&pat_id='.$patCustomId.'" class="btn btn-success btn-lg">View Fee Slip</a>
 		                        </div>
 	                        ';
                         ?>

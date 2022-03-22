@@ -65,7 +65,7 @@
                                             }
 
                                             echo '<td class="text-center">
-                                            <a href="select_option.php?id='.$rowPatients['id'].'" type="button" class="btn text-white btn-info waves-effect waves-light btn-sm">View</a>&nbsp;&nbsp;&nbsp;';
+                                            <a href="select_option.php?id='.$rowPatients['id'].'&pat_id='.$rowPatients['pat_id'].'" type="button" class="btn text-white btn-info waves-effect waves-light btn-sm">View</a>&nbsp;&nbsp;&nbsp;';
 
                                             // if ($hourdiff < 4) {
                                                 echo '

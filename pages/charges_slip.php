@@ -6,6 +6,7 @@
         header("LOCATION:../index.php");
     }
     $id = $_GET['id'];
+    $patCustomId = $_GET['pat_id'];
 
     $selectPatient = mysqli_query($connect, "SELECT discharge_patients.*, staff_members.name, staff_members.visit_charges, rooms.room_number, rooms.room_price  FROM `discharge_patients`
         INNER JOIN staff_members ON staff_members.id = discharge_patients.patient_consultant
@@ -16,17 +17,17 @@
 
     $patIdFooter = $fetch_selectPatient['pat_id'];
 
-    $queryAdvice = mysqli_query($connect, "SELECT doctor_advice FROM `discharge_patients_charges` WHERE id= '$id'");
-    $fetch_queryAdvice = mysqli_fetch_assoc($queryAdvice);
+    // $queryAdvice = mysqli_query($connect, "SELECT doctor_advice FROM `discharge_patients_charges` WHERE id= '$id'");
+    // $fetch_queryAdvice = mysqli_fetch_assoc($queryAdvice);
 
-    $advice = $fetch_queryAdvice['doctor_advice'];
+    // $advice = $fetch_queryAdvice['doctor_advice'];
 
-    $explodeAdvice = explode(" , ", $advice);
+    // $explodeAdvice = explode(" , ", $advice);
 
     $retPatDetail = mysqli_query($connect, "SELECT * FROM pat_details WHERE pat_id = '$patIdFooter'");
     $fetch_retPatDetail = mysqli_fetch_assoc($retPatDetail);
 
-include '../_partials/header.php';
+    include '../_partials/header.php';
 ?>
 <style type="text/css">
     body {
@@ -56,7 +57,19 @@ include '../_partials/header.php';
                                         <h3 class="m-t-0 text-center">
                                             <img src="../assets/logo.png" alt="logo" height="60" />
                                             <h3 align="center" style="font-size: 120%">SHAH MEDICAL CENTER</h3>
-                                            <h4 class="text-center font-16" style="font-size: 110%">Address: Near Center Hospital, Saidu Sharif Swat.</h4>
+                                            <h4 class="text-center font-16" style="font-size: 110%">Saidu Road, Opposite to Central Hospital, Saidu Sharif, Swat.</h4>
+                                            <h4 class="text-center font-16" style="font-size: 110%">
+                                                ( <?php
+                                                    $dis = $fetch_selectPatient['organization'];
+                                                    $card = "Sehat";
+                                                    if (strpos($dis, $card) !== false) {
+                                                        echo "Sehat Card";
+                                                    }else {
+                                                        echo $dis;        
+                                                    }
+                                                     
+                                                ?> )
+                                            </h4>
                                             <h4 class="float-right font-16" style="font-size: 80%"><strong>M.R No # <?php echo $fetch_selectPatient['patient_yearly_no'] ?></strong></h4>
                                             <br>
                                         </h3>
@@ -97,14 +110,14 @@ include '../_partials/header.php';
                             </div>
                             <hr>
                                 <?php
-                                    $queryDischargesId = mysqli_query($connect, "SELECT pat_id FROM `discharge_patients_charges` WHERE id = '$id'");
+                                    $queryDischargesId = mysqli_query($connect, "SELECT pat_id FROM `discharge_patients_charges` WHERE pat_id = '$patCustomId'");
                                     $fetch_queryDischargesId = mysqli_fetch_assoc($queryDischargesId);
                                     $dischargeID = $fetch_queryDischargesId['pat_id'];
                                 
 
                                     // $dischargeID
 
-                                    $queryDischargePatientAllData = mysqli_query($connect, "SELECT * FROM `discharge_patients_charges` WHERE id = '$id' AND pat_id = '$dischargeID'");
+                                    $queryDischargePatientAllData = mysqli_query($connect, "SELECT * FROM `discharge_patients_charges` WHERE pat_id = '$dischargeID'");
                                     $fetch_queryDischargePatientAllData = mysqli_fetch_assoc($queryDischargePatientAllData);
                                 ?>
 
