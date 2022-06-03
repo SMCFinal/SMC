@@ -66,8 +66,21 @@
                                             $dateAdmisison = $rowPatients['patient_doa']; 
                                             $newAdmisison = date('d/M/Y h:i:s A', strtotime($dateAdmisison));
                                             echo '
-                                            <td>'.$newAdmisison.'</td>
-                                            <td>'.$rowPatients['patient_disease'].'</td>
+                                            <td>'.$newAdmisison.'</td>';
+
+                                            if ($rowPatients['patient_operation'] === '0') {
+                                                echo '<td>'.$rowPatients['patient_disease'].'</td>';
+                                            }else {
+                                                echo '
+                                                <td>
+                                                    <a href="surg_meds_list.php?id='.$rowPatients['id'].'" type="button" style="background-color: #878787; box-shadow: 3px 3px 3px 3px #ccc;" class="btn text-light">
+                                                    '.$rowPatients['patient_disease'].'
+                                                    </a>
+                                                </td>
+                                                ';
+                                            }
+
+                                            echo '
                                             <td>'.$rowPatients['name'].'</td>
                                             <td class="text-center">
                                             <a href="changeRoom.php?id='.$rowPatients['id'].'" type="button" class="btn text-white btn-warning waves-effect waves-light btn-sm"> <i class="fa fa-pencil"></i>&nbsp;Room</a>&nbsp;&nbsp;&nbsp;

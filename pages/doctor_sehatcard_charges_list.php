@@ -12,7 +12,7 @@
         INNER JOIN discharge_patients ON discharge_patients.pat_id = doctor_surgery_charges.pat_id
         INNER JOIN surgeries ON surgeries.id = doctor_surgery_charges.pat_operation
         INNER JOIN staff_members ON staff_members.id = doctor_surgery_charges.pat_consultant
-        WHERE doctor_surgery_charges.payment_status = '1' AND discharge_patients.organization LIKE '%Sehat%'  AND doctor_surgery_charges.pat_consultant = '$id' ORDER BY discharge_patients.patient_doa DESC");
+        WHERE doctor_surgery_charges.payment_status = '1' AND discharge_patients.organization LIKE '%Sehat%'  AND doctor_surgery_charges.pat_consultant = '$id' ORDER BY discharge_patients.patient_doa ASC LIMIT 100");
 
 
     $queryDoctorName = mysqli_query($connect, "SELECT * FROM `staff_members` WHERE id = '$id'");
@@ -72,38 +72,38 @@
         }
 
         // Visit Details
-        $array_vis_pat_name = $_POST['vis_pat_name'];
-        $array_vi_organization = $_POST['vi_organization'];
-        $array_sur_name = $_POST['sur_name'];
-        $array_room_name = $_POST['room_name'];
-        $array_vi_time = $_POST['vi_time'];
-        $array_vi_charges = $_POST['vi_charges'];
+        // $array_vis_pat_name = $_POST['vis_pat_name'];
+        // $array_vi_organization = $_POST['vi_organization'];
+        // $array_sur_name = $_POST['sur_name'];
+        // $array_room_name = $_POST['room_name'];
+        // $array_vi_time = $_POST['vi_time'];
+        // $array_vi_charges = $_POST['vi_charges'];
 
-        for ($i=0; $i < sizeof($array_vis_pat_name); $i++) { 
-            $vis_pat_name = $array_vis_pat_name[$i];
-            $vi_organization = $array_vi_organization[$i];
-            $sur_name = $array_sur_name[$i];
-            $room_name = $array_room_name[$i];
-            $vi_time = $array_vi_time[$i];
-            $surChr = "0";
-            $vi_charges = $array_vi_charges[$i];
-            $refNumber;
+        // for ($i=0; $i < sizeof($array_vis_pat_name); $i++) { 
+        //     $vis_pat_name = $array_vis_pat_name[$i];
+        //     $vi_organization = $array_vi_organization[$i];
+        //     $sur_name = $array_sur_name[$i];
+        //     $room_name = $array_room_name[$i];
+        //     $vi_time = $array_vi_time[$i];
+        //     $surChr = "0";
+        //     $vi_charges = $array_vi_charges[$i];
+        //     $refNumber;
 
-            $insertQueryVisCharges = mysqli_query($connect, "INSERT INTO `charges_confirm_list`(`consult_id`, `pat_name`, `org_name`, `sur_name`, `room_name`, `op_vi_time`, `sur_charges`, `vis_cahrges`, `ref_no`) VALUES ('$id', '$vis_pat_name', '$vi_organization', '$sur_name', '$room_name', '$vi_time', '$surChr', '$vi_charges', '$refNumber')");
-        }
+        //     $insertQueryVisCharges = mysqli_query($connect, "INSERT INTO `charges_confirm_list`(`consult_id`, `pat_name`, `org_name`, `sur_name`, `room_name`, `op_vi_time`, `sur_charges`, `vis_cahrges`, `ref_no`) VALUES ('$id', '$vis_pat_name', '$vi_organization', '$sur_name', '$room_name', '$vi_time', '$surChr', '$vi_charges', '$refNumber')");
+        // }
 
         $array_pat_sur_id = $_POST['pat_sur_id'];
-        $array_pat_vis_id = $_POST['pat_vis_id'];
+        // $array_pat_vis_id = $_POST['pat_vis_id'];
 
         for ($i=0; $i < sizeof($array_pat_sur_id) ; $i++) { 
             $sur_pat_id = $array_pat_sur_id[$i];
-            $vis_pat_id = $array_pat_vis_id[$i];
+            // $vis_pat_id = $array_pat_vis_id[$i];
 
             $updateDOctorVisits = mysqli_query($connect, "UPDATE discharge_patients_charges SET doctor_payment_status = '0' WHERE  pat_consultant = '$id' AND pat_id = '$sur_pat_id'");
 
             $updatePaymentDoctor = mysqli_query($connect, "UPDATE doctor_surgery_charges SET payment_status = '0', date_of_payment = '$currentDate' WHERE pat_consultant = '$id' AND pat_id = '$sur_pat_id'");
 
-            $updateVisitsPayments = mysqli_query($connect, "UPDATE doctor_visit_charges SET charges_status = '0' WHERE doctor_id = '$id' AND pat_id = '$vis_pat_id'");
+            // $updateVisitsPayments = mysqli_query($connect, "UPDATE doctor_visit_charges SET charges_status = '0' WHERE doctor_id = '$id' AND pat_id = '$vis_pat_id'");
 
         }
 
@@ -112,6 +112,7 @@
 
         if ($insertQuery) {
             header("LOCATION: doctor_payment_list.php");
+            // echo '<script>window.location.href = "doctor_payment_list.php"</script>';
         }
 
     }

@@ -42,6 +42,10 @@ include '../_partials/header.php';
     tr    { page-break-inside:avoid; page-break-after:auto }
     thead { display:table-header-group }
     tfoot { display:table-footer-group }
+    
+    .table-responsive {
+        line-height: 3px;
+    }
 </style>
 <!-- Top Bar End -->
 <div class="page-content-wrapper ">

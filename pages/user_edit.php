@@ -106,35 +106,63 @@
                                                         <option value="2">Manager</option>
                                                         <option value="3">Counter Screen</option>
                                                         <option value="4">Laboratory</option>
-                                                        <option value="5">Pharmacy</option>';
+                                                        <option value="5">Pharmacy</option>
+                                                        <option value="6">Ground Floor Counter</option>
+                                                        <option value="7">Ground Floor Second Counter</option>';
                                                         }elseif ($fetch_selectUser['user_role'] == '2') {
                                                         echo '
                                                         <option value="1">Administrator</option>
                                                         <option value="2" selected>Manager</option>
                                                         <option value="3">Counter Screen</option>
                                                         <option value="4">Laboratory</option>
-                                                        <option value="5">Pharmacy</option>';
+                                                        <option value="5">Pharmacy</option>
+                                                        <option value="6">Ground Floor Counter</option>
+                                                        <option value="7">Ground Floor Second Counter</option>';
                                                         }elseif ($fetch_selectUser['user_role'] == '3') {
                                                         echo '
                                                         <option value="1">Administrator</option>
                                                         <option value="2">Manager</option>
                                                         <option value="3" selected>Counter Screen</option>
                                                         <option value="4">Laboratory</option>
-                                                        <option value="5">Pharmacy</option>';
+                                                        <option value="5">Pharmacy</option>
+                                                        <option value="6">Ground Floor Counter</option>
+                                                        <option value="7">Ground Floor Second Counter</option>';
                                                         }elseif ($fetch_selectUser['user_role'] == '4') {
                                                         echo '
                                                         <option value="1">Administrator</option>
                                                         <option value="2">Manager</option>
                                                         <option value="3">Counter Screen</option>
                                                         <option value="4" selected>Laboratory</option>
-                                                        <option value="5">Pharmacy</option>';
+                                                        <option value="5">Pharmacy</option>
+                                                        <option value="6">Ground Floor Counter</option>
+                                                        <option value="7">Ground Floor Second Counter</option>';
                                                         }elseif ($fetch_selectUser['user_role'] == '5') {
                                                         echo '
                                                         <option value="1">Administrator</option>
                                                         <option value="2">Manager</option>
                                                         <option value="3">Counter Screen</option>
                                                         <option value="4">Laboratory</option>
-                                                        <option value="5" selected>Pharmacy</option>';
+                                                        <option value="5" selected>Pharmacy</option>
+                                                        <option value="6">Ground Floor Counter</option>
+                                                        <option value="7">Ground Floor Second Counter</option>';
+                                                        }elseif ($fetch_selectUser['user_role'] == '6') {
+                                                        echo '
+                                                        <option value="1">Administrator</option>
+                                                        <option value="2">Manager</option>
+                                                        <option value="3">Counter Screen</option>
+                                                        <option value="4">Laboratory</option>
+                                                        <option value="5">Pharmacy</option>
+                                                        <option value="6" selected>Ground Floor Counter</option>
+                                                        <option value="7">Ground Floor Second Counter</option>';
+                                                        }elseif ($fetch_selectUser['user_role'] == '7') {
+                                                        echo '
+                                                        <option value="1">Administrator</option>
+                                                        <option value="2">Manager</option>
+                                                        <option value="3">Counter Screen</option>
+                                                        <option value="4">Laboratory</option>
+                                                        <option value="5">Pharmacy</option>
+                                                        <option value="6">Ground Floor Counter</option>
+                                                        <option value="7" selected>Ground Floor Second Counter</option>';
                                                         }
 
                                                         ?>

@@ -26,6 +26,10 @@
     tr    { page-break-inside:avoid; page-break-after:auto }
     thead { display:table-header-group }
     tfoot { display:table-footer-group }
+    
+    /*.table-responsive {*/
+    /*    line-height: 3px;*/
+    /*}*/
 </style>
 <div class="page-content-wrapper " >
     <div class="container-fluid"><br>

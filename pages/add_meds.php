@@ -1,27 +1,39 @@
 <?php
-include '../_stream/config.php';
+    include('../_stream/config.php');
     session_start();
-    if (empty($_SESSION["user"])) {
+        if (empty($_SESSION["user"])) {
         header("LOCATION:../index.php");
     }
 
-    $id = $_GET['patientId'];
+    $alreadyAdded = '';
+    $added = '';
+    $error= '';
 
-    if (isset($_POST['addOrder'])) {
-        header("LOCATION:Pharmacy_order.php");
+    $id = $_GET['med_id'];
+
+    if (isset($_POST['addMedicines'])) {
+        header("LOCATION: surgery_medicine_ajax.php");
     }
 
-    $referenceNo_query = mysqli_query($connect, "SELECT MAX(reference_no) as dbRef FROM medicine_order");
 
-    $fetch_referenceNo = mysqli_fetch_assoc($referenceNo_query);
+    include('../_partials/header.php');
 
-    if (empty($fetch_referenceNo['dbRef'])) {
-      $reference_no = 1;
-    } else {
-      $reference_no = $fetch_referenceNo['dbRef'] + 1;
-    }
 
-include '../_partials/header.php';
+
+    // if (isset($_POST['addOrder'])) {
+    //     
+    // }
+
+    // $referenceNo_query = mysqli_query($connect, "SELECT MAX(reference_no) as dbRef FROM medicine_order");
+
+    // $fetch_referenceNo = mysqli_fetch_assoc($referenceNo_query);
+
+    // if (empty($fetch_referenceNo['dbRef'])) {
+    //   $reference_no = 1;
+    // } else {
+    //   $reference_no = $fetch_referenceNo['dbRef'] + 1;
+    // }
+
 ?>
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/fixedheader/3.1.7/css/fixedHeader.bootstrap4.min.css">
 <!-- Top Bar End -->
@@ -29,7 +41,7 @@ include '../_partials/header.php';
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-12">
-                <h5 class="page-title">Order Medicine</h5>
+                <h5 class="page-title">Add Surgery Medicine</h5>
             </div>
         </div>
         <!-- end row -->
@@ -50,7 +62,7 @@ include '../_partials/header.php';
                                         <th>Confirm</th>
                                         <th class="text-center">
                                             <!-- <a href="pharmacy_order_medicine_pending.php" class="btn btn-primary waves-effect waves-light">Order Medicine</a> -->
-                                            <button class="btn btn-primary waves-effect waves-light" type="submit" name="addOrder" id="getOrder" onclick="getValue();" onclick="javascript:change()">Order Medicine</button>
+                                            <button class="btn btn-primary waves-effect waves-light" type="submit" name="addOrder" id="getOrder" onclick="getValue();" onclick="javascript:change()">Add Medicine/s</button>
                                             <!--  -->
                                         </th>
                                     </tr>
@@ -190,26 +202,26 @@ $(document).ready(function() {
                 }
                     var medicineCategory = arrayPureData[pureData][0]
                     var Category = arrayPureData[pureData][1]
-                    var qty = arrayPureData[pureData][2]
+                    var qty = arrayPureData[pureData][3]
 
-                    var patient = document.getElementById('userId').value;
-                    var reference_number = document.getElementById('refNo').value;
+                    var surgery_id = document.getElementById('userId').value;
                     // var status = arrayPureData[pureData][3]
                     
+                    console.log(qty)
+
                     $.ajax({
-                        url: "Pharmacy_order.php",
+                        url: "surgery_medicine_ajax.php",
                         method: "GET",
                         data: {
                             medicineCategory,
                             Category,
                             qty,
-                            patient,
-                            reference_number
+                            surgery_id
                         },
                         dataType : 'html',
                         success: function(res) {
                             console.log(res)
-                            window.location.href = 'order_placed.php';
+                            window.location.href = 'select_surgery.php';
                         },
                         error:function(e){
                             console.log(e)

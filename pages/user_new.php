@@ -93,6 +93,7 @@
                                         <option value="4">Laboratory</option>
                                         <option value="5">Pharmacy</option>
                                         <option value="6">Ground Floor Counter</option>
+                                        <option value="7">Ground Floor Second Counter</option>
                                     </select>
                                 </div>
                             </div>

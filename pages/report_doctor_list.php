@@ -22,8 +22,8 @@
 
     include '../_partials/header.php';
 ?>
-<style type="text/css"> 
-    table {
+<style type="text/css">
+    body {
         font-size: 13px !important;
     }
 </style>

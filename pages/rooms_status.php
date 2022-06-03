@@ -20,7 +20,7 @@
             <div class="col-12">
                 <div class="card m-b-30">
                     <div class="card-body">
-                        <h4 class="mt-0 header-title">Rooms Satus</h4>
+                        <h4 class="mt-0 header-title">Rooms Status</h4>
                       
                         <div id="accordion">
                             <div class="card">

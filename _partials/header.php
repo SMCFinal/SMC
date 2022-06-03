@@ -112,6 +112,19 @@
                                 <li><a href="ground_floor_admit.php">Ground Floor Patients</a></li>
                             </ul>
                         </li>
+
+
+
+                        <li class="has_sub">
+                            <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-medkit"></i> <span> Medications </span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
+                            <ul class="list-unstyled">
+                                <li><a href="surgery_medicine_category.php">Add Med Category</a></li>
+                                <li><a href="surgery_med_new.php">Add Medicines</a></li>
+                                <li><a href="surgery_medicine_list.php">Medicines List</a></li>
+                                <li><a href="select_surgery.php">Surgery Medicines</a></li>
+                                <li><a href="meds_list.php">Surgery Med List</a></li>
+                            </ul>
+                        </li>
                         <?php } ?>
 
                         <?php if ($fetch_query['user_role'] == '2') {?>
@@ -401,6 +414,92 @@
                         </li> -->
 
                         <?php  } ?>
+
+
+
+                        <?php if($fetch_query['user_role'] == '7'){ ?>
+
+                        <li>
+                            <a href="groundFloorDBoard.php" class="waves-effect">
+                                <i class="dripicons-meter"></i>
+                                <span> Dashboard </span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="patient_new_ground.php" class="waves-effect">
+                                <i class="mdi mdi-wheelchair-accessibility"></i>
+                                <span> Add Patient </span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="patients_list_current_ground.php" class="waves-effect">
+                                <i class="fa fa-bed"></i>
+                                <span> Current Patients List </span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="ground_floor_admit_new_patient.php" class="waves-effect">
+                                <i class="fa fa-users"></i>
+                                <span> Ground Floor Patients </span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="patients_discharge_ground.php" class="waves-effect">
+                                <i class="fa fa-hospital-o"></i>
+                                <span> Discharged Patients </span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="patients_postpone_ground.php" class="waves-effect">
+                                <i class="fa fa-refresh"></i>
+                                <span> Postponeded Patients </span>
+                            </a>
+                        </li>
+
+
+                        <!-- <li>
+                            <a href="patients_list_ground.php" class="waves-effect">
+                                <i class="fa fa-id-card"></i>
+                                <span> Current Patients </span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="patients_postponed_list_ground.php" class="waves-effect">
+                                <i class="fa fa-times"></i>
+                                <span> Postponed Patients </span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="ptcl_patients_discharge_list_ground.php" class="waves-effect">
+                                <i class="fa fa-phone"></i>
+                                <span> PTCL Patients List </span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="sehatcard_patients_discharge_list_ground.php" class="waves-effect">
+                                <i class="fa fa-credit-card"></i>
+                                <span> Sehat Card Patients List </span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="general_patients_discharge_list_ground.php" class="waves-effect">
+                                <i class="mdi mdi-wheelchair-accessibility"></i>
+                                <span> General Patients List </span>
+                            </a>
+                        </li> -->
+
+                        <?php  } ?>
+
+
 
                     </ul>
                 </div>

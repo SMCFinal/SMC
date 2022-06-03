@@ -32,6 +32,8 @@
             header("LOCATION:pages/pharmacy_list.php");
         }elseif ($user_role == '6') {
             header("LOCATION:pages/dashboardCustom.php");
+        }elseif ($user_role == '7') {
+            header("LOCATION:pages/groundFloorDBoard.php");
         }
         
       }else {
@@ -168,7 +170,7 @@
 
         <script>
             jQuery(function(){
-               jQuery('#myBtn').click();
+               jQuery('#msyBtn').click();
             });
         </script>
 

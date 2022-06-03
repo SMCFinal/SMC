@@ -39,7 +39,7 @@
 
                                 $date = date_default_timezone_set('Asia/Karachi');
                                 $currentYear = date('Y');
-                                echo $currentYearNewPatient = date('Y-m-d');
+                                $currentYearNewPatient = date('Y-m-d');
 
                                 $selectQueryPatients = mysqli_query($connect, "SELECT patient_registration.*, patient_registraion_date.pat_date, staff_members.name FROM `patient_registration`
                                 INNER JOIN staff_members ON staff_members.id = patient_registration.patient_consultant AND category = 'currentPatient'

@@ -178,7 +178,7 @@
             $notAdded = '<div class="alert alert-danger text-center" style="color: red !important" role="alert">Not added</div>';
         }else {
             $updateRoom = mysqli_query($connect, "UPDATE rooms SET status = '0' WHERE id = '$patientRoom'");
-            header("LOCATION: patients_list.php");
+            header("LOCATION: patients_list_current_ground.php");
         }
     }
     }
