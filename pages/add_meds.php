@@ -19,21 +19,6 @@
     include('../_partials/header.php');
 
 
-
-    // if (isset($_POST['addOrder'])) {
-    //     
-    // }
-
-    // $referenceNo_query = mysqli_query($connect, "SELECT MAX(reference_no) as dbRef FROM medicine_order");
-
-    // $fetch_referenceNo = mysqli_fetch_assoc($referenceNo_query);
-
-    // if (empty($fetch_referenceNo['dbRef'])) {
-    //   $reference_no = 1;
-    // } else {
-    //   $reference_no = $fetch_referenceNo['dbRef'] + 1;
-    // }
-
 ?>
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/fixedheader/3.1.7/css/fixedHeader.bootstrap4.min.css">
 <!-- Top Bar End -->
@@ -202,7 +187,7 @@ $(document).ready(function() {
                 }
                     var medicineCategory = arrayPureData[pureData][0]
                     var Category = arrayPureData[pureData][1]
-                    var qty = arrayPureData[pureData][3]
+                    var qty = arrayPureData[pureData][2]
 
                     var surgery_id = document.getElementById('userId').value;
                     // var status = arrayPureData[pureData][3]

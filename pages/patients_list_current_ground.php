@@ -32,6 +32,7 @@
                                     <th>Disease</th>
                                     <th>Consultant</th>
                                     <th>Med List</th>
+                                    <th>Patient Medication</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -53,7 +54,11 @@
                                         echo '
                                             <tr>
                                                 <td>'.$iteration++.'</td>
-                                                <td>'.$rowPatients['patient_yearly_no'].'</td>
+                                                <td>
+                                                    <a href="pat_meds.php?id='.$rowPatients['id'].'" type="button" style="background-color: #efefef; box-shadow: 3px 3px 3px 3px #ccc;" class="btn">
+                                                    '.$rowPatients['patient_yearly_no'].'
+                                                    </a>
+                                                </td>
                                                 <td>'.$rowPatients['patient_name'].'</td>
                                                 <td>'.$rowPatients['organization'].'</td>';
                                                 $dateAdmisison = $rowPatients['patient_doa']; 
@@ -63,9 +68,22 @@
                                                 
                                                 echo '<td>'.$rowPatients['patient_disease'].'</td>';
                                                 echo '
-                                                <td>'.$rowPatients['name'].'</td>
+                                                <td>'.$rowPatients['name'].'</td>';
+
+                                                if ($rowPatients['patient_operation'] === '0') {
+                                                    echo '<td><span class="badge badge-secondary">No Surgery Assigned</span></td>';
+                                                }else {
+                                                    echo '
+                                                    <td>
+                                                        <a href="surg_meds_list.php?id='.$rowPatients['id'].'" class="btn btn-info">Print &nbsp; <i class="fa fa-print"></i></a>
+                                                    </td>
+                                                    ';
+                                                }
+                                            echo '
                                                 <td>
-                                                    <a href="surg_meds_list.php?id='.$rowPatients['id'].'" class="btn btn-info">Print &nbsp; <i class="fa fa-print"></i></a>
+                                                    <a href="pat_meds.php?id='.$rowPatients['id'].'" type="button" class="btn btn-success">
+                                                        Medication
+                                                    </a>
                                                 </td>
                                             </tr>
                                         ';
