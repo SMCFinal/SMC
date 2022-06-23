@@ -158,7 +158,7 @@
                     $checkQuery = mysqli_query($connect, "SELECT COUNT(*) AS medsCount FROM `surgery_medicines` WHERE surgery_id = '$surgeryId'");
                     $fetch_checkQuery = mysqli_fetch_assoc($checkQuery);
 
-                    if ($fetch_checkQuery['medsCount'] < 19) {
+                    if ($fetch_checkQuery['medsCount'] < 17) {
                 ?>
 
                 <div class="row" style="margin-bottom: -5px !important;">
@@ -233,14 +233,13 @@
                                 $itr = 1;
 
                                 $medicineQuery = mysqli_query($connect, "SELECT surgery_medicines.*, surgeries.surgery_name, medicine_category.category_name, add_medicines.medicine_name FROM surgery_medicines
-                                                                        INNER JOIN surgeries ON surgeries.id = surgery_medicines.surgery_id
-                                                                        INNER JOIN medicine_category ON medicine_category.id = surgery_medicines.cat_id
-                                                                        INNER JOIN add_medicines ON add_medicines.id = surgery_medicines.med_id
-                                                                        WHERE surgery_medicines.surgery_id =  '$surgeryId'
-                                                                        ORDER BY add_medicines.medicine_name ASC");
+                                INNER JOIN surgeries ON surgeries.id = surgery_medicines.surgery_id
+                                INNER JOIN medicine_category ON medicine_category.id = surgery_medicines.cat_id
+                                INNER JOIN add_medicines ON add_medicines.id = surgery_medicines.med_id
+                                WHERE surgery_medicines.surgery_id =  '$surgeryId' ORDER BY add_medicines.medicine_name ASC");
 
                                 while ($row = mysqli_fetch_assoc($medicineQuery)) {
-                                    if ($itr <= 18) {
+                                    if ($itr <= 16) {
                                     echo '
                                     <tr>
                                         <td style="border: 1px solid black; font-size: 100%; padding-bottom: 5px !important; padding-right: 0 !important; padding-top: 5px !important; width: 6% !important;">'.$itr++.'. </td>
@@ -274,20 +273,21 @@
                               <?php
 
                                 $iteration = 1;
+                                $number = 17;
 
                                 $medicineQuerySecond = mysqli_query($connect, "SELECT surgery_medicines.*, surgeries.surgery_name, medicine_category.category_name, add_medicines.medicine_name FROM surgery_medicines
-                                                                        INNER JOIN surgeries ON surgeries.id = surgery_medicines.surgery_id
-                                                                        INNER JOIN medicine_category ON medicine_category.id = surgery_medicines.cat_id
-                                                                        INNER JOIN add_medicines ON add_medicines.id = surgery_medicines.med_id
-                                                                        WHERE surgery_medicines.surgery_id =  '$surgeryId'
-                                                                        ORDER BY add_medicines.medicine_name ASC");
+                                INNER JOIN surgeries ON surgeries.id = surgery_medicines.surgery_id
+                                INNER JOIN medicine_category ON medicine_category.id = surgery_medicines.cat_id
+                                INNER JOIN add_medicines ON add_medicines.id = surgery_medicines.med_id
+                                WHERE surgery_medicines.surgery_id =  '$surgeryId' ORDER BY add_medicines.medicine_name ASC");
 
                                 while ($rowMeds = mysqli_fetch_assoc($medicineQuerySecond)) {
-                                    echo $iteration;
-                                    if ($iteration >= 19) {
+                                    if ($iteration <= 16) {
+                                    // Nothing to show!
+                                    }else {
                                         echo '
                                         <tr>
-                                            <td style="border: 1px solid black; font-size: 100%; padding-bottom: 5px !important; padding-right: 0 !important; padding-top: 5px !important; width: 6% !important;">'.$iteration++.'. </td>
+                                            <td style="border: 1px solid black; font-size: 100%; padding-bottom: 5px !important; padding-right: 0 !important; padding-top: 5px !important; width: 6% !important;">'.$number++.'. </td>
                                             
                                             <td style="border: 1px solid black; font-size: 100%; padding-bottom: 5px !important; padding-right: 0 !important; padding-top: 5px !important; width: 6% !important;">'.$rowMeds['medicine_name'].'</td>
 
@@ -295,6 +295,7 @@
                                         </tr>
                                         ';
                                     }
+                                    $iteration++;
                                     
                                 }
                               ?>

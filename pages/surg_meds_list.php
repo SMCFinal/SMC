@@ -29,22 +29,19 @@
     include '../_partials/header.php';
 
 ?>
-
-
 <style type="text/css">
-
     body {
         color: black;
     }
-    body, td {
-        color: black;
-    }
-    
 
-    table { page-break-inside:auto }
-    tr    { page-break-inside:avoid; page-break-after:auto }
-    thead { display:table-header-group }
-    tfoot { display:table-footer-group }
+    .custom {
+        font-size: 13px;
+    }
+
+    .customP {
+        margin-bottom: 0 !important;
+    }
+
 </style>
 <div class="page-content-wrapper " >
     <div class="container-fluid"><br>
@@ -157,6 +154,13 @@
 
                 <br>
 
+                <?php
+                    $checkQuery = mysqli_query($connect, "SELECT COUNT(*) AS medsCount FROM `surgery_medicines` WHERE surgery_id = '$surgeryId'");
+                    $fetch_checkQuery = mysqli_fetch_assoc($checkQuery);
+
+                    if ($fetch_checkQuery['medsCount'] < 17) {
+                ?>
+
                 <div class="row" style="margin-bottom: -5px !important;">
                     <div class="col-md-12">
                        <table class="table table-bordered">
@@ -188,7 +192,7 @@
                                     echo '
                                     <tr>
                                         <td style="border: 1px solid black; font-size: 100%; padding-bottom: 5px !important; padding-right: 0 !important; padding-top: 5px !important; width: 6% !important;" class="text-center">'.$itr++.'. </td>
-                                        <td style="border: 1px solid black; font-size: 100%; padding-bottom: 5px !important; padding-right: 0 !important; padding-top: 5px !important; width: 6% !important;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$row['medicine_name'].'</td>
+                                        <td style="border: 1px solid black; font-size: 100%; padding-bottom: 5px !important; padding-right: 0 !important; padding-top: 5px !important; width: 6% !important;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$row['category_name'].'. '.$row['medicine_name'].'</td>
 
                                         <td style="border: 1px solid black; font-size: 100%; padding-bottom: 5px !important; padding-right: 0 !important; padding-top: 5px !important; width: 6% !important;" class="text-center">'.$row['med_qty'].'</td>
                                     </tr>
@@ -199,6 +203,116 @@
                         </table>
                     </div>
                 </div>
+
+                <?php
+                    }else {
+
+
+                ?>
+
+
+
+                <div class="row" style="margin-bottom: -5px !important;">
+                    <div class="col-md-6">
+                       <table class="table table-bordered">
+                          <thead>
+                            <tr>
+                                <th style="border: 1px solid black; font-size: 90%; padding-bottom: 5px !important; padding-right: 0 !important; padding-top: 5px !important; width: 6% !important;" scope="col">S#
+                                </th>
+
+                                <th style="border: 1px solid black; font-size: 90%; padding-bottom: 5px !important; padding-right: 0 !important; padding-top: 5px !important; width: 70% !important;" scope="col">Medicine Name
+                                </th>
+
+                                <th style="border: 1px solid black; font-size: 90%; padding-bottom: 5px !important; padding-right: 0 !important; padding-top: 5px !important; width: 24% !important;" class="text-center" scope="col">Quantity
+                                </th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                              <?php
+
+                                $itr = 1;
+
+                                $medicineQuery = mysqli_query($connect, "SELECT surgery_medicines.*, surgeries.surgery_name, medicine_category.category_name, add_medicines.medicine_name FROM surgery_medicines
+                                INNER JOIN surgeries ON surgeries.id = surgery_medicines.surgery_id
+                                INNER JOIN medicine_category ON medicine_category.id = surgery_medicines.cat_id
+                                INNER JOIN add_medicines ON add_medicines.id = surgery_medicines.med_id
+                                WHERE surgery_medicines.surgery_id =  '$surgeryId' ORDER BY add_medicines.medicine_name ASC");
+
+                                while ($row = mysqli_fetch_assoc($medicineQuery)) {
+                                    if ($itr <= 16) {
+                                    echo '
+                                    <tr>
+                                        <td style="border: 1px solid black; font-size: 100%; padding-bottom: 5px !important; padding-right: 0 !important; padding-top: 5px !important; width: 6% !important;">'.$itr++.'. </td>
+                                        <td style="border: 1px solid black; font-size: 100%; padding-bottom: 5px !important; padding-right: 0 !important; padding-top: 5px !important; width: 6% !important;">'.$row['category_name'].'. '.$row['medicine_name'].'</td>
+
+                                        <td style="border: 1px solid black; font-size: 100%; padding-bottom: 5px !important; padding-right: 0 !important; padding-top: 5px !important; width: 6% !important;" class="text-center">'.$row['med_qty'].'</td>
+                                    </tr>
+                                    ';
+                                    }
+                                }
+                              ?>
+                          </tbody>
+                        </table>
+                    </div>
+
+                    <div class="col-md-6">
+                       <table class="table table-bordered">
+                          <thead>
+                            <tr>
+                                <th style="border: 1px solid black; font-size: 90%; padding-bottom: 5px !important; padding-right: 0 !important; padding-top: 5px !important; width: 6% !important;" scope="col">S#
+                                </th>
+
+                                <th style="border: 1px solid black; font-size: 90%; padding-bottom: 5px !important; padding-right: 0 !important; padding-top: 5px !important; width: 70% !important;" scope="col">Medicine Name
+                                </th>
+
+                                <th style="border: 1px solid black; font-size: 90%; padding-bottom: 5px !important; padding-right: 0 !important; padding-top: 5px !important; width: 24% !important;" class="text-center" scope="col">Quantity
+                                </th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                              <?php
+
+                                $iteration = 1;
+                                $number = 17;
+
+                                $medicineQuerySecond = mysqli_query($connect, "SELECT surgery_medicines.*, surgeries.surgery_name, medicine_category.category_name, add_medicines.medicine_name FROM surgery_medicines
+                                INNER JOIN surgeries ON surgeries.id = surgery_medicines.surgery_id
+                                INNER JOIN medicine_category ON medicine_category.id = surgery_medicines.cat_id
+                                INNER JOIN add_medicines ON add_medicines.id = surgery_medicines.med_id
+                                WHERE surgery_medicines.surgery_id =  '$surgeryId' ORDER BY add_medicines.medicine_name ASC");
+
+                                while ($rowMeds = mysqli_fetch_assoc($medicineQuerySecond)) {
+                                    if ($iteration <= 16) {
+                                    // Nothing to show!
+                                    }else {
+                                        echo '
+                                        <tr>
+                                            <td style="border: 1px solid black; font-size: 100%; padding-bottom: 5px !important; padding-right: 0 !important; padding-top: 5px !important; width: 6% !important;">'.$number++.'. </td>
+                                            
+                                            <td style="border: 1px solid black; font-size: 100%; padding-bottom: 5px !important; padding-right: 0 !important; padding-top: 5px !important; width: 6% !important;">'.$rowMeds['category_name'].'. '.$rowMeds['medicine_name'].'</td>
+
+                                            <td style="border: 1px solid black; font-size: 100%; padding-bottom: 5px !important; padding-right: 0 !important; padding-top: 5px !important; width: 6% !important;" class="text-center">'.$rowMeds['med_qty'].'</td>
+                                        </tr>
+                                        ';
+                                    }
+                                    $iteration++;
+                                    
+                                }
+                              ?>
+                          </tbody>
+                        </table>
+                    </div>
+                </div>
+
+
+
+
+
+                <?php } ?>
+
+                
+
+
             </div> <!-- end row -->
         </div><!-- container fluid -->
     </div> <!-- Page content Wrapper -->
