@@ -13,7 +13,7 @@
         INNER JOIN discharge_patients ON discharge_patients.pat_id = anesthetic_surgery_charges.pat_id
         INNER JOIN surgeries ON surgeries.id = anesthetic_surgery_charges.pat_operation
         INNER JOIN staff_members ON staff_members.id = anesthetic_surgery_charges.pat_consultant
-        WHERE anesthetic_surgery_charges.payment_status = '1' AND discharge_patients.organization LIKE '%Other%' AND anesthetic_surgery_charges.anesthetic_id = '$id' ORDER BY discharge_patients.patient_doa DESC");
+        WHERE anesthetic_surgery_charges.payment_status = '1' AND discharge_patients.organization LIKE '%Other%' AND anesthetic_surgery_charges.anesthetic_id = '$id' ORDER BY discharge_patients.patient_doa ASC LIMIT 100");
 
 
     $queryAnestheticName = mysqli_query($connect, "SELECT * FROM `staff_members` WHERE id = '$id'");

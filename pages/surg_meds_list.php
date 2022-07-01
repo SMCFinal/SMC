@@ -17,7 +17,7 @@
     
     $surgeryId = $fetch_selectPatient['patient_operation'];
 
-    $sur_details = mysqli_query($connect, "SELECT patient_registration.id, patient_registration.patient_operation, surgeries.surgery_name FROM `patient_registration`
+    $sur_details = mysqli_query($connect, "SELECT patient_registration.id, patient_registration.patient_operation, patient_registration.organization, surgeries.surgery_name FROM `patient_registration`
         INNER JOIN staff_members ON staff_members.id = patient_registration.patient_consultant
         INNER JOIN surgeries ON surgeries.id = patient_registration.patient_operation
 
@@ -146,13 +146,27 @@
 
                 <br>
 
-                <div class="row" style="margin-bottom: -5px !important;">
+                <div class="row" style="margin-bottom: -15px !important; margin-top: -15px !important;">
                     <div class="col-md-12">
                         <h3 align="center" style="font-size: 100%">PATIENT MEDICATION LIST (<?php echo $fetch_surg_details['surgery_name'] ?>)</h3>
                     </div>
                 </div>
+                
+                <div class="row" style="border-bottom: 1px solid black; margin-bottom: 25px !important">
+                    <div class="col-md-12">
+                        <h3 align="center" style="font-size: 120%">(
+                        <?php
+                            if($fetch_surg_details['organization'] === 'Sehat') {
+                                echo 'Sehat Card';
+                            }else {
+                                echo $fetch_surg_details['organization'];
+                            }
+                        ?>
+                        )</h3>
+                    </div>
+                </div>
+                
 
-                <br>
 
                 <?php
                     $checkQuery = mysqli_query($connect, "SELECT COUNT(*) AS medsCount FROM `surgery_medicines` WHERE surgery_id = '$surgeryId'");
