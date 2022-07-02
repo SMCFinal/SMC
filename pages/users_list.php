@@ -54,43 +54,44 @@
                                 $inActive = 'In-Active';
 
                                 while ($userRow = mysqli_fetch_assoc($retrieveUsers)) {
-                                    echo '
-                                    <tr>
-                                        <td>'.$iterationUser++.'.'.'</td>
-                                        <td>'.$userRow['name'].'</td>
-                                        <td>'.$userRow['username'].'</td>
-                                        <td>'.$userRow['email'].'</td>';
-                                        if ($userRow['user_role'] == '1') {
-                                            echo '<td>'.$admin.'</td>';
-                                        }elseif ($userRow['user_role'] == '2') {
-                                            echo '<td>'.$manager.'</td>';   
-                                        }elseif ($userRow['user_role'] == '3') {
-                                            echo '<td>'.$CounterScreen.'</td>';   
-                                        }elseif ($userRow['user_role'] == '4') {
-                                            echo '<td>'.$Laboratory.'</td>';   
-                                        }elseif ($userRow['user_role'] == '5') {
-                                            echo '<td>'.$Pharmacy.'</td>';   
-                                        }elseif ($userRow['user_role'] == '6') {
-                                            echo '<td>'.$GroundFloorCounter.'</td>';   
-                                        }elseif ($userRow['user_role'] == '7') {
-                                            echo '<td>'.$GroundFloorSecondCounter.'</td>';   
-                                        }
-
-
-
-                                        if ($userRow['status'] == '1') {
-                                            echo '<td>'.$active.'</td>';
-                                        }else {
-                                            echo '<td>'.$inActive.'</td>';
-                                        }
-                                        echo'
-                                        <td>'.$userRow['password'].'</td>
-                                        
-                                        <td>
-                                            <a href="./user_edit.php?id='.$userRow['id'].'" type="button" class="btn text-white btn-success waves-effect waves-light">Edit</a>
-                                        </td>                                        
-                                    </tr>';
-
+                                    if ($userRow['user_role'] === '1' || $userRow['user_role'] === '2' || $userRow['user_role'] === '3' || $userRow['user_role'] == '4' || $userRow['user_role'] == '5' || $userRow['user_role'] == '6' || $userRow['user_role'] == '7') {
+                                        echo '
+                                        <tr>
+                                            <td>'.$iterationUser++.'.'.'</td>
+                                            <td>'.$userRow['name'].'</td>
+                                            <td>'.$userRow['username'].'</td>
+                                            <td>'.$userRow['email'].'</td>';
+                                            if ($userRow['user_role'] == '1') {
+                                                echo '<td>'.$admin.'</td>';
+                                            }elseif ($userRow['user_role'] == '2') {
+                                                echo '<td>'.$manager.'</td>';   
+                                            }elseif ($userRow['user_role'] == '3') {
+                                                echo '<td>'.$CounterScreen.'</td>';   
+                                            }elseif ($userRow['user_role'] == '4') {
+                                                echo '<td>'.$Laboratory.'</td>';   
+                                            }elseif ($userRow['user_role'] == '5') {
+                                                echo '<td>'.$Pharmacy.'</td>';   
+                                            }elseif ($userRow['user_role'] == '6') {
+                                                echo '<td>'.$GroundFloorCounter.'</td>';   
+                                            }elseif ($userRow['user_role'] == '7') {
+                                                echo '<td>'.$GroundFloorSecondCounter.'</td>';   
+                                            }
+    
+    
+    
+                                            if ($userRow['status'] == '1') {
+                                                echo '<td>'.$active.'</td>';
+                                            }else {
+                                                echo '<td>'.$inActive.'</td>';
+                                            }
+                                            echo'
+                                            <td>'.$userRow['password'].'</td>
+                                            
+                                            <td>
+                                                <a href="./user_edit.php?id='.$userRow['id'].'" type="button" class="btn text-white btn-success waves-effect waves-light">Edit</a>
+                                            </td>                                        
+                                        </tr>';
+                                    }
                                 }
                                             // <a type="button" href="#" class="btn text-white btn-danger waves-effect waves-light changeUserStatus" id="change" data-id='.$userRow['id'].'>Delete</a>
                                             // <a class="btn text-white btn-danger waves-effect waves-light changeUserStatus" id="deleteAccount" type="button" href="">Delete</a>

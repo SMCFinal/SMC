@@ -157,7 +157,7 @@
 
         $contact_one = '03466459796';
         $contact_sec = '03464120026';
-        $contact_third = '03359967977';
+        $contact_third = '03420478990';
 
         $insertMsgOne =  mysqli_query($connect, "INSERT INTO message_tbl
             (from_device, to_device, message_body, status)

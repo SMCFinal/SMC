@@ -70,11 +70,13 @@
                                 <span> Dashboard </span>
                             </a>
                         </li>
-                    <?php } ?>
+                        <?php } ?>
                         <?php if ($fetch_query['user_role'] == '2' OR $fetch_query['user_role'] == '3' OR $fetch_query['user_role'] == '4' OR $fetch_query['user_role'] == '5') {
                             ?>
                         <li class="has_sub">
-                            <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-flash"></i> <span> Quick Access </span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
+                            <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-flash"></i> <span>
+                                    Quick Access </span> <span class="menu-arrow float-right"><i
+                                        class="mdi mdi-chevron-right"></i></span></a>
                             <ul class="list-unstyled">
                                 <li><a href="patients_list.php">View Patients</a></li>
                                 <!-- <li><a href="patient_new.php">View Rooms</a></li> -->
@@ -89,7 +91,9 @@
                         <?php if ($fetch_query['user_role'] == '2') {
                             ?>
                         <li class="has_sub">
-                            <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-building"></i> <span> Organizations</span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
+                            <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-building"></i> <span>
+                                    Organizations</span> <span class="menu-arrow float-right"><i
+                                        class="mdi mdi-chevron-right"></i></span></a>
                             <ul class="list-unstyled">
 
                                 <li><a href="select_organization.php">Organizations List</a></li>
@@ -97,7 +101,9 @@
                         </li>
 
                         <li class="has_sub">
-                            <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-wheelchair-accessibility"></i> <span> Patients </span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
+                            <a href="javascript:void(0);" class="waves-effect"><i
+                                    class="mdi mdi-wheelchair-accessibility"></i> <span> Patients </span> <span
+                                    class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
                             <ul class="list-unstyled">
                                 <li><a href="patient_new.php">Patient Registration</a></li>
                                 <li><a href="patients_list.php">Current Patients</a></li>
@@ -116,7 +122,9 @@
 
 
                         <li class="has_sub">
-                            <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-medkit"></i> <span> Medications </span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
+                            <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-medkit"></i> <span>
+                                    Medications </span> <span class="menu-arrow float-right"><i
+                                        class="mdi mdi-chevron-right"></i></span></a>
                             <ul class="list-unstyled">
                                 <li><a href="surgery_medicine_category.php">Add Med Category</a></li>
                                 <li><a href="surgery_med_new.php">Add Medicines</a></li>
@@ -128,8 +136,10 @@
                         <?php } ?>
 
                         <?php if ($fetch_query['user_role'] == '2') {?>
-                         <li class="has_sub">
-                            <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-glassdoor"></i> <span> Rooms</span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
+                        <li class="has_sub">
+                            <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-glassdoor"></i> <span>
+                                    Rooms</span> <span class="menu-arrow float-right"><i
+                                        class="mdi mdi-chevron-right"></i></span></a>
                             <ul class="list-unstyled">
                                 <li><a href="room_new.php">Add New Room</a></li>
                                 <li><a href="rooms_list.php">Rooms List</a></li>
@@ -137,17 +147,21 @@
                                 <li><a href="floors_list.php">Floors List</a></li>
                             </ul>
                         </li>
-                        
 
 
-                         <li class="has_sub">
-                            <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-pulse"></i> <span> Surgeries</span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
+
+                        <li class="has_sub">
+                            <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-pulse"></i> <span>
+                                    Surgeries</span> <span class="menu-arrow float-right"><i
+                                        class="mdi mdi-chevron-right"></i></span></a>
                             <ul class="list-unstyled">
                                 <li><a href="surgeries_list.php">Surgeries List</a></li>
                             </ul>
                         </li>
                         <li class="has_sub">
-                            <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-location"></i> <span> Areas</span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
+                            <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-location"></i> <span>
+                                    Areas</span> <span class="menu-arrow float-right"><i
+                                        class="mdi mdi-chevron-right"></i></span></a>
                             <ul class="list-unstyled">
 
                                 <li><a href="areas_list.php">Areas List</a></li>
@@ -155,9 +169,11 @@
                         </li>
 
 
-                        
-                         <li class="has_sub">
-                            <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-briefcase"></i> <span> Pharmacy</span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
+
+                        <li class="has_sub">
+                            <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-briefcase"></i>
+                                <span> Pharmacy</span> <span class="menu-arrow float-right"><i
+                                        class="mdi mdi-chevron-right"></i></span></a>
                             <ul class="list-unstyled">
                                 <li><a href="pharmacy_medicine_category.php">Medicines Category</a></li>
                                 <li><a href="pharmacy_medicine_new.php">Add New Medicines</a></li>
@@ -172,8 +188,10 @@
 
                             </ul>
                         </li>
-                         <li class="has_sub">
-                            <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-store"></i> <span> Inventory</span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
+                        <li class="has_sub">
+                            <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-store"></i> <span>
+                                    Inventory</span> <span class="menu-arrow float-right"><i
+                                        class="mdi mdi-chevron-right"></i></span></a>
                             <ul class="list-unstyled">
 
                                 <li><a href="inventory_new.php">Add Inventory Items</a></li>
@@ -182,8 +200,10 @@
                             </ul>
                         </li>
 
-                         <li class="has_sub">
-                            <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-medical"></i> <span> Operation Theater</span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
+                        <li class="has_sub">
+                            <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-medical"></i> <span>
+                                    Operation Theater</span> <span class="menu-arrow float-right"><i
+                                        class="mdi mdi-chevron-right"></i></span></a>
                             <ul class="list-unstyled">
 
                                 <li><a href="ot_items_new.php">Add Items</a></li>
@@ -192,8 +212,10 @@
                             </ul>
                         </li>
 
-                         <li class="has_sub">
-                            <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-experiment"></i> <span> Lab Tests</span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
+                        <li class="has_sub">
+                            <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-experiment"></i>
+                                <span> Lab Tests</span> <span class="menu-arrow float-right"><i
+                                        class="mdi mdi-chevron-right"></i></span></a>
                             <ul class="list-unstyled">
 
                                 <li><a href="lab_test_category.php">Add Lab Test Category</a></li>
@@ -205,7 +227,9 @@
                         </li>
 
                         <li class="has_sub">
-                            <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-broadcast"></i> <span> Expenses</span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
+                            <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-broadcast"></i>
+                                <span> Expenses</span> <span class="menu-arrow float-right"><i
+                                        class="mdi mdi-chevron-right"></i></span></a>
                             <ul class="list-unstyled">
 
                                 <li><a href="expense_category_new.php">Expense Category</a></li>
@@ -216,12 +240,14 @@
                         </li>
 
 
-       
+
                         <?php } ?>
 
                         <?php if ($fetch_query['user_role'] == '1') {?>
                         <li class="has_sub">
-                            <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-user-md"></i> <span>  Doctor Charges</span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
+                            <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-user-md"></i> <span>
+                                    Doctor Charges</span> <span class="menu-arrow float-right"><i
+                                        class="mdi mdi-chevron-right"></i></span></a>
                             <ul class="list-unstyled">
 
                                 <li><a href="doctor_payment_list.php">Doctor Payment List</a></li>
@@ -236,14 +262,18 @@
                         </li>
 
                         <li class="has_sub">
-                            <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-bed"></i> <span>  OT Daily Charges</span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
+                            <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-bed"></i> <span> OT Daily
+                                    Charges</span> <span class="menu-arrow float-right"><i
+                                        class="mdi mdi-chevron-right"></i></span></a>
                             <ul class="list-unstyled">
                                 <li><a href="ot_charges_list.php">OT Charges List</a></li>
                             </ul>
                         </li>
 
                         <li class="has_sub">
-                            <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-wallet"></i> <span>  Anesthetic Charges</span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
+                            <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-wallet"></i> <span>
+                                    Anesthetic Charges</span> <span class="menu-arrow float-right"><i
+                                        class="mdi mdi-chevron-right"></i></span></a>
                             <ul class="list-unstyled">
 
                                 <li><a href="anesthetic_surgery_charges.php">ANA Private Charges</a></li>
@@ -255,21 +285,22 @@
                         </li>
 
                         <li class="has_sub">
-                            <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-user-group"></i> <span> HR Staff</span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
+                            <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-user-group"></i>
+                                <span> HR Staff</span> <span class="menu-arrow float-right"><i
+                                        class="mdi mdi-chevron-right"></i></span></a>
                             <ul class="list-unstyled">
-
                                 <li><a href="HR_staff_new.php">Staff Registration</a></li>
                                 <li><a href="HR_staff_list.php">Staff List</a></li>
                                 <li><a href="HR_staff_category.php">Staff Category</a></li>
-
                             </ul>
                         </li>
 
                         <li class="has_sub">
-                            <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-user-group"></i> <span>Employees</span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
+                            <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-user-group"></i>
+                                <span>Employees</span> <span class="menu-arrow float-right"><i
+                                        class="mdi mdi-chevron-right"></i></span></a>
                             <ul class="list-unstyled">
                                 <li><a href="employee_designations.php">Add Designations</a></li>
-
                                 <li><a href="employee_new.php">Add Employee</a></li>
                                 <li><a href="employee_list.php">Employees List</a></li>
                                 <li><a href="employee_select.php">Advance Payments</a></li>
@@ -280,9 +311,22 @@
                             </ul>
                         </li>
 
+                        <li class="has_sub">
+                            <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-user-md"></i>
+                                <span>Doctor's Login</span> <span class="menu-arrow float-right"><i
+                                        class="mdi mdi-chevron-right"></i></span></a>
+                            <ul class="list-unstyled">
+                                <li><a href="doctors_list_login.php">Dr Credentials</a></li>
+                                <li><a href="doctors_list_login_resend.php">Dr Credentials List</a></li>
+                                <li><a href="anesthesia_list_login.php">ANA Credentials</a></li>
+                            </ul>
+                        </li>
+
 
                         <li class="has_sub">
-                            <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-document"></i> <span>  Reports</span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
+                            <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-document"></i> <span>
+                                    Reports</span> <span class="menu-arrow float-right"><i
+                                        class="mdi mdi-chevron-right"></i></span></a>
                             <ul class="list-unstyled">
                                 <li><a href="report_areawise.php">Area wise Report</a></li>
                                 <li><a href="report_doctor.php">Doctor Report</a></li>
@@ -300,28 +344,36 @@
 
 
                         <li class="has_sub">
-                            <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-user-group"></i> <span> Users</span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
+                            <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-user-group"></i>
+                                <span> Users</span> <span class="menu-arrow float-right"><i
+                                        class="mdi mdi-chevron-right"></i></span></a>
                             <ul class="list-unstyled">
                                 <li><a href="user_new.php">Add New User</a></li>
                                 <li><a href="users_list.php">Users List</a></li>
+                                <li><a href="doctors_credentials_list.php">Doctor Credentials</a></li>
+                                <li><a href="ana_credentials_list.php">ANA Credentials</a></li>
                             </ul>
                         </li>
 
 
                         <li class="has_sub">
-                            <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-money"></i> <span> Approve Expense</span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
+                            <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-money"></i> <span>
+                                    Approve Expense</span> <span class="menu-arrow float-right"><i
+                                        class="mdi mdi-chevron-right"></i></span></a>
                             <ul class="list-unstyled">
                                 <li><a href="expense_clear.php">Expense List</a></li>
                             </ul>
                         </li>
 
                         <li class="has_sub">
-                            <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-upload"></i> <span> Backup</span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
+                            <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-upload"></i> <span>
+                                    Backup</span> <span class="menu-arrow float-right"><i
+                                        class="mdi mdi-chevron-right"></i></span></a>
                             <ul class="list-unstyled">
                                 <li><a href="backup_page.php">Website Backup</a></li>
                             </ul>
                         </li>
-                    <?php } ?>
+                        <?php } ?>
 
 
                         <?php if ($fetch_query['user_role'] == '2') {?>
@@ -514,19 +566,25 @@
                 <!-- Top Bar Start -->
                 <div class="topbar">
                     <div class="topbar-left d-none d-lg-block">
-                        <div class="text-center pt-2"  >
-                            <a href="/smc/pages/dashboard.php" class="text-white "><h3>SMC</h3></a>
+                        <div class="text-center pt-2">
+                            <a href="/smc/pages/dashboard.php" class="text-white ">
+                                <h3>SMC</h3>
+                            </a>
                         </div>
                     </div>
                     <nav class="navbar-custom">
                         <ul class="list-inline float-right mb-0">
                             <li class="list-inline-item dropdown notification-list">
-                                <a class="nav-link dropdown-toggle arrow-none waves-effect nav-user" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                                    <img src="../assets/images/user.png" alt="user" class="rounded-circle" style="border:1px solid #54CC96; box-shadow: 1px 1px 3px 1px #ccc">
+                                <a class="nav-link dropdown-toggle arrow-none waves-effect nav-user"
+                                    data-toggle="dropdown" href="#" role="button" aria-haspopup="false"
+                                    aria-expanded="false">
+                                    <img src="../assets/images/user.png" alt="user" class="rounded-circle"
+                                        style="border:1px solid #54CC96; box-shadow: 1px 1px 3px 1px #ccc">
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-animated profile-dropdown ">
-                                    
-                                    <a class="dropdown-item" href="signout.php"><i class="mdi mdi-logout m-r-5 text-muted"></i> Logout</a>
+
+                                    <a class="dropdown-item" href="signout.php"><i
+                                            class="mdi mdi-logout m-r-5 text-muted"></i> Logout</a>
                                 </div>
                             </li>
                         </ul>
