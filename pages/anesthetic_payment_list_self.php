@@ -14,7 +14,8 @@ include '../_partials/header.php';
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-12">
-                <h5 class="page-title">Anesthetic Payment List</h5>
+
+                <h5 class="page-title">Payment List</h5>
             </div>
         </div>
         <!-- end row -->

@@ -34,6 +34,10 @@
             header("LOCATION:pages/dashboardCustom.php");
         }elseif ($user_role == '7') {
             header("LOCATION:pages/groundFloorDBoard.php");
+        }elseif ($user_role == '8') {
+            header("LOCATION:pages/doctorDashboard.php");
+        }elseif ($user_role == '9') {
+            header("LOCATION:pages/anestheticDashboard.php");
         }
         
       }else {

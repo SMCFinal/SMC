@@ -204,7 +204,7 @@ include '../_partials/header.php';
                         <div align="center">
                             <?php include '../_partials/cancel.php'; ?>
                             <?php
-                            if ($totalSum === 0) {
+                            if ($totalSum < 0) {
                                 echo '<button class="btn btn-primary waves-effect waves-light" disabled>No Pay!</button>';
                             }else {
                                 echo '<button type="submit" name="payAnestheticCharges" class="btn btn-primary waves-effect waves-light">Pay Anesthetic</button>';

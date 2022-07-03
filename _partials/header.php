@@ -341,8 +341,6 @@
                         </li>
 
 
-
-
                         <li class="has_sub">
                             <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-user-group"></i>
                                 <span> Users</span> <span class="menu-arrow float-right"><i
@@ -550,6 +548,124 @@
                         </li> -->
 
                         <?php  } ?>
+
+                        <?php if($fetch_query['user_role'] == '8'){ ?>
+
+                            <li>
+                            <a href="doctorDashboard.php" class="waves-effect">
+                                <i class="dripicons-meter"></i>
+                                <span> Dashboard </span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="doctor_surgery_charges_self.php" class="waves-effect">
+                                <i class="dripicons-wallet"></i>
+                                <span> Private Charges </span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="doctor_sehatcard_charges_self.php" class="waves-effect">
+                                <i class="dripicons-wallet"></i>
+                                <span> Sehat Card Charges </span>
+                            </a>
+                        </li>
+
+
+                        <li>
+                            <a href="doctor_ptcl_charges_self.php" class="waves-effect">
+                                <i class="dripicons-wallet"></i>
+                                <span> PTCL Charges </span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="doctor_other_charges_self.php" class="waves-effect">
+                                <i class="dripicons-wallet"></i>
+                                <span> Other Charges </span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="doctor_payment_list_self.php" class="waves-effect">
+                                <i class="dripicons-wallet"></i>
+                                <span> Payment List </span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="doctor_patient_list.php" class="waves-effect">
+                                <i class="mdi mdi-wheelchair-accessibility"></i>
+                                <span> Patients List </span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="my_profile.php" class="waves-effect">
+                                <i class="fa fa-user-md"></i>
+                                <span> My Profile </span>
+                            </a>
+                        </li>
+
+
+
+                        <?php } ?>
+
+
+
+                        <?php if($fetch_query['user_role'] == '9'){ ?>
+                        <li>
+                            <a href="anestheticDashboard.php" class="waves-effect">
+                                <i class="dripicons-meter"></i>
+                                <span> Dashboard </span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="anesthetic_surgery_charges_self.php" class="waves-effect">
+                                <i class="dripicons-wallet"></i>
+                                <span> Private Charges </span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="anesthetic_sehatcard_charges_self.php" class="waves-effect">
+                                <i class="dripicons-wallet"></i>
+                                <span> Sehat Card Charges </span>
+                            </a>
+                        </li>
+
+
+                        <li>
+                            <a href="anesthetic_ptcl_charges_self.php" class="waves-effect">
+                                <i class="dripicons-wallet"></i>
+                                <span> PTCL Charges </span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="anesthetic_other_charges_self.php" class="waves-effect">
+                                <i class="dripicons-wallet"></i>
+                                <span> Other Charges </span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="anesthetic_payment_list_self.php" class="waves-effect">
+                                <i class="dripicons-wallet"></i>
+                                <span> Payment List </span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="my_profile.php" class="waves-effect">
+                                <i class="fa fa-user-md"></i>
+                                <span> My Profile </span>
+                            </a>
+                        </li>
+
+                        <?php } ?>
 
 
 

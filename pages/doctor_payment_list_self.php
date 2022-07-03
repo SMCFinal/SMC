@@ -5,8 +5,18 @@ if (empty($_SESSION["user"])) {
 	header("LOCATION:../index.php");
 }
 
+    $user = $_SESSION["user"];
+    $loginUser = mysqli_query($connect, "SELECT * FROM `login_user` WHERE email = '$user'");
+    $fetch_loginUser = mysqli_fetch_assoc($loginUser);
 
-include '../_partials/header.php';
+    $userName = $fetch_loginUser['name'];
+
+    $staffMembers = mysqli_query($connect, "SELECT * FROM staff_members WHERE name = '$userName'");
+    $fetch_staffMembers = mysqli_fetch_assoc($staffMembers);
+
+    $id = $fetch_staffMembers['id'];
+
+    include '../_partials/header.php';
 ?>
 <link href="../assets/plugins/sweet-alert2/sweetalert2.min.css" rel="stylesheet" type="text/css">
 
@@ -14,7 +24,8 @@ include '../_partials/header.php';
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-12">
-                <h5 class="page-title">Anesthetic Payment List</h5>
+
+                <h5 class="page-title">Doctors Payments List</h5>
             </div>
         </div>
         <!-- end row -->
@@ -27,7 +38,9 @@ include '../_partials/header.php';
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Anesthetic Name</th>
+                                    <th>Dr. Name</th>
+                                    <th>Surgery Charges</th>
+                                    <th>Visit Charges</th>
                                     <th>Total</th>
                                     <th>Payment Date/Time</th>
                                     <th>Action</th>
@@ -35,23 +48,24 @@ include '../_partials/header.php';
                             </thead>
                             <tbody>
                                 <?php
-                                    $retInventoryItems = mysqli_query($connect, "SELECT anethetic_paid_amount.*, staff_members.name FROM `anethetic_paid_amount`
-                                        INNER JOIN staff_members ON staff_members.id = anethetic_paid_amount.aneshthetic_id 
-                                        ORDER BY anethetic_paid_amount.ref_no DESC");
+                                    $retDoctorData = mysqli_query($connect, "SELECT doctor_paid_amount.*, staff_members.name FROM `doctor_paid_amount`
+                                    INNER JOIN staff_members ON staff_members.id = doctor_paid_amount.d_id WHERE doctor_paid_amount.d_id = '$id' ORDER BY doctor_paid_amount.ref_no DESC");
                                     $iteration = 1;
 
-                                    while ($rowInventory = mysqli_fetch_assoc($retInventoryItems)) {
+                                    while ($rowDoctorData = mysqli_fetch_assoc($retDoctorData)) {
                                     	echo '
                                         <tr>
                                             <td>'.$iteration++.'</td>
-                                            <td>'.$rowInventory['name'].'</td>
-                                            <td>'.$rowInventory['paid_amount'].'</td>';
-                                            $old_date_timestamp = strtotime($rowInventory['auto_date']);
+                                            <td>'.$rowDoctorData['name'].'</td>
+                                            <td>'.$rowDoctorData['total_surgery'].'</td>
+                                            <td>'.$rowDoctorData['total_visit'].'</td>
+                                            <td>'.$rowDoctorData['total_paid'].'</td>';
+                                            $old_date_timestamp = strtotime($rowDoctorData['auto_date']);
                                             $new_date = date('d M/Y h:i:s A', $old_date_timestamp); 
                                             echo '
                                             <td>'.$new_date.'</td>
                                             <td>
-                                                <a href="printListAnesthesia.php?a_id='.$rowInventory['aneshthetic_id'].'&refNo='.$rowInventory['ref_no'].'" class="btn btn-info">View</a>
+                                                <a href="printList.php?d_id='.$rowDoctorData['d_id'].'&refNo='.$rowDoctorData['ref_no'].'" class="btn btn-info">View</a>
                                             </td>
                                         </tr>
                                     ';
