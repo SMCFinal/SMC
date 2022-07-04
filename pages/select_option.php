@@ -32,6 +32,7 @@
 		                        <div align="center">
 		                        	<a href="discharge_patient_invoice.php?id='.$id.'&pat_id='.$patCustomId.'" class="btn btn-info btn-lg">Discharge Slip</a>
 		                        	<a href="charges_slip.php?id='.$id.'&pat_id='.$patCustomId.'" class="btn btn-success btn-lg">View Fee Slip</a>
+		                        	<a href="edit_fees.php?id='.$id.'&pat_id='.$patCustomId.'" class="btn btn-secondary btn-lg">Edit Fee Slip</a>
 		                        </div>
 	                        ';
                         ?>

@@ -78,8 +78,7 @@
                                         </tr>
                                     ';
                                 }
-                                            // <td class="text-center"><a href="./user_edit.php" type="button" class="btn text-white btn-warning waves-effect 
-                                            //waves-light">Edit</a></td>
+                                            
                                 ?>
                                 
                                     

@@ -43,8 +43,8 @@
                                     <th>Organization</th>
                                     <th>Date of Admission</th>
                                     <th>Disease</th>
-                                    <th>Consultant</th>
                                     <th class="text-center"><i class="mdi mdi-eye"></i></th>
+                                    <th class="text-center"><i class="mdi mdi-pill"></i></th>
                                 </tr>
                             </thead>
                             <!-- <td>
@@ -54,65 +54,74 @@
                             </td> -->
                             <tbody>
                                 <?php
-                                $selectQueryPatients = mysqli_query($connect, "SELECT patient_registration.*, staff_members.name FROM `patient_registration`
-                                INNER JOIN staff_members ON staff_members.id = patient_registration.patient_consultant AND category = 'currentPatient'
-                                WHERE patient_registration.patient_consultant = '$id'
-                                ORDER BY patient_registration.patient_doa DESC;");
-                                $iteration = 1;
+                                    $selectQueryPatients = mysqli_query($connect, "SELECT patient_registration.*, staff_members.name FROM `patient_registration`
+                                    INNER JOIN staff_members ON staff_members.id = patient_registration.patient_consultant AND category = 'currentPatient'
+                                    WHERE patient_registration.patient_consultant = '$id'
+                                    ORDER BY patient_registration.patient_doa DESC");
+                                    $iteration = 1;
 
-                                $timezone = date_default_timezone_set('Asia/Karachi');
-                                $date = date('m/d/Y h:i:s a', time());
+                                    $timezone = date_default_timezone_set('Asia/Karachi');
+                                    $date = date('m/d/Y h:i:s a', time());
 
-                                while ($rowPatients = mysqli_fetch_assoc($selectQueryPatients)) {
-                                    // echo $rowPatients['patient_doa'];
-                                $hourdiff = round((strtotime($date) - strtotime($rowPatients['patient_doa']))/3600, 1);
-                                    if ($rowPatients['room_id'] === '0') {
-                                        
-                                    }else {
-                                    echo '
-                                        <tr>
-                                            <td>'.$iteration++.'</td>
-                                            <td>
-                                                <a href="pat_meds.php?id='.$rowPatients['id'].'" type="button" style="background-color: #efefef; box-shadow: 3px 3px 3px 3px #ccc;" class="btn">
-                                                '.$rowPatients['patient_yearly_no'].'
-                                                </a>
-                                            </td>
-                                            <td>'.$rowPatients['patient_name'].'</td>
-                                            <td>'.$rowPatients['organization'].'</td>';
-                                            $dateAdmisison = $rowPatients['patient_doa']; 
-                                            $newAdmisison = date('d/M/Y h:i:s A', strtotime($dateAdmisison));
+                                    while ($rowPatients = mysqli_fetch_assoc($selectQueryPatients)) {
+                                    $hourdiff = round((strtotime($date) - strtotime($rowPatients['patient_doa']))/3600, 1);
+                                        if ($rowPatients['room_id'] === '0') {
+                                            
+                                        }else {
+                                        if ($rowPatients['patient_doop'] === '0000-00-00 00:00:00') {
+                                            
+                                        }else {
                                             echo '
-                                            <td>'.$newAdmisison.'</td>';
-
-                                            if ($rowPatients['patient_operation'] === '0') {
-                                                echo '<td>'.$rowPatients['patient_disease'].'</td>';
-                                            }else {
+                                            <tr>
+                                                <td>'.$iteration++.'</td>
+                                                <td>'.$rowPatients['patient_yearly_no'].'</td>
+                                                <td>'.$rowPatients['patient_name'].'</td>
+                                                <td>'.$rowPatients['organization'].'</td>';
+                                                $dateAdmisison = $rowPatients['patient_doa']; 
+                                                $newAdmisison = date('d/M/Y', strtotime($dateAdmisison));
                                                 echo '
-                                                <td>
-                                                    <a href="surg_meds_list.php?id='.$rowPatients['id'].'" type="button" style="background-color: #878787; box-shadow: 3px 3px 3px 3px #ccc;" class="btn text-light">
-                                                    '.$rowPatients['patient_disease'].'
-                                                    </a>
-                                                </td>
-                                                ';
+                                                <td>'.$newAdmisison.'</td>';
+
+                                                if ($rowPatients['patient_operation'] === '0') {
+                                                    echo '<td>'.$rowPatients['patient_disease'].'</td>';
+                                                }else {
+                                                    echo '
+                                                    <td>
+                                                        <a href="surg_meds_list.php?id='.$rowPatients['id'].'" type="button" style="background-color: #878787; box-shadow: 3px 3px 3px 3px #ccc;" class="btn text-light">
+                                                        '.$rowPatients['patient_disease'].'
+                                                        </a>
+                                                    </td>
+                                                    ';
+                                                }
+
+                                                echo '
+                                                
+                                                <td class="text-center">
+                                                    <a href="patient_view_doctor.php?id='.$rowPatients['id'].'" type="button" class="btn text-white btn-primary waves-effect waves-light btn-sm">View</a>&nbsp;&nbsp;&nbsp;
+                                                </td>';
+
+                                                $pat_id = $rowPatients['id'];
+                                                $checkPatProcedureQuery = mysqli_query($connect, "SELECT COUNT(*) AS CountedProcedures FROM doctor_prescription WHERE pat_id = '$pat_id'");
+                                                $fetch_checkPatProcedureQuery = mysqli_fetch_assoc($checkPatProcedureQuery);
+
+                                                if ($fetch_checkPatProcedureQuery['CountedProcedures'] > 0) {
+                                                    echo '
+                                                    <td class="text-center">
+                                                        <a href="edit_advice_procedure.php?id='.$rowPatients['id'].'&doctor='.$id.'" type="button" class="btn text-white btn-info waves-effect waves-light btn-sm">Edit Advice + Procedure</a>&nbsp;&nbsp;&nbsp;
+                                                    </td>
+                                                    ';
+                                                }else {
+                                                    echo '
+                                                    <td class="text-center">
+                                                        <a href="advice_procedure.php?id='.$rowPatients['id'].'&doctor='.$id.'" type="button" class="btn text-white btn-success waves-effect waves-light btn-sm">Advice + Procedure</a>&nbsp;&nbsp;&nbsp;
+                                                    </td>';
+                                                }
+                                            echo '   
+                                            </tr>
+                                            ';
                                             }
-
-                                            echo '
-                                            <td>'.$rowPatients['name'].'</td>
-                                            
-
-                                            
-
-
-                                            <td class="text-center">
-                                            <a href="patient_view.php?id='.$rowPatients['id'].'" type="button" class="btn text-white btn-primary waves-effect waves-light btn-sm">View</a>&nbsp;&nbsp;&nbsp;
-                                            </td>
-                                        </tr>
-                                    ';
+                                        }
                                     }
-                                }
-                                            // <td class="text-center"><a href="./user_edit.php" type="button" class="btn text-white btn-warning waves-effect 
-                                            //waves-light">Edit</a></td>
-
                                 ?>
                                 
                                     
