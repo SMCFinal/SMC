@@ -6,31 +6,35 @@
         header("LOCATION:../index.php");
     }
     $id = $_GET['id'];
+    $patCustomId = $_GET['pat_id'];
 
-    $selectPatient = mysqli_query($connect, "SELECT patient_registration.*, staff_members.name, staff_members.visit_charges, rooms.room_number, rooms.room_price  FROM `patient_registration`
-        INNER JOIN staff_members ON staff_members.id = patient_registration.patient_consultant
-        INNER JOIN rooms ON rooms.id = patient_registration.room_id
-
-        WHERE patient_registration.id = '$id'");
+    $selectPatient = mysqli_query($connect, "SELECT discharge_patients.*, staff_members.name, staff_members.visit_charges, rooms.room_number, rooms.room_price  FROM `discharge_patients`
+        INNER JOIN staff_members ON staff_members.id = discharge_patients.patient_consultant
+        INNER JOIN rooms ON rooms.id = discharge_patients.room_id
+        WHERE discharge_patients.id = '$id'");
 
     $fetch_selectPatient = mysqli_fetch_assoc($selectPatient);
-    $surgeryId = $fetch_selectPatient['patient_operation'];
 
-    $sur_details = mysqli_query($connect, "SELECT patient_registration.id, patient_registration.patient_operation, surgeries.surgery_name FROM `patient_registration`
-        INNER JOIN staff_members ON staff_members.id = patient_registration.patient_consultant
-        INNER JOIN surgeries ON surgeries.id = patient_registration.patient_operation
+    $patIdFooter = $fetch_selectPatient['pat_id'];
 
-        WHERE patient_registration.id = '$id'");
+    // $queryAdvice = mysqli_query($connect, "SELECT doctor_advice FROM `discharge_patients_charges` WHERE id= '$id'");
+    // $fetch_queryAdvice = mysqli_fetch_assoc($queryAdvice);
 
-    $fetch_surg_details = mysqli_fetch_assoc($sur_details);
+    // $advice = $fetch_queryAdvice['doctor_advice'];
+
+    // $explodeAdvice = explode(" , ", $advice);
+
+    $retPatDetail = mysqli_query($connect, "SELECT * FROM pat_details WHERE pat_id = '$patIdFooter'");
+    $fetch_retPatDetail = mysqli_fetch_assoc($retPatDetail);
+
 
 
 
     if (isset($_POST['makeSlip'])) {
-        $id = $_POST['pat_id'];
-        $pat_id = $_POST['pat_id'];
-        $city_id = $_POST['city_id'];
-        $room_id = $_POST['room_id'];
+        $advance_payment = $_POST['advance_payment'];
+        $patIdForUpdate = $_POST['patIdForUpdate'];
+        $customPatId = $_POST['customPatId'];
+
         $medCharges = $_POST['medCharges'];
         $roomCharges = $_POST['roomCharges'];
         $OTCharges = $_POST['OTCharges'];
@@ -40,14 +44,9 @@
         $anestheticCharges = $_POST['anesthesiaCharges'];
         $actualCharges = $_POST['actualCharges'];
         $paidAmount = $_POST['paidAmount'];
-        $doctorAdvice = $_POST['doctorAdvice'];
-        $stitchesDays = $_POST['stitchesDays'];
-
-        $patient_operation_discharge = $_POST['p_operation'];
-        $pat_consultant = $_POST['p_consultant'];
         $visitCharges = $_POST['visitCharges'];
 
-        $advance_payment = $_POST['advance_payment'];
+
 
         if (empty($visitCharges)) {
             $visitCharges = 0;
@@ -59,105 +58,22 @@
             $advance_payment = '0';
         }
 
-        $queryDischargeCharges = mysqli_query($connect, "INSERT INTO `discharge_patients_charges`
-            (`pat_id`, `city_id`, `room_id`, `med_charges`, `room_charges`, `ot_charges`, `hospital_charges`, `lab_charges`, `dr_charges`, `anesthetic_charges`, `actual_charges`, `amount_paid`, doctor_advice, days_stitches, pat_operation, pat_consultant, visit_charges, advance_payment) VALUES ('$pat_id', '$city_id', '$room_id', '$medCharges', '$roomCharges', '$OTCharges', '$hospitalCharges', '$labCharges', '$drCharges', '$anestheticCharges', '$actualCharges', '$paidAmount', '$doctorAdvice', '$stitchesDays', '$patient_operation_discharge', '$pat_consultant', '$visitCharges', '$advance_payment')");
-
-
-
-        $p_name = $_POST['p_name'];
-        $p_age = $_POST['p_age'];
-        $p_gender = $_POST['p_gender'];
-        $p_address = $_POST['p_address'];
-        $p_cnic = $_POST['p_cnic'];
-        $p_contact = $_POST['p_contact'];
-        $p_city = $_POST['p_city'];
-        $p_room = $_POST['p_room'];
-        $p_doa = $_POST['p_doa'];
-        $p_doop = $_POST['p_doop'];
-        $p_disease= $_POST['p_disease'];
-        $p_operation = $_POST['p_operation'];
-        $p_consultant = $_POST['p_consultant'];
-        $p_yearly = $_POST['p_yearly'];
-        $p_attendent = $_POST['p_attendent'];
-        $p_consultant_charges = $_POST['p_consultant_charges'];
-        $p_anes = $_POST['p_anes'];
-        $p_anes_charges = $_POST['p_anes_charges'];
-        $p_organization = $_POST['p_organization'];
-
-        $dateCustomForDischarge = date_default_timezone_set('Asia/Karachi');
-        $autoDateForDischarge = date('Y-m-d');
-
-
-        $p_advance = $_POST['p_advance'];
-        if (empty($p_advance)) {
-            $p_advance = '0';
-        }
-        $category = 'dischargePatient';
+        $updatePatCharges = mysqli_query($connect, "UPDATE `discharge_patients_charges` SET 
+        `med_charges` = '$medCharges', 
+        `room_charges` = '$roomCharges', 
+        `ot_charges` = '$OTCharges', 
+        `hospital_charges` = '$hospitalCharges', 
+        `lab_charges` = '$labCharges', 
+        `dr_charges` = '$drCharges', 
+        `anesthetic_charges` = '$anestheticCharges', 
+        `actual_charges` = '$actualCharges', 
+        `amount_paid` = '$paidAmount', 
+        `visit_charges` = '$visitCharges' 
+        WHERE pat_id = '$customPatId'");
         
-        $dischargePatientTable = mysqli_query($connect, "INSERT INTO `discharge_patients`
-            (`patient_name`, `patient_age`, `patient_gender`, `patient_address`, `patient_cnic`, `patient_contact`, `city_id`, `room_id`, `patient_doa`, `patient_doop`, `patient_disease`, `patient_operation`, `patient_consultant`, `patient_yearly_no`, `attendent_name`, `consultant_charges`, `anasthetic_name`, `anesthesia_charges`, `category`, `pat_id`, `advance_payment`, `organization`, `auto_date`) VALUES 
-            ('$p_name', '$p_age', '$p_gender', '$p_address', '$p_cnic', '$p_contact', '$p_city', '$p_room', '$p_doa', '$p_doop', '$p_disease', '$p_operation', '$p_consultant', '$p_yearly', '$p_attendent', '$p_consultant_charges', '$p_anes', '$p_anes_charges', '$category', '$id', '$p_advance', '$p_organization', '$autoDateForDischarge')");
-
-        $updatePharmacyAmount = mysqli_query($connect, "UPDATE pharmacy_amount SET patient_payment_status = '0' WHERE patient_id = '$pat_id'");
-
-        $updateRooms = mysqli_query($connect, "UPDATE rooms SET status = '1' WHERE id = '$room_id'");
-
-
-        $updateLabTestReport = mysqli_query($connect, "UPDATE lab_test_report SET patient_payment_status = '0' WHERE pat_id = '$pat_id'");
-
-        $deletePatient = mysqli_query($connect, "DELETE FROM `patient_registration` WHERE id='$id'");
-
-        $dop = "0000-00-00 00:00:00";
-
-        $queryDoctorChargesSurgery = mysqli_query($connect, "INSERT INTO doctor_surgery_charges(pat_id, room_id, surgery_charges, pat_operation, pat_consultant, date_of_payment)VALUES('$id', '$p_room', '$drCharges', '$p_operation', '$p_consultant', '$dop')");
-
-        $stitchesDays = $_POST['stitchesDays'];
-        $visitAfterDays = $_POST['visitAfterDays'];
-        $catheterAfterDays = $_POST['catheterAfterDays'];
-        $procedureCounter = $_POST['procedureCounter'];
-
-        $queryAnestheticChargesSurgery = mysqli_query($connect, "INSERT INTO anesthetic_surgery_charges(
-            anesthetic_id, 
-             pat_id, 
-              room_id,  
-               surgery_anes_charges, 
-                pat_operation, 
-                 pat_consultant, 
-                  date_of_payment
-            )VALUES(
-            '$p_anes', 
-             '$id', 
-              '$p_room', 
-               '$anestheticCharges', 
-                '$p_operation', 
-                 '$p_consultant', 
-                  '$dop')");
-
-
-        $timezoneNew = date_default_timezone_set('Asia/Karachi');
-        $dateNew = date('Y-m-d H:i:s', time());
-
-        $detailPatQuery = mysqli_query($connect, "INSERT INTO pat_details(
-            stitchesDays,
-             visitAfterDays,
-               catheterAfterDays,
-                procedureCounter,
-                 pat_id,
-                  dateandtime
-        )VALUES(
-            '$stitchesDays',
-             '$visitAfterDays',
-               '$catheterAfterDays',
-                '$procedureCounter',
-                 '$id',
-                  '$dateNew'
-        )
-        ");
-
-        $visitChargesUpdateQuery = mysqli_query($connect, "UPDATE doctor_visit_charges SET visit_status = '0' WHERE pat_id = '$id'");
-
-        if ($visitChargesUpdateQuery) {
-            header("LOCATION:patients_discharge_list.php");
+       
+        if ($updatePatCharges) {
+            header("LOCATION:select_option.php?id=".$patIdForUpdate."&pat_id=".$customPatId."");
         }
     }
 
@@ -170,7 +86,7 @@ include '../_partials/header.php';
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-12">
-                <h5 class="page-title">Prepare Patient Discharge Slip</h5>
+                <h5 class="page-title">Patients Fee Edit</h5>
             </div>
         </div>
         <!-- end row -->
@@ -179,6 +95,8 @@ include '../_partials/header.php';
                 <div class="card m-b-30">
                     <div class="card-body">
                         <form method="POST">
+                        <input type="hidden" value="<?php echo $id ?>" name="patIdForUpdate">
+                        <input type="hidden" value="<?php echo $patCustomId ?>" name="customPatId">
                         <div class="row">
                             <div class="col-12">
                                 <div class="invoice-title">
@@ -186,7 +104,7 @@ include '../_partials/header.php';
                                     <h3 class="m-t-0 text-center">
                                         <img src="../assets/logo.png" alt="logo" height="60" />
                                         <h3 align="center">SHAH MEDICAL CENTER</h3>
-                                        <h4 class="text-center font-16">Address: Near Center Hospital, Saidu Sharif Swat.</h4>
+                                        <h4 class="text-center font-16">Address: Near Centeral Hospital, Saidu Sharif Swat.</h4>
                                         <h4 class="float-right font-16"><strong>M.R No # <?php echo $fetch_selectPatient['patient_yearly_no'] ?></strong></h4>
                                         <br>
                                     </h3>
@@ -199,7 +117,6 @@ include '../_partials/header.php';
                                             <b>Patient Name: </b><?php echo $fetch_selectPatient['patient_name'] ?><br>
                                             <b>Patient Address: </b><?php echo $fetch_selectPatient['patient_address'] ?><br>
                                             <b>Patient Contact: </b><?php echo $fetch_selectPatient['patient_contact'] ?><br>
-                                            <b>Patient CNIC: </b><?php echo $fetch_selectPatient['patient_cnic'] ?><br>
                                             <b>Patient Gender: </b><?php if ($fetch_selectPatient['patient_gender'] == 1 ) {
                                                 echo 'Male';
                                             }elseif ($fetch_selectPatient['patient_gender'] == 2) {
@@ -214,7 +131,6 @@ include '../_partials/header.php';
                                         <address>
                                             <b>Doctor Name: </b><?php echo $fetch_selectPatient['name'] ?><br>
                                             <b>Room No. : </b><?php echo $fetch_selectPatient['room_number'] ?><br>
-                                            <b>Surgery: </b><?php echo $fetch_surg_details['surgery_name'] ?><br>
                                             <b>Date Of Admission: </b>
                                             <?php
                                             
@@ -260,16 +176,19 @@ include '../_partials/header.php';
 
                         ?>
                         <!-- <form method="POST"> -->
-                            
+                            <?php
+                                $queryDischargeCharges = mysqli_query($connect, "SELECT advance_payment, med_charges,room_charges, ot_charges, hospital_charges, lab_charges, dr_charges, anesthetic_charges, visit_charges, actual_charges  FROM  `discharge_patients_charges` WHERE pat_id = '$patCustomId'");
+                                $fetch_queryDischargeCharges = mysqli_fetch_assoc($queryDischargeCharges);
+                            ?>
                             <div class="row">
                                 <div class="col text-right">
                                     <label> Advance Charges:</label>
                                 </div>
                                 <div class="col-md-2">
-                                    <input type="hidden" name="advance_payment" value="<?php echo $fetch_selectPatient['advance_payment']; ?>" class="form-control">
+                                    <input type="hidden" name="advance_payment" value="<?php echo $fetch_queryDischargeCharges['advance_payment']; ?>" class="form-control">
                                 </div>
                                 <div class="col-md-3 col-md-offset-2">
-                                    <input type="number" id="advCharges" value="<?php echo $fetch_selectPatient['advance_payment'] ?>" class="form-control" required="" readonly >
+                                    <input type="number" id="advCharges" value="<?php echo $fetch_queryDischargeCharges['advance_payment'] ?>" class="form-control" required="" readonly >
                                 </div>
                             </div>
                             <br />
@@ -278,10 +197,10 @@ include '../_partials/header.php';
                                     <label> Medicines Charges:</label>
                                 </div>
                                 <div class="col-md-2">
-                                    <input type="number" value="<?php if($fetch_queryTotal['medTotal'] === 0 OR empty($fetch_queryTotal['medTotal'])){ echo "0"; }else{ echo $fetch_queryTotal['medTotal']; }  ?>" readonly id="actMedChar" required="" onkeyUp="actCharges()" class="form-control" placeholder="Medicines Price" >
+                                    <input type="number" value="<?php echo $fetch_queryDischargeCharges['med_charges'] ?>" readonly id="actMedChar" required="" onkeyUp="actCharges()" class="form-control" placeholder="Medicines Price" >
                                 </div>
                                 <div class="col-md-3">
-                                    <input type="number" name="medCharges" value="<?php if($fetch_queryTotal['medTotal'] === 0 OR empty($fetch_queryTotal['medTotal'])){ echo "0"; }else{ echo $fetch_queryTotal['medTotal']; }  ?>" class="form-control" id="totMedChar" required="" onkeyUp="totCharges()" placeholder="Medicines Price">
+                                    <input type="number" name="medCharges" value="<?php echo $fetch_queryDischargeCharges['med_charges'] ?>" readonly id="totMedChar" required="" onkeyUp="actCharges()" class="form-control" placeholder="Medicines Price" >
                                 </div>
                             </div>
                             <br />
@@ -290,32 +209,23 @@ include '../_partials/header.php';
                                     <label> Room Charges:</label>
                                 </div>
                                 <div class="col-md-2">
-                                    <input type="number" value="<?php echo $roomInvoicePrice ?>" readonly id="actRoomChar" required="" onkeyUp="actCharges()" class="form-control" placeholder="Room Charges">
+                                    <input type="number" value="<?php echo $fetch_queryDischargeCharges['room_charges'] ?>" readonly id="actRoomChar" required="" onkeyUp="actCharges()" class="form-control" placeholder="Room Charges">
                                 </div>
                                 <div class="col-md-3">
-                                    <input type="number" name="roomCharges" value="<?php echo $roomInvoicePrice ?>" id="totRoomChar" required="" onkeyUp="totCharges()" class="form-control" placeholder="Room Charges">
+                                    <input type="number" name="roomCharges" value="<?php echo $fetch_queryDischargeCharges['room_charges'] ?>" id="totRoomChar" required="" onkeyUp="totCharges()" class="form-control" placeholder="Room Charges">
                                 </div>
                             </div>
                             <br />
 
-                            <?php
-                            $surgeryChargesTable = mysqli_query($connect, "SELECT patient_registration.patient_operation, surgeries.*
-                                FROM patient_registration
-                                INNER JOIN surgeries ON surgeries.id = patient_registration.patient_operation
-                                WHERE patient_registration.id = '$id'");
-                            $fetch_surgeryChargesTable = mysqli_fetch_assoc($surgeryChargesTable);
-
-                            $doctorCharges = $fetch_selectPatient['consultant_charges'] - $fetch_surgeryChargesTable['total_charges'];
-                            ?>
                             <div class="row">
                                 <div class="col text-right">
                                     <label> OT Charges:</label>
                                 </div>
                                 <div class="col-md-2">
-                                    <input type="number" value="<?php echo $fetch_surgeryChargesTable['ot_charges'] ?>" id="actOtChar" required="" onkeyUp="actCharges()" readonly class="form-control" placeholder="OT Charges">
+                                    <input type="number" value="<?php echo $fetch_queryDischargeCharges['ot_charges'] ?>" id="actOtChar" required="" onkeyUp="actCharges()" readonly class="form-control" placeholder="OT Charges">
                                 </div>
                                 <div class="col-md-3">
-                                    <input type="number" name="OTCharges" value="<?php echo $fetch_surgeryChargesTable['ot_charges'] ?>" id="totOtChar" required="" onkeyUp="totCharges()" class="form-control" placeholder="OT Charges">
+                                    <input type="number" name="OTCharges" value="<?php echo $fetch_queryDischargeCharges['ot_charges'] ?>" id="totOtChar" required="" onkeyUp="totCharges()" class="form-control" placeholder="OT Charges">
                                 </div>
                             </div>
                             <br />
@@ -324,10 +234,10 @@ include '../_partials/header.php';
                                     <label> Admission Charges:</label>
                                 </div>
                                 <div class="col-md-2">
-                                    <input type="number" value="<?php echo $fetch_surgeryChargesTable['admission_charges'] ?>" id="actHosChar" required="" onkeyUp="actCharges()" readonly class="form-control" placeholder="Hospital Charges">
+                                    <input type="number" value="<?php echo $fetch_queryDischargeCharges['hospital_charges'] ?>" id="actHosChar" required="" onkeyUp="actCharges()" readonly class="form-control" placeholder="Hospital Charges">
                                 </div>
                                 <div class="col-md-3">
-                                    <input type="number" name="hospitalCharges" value="<?php echo $fetch_surgeryChargesTable['admission_charges'] ?>" id="totHosChar" required="" onkeyUp="totCharges()" class="form-control" placeholder="Hospital Charges">
+                                    <input type="number" name="hospitalCharges" value="<?php echo $fetch_queryDischargeCharges['hospital_charges'] ?>" id="totHosChar" required="" onkeyUp="totCharges()" class="form-control" placeholder="Hospital Charges">
                                 </div>
                             </div>
                             <br />
@@ -336,56 +246,49 @@ include '../_partials/header.php';
                                     <label> Lab Charges:</label>
                                 </div>
                                 <div class="col-md-2">
-                                    <input type="number" value="<?php  if($fetch_queryTotalLab['totalPrice'] === 0 OR empty($fetch_queryTotalLab['totalPrice'])){ echo "0"; }else{ echo $fetch_queryTotalLab['totalPrice']; }  ?>" id="actLabChar" required="" onkeyUp="actCharges()" readonly class="form-control" placeholder="Lab Charges">
+                                    <input type="number" value="<?php echo $fetch_queryDischargeCharges['lab_charges'] ?>" id="actLabChar" required="" onkeyUp="actCharges()" readonly class="form-control" placeholder="Lab Charges">
                                 </div>
                                 <div class="col-md-3">
-                                    <input type="number" name="labCharges" value="<?php  if($fetch_queryTotalLab['totalPrice'] === 0 OR empty($fetch_queryTotalLab['totalPrice'])){ echo "0"; }else{ echo $fetch_queryTotalLab['totalPrice']; }  ?>" id="totLabChar" required="" onkeyUp="totCharges()" class="form-control" placeholder="Lab Charges">
+                                    <input type="number" name="labCharges" value="<?php echo $fetch_queryDischargeCharges['lab_charges'] ?>" id="totLabChar" required="" onkeyUp="totCharges()" class="form-control" placeholder="Lab Charges">
                                 </div>
                             </div>
                             <br />
+
                             <div class="row">
                                 <div class="col text-right">
                                     <label> Doctor Charges:</label>
                                 </div>
                                 <div class="col-md-2">
-                                    <input type="number" value="<?php echo  $fetch_selectPatient['consultant_charges']  ?>" id="actDrChar" required="" onkeyUp="actCharges()" readonly class="form-control" placeholder="Doctor Charges">
+                                    <input type="number" value="<?php echo  $fetch_queryDischargeCharges['dr_charges']  ?>" id="actDrChar" required="" onkeyUp="actCharges()" readonly class="form-control" placeholder="Doctor Charges">
                                 </div>
                                 <div class="col-md-3">
-                                    <input type="number" name="drCharges" value="<?php echo  $fetch_selectPatient['consultant_charges']  ?>" id="TotDrChar" required="" onkeyUp="totCharges()" class="form-control" placeholder="Doctor Charges">
+                                    <input type="number" name="drCharges" value="<?php echo  $fetch_queryDischargeCharges['dr_charges']  ?>" id="TotDrChar" required="" onkeyUp="totCharges()" class="form-control" placeholder="Doctor Charges">
                                 </div>
                             </div>
                             <br />
-                            <?php
-                            $anestheticCharges = mysqli_query($connect, "SELECT patient_registration.*, staff_members.salary, staff_members.visit_charges FROM `patient_registration` 
-                                INNER JOIN staff_members ON staff_members.id = patient_registration.anasthetic_name
-                                WHERE patient_registration.id = '$id'");
-                            $fetch_anestheticCharges = mysqli_fetch_assoc($anestheticCharges);
-                            ?>
+
                             <div class="row">
                                 <div class="col text-right">
                                     <label> Anesthesia Charges:</label>
                                 </div>
                                 <div class="col-md-2">
-                                    <input type="number" value="<?php echo $fetch_surgeryChargesTable['anethesia_charges'] ?>" id="actAnesChar" required="" onkeyUp="actCharges()" readonly class="form-control" placeholder="Anesthesia Charges">
+                                    <input type="number" value="<?php echo $fetch_queryDischargeCharges['anesthetic_charges'] ?>" id="actAnesChar" required="" onkeyUp="actCharges()" readonly class="form-control" placeholder="Anesthesia Charges">
                                 </div>
                                 <div class="col-md-3">
-                                    <input type="number" name="anesthesiaCharges" value="<?php echo $fetch_selectPatient['anesthesia_charges'] ?>" id="totAnesChar" required="" onkeyUp="totCharges()" class="form-control" placeholder="Anesthesia Charges">
+                                    <input type="number" name="anesthesiaCharges" value="<?php echo $fetch_queryDischargeCharges['anesthetic_charges'] ?>" id="totAnesChar" required="" onkeyUp="totCharges()" class="form-control" placeholder="Anesthesia Charges">
                                 </div>
                             </div>
                             <br />
-                            <?php
-                            $queryVisitCharges = mysqli_query($connect, "SELECT SUM(visit_charges) AS sumVisitCharges, visit_charges, COUNT(*) AS countedVisit FROM `doctor_visit_charges` WHERE pat_id = '$id' AND visit_status = '1'");
-                            $fetch_queryVisitCharges = mysqli_fetch_assoc($queryVisitCharges);
-                            ?>
+
                             <div class="row">
                                 <div class="col text-right">
                                     <label> Visit Charges:</label>
                                 </div>
                                 <div class="col-md-2">
-                                    <input type="number" value="<?php if(empty($fetch_queryVisitCharges['sumVisitCharges']) OR $fetch_queryVisitCharges['sumVisitCharges'] === 0){ echo "0"; }else{ echo $fetch_queryVisitCharges['sumVisitCharges']; }  ?>" id="actVisitCharges" required="" onkeyUp="actCharges()" readonly class="form-control" placeholder="Visit Charges">
+                                    <input type="number" value="<?php echo $fetch_queryDischargeCharges['visit_charges'] ?>" id="actVisitCharges" required="" onkeyUp="actCharges()" readonly class="form-control" placeholder="Visit Charges">
                                 </div>
                                 <div class="col-md-3">
-                                    <input type="number" name="visitCharges" value="<?php if(empty($fetch_queryVisitCharges['sumVisitCharges']) OR $fetch_queryVisitCharges['sumVisitCharges'] === 0){ echo "0"; }else{ echo $fetch_queryVisitCharges['sumVisitCharges']; }  ?>" id="totVisitCharges" required="" onkeyUp="totCharges()" class="form-control" placeholder="Visit Charges">
+                                    <input type="number" name="visitCharges" value="<?php echo $fetch_queryDischargeCharges['visit_charges'] ?>" id="totVisitCharges" required="" onkeyUp="totCharges()" class="form-control" placeholder="Visit Charges">
 
                                 </div>
                             </div>
@@ -424,7 +327,6 @@ include '../_partials/header.php';
                             <input type="hidden" name="city_id" value="<?php echo $fetch_selectPatient['city_id'] ?>">
                             <input type="hidden" name="room_id" value="<?php echo $fetch_selectPatient['room_id'] ?>">
 
-                            <hr>
 
                             
                             <input type="hidden" name="p_name" value="<?php echo $fetch_selectPatient['patient_name'] ?>">
@@ -452,7 +354,7 @@ include '../_partials/header.php';
                             <div class="d-print-none mo-mt-2">
                                 <div class="float-right">
                                     <!-- <a href="javascript:window.print()" class="btn btn-success waves-effect waves-light"><i class="fa fa-print"></i></a> -->
-                                    <button class="btn btn-primary waves-effect waves-light btn-lg" type="submit" name="makeSlip">Prepare Discharge Slip</button>
+                                    <button class="btn btn-primary waves-effect waves-light btn-lg" type="submit" name="makeSlip">Edit Discharge Slip Fee</button>
                                     <!-- <a href="#" class="btn btn-primary waves-effect waves-light">Send</a> -->
                                 </div>
                             </div>
@@ -474,6 +376,28 @@ include '../_partials/header.php';
 <!-- App js -->
 <?php include '../_partials/app.php'?>
 <?php include '../_partials/datetimepicker.php'?>
+<script type="text/javascript" src="../assets/js/select2.min.js"></script>
+<script type="text/javascript">
+$('.designation').select2({
+    placeholder: 'Select an option',
+    allowClear: true
+
+});
+
+$('.attendant').select2({
+    placeholder: 'Select an option',
+    allowClear: true
+
+});
+</script>
+<script type="text/javascript" src="../assets/js/select2.min.js"></script>
+<script type="text/javascript">
+$('.select2').select2({
+    placeholder: 'Select an option',
+    allowClear: true
+
+});
+</script>
 
 <script type="text/javascript">
     window.onload = function() {
