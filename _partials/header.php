@@ -272,7 +272,7 @@
 
                         <li class="has_sub">
                             <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-wallet"></i> <span>
-                                    Anesthetic Charges</span> <span class="menu-arrow float-right"><i
+                                    Anesthesia Charges</span> <span class="menu-arrow float-right"><i
                                         class="mdi mdi-chevron-right"></i></span></a>
                             <ul class="list-unstyled">
 
@@ -280,7 +280,7 @@
                                 <li><a href="anesthetic_sehatcard_charges.php">ANA SehatCard Charges</a></li>
                                 <li><a href="anesthetic_ptcl_charges.php">ANA PTCL Charges</a></li>
                                 <li><a href="anesthetic_other_charges.php">ANA Other Charges</a></li>
-                                <li><a href="anesthetic_payment_list.php">Anesthetic Payment List</a></li>
+                                <li><a href="anesthetic_payment_list.php">Anesthesia Payment List</a></li>
                             </ul>
                         </li>
 

@@ -38,6 +38,7 @@
                                 <?php
                                 $selectQueryPatients = mysqli_query($connect, "SELECT discharge_patients.*, staff_members.name FROM discharge_patients
                                 INNER JOIN staff_members ON staff_members.id = discharge_patients.patient_consultant AND category = 'dischargePatient'
+                                GROUP BY discharge_patients.patient_yearly_no
                                 ORDER BY discharge_patients.id DESC");
                                 $iteration = 1;
 
@@ -57,7 +58,7 @@
                                             echo '
                                             <td>'.$newAdmisison.'</td>
                                             <td>'.$rowPatients['patient_disease'].'</td>
-                                            <td>'."Dr. ".$rowPatients['name'].'</td>';
+                                            <td>'.$rowPatients['name'].'</td>';
                                             if (empty($rowPatients['organization'])) {
                                                 echo '<td><span class="badge badge-secondary">General</span></td>';
                                             }else {

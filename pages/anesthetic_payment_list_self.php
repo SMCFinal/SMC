@@ -28,7 +28,7 @@ include '../_partials/header.php';
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Anesthetic Name</th>
+                                    <th>Anesthesia Name</th>
                                     <th>Total</th>
                                     <th>Payment Date/Time</th>
                                     <th>Action</th>

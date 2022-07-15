@@ -12,7 +12,7 @@
         INNER JOIN discharge_patients ON discharge_patients.pat_id = doctor_surgery_charges.pat_id
         INNER JOIN surgeries ON surgeries.id = doctor_surgery_charges.pat_operation
         INNER JOIN staff_members ON staff_members.id = doctor_surgery_charges.pat_consultant
-        WHERE doctor_surgery_charges.payment_status = '1' AND discharge_patients.organization LIKE '%Other%'  AND doctor_surgery_charges.pat_consultant = '$id' ORDER BY discharge_patients.patient_doa ASC LIMIT 100");
+        WHERE doctor_surgery_charges.payment_status = '1' AND discharge_patients.organization LIKE '%Other%'  AND doctor_surgery_charges.pat_consultant = '$id' GROUP BY doctor_surgery_charges.pat_id ORDER BY discharge_patients.patient_doa ASC LIMIT 100");
 
     $queryDoctorName = mysqli_query($connect, "SELECT * FROM `staff_members` WHERE id = '$id'");
     $fetch_queryDoctorName = mysqli_fetch_assoc($queryDoctorName);

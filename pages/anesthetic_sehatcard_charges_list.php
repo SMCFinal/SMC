@@ -108,7 +108,7 @@ include '../_partials/header.php';
                     <form method="POST">
                     <div class="card-body">
                         <input type="hidden" name="d_id" value="<?php echo $id ?>">
-                        <h4>Anesthesia Charges <i>Anesthetic. <?php echo $fetch_queryAnestheticName['name'] ?></i></h4>
+                        <h4>Anesthesia Charges <?php echo $fetch_queryAnestheticName['name'] ?></h4>
                         <div class="table-responsive">
                             <table class="table mb-0">
                                 <thead>
@@ -119,7 +119,7 @@ include '../_partials/header.php';
                                         <th>Surgery</th>
                                         <th>Room No</th>
                                         <th>Date & Time</th>
-                                        <th>Anesthetic Charges</th>
+                                        <th>Anesthesia Charges</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -206,7 +206,7 @@ include '../_partials/header.php';
                             if ($totalSum < 0) {
                                 echo '<button class="btn btn-primary waves-effect waves-light" disabled>No Pay!</button>';
                             }else {
-                                echo '<button type="submit" name="payAnestheticCharges" class="btn btn-primary waves-effect waves-light">Pay Anesthetic</button>';
+                                echo '<button type="submit" name="payAnestheticCharges" class="btn btn-primary waves-effect waves-light">Pay Anesthesia</button>';
                             }
                             ?>
                         </div>

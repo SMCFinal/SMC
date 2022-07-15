@@ -17,6 +17,8 @@
 
     $patIdFooter = $fetch_selectPatient['pat_id'];
 
+    $mr_number = $fetch_selectPatient['patient_yearly_no'];
+
     // $queryAdvice = mysqli_query($connect, "SELECT doctor_advice FROM `discharge_patients_charges` WHERE id= '$id'");
     // $fetch_queryAdvice = mysqli_fetch_assoc($queryAdvice);
 
@@ -45,6 +47,7 @@
         $actualCharges = $_POST['actualCharges'];
         $paidAmount = $_POST['paidAmount'];
         $visitCharges = $_POST['visitCharges'];
+        $mr_number = $_POST['mr_number'];
 
 
 
@@ -71,9 +74,14 @@
         `visit_charges` = '$visitCharges' 
         WHERE pat_id = '$customPatId'");
         
-       
         if ($updatePatCharges) {
-            header("LOCATION:select_option.php?id=".$patIdForUpdate."&pat_id=".$customPatId."");
+            $updateConsultantCharges = mysqli_query($connect, "UPDATE `discharge_patients` SET consultant_charges = '$drCharges' WHERE id = '$patIdForUpdate' AND pat_id = '$customPatId'");
+            if ($updateConsultantCharges) {
+                $updateSurgeryCharges = mysqli_query($connect, "UPDATE `doctor_surgery_charges` SET surgery_charges = '$drCharges' WHERE pat_id = '$customPatId'");
+                if ($updateSurgeryCharges) {
+                    header("LOCATION:select_option.php?id=".$patIdForUpdate."&pat_id=".$customPatId."");
+                }
+            }
         }
     }
 
@@ -97,6 +105,7 @@ include '../_partials/header.php';
                         <form method="POST">
                         <input type="hidden" value="<?php echo $id ?>" name="patIdForUpdate">
                         <input type="hidden" value="<?php echo $patCustomId ?>" name="customPatId">
+                        <input type="hidden" value="<?php echo $mr_number ?>" name="mr_number">
                         <div class="row">
                             <div class="col-12">
                                 <div class="invoice-title">

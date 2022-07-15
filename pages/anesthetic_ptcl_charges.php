@@ -17,7 +17,7 @@ include '../_partials/header.php';
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-12">
-                <h5 class="page-title">Anesthetic Charges (PTCL) </h5>
+                <h5 class="page-title">Anesthesia Charges (PTCL) </h5>
             </div>
         </div>
         <!-- end row -->
@@ -28,13 +28,13 @@ include '../_partials/header.php';
                         <!-- <h4 class="mt-0 header-title">Test Details</h4> -->
                         <form method="POST">
                             <div class="form-group row">
-                            <label class="col-sm-2 col-form-label">Select Anesthetic</label>
+                            <label class="col-sm-2 col-form-label">Select Anesthesia</label>
                                 <div class="col-sm-4"> 
 
                                 <?php
                                     $select_option = mysqli_query($connect, "SELECT staff_members.*, staff_category.category_name FROM `staff_members`
-                                        INNER JOIN staff_category ON staff_category.id = staff_members.category_id
-                                        WHERE staff_category.category_name = 'Anesthesia' OR staff_category.category_name = 'Anesthetic' OR staff_category.category_name = 'anesthesia'");
+                                    INNER JOIN staff_category ON staff_category.id = staff_members.category_id
+                                    WHERE staff_category.category_name LIKE 'An%'");
                                         $options = '<select class="form-control select2" name="anesthetic" required="" style="width:100%">';
                                           while ($row = mysqli_fetch_assoc($select_option)) {
                                             $options.= '<option value='.$row['id'].'>'.$row['name'].' - 0'.$row['contact'].'</option>';
@@ -50,7 +50,7 @@ include '../_partials/header.php';
                                 <label class="col-sm-2 col-form-label"></label>
                                 <div class="col-sm-10">
                                     <?php include '../_partials/cancel.php'?>
-                                    <button type="submit" name="addAnesthetic" class="btn btn-primary waves-effect waves-light">Select Anesthetic</button>
+                                    <button type="submit" name="addAnesthetic" class="btn btn-primary waves-effect waves-light">Select Anesthesia</button>
                                     <!-- <a href="anesthetic_surgery_charges_list.php" </a> -->
                                     <!-- <button ></button> -->
                                 </div>

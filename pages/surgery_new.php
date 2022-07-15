@@ -159,13 +159,13 @@
 
 
                             <div class="form-group row">
-                                <label class="col-sm-2 col-form-label">Anasthetic Name</label>
+                                <label class="col-sm-2 col-form-label">Anesthesia Name</label>
                                 <div class="col-sm-4">
                                     <!-- <select class="form-control consultant" name="specialist" required="" id="specialist" style="width:100%"></select> -->
                                 <?php
                                     $select_option_specialist = mysqli_query($connect, "SELECT staff_members.*, staff_category.category_name FROM `staff_members` 
                                         INNER JOIN staff_category ON staff_category.id = staff_members.category_id
-                                        WHERE staff_category.category_name = 'Anesthesia'");
+                                        WHERE staff_category.category_name LIKE 'An%'");
                                         $optionsSurgery = '<select class="form-control consultant" name="specialist" required="" id="specialist" style="width:100%">';
                                           while ($rowSurgery = mysqli_fetch_assoc($select_option_specialist)) {
                                             $optionsSurgery.= '<option value='.$rowSurgery['id'].'>'.$rowSurgery['name'].'</option>';

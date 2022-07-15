@@ -8,11 +8,11 @@
 
     $id = $_GET['id'];
     $queryDoctorCharges = mysqli_query($connect, "SELECT doctor_surgery_charges.*, rooms.room_number, discharge_patients.patient_doa, discharge_patients.patient_name, discharge_patients.patient_doop, surgeries.surgery_name, staff_members.name, discharge_patients.organization FROM `doctor_surgery_charges` 
-        INNER JOIN rooms ON rooms.id = doctor_surgery_charges.room_id
-        INNER JOIN discharge_patients ON discharge_patients.pat_id = doctor_surgery_charges.pat_id
-        INNER JOIN surgeries ON surgeries.id = doctor_surgery_charges.pat_operation
-        INNER JOIN staff_members ON staff_members.id = doctor_surgery_charges.pat_consultant
-        WHERE doctor_surgery_charges.payment_status = '1' AND discharge_patients.organization LIKE '%Sehat%'  AND doctor_surgery_charges.pat_consultant = '$id' ORDER BY discharge_patients.patient_doa ASC LIMIT 100");
+    INNER JOIN rooms ON rooms.id = doctor_surgery_charges.room_id
+    INNER JOIN discharge_patients ON discharge_patients.pat_id = doctor_surgery_charges.pat_id
+    INNER JOIN surgeries ON surgeries.id = doctor_surgery_charges.pat_operation
+    INNER JOIN staff_members ON staff_members.id = doctor_surgery_charges.pat_consultant
+    WHERE doctor_surgery_charges.payment_status = '1' AND discharge_patients.organization LIKE '%Sehat%' AND doctor_surgery_charges.pat_consultant = '$id' GROUP BY doctor_surgery_charges.pat_id ORDER BY discharge_patients.patient_doa ASC LIMIT 100");
 
 
     $queryDoctorName = mysqli_query($connect, "SELECT * FROM `staff_members` WHERE id = '$id'");

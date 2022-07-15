@@ -32,16 +32,27 @@
 
     if (isset($_POST['patientRegister'])) {
         $yearlyNumber = $_POST['patientYearlyNumber'];
-        $name = $_POST['patientName'];
+        $patient = $_POST['patientName'];
+        $name = str_replace('\' ', '\'', ucwords(str_replace('\'', '\' ', strtolower($patient))));
+
         $Age = $_POST['patientAge'];
         $Gender = $_POST['patientGender'];
-        $disease = $_POST['patientDisease'];
-        $Address = $_POST['patientAddress'];
+
+        $disease_small = $_POST['patientDisease'];
+        $disease = str_replace('\' ', '\'', ucwords(str_replace('\'', '\' ', strtolower($disease_small))));
+
+        $address_small = $_POST['patientAddress'];
+        $Address = str_replace('\' ', '\'', ucwords(str_replace('\'', '\' ', strtolower($address_small))));
+
+
         $address_city = $_POST['address_city'];
         $DateOfAdmission = $_POST['patientDateOfAdmission'];
         $consultant = $_POST['patientConsultant'];
         $patientRoom = $_POST['patientRoom'];
-        $attendantName = $_POST['attendantName'];
+        
+        $attendant = $_POST['attendantName'];
+        $attendantName = str_replace('\' ', '\'', ucwords(str_replace('\'', '\' ', strtolower($attendant))));
+        
         $patient_cnic = $_POST['patientCnic'];
         $patient_contact = $_POST['patientContact'];
         $organization = $_POST['organization'];
