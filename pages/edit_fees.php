@@ -30,7 +30,7 @@
     $fetch_retPatDetail = mysqli_fetch_assoc($retPatDetail);
 
 
-
+    $a = '';
 
     if (isset($_POST['makeSlip'])) {
         $advance_payment = $_POST['advance_payment'];
@@ -73,6 +73,23 @@
         `amount_paid` = '$paidAmount', 
         `visit_charges` = '$visitCharges' 
         WHERE pat_id = '$customPatId'");
+
+
+        $p_consultant = $_POST['p_consultant'];
+        $p_name = $_POST['p_name'];
+        $p_doop = $_POST['p_doop'];
+
+
+
+        $countPatientQueryPaid = mysqli_query($connect, "SELECT COUNT(*) AS countedPat FROM `charges_confirm_list` WHERE pat_name LIKE '%$p_name%' AND consult_id = '$p_consultant' AND op_vi_time = '$p_doop'");
+
+        $fetch_countPatientQueryPaid = mysqli_fetch_assoc($countPatientQueryPaid);
+
+        if ($fetch_countPatientQueryPaid['countedPat'] > 0) {
+            $updateQuery = mysqli_query($connect, "UPDATE `charges_confirm_list` SET sur_charges = '$drCharges' WHERE pat_name LIKE '%$p_name%' AND consult_id = '$p_consultant' AND op_vi_time = '$p_doop'");
+
+        }
+
         
         if ($updatePatCharges) {
             $updateConsultantCharges = mysqli_query($connect, "UPDATE `discharge_patients` SET consultant_charges = '$drCharges' WHERE id = '$patIdForUpdate' AND pat_id = '$customPatId'");
@@ -90,6 +107,8 @@ include '../_partials/header.php';
 ?>
 <!-- Top Bar End -->
 
+<?php echo $a; ?>
+
 <div class="page-content-wrapper ">
     <div class="container-fluid">
         <div class="row">
@@ -101,6 +120,7 @@ include '../_partials/header.php';
         <div class="row">
             <div class="col-12">
                 <div class="card m-b-30">
+
                     <div class="card-body">
                         <form method="POST">
                         <input type="hidden" value="<?php echo $id ?>" name="patIdForUpdate">

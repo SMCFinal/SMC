@@ -52,7 +52,7 @@
                             }
                             echo '&nbsp;';
                             
-                            echo '<a href="edit_patient.php?id='.$fetch_selectQuery['id'].'&org='.$fetch_selectQuery['organization'].'" type="button" class="btn text-white btn-success waves-effect waves-light">Edit Patient</a>';
+                            echo '<a href="emergency_pat_edit.php?id='.$fetch_selectQuery['id'].'&org='.$fetch_selectQuery['organization'].'" type="button" class="btn text-white btn-success waves-effect waves-light">Edit Patient</a>';
 
                             
                             ?>

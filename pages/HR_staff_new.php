@@ -198,7 +198,6 @@ $('.attendant').select2({
 });
 </script>
 <script type="text/javascript">
-
     function checkDoctor() {
         var option = document.getElementById('designation')
         var display = option.options[option.selectedIndex].text;
@@ -209,12 +208,7 @@ $('.attendant').select2({
         else {
             document.querySelector('#visitcharges').style.display = 'none';
         }
-
-}
-
-  
-
-
+    }
 </script>
 <!-- <script type="text/javascript" src="../assets/bootstrap-datepicker.min.js"></script> -->
 </body>

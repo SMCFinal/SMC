@@ -48,10 +48,7 @@
     if (isset($_POST['patientRegister'])) {
         $yearlyNumber = $_POST['patientYearlyNumber'];
         $organization = $_POST['organization'];
-
-        $patient = $_POST['patientName'];
-        $name = str_replace('\' ', '\'', ucwords(str_replace('\'', '\' ', strtolower($patient))));
-        
+        $name = $_POST['patientName'];
         $Age = $_POST['patientAge'];
         $Gender = $_POST['patientGender'];
         $address_city = $_POST['address_city'];

@@ -12,7 +12,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-12">
-                <h5 class="page-title">Current Patient List</h5>
+                <h5 class="page-title">Current Patient List (Emergency)</h5>
             </div>
         </div>
         <!-- end row -->
@@ -20,7 +20,7 @@
             <div class="col-12">
                 <div class="card m-b-30">
                     <div class="card-body">
-                        <h4 class="mt-0 header-title text-center">Current Patient List</h4>
+                        <h4 class="mt-0 header-title text-center">Emergency Patient List</h4>
                         <table id="datatable" class="table  dt-responsive nowrap"
                             style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                             <thead>
@@ -54,65 +54,69 @@
                                     if ($rowPatients['room_id'] === '0') {
                                         
                                     }else {
-                                    echo '
-                                        <tr>
-                                            <td>'.$iteration++.'</td>
-                                            <td>
-                                                <a href="pat_meds.php?id='.$rowPatients['id'].'" type="button" style="background-color: #efefef; box-shadow: 3px 3px 3px 3px #ccc;" class="btn">
-                                                '.$rowPatients['patient_yearly_no'].'
-                                                </a>
-                                            </td>
-                                            <td>'.$rowPatients['patient_name'].'</td>
-                                            ';
-                                            if ($rowPatients['organization'] === 'Sehat') {
-                                                echo '<td>Sehat Card</td>';
-                                            }else {
-                                                echo '<td>'.$rowPatients['organization'].'</td>';
-                                            }
-                                            $dateAdmisison = $rowPatients['patient_doa']; 
-                                            $newAdmisison = date('d/M/Y h:i:s A', strtotime($dateAdmisison));
+                                    
+                                        if ($rowPatients['pat_category'] === '2') {
                                             echo '
-                                            <td>'.$newAdmisison.'</td>';
-
-                                            if ($rowPatients['patient_operation'] === '0') {
-                                                echo '<td>'.$rowPatients['patient_disease'].'</td>';
-                                            }else {
-                                                echo '
+                                            <tr>
+                                                <td>'.$iteration++.'</td>
                                                 <td>
-                                                    <a href="surg_meds_list.php?id='.$rowPatients['id'].'" type="button" style="background-color: #878787; box-shadow: 3px 3px 3px 3px #ccc;" class="btn text-light">
-                                                    '.$rowPatients['patient_disease'].'
+                                                    <a href="pat_meds.php?id='.$rowPatients['id'].'" type="button" style="background-color: #efefef; box-shadow: 3px 3px 3px 3px #ccc;" class="btn">
+                                                    '.$rowPatients['patient_yearly_no'].'
                                                     </a>
                                                 </td>
+                                                <td>'.$rowPatients['patient_name'].'</td>
                                                 ';
-                                            }
-
-                                            echo '
-                                            <td>'.$rowPatients['name'].'</td>
-                                            <td class="text-center">
-                                            <a href="changeRoom.php?id='.$rowPatients['id'].'" type="button" class="btn text-white btn-warning waves-effect waves-light btn-sm"> <i class="fa fa-pencil"></i>&nbsp;Room</a>&nbsp;&nbsp;&nbsp;
-                                            </td>
-
-                                            <td class="text-center">
-                                            <a href="change_consultant.php?id='.$rowPatients['id'].'" type="button" class="btn text-white btn-success waves-effect waves-light btn-sm"><i class="fa fa-pencil"></i>&nbsp; Surgery</a>&nbsp;&nbsp;&nbsp;
-                                            </td>
-
-
-                                            <td class="text-center">
-                                            <a href="patient_view.php?id='.$rowPatients['id'].'" type="button" class="btn text-white btn-primary waves-effect waves-light btn-sm">View</a>&nbsp;&nbsp;&nbsp;
-                                            </td>
-
-                                            <td class="text-center">
-                                                <a href="patient_postpone.php?id='.$rowPatients['id'].'" type="button" class="btn text-white btn-secondary waves-effect waves-light btn-sm">PostPone</a>&nbsp;&nbsp;&nbsp;';
-                                            
-                                            if ($rowPatients['patient_doop'] === '0000-00-00 00:00:00') { }else {
+                                                if ($rowPatients['organization'] === 'Sehat') {
+                                                    echo '<td>Sehat Card</td>';
+                                                }else {
+                                                    echo '<td>'.$rowPatients['organization'].'</td>';
+                                                }
+                                                $dateAdmisison = $rowPatients['patient_doa']; 
+                                                $newAdmisison = date('d/M/Y h:i:s A', strtotime($dateAdmisison));
                                                 echo '
-                                                    <a href="discharge_patient_file.php?id='.$rowPatients['id'].'" type="button" class="btn text-white btn-danger waves-effect waves-light btn-sm">Discharge</a>&nbsp;&nbsp;&nbsp;
-                                                ';
-                                            }
-                                            echo '
-                                            </td>
-                                        </tr>
-                                    ';
+                                                <td>'.$newAdmisison.'</td>';
+    
+                                                if ($rowPatients['patient_operation'] === '0') {
+                                                    echo '<td>'.$rowPatients['patient_disease'].'</td>';
+                                                }else {
+                                                    echo '
+                                                    <td>
+                                                        <a href="surg_meds_list.php?id='.$rowPatients['id'].'" type="button" style="background-color: #878787; box-shadow: 3px 3px 3px 3px #ccc;" class="btn text-light">
+                                                        '.$rowPatients['patient_disease'].'
+                                                        </a>
+                                                    </td>
+                                                    ';
+                                                }
+    
+                                                echo '
+                                                <td>'.$rowPatients['name'].'</td>
+                                                <td class="text-center">
+                                                <a href="changeRoom.php?id='.$rowPatients['id'].'" type="button" class="btn text-white btn-warning waves-effect waves-light btn-sm"> <i class="fa fa-pencil"></i>&nbsp;Room</a>&nbsp;&nbsp;&nbsp;
+                                                </td>
+    
+                                                <td class="text-center">
+                                                <a href="change_consultant.php?id='.$rowPatients['id'].'" type="button" class="btn text-white btn-success waves-effect waves-light btn-sm"><i class="fa fa-pencil"></i>&nbsp; Surgery</a>&nbsp;&nbsp;&nbsp;
+                                                </td>
+    
+    
+                                                <td class="text-center">
+                                                <a href="emerygency_pat_view.php?id='.$rowPatients['id'].'" type="button" class="btn text-white btn-primary waves-effect waves-light btn-sm">View</a>&nbsp;&nbsp;&nbsp;
+                                                </td>
+    
+                                                <td class="text-center">
+                                                    <a href="patient_postpone.php?id='.$rowPatients['id'].'" type="button" class="btn text-white btn-secondary waves-effect waves-light btn-sm">PostPone</a>&nbsp;&nbsp;&nbsp;';
+                                                
+                                                if ($rowPatients['patient_doop'] === '0000-00-00 00:00:00') { }else {
+                                                    echo '
+                                                        <a href="discharge_patient_file.php?id='.$rowPatients['id'].'" type="button" class="btn text-white btn-danger waves-effect waves-light btn-sm">Discharge</a>&nbsp;&nbsp;&nbsp;
+                                                    ';
+                                                }
+                                                echo '
+                                                </td>
+                                            </tr>
+                                        ';
+                                        }
+                                    
                                     }
                                 }
                                             // <td class="text-center"><a href="./user_edit.php" type="button" class="btn text-white btn-warning waves-effect 

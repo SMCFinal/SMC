@@ -75,10 +75,17 @@
         $autoDate = $_POST['autoDate'];
         $organization = $_POST['organization'];
 
+        $patCategory = $_POST['patCategory'];
+        $visitId = $_POST['visitId'];
+
         $currentPatient = 'currentPatient';
 
+        if(empty($visitId)) {
+            $visitId = '0';
+        }
+
     
-        //  Chnages Need to modify
+        //  Changes Need to modify
         $patient_doop = '0000-00-00';
         $patient_operation = '0';
         $consultant_charges = '0';
@@ -129,7 +136,9 @@
             updated_by,
             advance_payment,
             auto_date,
-            organization
+            organization,
+            pat_category,
+            visit_id
             )VALUES(
             '$name', 
             '$Age', 
@@ -154,7 +163,9 @@
             '$updated_by',
             '$advance_payment',
             '$autoDate',
-            '$organization'
+            '$organization',
+            '$patCategory',
+            '$visitId'
             )
            ");
 
@@ -169,7 +180,7 @@
 
         $contact_one = '03466459796';
         $contact_sec = '03464120026';
-        $contact_third = '03420478990';
+        // $contact_third = '03420478990';
 
         $insertMsgOne =  mysqli_query($connect, "INSERT INTO message_tbl
             (from_device, to_device, message_body, status)
@@ -181,10 +192,10 @@
             VALUES
             ('1', '$contact_sec', '$description_one', '1')");
 
-        $insertMsgThird =  mysqli_query($connect, "INSERT INTO message_tbl
-            (from_device, to_device, message_body, status)
-            VALUES
-            ('1', '$contact_third', '$description_one', '1')");
+        // $insertMsgThird =  mysqli_query($connect, "INSERT INTO message_tbl
+        //     (from_device, to_device, message_body, status)
+        //     VALUES
+        //     ('1', '$contact_third', '$description_one', '1')");
 
         if (!$queryAddPatient) {
             $notAdded = '<div class="alert alert-danger text-center" style="color: red !important" role="alert">Not added</div>';
@@ -232,7 +243,7 @@
                                 <div class="col-sm-4">
                                     <?php
                                         $select_option_city = mysqli_query($connect, "SELECT * FROM select_organization");
-                                            $optionsCity = '<select class="form-control Orgselect2" name="organization" required="" style="width:100%">';
+                                            $optionsCity = '<select class="form-control Orgselect2" name="organization" id="organization" onchange=checkOrganization() required="" style="width:100%">';
                                             
                                               while ($rowCity = mysqli_fetch_assoc($select_option_city)) {
                                                 $optionsCity.= '<option value='.$rowCity['org_name'].'>'.$rowCity['org_name'].'</option>';
@@ -240,6 +251,22 @@
                                             $optionsCity.= "</select>";
                                         echo $optionsCity;
                                     ?>
+                                </div>
+
+                                <label class="col-sm-2 col-form-label">Select Category</label>
+                                <div class="col-sm-4">
+                                    <select name="patCategory" class="form-control Orgselect2">
+                                        <option value="1">Ellective Patient</option>
+                                        <option value="2">Emergency Patient</option>
+                                    </select>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group row" id="visitId" style="display: none"> 
+                                <label class="col-sm-2 col-form-label">Visit ID / No</label>
+                                <div class="col-sm-4">
+                                    <input class="form-control" type="text" value="0" placeholder="Visit Id" name="visitId"  required>
                                 </div>
                             </div>
                             <hr>
@@ -427,6 +454,22 @@ $('.Orgselect2').select2({
   placeholder: 'Select an option',
   allowClear:true
 });
+</script>
+
+
+
+<script type="text/javascript">
+    function checkOrganization() {
+        var option = document.getElementById('organization')
+        var display = option.options[option.selectedIndex].text;
+
+        if (display == 'Sehat Card' || display == 'sehat card') {
+            document.querySelector('#visitId').style.display = '';
+        }
+        else {
+            document.querySelector('#visitId').style.display = 'none';
+        }
+    }
 </script>
 </body>
 

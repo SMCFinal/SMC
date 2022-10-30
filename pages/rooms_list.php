@@ -9,82 +9,87 @@
   <style type="text/css">  <link href="../assets/plugins/sweet-alert2/sweetalert2.min.css" rel="stylesheet" type="text/css"></style>
 
 <div class="page-content-wrapper ">
+    <div class="container-fluid">
 
-                        <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <h5 class="page-title">Rooms List</h5>
+            </div>
+        </div>
+        <!-- end row -->
 
-                            <div class="row">
-                                <div class="col-sm-12">
+        <div class="row">
+            <div class="col-12">
+                <div class="card m-b-30">
+                    <div class="card-body">
+
+                        <h4 class="mt-0 header-title">Rooms</h4>   
+                        <!-- <a href="floor_new.php" type="button" class="btn btn-primary waves-effect waves-light text-white ml-auto" style="float: right;">Rooms Detials</a> -->
+
+                        <table id="datatable" class="table dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Room No.</th>
+                                <th>Floor No.</th>
+                                <th>Room Price</th>
+                                <th>Room Type</th>                                                   
+                                <th>Room Status</th>                                                   
+                                <!-- <th class="text-center"> <i class="fa fa-eye"></i></th> -->
+                                <th class="text-center"> <i class="fa fa-edit"></i></th>
+                                <th  class="text-center"><i class="fa fa-check"></i></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                <?php 
+                                $retrieveRooms = mysqli_query($connect, "SELECT rooms.*, floors.floor_name FROM `rooms` INNER JOIN floors ON floors.id = rooms.floor_id");
+
+                                $iteration = 1;
+
+                                while ($rowRooms = mysqli_fetch_assoc($retrieveRooms)) {
                                     
-                                    <h5 class="page-title">Floors</h5>
-                                </div>
-                            </div>
-                            <!-- end row -->
+                                    echo '
+                                    <tr>
+                                        <td>'.$iteration++.'</td>
+                                        <td>'.$rowRooms['room_number'].'</td>
+                                        <td>'.$rowRooms['floor_name'].'</td>
+                                        <td>'.$rowRooms['room_price'].'</td>';
 
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="card m-b-30">
-                                        <div class="card-body">
-            
-                                            <h4 class="mt-0 header-title">Rooms</h4>   
-                                            <!-- <a href="floor_new.php" type="button" class="btn btn-primary waves-effect waves-light text-white ml-auto" style="float: right;">Rooms Detials</a> -->
+                                        if ($rowRooms['room_type'] == '1') {
+                                            echo '<td>'."Single Bedded".'</td>';    
+                                        }elseif ($rowRooms['room_type'] == '2') {
+                                            echo '<td>'."Double Bedded".'</td>';
+                                        }
+                                        
+                                        if ($rowRooms['status'] === '0') {
+                                            echo '<td><span style="font-size: 16px; width: 100% !important;" class="badge badge-danger">Un-Available</span></td>';
+                                        }else {
+                                            echo '<td><span style="font-size: 16px; width: 100% !important;" class="badge badge-primary">Available</span></td>';
+                                        }
+                                        
+                                         echo '
+                                        <td class="text-center"><a href="room_edit.php?id='.$rowRooms['id'].'" type="button" class="btn text-white btn-warning waves-effect waves-light">Edit</a></td>
 
-                                            <table id="datatable" class="table dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                        <td class="text-center"><a href="room_status.php?id='.$rowRooms['id'].'" type="button" class="btn text-white btn-primary waves-effect waves-light">Change Status</a></td>
+                                    </tr>
+                                    ';
+                                }
+                                ?>
+                                         <!-- <td class="text-center"><a href="room_view.php?id='.$rowRooms['id'].'" type="button" class="btn text-white btn-success waves-effect waves-light">View</a></td> -->
+                            
+                                        <!-- <td class="text-center"><a type="button" id="sa-warning" class="btn text-white btn-danger waves-effect waves-light">Delete</a></td> -->
+                            </tbody>
+                        </table>
 
-                                                <thead>
-                                                <tr>
-                                                    <th>#</th>
-                                                    <th>Room No.</th>
-                                                    <th>Floor No.</th>
-                                                    <th>Room Price</th>
-                                                    <th>Room Type</th>                                                   
-                                                    <!-- <th class="text-center"> <i class="fa fa-eye"></i></th> -->
-                                                    <th class="text-center"> <i class="fa fa-edit"></i></th>
-                                                    <!-- <th  class="text-center"><i class="fa fa-trash"></i></th> -->
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <?php 
-                                                    $retrieveRooms = mysqli_query($connect, "SELECT rooms.*, floors.floor_name FROM `rooms` INNER JOIN floors ON floors.id = rooms.floor_id");
+                    </div>
+                </div>
+            </div> <!-- end col -->
+        </div> <!-- end row -->
 
-                                                    $iteration = 1;
+      
 
-                                                    while ($rowRooms = mysqli_fetch_assoc($retrieveRooms)) {
-                                                        
-                                                        echo '
-                                                        <tr>
-                                                            <td>'.$iteration++.'</td>
-                                                            <td>'.$rowRooms['room_number'].'</td>
-                                                            <td>'.$rowRooms['floor_name'].'</td>
-                                                            <td>'.$rowRooms['room_price'].'</td>';
-
-                                                            if ($rowRooms['room_type'] == '1') {
-                                                                echo '<td>'."Single Bedded".'</td>';    
-                                                            }elseif ($rowRooms['room_type'] == '2') {
-                                                                echo '<td>'."Double Bedded".'</td>';
-                                                            }
-                                                            
-                                                            // <td></td>
-                                                            
-                                                             echo '
-                                                            <td class="text-center"><a href="room_edit.php?id='.$rowRooms['id'].'" type="button" class="btn text-white btn-warning waves-effect waves-light">Edit</a></td>
-                                                        </tr>
-                                                        ';
-                                                    }
-                                                    ?>
-                                                             <!-- <td class="text-center"><a href="room_view.php?id='.$rowRooms['id'].'" type="button" class="btn text-white btn-success waves-effect waves-light">View</a></td> -->
-                                                
-                                                            <!-- <td class="text-center"><a type="button" id="sa-warning" class="btn text-white btn-danger waves-effect waves-light">Delete</a></td> -->
-                                                </tbody>
-                                            </table>
-            
-                                        </div>
-                                    </div>
-                                </div> <!-- end col -->
-                            </div> <!-- end row -->
-            
-                          
-            
-                        </div><!-- container fluid -->
+    </div><!-- container fluid -->
 
                     </div> <!-- Page content Wrapper -->
 

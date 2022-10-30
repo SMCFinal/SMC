@@ -44,7 +44,7 @@
 
         $zakriyaContact = '03464120026';
         $contact_one = '03466459796';
-        $contact_third = '03359967977';
+        // $contact_third = '03359967977';
 
 
         $insertMessageDoctor = mysqli_query($connect, "INSERT INTO message_tbl(from_device, to_device, message_body)VALUES('1', '$doctorContact', '$message')");
@@ -56,7 +56,7 @@
 
         $insertMessageSec = mysqli_query($connect, "INSERT INTO message_tbl(from_device, to_device, message_body)VALUES('1', '$contact_one', '$message')");
 
-        $insertMessageThird = mysqli_query($connect, "INSERT INTO message_tbl(from_device, to_device, message_body)VALUES('1', '$contact_third', '$message')");
+        // $insertMessageThird = mysqli_query($connect, "INSERT INTO message_tbl(from_device, to_device, message_body)VALUES('1', '$contact_third', '$message')");
         
         $updateQuery = mysqli_query($connect, 
             "UPDATE patient_registration SET 

@@ -5,6 +5,7 @@
     if (empty($_SESSION["user"])) {
         header("LOCATION:../index.php");
     }
+    $org = $_GET['org'];
     $id = $_GET['id'];
     $fromDate = $_GET['fromDate'];
     $toDate = $_GET['toDate'];
@@ -13,11 +14,11 @@
         
         $allPatientsQuery = mysqli_query($connect, "SELECT charges_confirm_list.*, staff_members.name FROM `charges_confirm_list`
             INNER JOIN staff_members ON staff_members.id = charges_confirm_list.consult_id
-            WHERE DATE(charges_confirm_list.op_vi_time) BETWEEN '$fromDate' AND '$toDate' ORDER BY charges_confirm_list.op_vi_time DESC");
+            WHERE charges_confirm_list.org_name LIKE '%$org%' AND DATE(charges_confirm_list.op_vi_time) BETWEEN '$fromDate' AND '$toDate' ORDER BY charges_confirm_list.op_vi_time DESC");
     }else {
         $allPatientsQuery = mysqli_query($connect, "SELECT charges_confirm_list.*, staff_members.name FROM `charges_confirm_list`
             INNER JOIN staff_members ON staff_members.id = charges_confirm_list.consult_id
-            WHERE charges_confirm_list.consult_id = '$id' AND DATE(charges_confirm_list.op_vi_time) BETWEEN '$fromDate' AND '$toDate' ORDER BY charges_confirm_list.op_vi_time DESC");
+            WHERE charges_confirm_list.org_name LIKE '%$org%' AND charges_confirm_list.consult_id = '$id' AND DATE(charges_confirm_list.op_vi_time) BETWEEN '$fromDate' AND '$toDate' ORDER BY charges_confirm_list.op_vi_time DESC");
     }
 
     include '../_partials/header.php';

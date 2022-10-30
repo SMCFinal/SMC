@@ -60,6 +60,13 @@
         $currentPatient = 'currentPatient';
         $advance_payment = $_POST['advance_payment'];
 
+        $patCategory = $_POST['patCategory'];
+        $visitId = $_POST['visitId'];
+
+        if(empty($visitId)) {
+            $visitId = '0';
+        }
+
         if (empty($advance_payment)) {
             $advance_payment = '0';
         }
@@ -100,7 +107,9 @@
             added_by,
             updated_by,
             advance_payment,
-            organization
+            organization,
+            pat_category,
+            visit_id
             )VALUES(
             '$name', 
             '$Age', 
@@ -124,7 +133,9 @@
             '$added_by',
             '$updated_by',
             '$advance_payment',
-            '$organization'
+            '$organization',
+            '$patCategory',
+            '$visitId'
             )
            ");
 
@@ -167,6 +178,10 @@
                                     <input class="form-control" type="text" value="<?php echo $fetch_retPatientData['patient_yearly_no'] ?>" placeholder="Yearly No." name="patientYearlyNumber" id="example-text-input" readonly>
                                 </div>
                             </div>
+
+
+
+                            
                         <h4 class="mb-4 page-title"><u>Patient Details</u></h4>
 
                             <div class="form-group row">
@@ -174,7 +189,7 @@
                                 <div class="col-sm-4">
                                     <?php
                                         $select_option_org = mysqli_query($connect, "SELECT * FROM select_organization");
-                                            $optionsOrg = '<select class="form-control Orgselect2" name="organization" required="" style="width:100%">';
+                                            $optionsOrg = '<select class="form-control Orgselect2" name="organization" id="organization" onchange=checkOrganization()  required="" style="width:100%">';
                                             
                                               while ($rowOrg = mysqli_fetch_assoc($select_option_org)) {
                                                 $optionsOrg.= '<option value='.$rowOrg['org_name'].'>'.$rowOrg['org_name'].'</option>';
@@ -182,8 +197,25 @@
                                             $optionsOrg.= "</select>";
                                         echo $optionsOrg;
                                     ?>
-                                </div>                             
+                                </div>
+                                
+                                <label class="col-sm-2 col-form-label">Select Category</label>
+                                <div class="col-sm-4">
+                                    <select name="patCategory" class="form-control Orgselect2">
+                                        <option value="1">Ellective Patient</option>
+                                        <option value="2">Emergency Patient</option>
+                                    </select>
+                                </div>
                             </div>
+
+                            <div class="form-group row" id="visitId" style="display: none"> 
+                                <label class="col-sm-2 col-form-label">Visit ID / No</label>
+                                <div class="col-sm-4">
+                                    <input class="form-control" type="text" value="0" placeholder="Visit Id" name="visitId"  required>
+                                </div>
+                            </div>
+
+                            <hr>
 
 
                             <div class="form-group row">
@@ -405,19 +437,33 @@
     });
 </script>
 <script type="text/javascript" src="../assets/js/select2.min.js"></script>
-        <script type="text/javascript">
-            $('.select2').select2({
+<script type="text/javascript">
+$('.select2').select2({
   placeholder: 'Select an option',
   allowClear:true
   
 });
 
-             $('.attendant').select2({
+$('.attendant').select2({
   placeholder: 'Select an option',
   allowClear:true
   
 });
-        </script>
+</script>
+
+<script type="text/javascript">
+    function checkOrganization() {
+        var option = document.getElementById('organization')
+        var display = option.options[option.selectedIndex].text;
+
+        if (display == 'Sehat Card' || display == 'sehat card') {
+            document.querySelector('#visitId').style.display = '';
+        }
+        else {
+            document.querySelector('#visitId').style.display = 'none';
+        }
+    }
+</script>
 </body>
 
 </html>

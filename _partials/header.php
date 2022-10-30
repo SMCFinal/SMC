@@ -116,6 +116,11 @@
                                 <li><a href="general_patients_discharge_list.php">Private Patients List</a></li>
                                 <li><a href="other_patients_discharge_list.php">Other Patients List</a></li>
                                 <li><a href="ground_floor_admit.php">Ground Floor Patients</a></li>
+                                
+                                <li><a href="pat_emergency.php">Emergency Patients</a></li>
+                                <li><a href="pat_emergency_discharged.php">Discharged Emergency Patients</a></li>
+
+
                             </ul>
                         </li>
 

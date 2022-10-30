@@ -10,11 +10,12 @@
         $doctor = $_POST['doctor'];
         $DateStart = $_POST['start'];
         $DateEnd = $_POST['end'];
+        $org = $_POST['organization'];
 
         $fromDate = date("Y-m-d", strtotime($DateStart));
         $toDate = date("Y-m-d", strtotime($DateEnd));
         
-        header("LOCATION:report_doctor_list.php?id=".$doctor."&fromDate=".$fromDate."&toDate=".$toDate."");
+        header("LOCATION:report_doctor_list.php?id=".$doctor."&fromDate=".$fromDate."&toDate=".$toDate."&org=".$org."");
     }
 
 include '../_partials/header.php';
@@ -45,13 +46,35 @@ include '../_partials/header.php';
 
                                             $options.= '<option value="all">All</option>';
                                           while ($row = mysqli_fetch_assoc($select_option)) {
-                                            $options.= '<option value='.$row['dId'].'>Dr. '.$row['name'].' - 0'.$row['contact'].'</option>';
+                                            $options.= '<option value='.$row['dId'].'>'.$row['name'].' - 0'.$row['contact'].'</option>';
                                           }
                                         $options.= "</select>";
                                     echo $options;
                                 ?>
                                 </div>
                             </div>
+
+
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Select Organization</label>
+                                <div class="col-sm-6">
+
+                                    <?php
+                                        $select_option_city = mysqli_query($connect, "SELECT * FROM select_organization");
+                                            $optionsCity = '<select class="form-control select2" name="organization" required="" style="width:100%">';
+                                            
+                                              while ($rowCity = mysqli_fetch_assoc($select_option_city)) {
+                                                $optionsCity.= '<option value='.$rowCity['org_name'].'>'.$rowCity['org_name'].'</option>';
+                                              }
+                                            $optionsCity.= "</select>";
+                                        echo $optionsCity;
+                                    ?>
+                                   
+                                </div>
+                            </div>
+
+
+
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">Date Range</label>
                                 <div class="col-sm-6">
