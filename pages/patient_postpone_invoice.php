@@ -95,7 +95,7 @@ include '../_partials/header.php';
 <!-- Top Bar End -->
 <style type="text/css">
     body {
-        color: black;
+        color: black !important;
     }
 
     .custom {
@@ -132,6 +132,16 @@ include '../_partials/header.php';
                                         <h4 class="text-center font-16" style="font-size: 110%">Saidu Road, Opposite to Central Hospital, Saidu Sharif, Swat.</h4>
                                         
                                         <h4 class="float-right font-16" style="font-size: 90%"><strong>M.R No # <?php echo $fetch_selectPatient['patient_yearly_no'] ?></strong></h4>
+                                        <h4 class="float-left font-16" style="font-size: 90%"><strong>* 
+                                            <?php
+                                                if ($fetch_selectPatient['pat_category'] === '1') {
+                                                    echo "<i>Ellective</i>";
+                                                }elseif ($fetch_selectPatient['pat_category'] === '2') {
+                                                    echo "<i>Emergency</i>";
+                                                    
+                                                }
+                                            ?>
+                                        </strong></h4>
                                         <br>
                                     </h3>
                                 </div>
@@ -174,7 +184,18 @@ include '../_partials/header.php';
                                             ?>
                                             <br>
                                             <b>Postpone Date: </b><?php echo $dishcargeTime = date('d/M/Y h:i:s A') ?><br>
-                                            <b>Advance Payment: </b><?php echo "Rs. ".$fetch_selectPatient['advance_payment']  ?>
+                                            <b>Advance Payment: </b><?php echo "Rs. ".$fetch_selectPatient['advance_payment']  ?><br>
+                                            
+                                            <?php
+                                                if (empty($fetch_selectPatient['visit_id'])) {
+                                                    
+                                                }else {
+                                                    
+                                                    echo "<b>Visit ID: </b>".$fetch_selectPatient['visit_id'];
+
+                                                }
+                                            ?>
+                                            <br>
                                         </address>
                                     </div>
                                 </div>
@@ -185,7 +206,7 @@ include '../_partials/header.php';
                                         </address>
                                             <?php 
 
-                                        echo '<textarea style="border: none; background-color: #ffffff !important" readonly="" class="form-control" name="doctorAdvice" rows="12" required="" style="font-size: 90%">';
+                                        echo '<textarea style="border: none; background-color: #ffffff !important; color: black !important" readonly="" class="form-control" name="doctorAdvice" rows="12" required="" style="font-size: 90%">';
                                             // echo "<br>";
                                             for ($i=0; $i < sizeof($explodeAdvice) ; $i++) { 
                                                 echo $explodeAdvice[$i];
@@ -388,7 +409,7 @@ include '../_partials/header.php';
 
 
 
-                            <div class="row custom">
+                            <div class="row custom" style="font-family: 'Georgia'">
                                 <div class="col-md-8">
                                     <label style="margin-bottom: 0rem !important">This is a computer generated report, therefore signatures are not required. </label><br>
                                     <label>Developed By: <i>Asif Ullah</i></label>
@@ -396,7 +417,7 @@ include '../_partials/header.php';
                                 </div>     
                             </div>
                                         
-                                        </form>
+                        </form>
                           
                     </div>
                 </div> <!-- end col -->

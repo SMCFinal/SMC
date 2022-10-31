@@ -85,6 +85,15 @@
                                                 ?> )
                                             </h4>
 
+                                            <h4 class="float-left font-16" style="font-size: 90%"><strong> 
+                                                <?php 
+                                                if ($fetch_selectPatient['pat_category'] === '1') {
+                                                    echo "<i>* Ellective</i>";
+                                                }elseif ($fetch_selectPatient['pat_category'] === '2') {
+                                                    echo "<i>* Emergency</i>";
+                                                }
+                                                 ?>
+                                            </strong></h4>
                                             <h4 class="float-right font-16" style="font-size: 90%"><strong>M.R No # <?php echo $fetch_selectPatient['patient_yearly_no'] ?></strong></h4>
                                             <br>
                                         </h3>
@@ -131,7 +140,16 @@
                                                 ?>
                                                 <br>
                                                 <b>Date Of Discharge: </b><?php echo $dateOfDischarge ?><br>
-                                                <!-- <b>Date Of Discharge: </b><?php echo $fetch_retPatDetail = date('d/M/Y h:i:s A') ?><br> -->
+                                                
+                                                <?php 
+                                                if ($fetch_selectPatient['visit_id'] === '0' OR empty($fetch_selectPatient['visit_id'])) {
+
+                                                }else {
+                                                    
+                                                    echo "<b>Visit ID: </b>".$fetch_selectPatient['visit_id'];
+                                                }
+                                                ?>
+                                                <br>
                                             </address>
                                         </div>
                                     </div>
@@ -184,7 +202,7 @@
                                 </div>  
                             <hr>
 
-                            <div class="row custom">
+                            <div class="row custom" style="font-family: Georgia">
                                 <div class="col-md-8">
                                     <label style="margin-bottom: 0rem !important">This is a computer generated report, therefore signatures are not required. </label><br>
                                     <label>Developed By: <i>Asif Ullah</i></label>

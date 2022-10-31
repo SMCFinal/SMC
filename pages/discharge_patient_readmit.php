@@ -382,10 +382,7 @@
                           
                                 </div>
 
-
-
-
-                               <label class="col-sm-2 col-form-label">Attendant Name</label>
+                                <label class="col-sm-2 col-form-label">Attendant Name</label>
                                 <div class="col-sm-4">
                                     <input class="form-control" value="<?php echo $fetch_retPatientData['attendent_name'] ?>" name="attendantName" type="text" placeholder="Attendant Name" id="example-text-input">
                                 </div>

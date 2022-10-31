@@ -44,7 +44,10 @@
         $category = 'postponePatient';
         $p_advance = $_POST['p_advance'];
         $p_auto_date = $_POST['p_auto_date'];
-
+        $p_cat = $_POST['p_cat'];
+        $p_visit_id = $_POST['p_visit_id'];
+        
+        
 
 
 
@@ -97,7 +100,9 @@
             pat_id,
             doctor_advice,
             advance_payment,
-            auto_date
+            auto_date,
+            pat_category,
+            visit_id
             )VALUES(
             '$p_name', 
             '$p_age', 
@@ -121,7 +126,9 @@
             '$id',
             '$doctorAdvice',
             '$p_advance',
-            '$p_auto_date'
+            '$p_auto_date',
+            '$p_cat',
+            '$p_visit_id'
         )");
 
 
@@ -132,11 +139,26 @@
                     VALUES
                     ('1', '$p_contact', '$description', '1')");
 
+        
 
         $deletequery = mysqli_query($connect, "DELETE FROM `patient_registration` WHERE id='$pat_id'");
 
         $update = mysqli_query($connect, "UPDATE rooms SET status = '1' WHERE id = '$p_room'");
-        if (!$update) {
+        
+        $anestheticContact = mysqli_query($connect, "SELECT contact FROM staff_members WHERE id = '$p_anes'");
+        $fetch_anestheticContact = mysqli_fetch_assoc($anestheticContact); 
+        
+        $anesthesiaContact = "0".$fetch_anestheticContact['contact'];
+
+        $descriptionAnesthetic = $p_name."  patient has been postponded. Thank You! SMC";
+
+
+        $insertAnesMessage = mysqli_query($connect, "INSERT INTO message_tbl
+        (from_device, to_device, message_body, status)
+        VALUES
+        ('1', '$anesthesiaContact', '$descriptionAnesthetic', '1')");
+        
+        if (!$insertAnesMessage) {
             $error = mysqli_error($connect);
         }else {
             header("LOCATION: patients_postponed_list.php");
@@ -181,8 +203,25 @@ include '../_partials/header.php';
                                         <img src="../assets/logo.png" alt="logo" height="60" />
                                         <h3 align="center">SHAH MEDICAL CENTER</h3>
                                         <h4 class="text-center font-16">Address: Near Center Hospital, Saidu Sharif Swat.</h4>
+                                        <h4 class="float-left font-16">
+                                            <strong> 
+                                                <?php
+
+                                                if ($fetch_selectPatient['pat_category'] === '1') {
+                                                    echo '
+                                                        <i>* Ellective</i>
+                                                    ';
+                                                }elseif ($fetch_selectPatient['pat_category'] === '2') {
+                                                    echo '
+                                                        <i>* Emergency</i>
+                                                    ';
+                                                }
+                                                ?>
+                                            </strong>
+                                        </h4>
                                         <h4 class="float-right font-16"><strong>M.R No # <?php echo $fetch_selectPatient['patient_yearly_no'] ?></strong></h4>
                                         <br>
+                                        
                                     </h3>
                                 </div>
                                 <hr>
@@ -212,6 +251,7 @@ include '../_partials/header.php';
                                             <b>Date Of Admission: </b>
                                             <?php
                                             
+                                            
                                             $timezone = date_default_timezone_set('Asia/Karachi');
                                             $date = date('m/d/Y h:i:s a', time());
 
@@ -224,7 +264,20 @@ include '../_partials/header.php';
                                             ?>
                                             <br>
                                             <b>Date Of PostPone: </b><?php echo $dishcargeTime = date('d/M/Y h:i:s A') ?><br>
-                                            <b>Advance Payment: </b><?php echo "Rs. ".$fetch_selectPatient['advance_payment']  ?>
+                                            <b>Advance Payment: </b><?php echo "Rs. ".$fetch_selectPatient['advance_payment']  ?><br>
+                                                <?php
+                                                    if ($fetch_selectPatient['organization'] === 'Sehat') {
+                                                        if (empty($fetch_selectPatient['visit_id'])) {
+                                                            
+                                                        }else {  
+                                                        echo '
+                                                        <b>Visit ID: </b>
+                                                        '.$fetch_selectPatient['visit_id'].'
+        
+                                                        ';
+                                                    }
+                                                    }
+                                                ?>
                                         </address>
                                     </div>
                                 </div>
@@ -776,6 +829,8 @@ include '../_partials/header.php';
                             <input type="hidden" name="p_anes" value="<?php echo $fetch_postpond_data['anasthetic_name'] ?>">
                             <input type="hidden" name="p_anes_charges" value="<?php echo $fetch_postpond_data['anesthesia_charges'] ?>">
                             <input type="hidden" name="p_advance" value="<?php echo $fetch_postpond_data['advance_payment'] ?>">
+                            <input type="hidden" name="p_cat" value="<?php echo $fetch_postpond_data['pat_category'] ?>">
+                            <input type="hidden" name="p_visit_id" value="<?php echo $fetch_postpond_data['visit_id'] ?>">
 
                         <!-- </form> -->
                             <div class="d-print-none mo-mt-2">

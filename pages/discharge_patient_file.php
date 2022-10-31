@@ -42,6 +42,7 @@
         $paidAmount = $_POST['paidAmount'];
         $doctorAdvice = $_POST['doctorAdvice'];
         $stitchesDays = $_POST['stitchesDays'];
+        
 
         $patient_operation_discharge = $_POST['p_operation'];
         $pat_consultant = $_POST['p_consultant'];
@@ -83,6 +84,8 @@
         $p_anes = $_POST['p_anes'];
         $p_anes_charges = $_POST['p_anes_charges'];
         $p_organization = $_POST['p_organization'];
+        $p_cat = $_POST['p_cat'];
+        $p_visit_id = $_POST['p_visit_id'];
 
         $dateCustomForDischarge = date_default_timezone_set('Asia/Karachi');
         $autoDateForDischarge = date('Y-m-d');
@@ -95,8 +98,8 @@
         $category = 'dischargePatient';
         
         $dischargePatientTable = mysqli_query($connect, "INSERT INTO `discharge_patients`
-            (`patient_name`, `patient_age`, `patient_gender`, `patient_address`, `patient_cnic`, `patient_contact`, `city_id`, `room_id`, `patient_doa`, `patient_doop`, `patient_disease`, `patient_operation`, `patient_consultant`, `patient_yearly_no`, `attendent_name`, `consultant_charges`, `anasthetic_name`, `anesthesia_charges`, `category`, `pat_id`, `advance_payment`, `organization`, `auto_date`) VALUES 
-            ('$p_name', '$p_age', '$p_gender', '$p_address', '$p_cnic', '$p_contact', '$p_city', '$p_room', '$p_doa', '$p_doop', '$p_disease', '$p_operation', '$p_consultant', '$p_yearly', '$p_attendent', '$p_consultant_charges', '$p_anes', '$p_anes_charges', '$category', '$id', '$p_advance', '$p_organization', '$autoDateForDischarge')");
+            (`patient_name`, `patient_age`, `patient_gender`, `patient_address`, `patient_cnic`, `patient_contact`, `city_id`, `room_id`, `patient_doa`, `patient_doop`, `patient_disease`, `patient_operation`, `patient_consultant`, `patient_yearly_no`, `attendent_name`, `consultant_charges`, `anasthetic_name`, `anesthesia_charges`, `category`, `pat_id`, `advance_payment`, `organization`, `auto_date`, `pat_category`, `visit_id`) VALUES 
+            ('$p_name', '$p_age', '$p_gender', '$p_address', '$p_cnic', '$p_contact', '$p_city', '$p_room', '$p_doa', '$p_doop', '$p_disease', '$p_operation', '$p_consultant', '$p_yearly', '$p_attendent', '$p_consultant_charges', '$p_anes', '$p_anes_charges', '$category', '$id', '$p_advance', '$p_organization', '$autoDateForDischarge', '$p_cat', '$p_visit_id')");
 
         $updatePharmacyAmount = mysqli_query($connect, "UPDATE pharmacy_amount SET patient_payment_status = '0' WHERE patient_id = '$pat_id'");
 
@@ -187,8 +190,25 @@ include '../_partials/header.php';
                                         <img src="../assets/logo.png" alt="logo" height="60" />
                                         <h3 align="center">SHAH MEDICAL CENTER</h3>
                                         <h4 class="text-center font-16">Address: Near Center Hospital, Saidu Sharif Swat.</h4>
+                                        <h4 class="float-left font-16">
+                                            <strong> 
+                                                <?php 
+
+                                                if ($fetch_selectPatient['pat_category'] === '1') {
+                                                    echo '
+                                                        <i>* Ellective</i>
+                                                    ';
+                                                }elseif ($fetch_selectPatient['pat_category'] === '2') {
+                                                    echo '
+                                                        <i>* Emergency</i>
+                                                    ';
+                                                }
+                                                ?>
+                                            </strong>
+                                        </h4>
                                         <h4 class="float-right font-16"><strong>M.R No # <?php echo $fetch_selectPatient['patient_yearly_no'] ?></strong></h4>
                                         <br>
+                                        
                                     </h3>
                                 </div>
                                 <hr>
@@ -230,6 +250,21 @@ include '../_partials/header.php';
                                             ?>
                                             <br>
                                             <b>Date Of Discharge: </b><?php echo $dishcargeTime = date('d/M/Y h:i:s A') ?><br>
+                                            
+                                                <?php
+                                                    if ($fetch_selectPatient['organization'] === 'Sehat') {
+                                                        if (empty($fetch_selectPatient['visit_id'])) {
+                                                            
+                                                        }else {
+                                                            echo '
+                                                            <b>Visit ID: </b>'.$fetch_selectPatient['visit_id'].'
+                                                            
+                                                            ';
+                                                        }
+                                                    }
+                                                ?>
+                                            <br>
+
                                         </address>
                                     </div>
                                 </div>
@@ -877,6 +912,8 @@ include '../_partials/header.php';
                             <input type="hidden" name="p_anes_charges" value="<?php echo $fetch_selectPatient['anesthesia_charges'] ?>">
                             <input type="hidden" name="p_advance" value="<?php echo $fetch_selectPatient['advance_payment'] ?>">
                             <input type="hidden" name="p_organization" value="<?php echo $fetch_selectPatient['organization'] ?>">
+                            <input type="hidden" name="p_cat" value="<?php echo $fetch_selectPatient['pat_category'] ?>">
+                            <input type="hidden" name="p_visit_id" value="<?php echo $fetch_selectPatient['visit_id'] ?>">
 
                         <!-- </form> -->
                             <div class="d-print-none mo-mt-2">
@@ -923,7 +960,6 @@ $('.attendant').select2({
 $('.select2').select2({
     placeholder: 'Select an option',
     allowClear: true
-
 });
 </script>
 <script type="text/javascript">

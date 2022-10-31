@@ -342,6 +342,7 @@
                                 <li><a href="report_ot.php">OT Report</a></li>
                                 <li><a href="report_pat.php">Patient Custom Report</a></li>
                                 <li><a href="report_pat_daily.php">Patient Daily Report</a></li>
+                                <li><a href="report_emergency.php">Emergency Patients Report</a></li>
                             </ul>
                         </li>
 
