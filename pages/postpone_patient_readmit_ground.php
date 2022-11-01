@@ -47,6 +47,13 @@
         $advance_payment = $_POST['advance_payment'];
         $organization = $_POST['organization'];
 
+        $patCategory = $_POST['patCategory'];
+        $visitId = $_POST['visitId'];
+
+        if(empty($visitId)) {
+            $visitId = '0';
+        }
+
         if (empty($advance_payment)) {
             $advance_payment = '0';
         }
@@ -89,7 +96,9 @@
             added_by,
             updated_by,
             advance_payment,
-            organization
+            organization,
+            pat_category,
+            visit_id
             )VALUES(
             '$name', 
             '$Age', 
@@ -113,7 +122,9 @@
             '$added_by',
             '$updated_by',
             '$advance_payment',
-            '$organization'
+            '$organization',
+            '$patCategory',
+            '$visitId'
             )
            ");
 
@@ -162,7 +173,7 @@
                                 <div class="col-sm-4">
                                     <?php
                                         $select_option_city = mysqli_query($connect, "SELECT * FROM select_organization");
-                                            $optionsCity = '<select class="form-control Orgselect2" name="organization" required="" style="width:100%">';
+                                            $optionsCity = '<select class="form-control Orgselect2" name="organization" id="organization" onchange=checkOrganization() required="" style="width:100%">';
                                             
                                               while ($rowCity = mysqli_fetch_assoc($select_option_city)) {
                                                 $optionsCity.= '<option value='.$rowCity['org_name'].'>'.$rowCity['org_name'].'</option>';
@@ -170,6 +181,22 @@
                                             $optionsCity.= "</select>";
                                         echo $optionsCity;
                                     ?>
+                                </div>
+
+                                <label class="col-sm-2 col-form-label">Select Category</label>
+                                <div class="col-sm-4">
+                                    <select name="patCategory" class="form-control Orgselect2">
+                                        <option value="1">Ellective Patient</option>
+                                        <option value="2">Emergency Patient</option>
+                                    </select>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group row" id="visitId" style="display: none"> 
+                                <label class="col-sm-2 col-form-label">Visit ID / No</label>
+                                <div class="col-sm-4">
+                                    <input class="form-control" type="text" value="0" placeholder="Visit Id" name="visitId"  required>
                                 </div>
                             </div>
                             <hr>
@@ -392,19 +419,31 @@
     });
 </script>
 <script type="text/javascript" src="../assets/js/select2.min.js"></script>
-        <script type="text/javascript">
-            $('.select2').select2({
-  placeholder: 'Select an option',
-  allowClear:true
-  
+<script type="text/javascript">
+$('.select2').select2({
+    placeholder: 'Select an option',
+    allowClear:true
 });
 
-             $('.attendant').select2({
-  placeholder: 'Select an option',
-  allowClear:true
-  
+$('.attendant').select2({
+    placeholder: 'Select an option',
+    allowClear:true
 });
         </script>
+
+<script type="text/javascript">
+    function checkOrganization() {
+        var option = document.getElementById('organization')
+        var display = option.options[option.selectedIndex].text;
+
+        if (display == 'Sehat Card' || display == 'sehat card') {
+            document.querySelector('#visitId').style.display = '';
+        }
+        else {
+            document.querySelector('#visitId').style.display = 'none';
+        }
+    }
+</script>
 </body>
 
 </html>

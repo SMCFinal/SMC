@@ -75,6 +75,14 @@
         $added_by = '0';
         $updated_by = '0';
         
+
+        $patCategory = $_POST['patCategory'];
+        $visitId = $_POST['visitId'];
+
+        if(empty($visitId)) {
+            $visitId = '0';
+        }
+        
         // Till here
         
         $queryAddPatient = mysqli_query($connect, 
@@ -101,7 +109,9 @@
             added_by,
             updated_by,
             advance_payment,
-            organization
+            organization,
+            pat_category,
+            visit_id
             )VALUES(
             '$name', 
             '$Age', 
@@ -125,7 +135,9 @@
             '$added_by',
             '$updated_by',
             '$advance_payment',
-            '$organization'
+            '$organization',
+            '$patCategory',
+            '$visitId'
             )
            ");
 
@@ -170,21 +182,39 @@
                             </div>
                         <h4 class="mb-4 page-title"><u>Patient Details</u></h4>
 
-                            <div class="form-group row">
+                        <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">Organization</label>
                                 <div class="col-sm-4">
                                     <?php
-                                        $select_option_org = mysqli_query($connect, "SELECT * FROM select_organization");
-                                            $optionsOrg = '<select class="form-control Orgselect2" name="organization" required="" style="width:100%">';
+                                        $select_option_city = mysqli_query($connect, "SELECT * FROM select_organization");
+                                            $optionsCity = '<select class="form-control Orgselect2" name="organization" id="organization" onchange=checkOrganization() required="" style="width:100%">';
                                             
-                                              while ($rowOrg = mysqli_fetch_assoc($select_option_org)) {
-                                                $optionsOrg.= '<option value='.$rowOrg['org_name'].'>'.$rowOrg['org_name'].'</option>';
+                                              while ($rowCity = mysqli_fetch_assoc($select_option_city)) {
+                                                $optionsCity.= '<option value='.$rowCity['org_name'].'>'.$rowCity['org_name'].'</option>';
                                               }
-                                            $optionsOrg.= "</select>";
-                                        echo $optionsOrg;
+                                            $optionsCity.= "</select>";
+                                        echo $optionsCity;
                                     ?>
-                                </div>                             
+                                </div>
+
+                                <label class="col-sm-2 col-form-label">Select Category</label>
+                                <div class="col-sm-4">
+                                    <select name="patCategory" class="form-control Orgselect2">
+                                        <option value="1">Ellective Patient</option>
+                                        <option value="2">Emergency Patient</option>
+                                    </select>
+                                </div>
                             </div>
+
+
+                            <div class="form-group row" id="visitId" style="display: none"> 
+                                <label class="col-sm-2 col-form-label">Visit ID / No</label>
+                                <div class="col-sm-4">
+                                    <input class="form-control" type="text" value="0" placeholder="Visit Id" name="visitId"  required>
+                                </div>
+                            </div>
+
+                            <hr />
 
 
                             <div class="form-group row">
@@ -419,6 +449,19 @@
   
 });
         </script>
+<script type="text/javascript">
+    function checkOrganization() {
+        var option = document.getElementById('organization')
+        var display = option.options[option.selectedIndex].text;
+
+        if (display == 'Sehat Card' || display == 'sehat card') {
+            document.querySelector('#visitId').style.display = '';
+        }
+        else {
+            document.querySelector('#visitId').style.display = 'none';
+        }
+    }
+</script>
 </body>
 
 </html>

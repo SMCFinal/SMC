@@ -63,15 +63,32 @@
                 <div id="sidebar-menu">
                     <ul>
                         <li class="menu-title">Main</li>
-                        <?php if ($fetch_query['user_role'] == '1' OR $fetch_query['user_role'] == '2') {?>
+                        <?php if ($fetch_query['user_role'] == '10') {?>
                         <li>
                             <a href="dashboard.php" class="waves-effect">
                                 <i class="dripicons-meter"></i>
                                 <span> Dashboard </span>
                             </a>
                         </li>
-                        <?php } ?>
-                        <?php if ($fetch_query['user_role'] == '2' OR $fetch_query['user_role'] == '3' OR $fetch_query['user_role'] == '4' OR $fetch_query['user_role'] == '5') {
+
+                        <li>
+                            <a href="mo_patient_list.php" class="waves-effect">
+                                <i class="mdi mdi-wheelchair-accessibility"></i>
+                                <span> Patients List </span>
+                            </a>
+                        </li>
+
+
+
+                        <?php } if ($fetch_query['user_role'] == '1' OR $fetch_query['user_role'] == '2') {?>
+                        <li>
+                            <a href="dashboard.php" class="waves-effect">
+                                <i class="dripicons-meter"></i>
+                                <span> Dashboard </span>
+                            </a>
+                        </li>
+
+                        <?php } if ($fetch_query['user_role'] == '2' OR $fetch_query['user_role'] == '3' OR $fetch_query['user_role'] == '4' OR $fetch_query['user_role'] == '5') {
                             ?>
                         <li class="has_sub">
                             <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-flash"></i> <span>
@@ -86,9 +103,9 @@
                                 <li><a target="_blank" href="lab_test_list_view.php">Laboratory View</a></li>
                             </ul>
                         </li>
-                        <?php  } ?>
+                        
 
-                        <?php if ($fetch_query['user_role'] == '2') {
+                        <?php } if ($fetch_query['user_role'] == '2') {
                             ?>
                         <li class="has_sub">
                             <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-building"></i> <span>

@@ -94,6 +94,7 @@
                                         <option value="5">Pharmacy</option>
                                         <option value="6">Ground Floor Counter</option>
                                         <option value="7">Ground Floor Second Counter</option>
+                                        <option value="10">Medical Officer</option>
                                     </select>
                                 </div>
                             </div>

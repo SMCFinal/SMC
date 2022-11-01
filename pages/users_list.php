@@ -49,12 +49,13 @@
                                 $Pharmacy = 'Pharmacy';
                                 $GroundFloorCounter = 'Ground Floor Counter';
                                 $GroundFloorSecondCounter = 'Ground Floor Second Counter';
+                                $MO = 'Medical Officer';
 
                                 $active = 'Active';
                                 $inActive = 'In-Active';
 
                                 while ($userRow = mysqli_fetch_assoc($retrieveUsers)) {
-                                    if ($userRow['user_role'] === '1' || $userRow['user_role'] === '2' || $userRow['user_role'] === '3' || $userRow['user_role'] == '4' || $userRow['user_role'] == '5' || $userRow['user_role'] == '6' || $userRow['user_role'] == '7') {
+                                    if ($userRow['user_role'] === '1' || $userRow['user_role'] === '2' || $userRow['user_role'] === '3' || $userRow['user_role'] == '4' || $userRow['user_role'] == '5' || $userRow['user_role'] == '6' || $userRow['user_role'] == '7' || $userRow['user_role'] == '10') {
                                         echo '
                                         <tr>
                                             <td>'.$iterationUser++.'.'.'</td>
@@ -75,6 +76,8 @@
                                                 echo '<td>'.$GroundFloorCounter.'</td>';   
                                             }elseif ($userRow['user_role'] == '7') {
                                                 echo '<td>'.$GroundFloorSecondCounter.'</td>';   
+                                            }elseif ($userRow['user_role'] == '10') {
+                                                echo '<td>'.$MO.'</td>';   
                                             }
     
     

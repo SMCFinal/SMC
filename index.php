@@ -38,6 +38,8 @@
             header("LOCATION:pages/doctorDashboard.php");
         }elseif ($user_role == '9') {
             header("LOCATION:pages/anestheticDashboard.php");
+        }elseif ($user_role == '10') {
+            header("LOCATION:pages/moDashboard.php");
         }
         
       }else {
