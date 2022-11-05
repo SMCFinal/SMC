@@ -228,9 +228,7 @@
 
 
                             <?php
-                            if (empty($fetch_selectQueryPatient['visit_id']) OR $fetch_selectQueryPatient['visit_id'] === '0') {
-                                
-                            }else {
+                            // if ($org === 'Sehat Card') {
                                 echo '
                                 <div class="form-group row" id="visitId">
                                     <label class="col-sm-2 col-form-label">Visit ID / No</label>
@@ -240,7 +238,7 @@
                                     </div>
                                 </div>
                                 ';
-                            }
+                            // }
                             ?>
 
                             
@@ -514,6 +512,15 @@ $('.Orgselect2').select2({
 
 
 <script type="text/javascript">
+$( document ).ready(function() {
+    var value = $('#organization').val();
+    if (value == 'Sehat Card') {
+        $("#visitId").show();
+    }else {
+        $("#visitId").hide();
+    }
+});
+
 function checkOrganization() {
     var option = document.getElementById('organization')
     var display = option.options[option.selectedIndex].text;

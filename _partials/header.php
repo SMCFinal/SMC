@@ -38,6 +38,7 @@
     <link rel="stylesheet" type="text/css" href="../assets/bootstrap-datetimepicker.css">
     <link rel="stylesheet" type="text/css" href="../assets/bootstrap-datepicker.min.css">
     <!-- <link href="../assets/plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css" rel="stylesheet"> -->
+    <script src='../assets/kitFont.js' crossorigin='anonymous'></script>
 </head>
 
 <body class="fixed-left">
@@ -303,6 +304,17 @@
                                 <li><a href="anesthetic_ptcl_charges.php">ANA PTCL Charges</a></li>
                                 <li><a href="anesthetic_other_charges.php">ANA Other Charges</a></li>
                                 <li><a href="anesthetic_payment_list.php">Anesthesia Payment List</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="has_sub">
+                            <a href="javascript:void(0);" class="waves-effect"><i class="fas">&#xf77c;</i> <span>
+                                    Birth Certificate</span> <span class="menu-arrow float-right"><i
+                                        class="mdi mdi-chevron-right"></i></span></a>
+                            <ul class="list-unstyled">
+
+                                <li><a href="birth_certificate.php">Add Birth Certificate</a></li>
+                                <li><a href="birth_certificate_list.php">Birth Certificate List</a></li>
                             </ul>
                         </li>
 
