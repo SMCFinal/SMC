@@ -51,6 +51,7 @@
                                 <br>
                             </h3>
                             <hr>
+                            <br>
 
                             <h3 class="m-t-0 text-center">
                                 <h4 class="text-center font-16" style="font-size: 150%; font-family: Georgia">Birth Certificate</h4>
@@ -60,22 +61,123 @@
                         <div class="row">
                             <div class="col-1"></div>
                             <div class="col-10">
+                                <p class="text-center" style="font-family: monospace; font-weight: 600; font-size: 18px">This document acknowledges that a</p>
+
+                                <br />
+
+                                <h2 class="text-center" style="font-family: brush script mt; font-weight: 300;">Baby
+                                <?php
+                                    if($fetch_selectPatient['baby_gender'] === '1') {
+                                        echo 'Boy';
+                                    }else {
+                                        echo 'Girl';
+                                    }
+                                ?>
+                                </h2>
+
+                                <br />
+
+                                <p class="text-center" style="font-family: monospace; font-size: 18px; font-weight: 600;">was born to </p>
+
+                                <br />
+
+                                <div class="row">
+                                    <div class="col-4" style="border-bottom: 2px solid black">
+                                        <h3 class="text-center" style="font-family: brush script mt; font-weight: 100; "> 
+                                            <?php
+                                            $smallCharactersMO = strtolower($fetch_selectPatient['patient_name']);
+                                            echo  $stringMO = ucwords($smallCharactersMO);
+                                            ?>
+                                        </h3>
+                                    </div>
+
+                                    <div class="col-4">
+                                        <h3 class="text-center" style="font-family: brush script mt; font-weight: 100">and</h3>
+                                    </div>
+                                    
+                                    <div class="col-4"  style="border-bottom: 2px solid black">
+                                        <h3 class="text-center" style="font-family: brush script mt; font-weight: 100">
+                                            <?php
+                                                $smallCharactersFather = strtolower($fetch_selectPatient['baby_father']);
+                                                echo  $stringFather = ucwords($smallCharactersFather);
+                                            ?>
+                                        </h3>
+                                    </div>
+                                    <div class="col-4">
+                                        <h5 class="text-center" style="font-family: Georgia; font-weight: 100; font-size: 16px !important;">Mother Name</h5>
+                                    </div>
+                                    <div class="col-4"></div>
+                                    <div class="col-4">
+                                        <h5 class="text-center" style="font-family: Georgia; font-weight: 100; font-size: 16px !important;">Father Name</h5>
+                                    </div>
+                                </div>
+
+                                <br />
+                                <br />
+
+                                <p class="text-center" style="font-family: monospace; font-weight: 600; font-size: 18px">at Shah Medical Center, Swat</p>
+
+                                <br />
                                 
+                                <div class="row">
+                                    <div class="col-4">
+                                        <p class="text-right" style="font-family: monospace; font-size: 18px"><b>Weight: <?php echo $fetch_selectPatient['baby_weight']." KG" ?></b></p>
+                                    </div>
+
+                                    <div class="col-4"></div>
+                                    
+                                    <div class="col-4">
+                                        <p class="text-left" style="font-family: monospace; font-size: 18px"><b>Date: <?php echo $fetch_selectPatient['certificate_date'] ?></b></p>
+                                    </div>
+                                </div>
+
+                                <br />
+                                <br />
+                                <br />
+                                <br />
+                                <br />
+
+
+
+                                <div class="row">
+                                    <div class="col-4" style="border-bottom: 2px solid black">
+                                       
+                                    </div>
+
+                                    <div class="col-4">
+                                        
+                                    </div>
+                                    
+                                    <div class="col-4"  style="border-bottom: 2px solid black">
+                                        
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-4">
+                                        <h5 class="text-center" style="font-family: Georgia; font-weight: 100; ">Gynaecologist</h5>
+                                    </div>
+
+                                    <div class="col-4"></div>
+                                    
+                                    <div class="col-4">
+                                        <h5 class="text-center" style="font-family: Georgia; font-weight: 100">Administration</h5>
+                                    </div>
+                                </div>
                             </div>
                             <div class="col-1"></div>
                             
                         </div>
                     </div>
                 </div>
-                
 
-                <div class="row custom" style="font-family: Georgia">
+                <!-- <div class="row custom" style="font-family: Georgia; position: inherit; top: 0">
                     <div class="col-md-8">
-                        <label style="margin-bottom: 0rem !important">This is a computer generated report, therefore signatures are not required. </label><br>
-                        <label>Developed By: <i>Asif Ullah</i></label>
+                        <label style="margin-bottom: 0rem !important">This is a computer generated certificate.</label><br>
+                        <label>Developed By: <i>Team Pixelium</i></label>
                         <hr>
                     </div>     
-                </div>
+                </div> -->
             </div> <!-- end row -->
         </div><!-- container fluid -->
     </div> <!-- Page content Wrapper -->
