@@ -83,7 +83,7 @@
 
                                 <div class="row">
                                     <div class="col-4" style="border-bottom: 2px solid black">
-                                        <h3 class="text-center" style="font-family: brush script mt; font-weight: 100; "> 
+                                        <h3 class="text-center" style="font-family: brush script mt; font-weight: 100; "> Ms. 
                                             <?php
                                             $smallCharactersMO = strtolower($fetch_selectPatient['patient_name']);
                                             echo  $stringMO = ucwords($smallCharactersMO);
@@ -96,7 +96,7 @@
                                     </div>
                                     
                                     <div class="col-4"  style="border-bottom: 2px solid black">
-                                        <h3 class="text-center" style="font-family: brush script mt; font-weight: 100">
+                                        <h3 class="text-center" style="font-family: brush script mt; font-weight: 100"> Mr. 
                                             <?php
                                                 $smallCharactersFather = strtolower($fetch_selectPatient['baby_father']);
                                                 echo  $stringFather = ucwords($smallCharactersFather);
