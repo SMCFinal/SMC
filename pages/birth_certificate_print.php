@@ -14,9 +14,7 @@
                                 WHERE birth_certificate.pat_id = '$id' AND birth_certificate.certificate_id = '$cert_id'");
 
     $fetch_selectPatient = mysqli_fetch_assoc($selectPatient);
-
-
-
+    
     include '../_partials/header.php';
 
 ?>
