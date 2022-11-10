@@ -42,25 +42,42 @@ include '../_partials/header.php';
                                         echo '
                                         <tr>
                                             <td>' . $iteration++ . '</td>
-                                            <td>' . $rowretOPDPatients['emp_name'] . '</td>
-                                            <td>' . $rowretOPDPatients['emp_designation'] . '</td>
-                                            <td>' . $rowretOPDPatients['emp_pat_name'] . '</td>
-                                            <td>' . $rowretOPDPatients['emp_date'] . '</td>
+                                            <td>' . $rowretOPDPatients['emp_name'] . '</td>';
+                                            if(empty($rowretOPDPatients['emp_designation'])) {
+                                                echo '<td><span class="badge badge-secondary">Null</span></td>';
+                                            }else {
+                                                echo '
+                                                <td>' . $rowretOPDPatients['emp_designation'] . '</td>
+                                                ';
+                                            }
+                                            echo '
+                                            <td>' . $rowretOPDPatients['emp_pat_name'] . '</td>';
+                                            
+                                            if($rowretOPDPatients['emp_date'] === '0000-00-00') {
+                                                echo '<td><span class="badge badge-secondary">Null</span></td>';
+                                            }else {
+                                                echo '
+                                                <td>' . $rowretOPDPatients['emp_date'] . '</td>
+                                                ';
+                                            }
+                                            echo '
 
                                             <td class="text-center"><a href="opd_patient_edit.php?id=' . $rowretOPDPatients['o_id'] . '" type="button" class="btn text-white btn-primary waves-effect waves-light btn-sm"><i class="fa fa-edit"></i> Patient</a></td>';
                                             
                                             if ($rowretOPDPatients['payment_status'] === '0') {
                                                 echo '
                                                     <td class="text-center"><a href="opd_patient_charges.php?id=' . $rowretOPDPatients['o_id'] . '" type="button" class="btn text-white btn-success waves-effect waves-light btn-sm"><i class="fa fa-plus"></i> Charges</a></td>
+                                                    <td class="text-center">No Charges!</td>
                                                 ';
                                             }elseif ($rowretOPDPatients['payment_status'] === '1') {
                                                 echo '
                                                     <td class="text-center"><a href="opd_patient_charges_edit.php?id=' . $rowretOPDPatients['o_id'] . '" type="button" class="btn text-white btn-info waves-effect waves-light btn-sm"><i class="fa fa-edit"></i> Charges</a></td>
+                                                    <td class="text-center"><a href="opd_patient_print.php?id=' . $rowretOPDPatients['o_id'] . '" type="button" class="btn text-white btn-secondary waves-effect waves-light btn-sm"><i class="fa fa-print"></i> Print</a></td>
                                                 ';
                                             }
                                             
                                             echo '
-                                            <td class="text-center"><a href="opd_patient_print.php?id=' . $rowretOPDPatients['o_id'] . '" type="button" class="btn text-white btn-secondary waves-effect waves-light btn-sm"><i class="fa fa-print"></i> Print</a></td>
+                                            
                                         </tr>
                                     ';
                                     }

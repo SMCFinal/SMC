@@ -105,7 +105,7 @@
 
                                 <label for="example-text-input" class="col-sm-2 col-form-label">Operation</label>
                                 <div class="col-sm-4">
-                                    <input class="form-control" placeholder="Operation" type="text"  id="example-text-input" name="emp_operation" required="">
+                                    <input class="form-control" placeholder="Operation" type="text"  id="example-text-input" name="emp_operation">
                                 </div>
                             </div>
 

@@ -10,6 +10,8 @@
     $error= '';
 
     $id = $_GET['id'];
+    $getQuery = mysqli_query($connect, "SELECT * FROM opd_charges WHERE pat_id = '$id'");
+    $fetch_getQuery = mysqli_fetch_assoc($getQuery);
 
     if (isset($_POST['addPatientCharges'])) {
 
@@ -36,59 +38,35 @@
         $othertwo_charges           = $_POST['othertwo_charges'];
         $otherthree_charges         = $_POST['otherthree_charges'];
         $otherfour_charges          = $_POST['otherfour_charges'];
-        $pat_id                     = $_POST['otherfour_charges'];
+        $pat_id                     = $_POST['pat_id'];
+        $charges_id                 = $_POST['charges_id'];
 
-        $insertQuery = mysqli_query($connect, "INSERT INTO `opd_charges`(
-             `room_charges`,
-              `operation_charges`,
-               `anesthesia_charges`,
-                `ot_charges`,
-                 `ota_charges`,
-                  `delivery_charges`,
-                   `xray_charges`,
-                    `lab_charges`,
-                     `ultrasound_charges`,
-                      `otherinvestigation_charges`,
-                       `consultant_charges`,
-                        `consultantvisit_charges`,
-                         `bloodtransfusions_charges`,
-                          `medicines_charges`,
-                           `mo_charges`,
-                            `nursing_charges`,
-                             `isochlorane_charges`,
-                              `ctscan_charges`,
-                               `mri_charges`,
-                                `otherone_charges`,
-                                 `othertwo_charges`,
-                                  `otherthree_charges`,
-                                   `otherfour_charges`,
-                                    `pat_id`
-            ) VALUES (
-             '$room_charges',
-              '$operation_charges',
-               '$anesthesia_charges',
-                '$ot_charges',
-                 '$ota_charges',
-                  '$delivery_charges',
-                   '$xray_charges',
-                    '$lab_charges',
-                     '$ultrasound_charges',
-                      '$otherinvestigation_charges',
-                       '$consultant_charges',
-                        '$consultantvisit_charges',
-                         '$bloodtransfusions_charges',
-                          '$medicines_charges',
-                           '$mo_charges',
-                            '$nursing_charges',
-                             '$isochlorane_charges',
-                              '$ctscan_charges',
-                               '$mri_charges',
-                                '$otherone_charges',
-                                 '$othertwo_charges',
-                                  '$otherthree_charges',
-                                   '$otherfour_charges',
-                                    '$pat_id'
-        )");
+        $insertQuery = mysqli_query($connect, "UPDATE `opd_charges` SET 
+             `room_charges` = '$room_charges',
+              `operation_charges` = '$operation_charges',
+               `anesthesia_charges` = '$anesthesia_charges',
+                `ot_charges` = '$ot_charges',
+                 `ota_charges` = '$ota_charges',
+                  `delivery_charges` = '$delivery_charges',
+                   `xray_charges` = '$xray_charges',
+                    `lab_charges` = '$lab_charges',
+                     `ultrasound_charges` = '$ultrasound_charges',
+                      `otherinvestigation_charges` = '$otherinvestigation_charges',
+                       `consultant_charges` = '$consultant_charges',
+                        `consultantvisit_charges` = '$consultantvisit_charges',
+                         `bloodtransfusions_charges` = '$bloodtransfusions_charges',
+                          `medicines_charges` = '$medicines_charges',
+                           `mo_charges` = '$mo_charges',
+                            `nursing_charges` = '$nursing_charges',
+                             `isochlorane_charges` = '$isochlorane_charges',
+                              `ctscan_charges` = '$ctscan_charges',
+                               `mri_charges` = '$mri_charges',
+                                `otherone_charges` = '$otherone_charges',
+                                 `othertwo_charges` = '$othertwo_charges',
+                                  `otherthree_charges` = '$otherthree_charges',
+                                   `otherfour_charges` = '$otherfour_charges'
+
+                                     WHERE opd_charges = '$charges_id' AND pat_id = '$pat_id'");
         
         if (!$insertQuery) {
             $error = '
@@ -96,10 +74,8 @@
                 OPD Patient Charges Not Added! Try Again!
             </div>';
         }else {
-            if ($changeStatus) {
                 $changeStatus = mysqli_query($connect, "UPDATE opd_ptcl SET payment_status = '1' WHERE o_id = '$pat_id'");
                 header("LOCATION: opd_patient_list.php");
-            }
         }
         
         
@@ -131,11 +107,12 @@
                         <form method="POST">
 
                         <input type="hidden" name="pat_id" value="<?php echo $id ?>">
+                        <input type="hidden" name="charges_id" value="<?php echo $fetch_getQuery['opd_charges'] ?>">
 
                             <div class="form-group row">
                                 <label for="example-text-input" class="col-sm-4 col-form-label text-right">Ward / Private Room / VIP Room Charges</label>
                                 <div class="col-sm-4">
-                                    <input class="form-control" value="0" type="number" id="example-text-input" name="room_charges" required="">
+                                    <input class="form-control" value="<?php echo  $fetch_getQuery['room_charges'] ?>" type="number" id="example-text-input" name="room_charges" required="">
                                 </div>
                             </div>
 
@@ -144,7 +121,7 @@
                             <div class="form-group row">
                                 <label for="example-text-input" class="col-sm-4 col-form-label text-right">Operation Charges</label>
                                 <div class="col-sm-4">
-                                    <input class="form-control" value="0" type="number" id="example-text-input" name="operation_charges" required="">
+                                    <input class="form-control"  value="<?php echo  $fetch_getQuery['operation_charges'] ?>"  type="number" id="example-text-input" name="operation_charges" required="">
                                 </div>
                             </div>
 
@@ -153,7 +130,7 @@
                             <div class="form-group row">
                                 <label for="example-text-input" class="col-sm-4 col-form-label text-right">Anesthesia Charges</label>
                                 <div class="col-sm-4">
-                                    <input class="form-control" value="0" type="number" id="example-text-input" name="anesthesia_charges" required="">
+                                    <input class="form-control"  value="<?php echo  $fetch_getQuery['anesthesia_charges'] ?>"  type="number" id="example-text-input" name="anesthesia_charges" required="">
                                 </div>
                             </div>
 
@@ -163,7 +140,7 @@
                             <div class="form-group row">
                                 <label for="example-text-input" class="col-sm-4 col-form-label text-right">OT Charges</label>
                                 <div class="col-sm-4">
-                                    <input class="form-control" value="0" type="number" id="example-text-input" name="ot_charges" required="">
+                                    <input class="form-control"  value="<?php echo  $fetch_getQuery['ot_charges'] ?>"  type="number" id="example-text-input" name="ot_charges" required="">
                                 </div>
                             </div>
 
@@ -173,7 +150,7 @@
                             <div class="form-group row">
                                 <label for="example-text-input" class="col-sm-4 col-form-label text-right">OTA Charges</label>
                                 <div class="col-sm-4">
-                                    <input class="form-control" value="0" type="number" id="example-text-input" name="ota_charges" required="">
+                                    <input class="form-control"  value="<?php echo  $fetch_getQuery['ota_charges'] ?>"  type="number" id="example-text-input" name="ota_charges" required="">
                                 </div>
                             </div>
 
@@ -183,7 +160,7 @@
                             <div class="form-group row">
                                 <label for="example-text-input" class="col-sm-4 col-form-label text-right">Delivery Charges</label>
                                 <div class="col-sm-4">
-                                    <input class="form-control" value="0" type="number" id="example-text-input" name="delivery_charges" required="">
+                                    <input class="form-control"  value="<?php echo  $fetch_getQuery['delivery_charges'] ?>"  type="number" id="example-text-input" name="delivery_charges" required="">
                                 </div>
                             </div>
 
@@ -193,7 +170,7 @@
                             <div class="form-group row">
                                 <label for="example-text-input" class="col-sm-4 col-form-label text-right">X-Ray Charges</label>
                                 <div class="col-sm-4">
-                                    <input class="form-control" value="0" type="number" id="example-text-input" name="xray_charges" required="">
+                                    <input class="form-control"  value="<?php echo  $fetch_getQuery['xray_charges'] ?>"  type="number" id="example-text-input" name="xray_charges" required="">
                                 </div>
                             </div>
 
@@ -203,7 +180,7 @@
                             <div class="form-group row">
                                 <label for="example-text-input" class="col-sm-4 col-form-label text-right">Laboratory Investigation</label>
                                 <div class="col-sm-4">
-                                    <input class="form-control" value="0" type="number" id="example-text-input" name="lab_charges" required="">
+                                    <input class="form-control"  value="<?php echo  $fetch_getQuery['lab_charges'] ?>"  type="number" id="example-text-input" name="lab_charges" required="">
                                 </div>
                             </div>
 
@@ -213,7 +190,7 @@
                             <div class="form-group row">
                                 <label for="example-text-input" class="col-sm-4 col-form-label text-right">Ultrasound Examination</label>
                                 <div class="col-sm-4">
-                                    <input class="form-control" value="0" type="number" id="example-text-input" name="ultrasound_charges" required="">
+                                    <input class="form-control"  value="<?php echo  $fetch_getQuery['ultrasound_charges'] ?>" type="number" id="example-text-input" name="ultrasound_charges" required="">
                                 </div>
                             </div>
 
@@ -223,7 +200,7 @@
                             <div class="form-group row">
                                 <label for="example-text-input" class="col-sm-4 col-form-label text-right">Other Investigations</label>
                                 <div class="col-sm-4">
-                                    <input class="form-control" value="0" type="number" id="example-text-input" name="otherinvestigation_charges" required="">
+                                    <input class="form-control"  value="<?php echo  $fetch_getQuery['otherinvestigation_charges'] ?>"  type="number" id="example-text-input" name="otherinvestigation_charges" required="">
                                 </div>
                             </div>
 
@@ -233,7 +210,7 @@
                             <div class="form-group row">
                                 <label for="example-text-input" class="col-sm-4 col-form-label text-right">Specialist Consultations (Physicians)</label>
                                 <div class="col-sm-4">
-                                    <input class="form-control" value="0" type="number" id="example-text-input" name="consultant_charges" required="">
+                                    <input class="form-control"  value="<?php echo  $fetch_getQuery['consultant_charges'] ?>"  type="number" id="example-text-input" name="consultant_charges" required="">
                                 </div>
                             </div>
 
@@ -243,7 +220,7 @@
                             <div class="form-group row">
                                 <label for="example-text-input" class="col-sm-4 col-form-label text-right">Specialist Visits</label>
                                 <div class="col-sm-4">
-                                    <input class="form-control" value="0" type="number" id="example-text-input" name="consultantvisit_charges" required="">
+                                    <input class="form-control"  value="<?php echo  $fetch_getQuery['consultantvisit_charges'] ?>"  type="number" id="example-text-input" name="consultantvisit_charges" required="">
                                 </div>
                             </div>
 
@@ -253,7 +230,7 @@
                             <div class="form-group row">
                                 <label for="example-text-input" class="col-sm-4 col-form-label text-right">Blood Transfusions</label>
                                 <div class="col-sm-4">
-                                    <input class="form-control" value="0" type="number" id="example-text-input" name="bloodtransfusions_charges" required="">
+                                    <input class="form-control"  value="<?php echo  $fetch_getQuery['bloodtransfusions_charges'] ?>"  type="number" id="example-text-input" name="bloodtransfusions_charges" required="">
                                 </div>
                             </div>
 
@@ -263,7 +240,7 @@
                             <div class="form-group row">
                                 <label for="example-text-input" class="col-sm-4 col-form-label text-right">Medicines</label>
                                 <div class="col-sm-4">
-                                    <input class="form-control" value="0" type="number" id="example-text-input" name="medicines_charges" required="">
+                                    <input class="form-control"  value="<?php echo  $fetch_getQuery['medicines_charges'] ?>"  type="number" id="example-text-input" name="medicines_charges" required="">
                                 </div>
                             </div>
 
@@ -273,7 +250,7 @@
                             <div class="form-group row">
                                 <label for="example-text-input" class="col-sm-4 col-form-label text-right">MO Charges</label>
                                 <div class="col-sm-4">
-                                    <input class="form-control" value="0" type="number" id="example-text-input" name="mo_charges" required="">
+                                    <input class="form-control"  value="<?php echo  $fetch_getQuery['mo_charges'] ?>"  type="number" id="example-text-input" name="mo_charges" required="">
                                 </div>
                             </div>
 
@@ -283,7 +260,7 @@
                             <div class="form-group row">
                                 <label for="example-text-input" class="col-sm-4 col-form-label text-right">Nursing Charges</label>
                                 <div class="col-sm-4">
-                                    <input class="form-control" value="0" type="number" id="example-text-input" name="nursing_charges" required="">
+                                    <input class="form-control"  value="<?php echo  $fetch_getQuery['nursing_charges'] ?>"  type="number" id="example-text-input" name="nursing_charges" required="">
                                 </div>
                             </div>
 
@@ -293,7 +270,7 @@
                             <div class="form-group row">
                                 <label for="example-text-input" class="col-sm-4 col-form-label text-right">Isochlorane Charges</label>
                                 <div class="col-sm-4">
-                                    <input class="form-control" value="0" type="number" id="example-text-input" name="isochlorane_charges" required="">
+                                    <input class="form-control"  value="<?php echo  $fetch_getQuery['isochlorane_charges'] ?>"  type="number" id="example-text-input" name="isochlorane_charges" required="">
                                 </div>
                             </div>
 
@@ -303,7 +280,7 @@
                             <div class="form-group row">
                                 <label for="example-text-input" class="col-sm-4 col-form-label text-right">CT Scan Charges</label>
                                 <div class="col-sm-4">
-                                    <input class="form-control" value="0" type="number" id="example-text-input" name="ctscan_charges" required="">
+                                    <input class="form-control"  value="<?php echo  $fetch_getQuery['ctscan_charges'] ?>"  type="number" id="example-text-input" name="ctscan_charges" required="">
                                 </div>
                             </div>
 
@@ -313,7 +290,7 @@
                             <div class="form-group row">
                                 <label for="example-text-input" class="col-sm-4 col-form-label text-right">MRI Charges</label>
                                 <div class="col-sm-4">
-                                    <input class="form-control" value="0" type="number" id="example-text-input" name="mri_charges" required="">
+                                    <input class="form-control"  value="<?php echo  $fetch_getQuery['mri_charges'] ?>"  type="number" id="example-text-input" name="mri_charges" required="">
                                 </div>
                             </div>
 
@@ -323,7 +300,7 @@
                             <div class="form-group row">
                                 <label for="example-text-input" class="col-sm-4 col-form-label text-right">Other Charges 1</label>
                                 <div class="col-sm-4">
-                                    <input class="form-control" value="0" type="number" id="example-text-input" name="otherone_charges" required="">
+                                    <input class="form-control"  value="<?php echo  $fetch_getQuery['otherone_charges'] ?>"  type="number" id="example-text-input" name="otherone_charges" required="">
                                 </div>
                             </div>
 
@@ -332,7 +309,7 @@
                             <div class="form-group row">
                                 <label for="example-text-input" class="col-sm-4 col-form-label text-right">Other Charges 2</label>
                                 <div class="col-sm-4">
-                                    <input class="form-control" value="0" type="number" id="example-text-input" name="othertwo_charges" required="">
+                                    <input class="form-control"  value="<?php  echo $fetch_getQuery['othertwo_charges'] ?>"  type="number" id="example-text-input" name="othertwo_charges" required="">
                                 </div>
                             </div>
 
@@ -341,7 +318,7 @@
                             <div class="form-group row">
                                 <label for="example-text-input" class="col-sm-4 col-form-label text-right">Other Charges 3</label>
                                 <div class="col-sm-4">
-                                    <input class="form-control" value="0" type="number" id="example-text-input" name="otherthree_charges" required="">
+                                    <input class="form-control"  value="<?php  echo $fetch_getQuery['otherthree_charges'] ?>"  type="number" id="example-text-input" name="otherthree_charges" required="">
                                 </div>
                             </div>
 
@@ -350,7 +327,7 @@
                             <div class="form-group row">
                                 <label for="example-text-input" class="col-sm-4 col-form-label text-right">Other Charges 4</label>
                                 <div class="col-sm-4">
-                                    <input class="form-control" value="0" type="number" id="example-text-input" name="otherfour_charges" required="">
+                                    <input class="form-control"  value="<?php  echo $fetch_getQuery['otherfour_charges'] ?>"  type="number" id="example-text-input" name="otherfour_charges" required="">
                                 </div>
                             </div>
 

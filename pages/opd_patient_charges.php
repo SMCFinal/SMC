@@ -36,7 +36,7 @@
         $othertwo_charges           = $_POST['othertwo_charges'];
         $otherthree_charges         = $_POST['otherthree_charges'];
         $otherfour_charges          = $_POST['otherfour_charges'];
-        $pat_id                     = $_POST['otherfour_charges'];
+        $pat_id                     = $_POST['pat_id'];
 
         $insertQuery = mysqli_query($connect, "INSERT INTO `opd_charges`(
              `room_charges`,
@@ -96,10 +96,10 @@
                 OPD Patient Charges Not Added! Try Again!
             </div>';
         }else {
-            if ($changeStatus) {
+            
                 $changeStatus = mysqli_query($connect, "UPDATE opd_ptcl SET payment_status = '1' WHERE o_id = '$pat_id'");
                 header("LOCATION: opd_patient_list.php");
-            }
+            
         }
         
         
