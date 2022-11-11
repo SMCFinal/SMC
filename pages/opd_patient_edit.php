@@ -25,6 +25,7 @@
         $emp_operation = $_POST['emp_operation'];
         $emp_date = $_POST['emp_date'];
         $emp_days = $_POST['emp_days'];
+        $emp_doctor = $_POST['emp_doctor'];
         $id = $_POST['id'];
         
         $updQuery = mysqli_query($connect, "UPDATE `opd_ptcl` SET
@@ -35,7 +36,8 @@
             `emp_diagnosis` = '$emp_diagnosis',
             `emp_operation` = '$emp_operation',
             `emp_date` = '$emp_date',
-            `emp_days` = '$emp_days'
+            `emp_days` = '$emp_days',
+            `emp_doctor` = '$emp_doctor'
             WHERE o_id = '$id'
             ");
 
@@ -117,6 +119,13 @@
                                 <label for="example-text-input" class="col-sm-2 col-form-label">No. of Days</label>
                                 <div class="col-sm-4">
                                     <input class="form-control" value="<?php echo $fetch_getData['emp_days'] ?>" placeholder="Number of Days" type="number"  id="example-text-input" name="emp_days" required="">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="example-text-input" class="col-sm-2 col-form-label">Doctor</label>
+                                <div class="col-sm-4">
+                                    <input class="form-control" placeholder="Doctor Name" type="text" value="<?php echo $fetch_getData['emp_doctor'] ?>" id="example-text-input" name="emp_doctor" required="">
                                 </div>
                             </div>
 

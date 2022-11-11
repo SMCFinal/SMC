@@ -322,10 +322,8 @@
 
                                 <li><a href="opd_patient.php">Add OPD Patient</a></li>
                                 <li><a href="opd_patient_list.php">OPD Patient List</a></li>
-                                <!-- <li><a href="anesthetic_sehatcard_charges.php">ANA SehatCard Charges</a></li> -->
-                                <!-- <li><a href="anesthetic_ptcl_charges.php">ANA PTCL Charges</a></li> -->
-                                <!-- <li><a href="anesthetic_other_charges.php">ANA Other Charges</a></li> -->
-                                <!-- <li><a href="anesthetic_payment_list.php">Anesthesia Payment List</a></li> -->
+                                <li><a href="opd_summary.php">OPD Summary</a></li>
+                                
                             </ul>
                         </li>
 

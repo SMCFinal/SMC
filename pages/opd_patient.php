@@ -20,6 +20,7 @@
         $emp_operation = $_POST['emp_operation'];
         $emp_date = $_POST['emp_date'];
         $emp_days = $_POST['emp_days'];
+        $emp_doctor = $_POST['emp_doctor'];
         
         $insertQuery = mysqli_query($connect, "INSERT INTO `opd_ptcl`(
             `emp_name`,
@@ -29,7 +30,8 @@
             `emp_diagnosis`,
             `emp_operation`,
             `emp_date`,
-            `emp_days`
+            `emp_days`,
+            `emp_doctor`
             ) VALUES (
             '$emp_name',
             '$emp_designation',
@@ -38,7 +40,8 @@
             '$emp_diagnosis',
             '$emp_operation',
             '$emp_date',
-            '$emp_days'
+            '$emp_days',
+            '$emp_doctor'
         )");
 
 
@@ -118,6 +121,13 @@
                                 <label for="example-text-input" class="col-sm-2 col-form-label">No. of Days</label>
                                 <div class="col-sm-4">
                                     <input class="form-control" placeholder="Number of Days" type="number"  id="example-text-input" name="emp_days" required="">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="example-text-input" class="col-sm-2 col-form-label">Doctor</label>
+                                <div class="col-sm-4">
+                                    <input class="form-control" placeholder="Doctor Name" type="text" id="example-text-input" name="emp_doctor" required="">
                                 </div>
                             </div>
 
