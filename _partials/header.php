@@ -323,6 +323,7 @@
                                 <li><a href="opd_patient.php">Add OPD Patient</a></li>
                                 <li><a href="opd_patient_list.php">OPD Patient List</a></li>
                                 <li><a href="opd_summary.php">OPD Summary</a></li>
+                                <li><a href="opd_summary_list.php">OPD Summary List</a></li>
                                 
                             </ul>
                         </li>

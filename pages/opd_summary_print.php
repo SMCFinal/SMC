@@ -1,101 +1,32 @@
 <?php
-    include('../_stream/config.php');
+include '../_stream/config.php';
+session_start();
+if (empty($_SESSION["user"])) {
+    header("LOCATION:../index.php");
+}
 
-    session_start();
-    if (empty($_SESSION["user"])) {
-        header("LOCATION:../index.php");
-    }
-    
+$ref = $_GET['ref'];
 
-
-    $selectPatient = mysqli_query($connect, "SELECT opd_charges.*, opd_ptcl.* FROM `opd_charges`
-    INNER JOIN opd_ptcl ON opd_ptcl.o_id = opd_charges.pat_id
-    WHERE opd_charges.charges_status = '0' AND opd_charges.ref_no = '0'");
-    
-
-    if (isset($_POST['make_summary'])) {
-        $maxQuery = mysqli_query($connect, "SELECT MAX(ref_no) AS MAXRef FROM `opd_charges`");
-        $fetch_maxQuery = mysqli_fetch_assoc($maxQuery);
-
-        // Reference Number
-        $refNo = $fetch_maxQuery['MAXRef'] + 1;
-        $charges_arr = $_POST['charges_arr'];
-
-        for ($i=0; $i < sizeof($charges_arr) ; $i++) { 
-            $charges_id = $charges_arr[$i];
-
-            $updateChargesTable = mysqli_query($connect, "UPDATE opd_charges SET ref_no = '$refNo', charges_status = '1' WHERE opd_charges = '$charges_id'");
-        }
-
-        if ($updateChargesTable) {
-            header("LOCATION: opd_summary_list.php");
-        }
-        
-    }
-
-
-    include '../_partials/header.php';
-
+include '../_partials/header.php';
 ?>
-<style type="text/css">
-    /* body {
-        color: black;
-    }
-
-    .custom {
-        font-size: 13px;
-    }
-
-    .customP {
-        margin-bottom: 0 !important;
-    }
-
-    td {
-        font-size: 90% !important;
-        line-height: 1.5 !important
-    } */
-
-
-    th {
-        transform: rotate(300deg);
-        font-size: 80% !important;
-        /* transform-origin: 100% 150%; */
-    }
-
-    .payment {
-        transform: rotate(300deg);
-        /* transform-origin: 0% 50%; */
-    }
-
-    .customRollOPD {
-        overflow-x: scroll !important
+<style>
+    body {
+        background-color: white !important
     }
 </style>
-<div class="page-content-wrapper " >
-    <form method="POST">
-        <div class="container-fluid"><br>
-            <div class="row">
-                <div class="col-sm-12">
-                    <h5 class="page-title d-inline">Make PTCL OPD Patients Summary</h5>
-                    <!-- <a type="button" href="#" id="printButton" class="btn btn-success waves-effect waves-light float-right btn-lg mb-3"><i class="fa fa-print"></i> Print</a> -->
-                    <?php
-                    $checkRow = mysqli_num_rows($selectPatient);
-                    if ($checkRow > '0') {
-                        echo '
-                            <button type="submit" class="btn btn-success waves-effect waves-light float-right btn-lg mb-3" name="make_summary">Make Summary!</button>
-                        ';
-                    }
-                    ?>
-                </div>
+<div class="page-content-wrapper">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <h5 class="page-title">OPD Summary</h5>
             </div>
-            <br>
-            <!-- end row -->
-            <!-- <div class="row noPrint" id="printElement"> -->
-            <div class="row noPrint" id="printElement">
-                <div class="col-12">
-                    <div class="row">
-                        <div class="col-md-12 customRollOPD">
-                        <table id="datatable" class="table  dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+        </div>
+        <!-- end row -->
+        <div class="row">
+            <div class="col-12">
+                <!-- <div class="card m-b-30"> -->
+                    <!-- <div class="card-body"> -->
+                    <table id="datatable" class="table  dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                             <thead>
                                 <tr>
                                     <?php
@@ -124,7 +55,7 @@
                                         SUM(otherthree_charges) AS OtherThree,
                                         SUM(otherfour_charges) AS OtherFour
                                         FROM `opd_charges`
-                                        WHERE opd_charges.charges_status = '0' AND opd_charges.ref_no = '0'
+                                        WHERE opd_charges.charges_status = '1' AND opd_charges.ref_no = '$ref'
                                     ");
 
                                     $fetch_sumQuery = mysqli_fetch_assoc($sumQuery);
@@ -237,8 +168,15 @@
                             <tbody>
                                 <?php
 
+                                    $ref = $_GET['ref'];
 
                                     $itr = 1;
+
+                                    $selectPatient = mysqli_query($connect, "SELECT opd_charges.*, opd_ptcl.* FROM `opd_charges`
+                                    INNER JOIN opd_ptcl ON opd_ptcl.o_id = opd_charges.pat_id
+                                    WHERE opd_charges.charges_status = '1' AND opd_charges.ref_no = '$ref'");
+
+
 
                                     while ($row = mysqli_fetch_assoc($selectPatient)) {
                                         echo '
@@ -466,19 +404,146 @@
                                         ';
                                     }
 
-                                    
+                                    echo '
+                                    <tr style="font-weight: 600 !important">
+                                    <th style="color: white !important">Total</th>
+                                    <th>-</th>
+                                    <th>-</th>
+                                    <th>-</th>
+                                    <th>-</th>';
+                                    if ($fetch_sumQuery['Room'] != '0') {
+                                        echo '<th>'.$fetch_sumQuery['Room'].'</th>';
+                                    }
+
+                                    if ($fetch_sumQuery['Surg'] != '0') {
+                                        echo '<th>'.$fetch_sumQuery['Surg'].'</th>';
+                                    }
+
+                                    if ($fetch_sumQuery['ANA'] != '0') {
+                                        echo '<th>'.$fetch_sumQuery['ANA'].'</th>';
+                                    }
+
+                                    if ($fetch_sumQuery['OT'] != '0') {
+                                        echo '<th>'.$fetch_sumQuery['OT'].'</th>';
+                                    }
+
+                                    if ($fetch_sumQuery['OTA'] != '0') {
+                                        echo '<th>'.$fetch_sumQuery['OTA'].'</th>';
+                                    }
+
+                                    if ($fetch_sumQuery['Delivery'] != '0') {
+                                        echo '<th>'.$fetch_sumQuery['Delivery'].'</th>';
+                                    }
+
+                                    if ($fetch_sumQuery['XRay'] != '0') {
+                                        echo '<th>'.$fetch_sumQuery['XRay'].'</th>';
+                                    }
+
+                                    if ($fetch_sumQuery['Lab'] != '0') {
+                                        echo '<th>'.$fetch_sumQuery['Lab'].'</th>';
+                                    }
+
+                                    if ($fetch_sumQuery['US'] != '0') {
+                                        echo '<th>'.$fetch_sumQuery['US'].'</th>';
+                                    }
+
+                                    if ($fetch_sumQuery['INV'] != '0') {
+                                        echo '<th>'.$fetch_sumQuery['INV'].'</th>';
+                                    }
+
+                                    if ($fetch_sumQuery['Cons'] != '0') {
+                                        echo '<th>'.$fetch_sumQuery['Cons'].'</th>';
+                                    }
+
+                                    if ($fetch_sumQuery['Viss'] != '0') {
+                                        echo '<th>'.$fetch_sumQuery['Viss'].'</th>';
+                                    }
+
+                                    if ($fetch_sumQuery['BT'] != '0') {
+                                        echo '<th>'.$fetch_sumQuery['BT'].'</th>';
+                                    }
+
+                                    if ($fetch_sumQuery['Med'] != '0') {
+                                        echo '<th>'.$fetch_sumQuery['Med'].'</th>';
+                                    }
+
+                                    if ($fetch_sumQuery['MO'] != '0') {
+                                        echo '<th>'.$fetch_sumQuery['MO'].'</td>';
+                                    }
+
+                                    if ($fetch_sumQuery['Nurs'] != '0') {
+                                        echo '<th>'.$fetch_sumQuery['Nurs'].'</th>';
+                                    }
+
+                                    if ($fetch_sumQuery['ISLF'] != '0') {
+                                        echo '<th>'.$fetch_sumQuery['ISLF'].'</th>';
+                                    }
+
+                                    if ($fetch_sumQuery['CT'] != '0') {
+                                        echo '<th>'.$fetch_sumQuery['CT'].'</th>';
+                                    }
+
+                                    if ($fetch_sumQuery['MRI'] != '0') {
+                                        echo '<th>'.$fetch_sumQuery['MRI'].'</th>';
+                                    }
+
+                                    if ($fetch_sumQuery['OtherOne'] != '0') {
+                                        echo '<th>'.$fetch_sumQuery['OtherOne'].'</th>';
+                                    }
+
+                                    if ($fetch_sumQuery['OtherTwo'] != '0') {
+                                        echo '<th>'.$fetch_sumQuery['OtherTwo'].'</th>';
+                                    }
+
+                                    if ($fetch_sumQuery['OtherThree'] != '0') {
+                                        echo '<th>'.$fetch_sumQuery['OtherThree'].'</th>';
+                                    }
+
+                                    if ($fetch_sumQuery['OtherFour'] != '0') {
+                                        echo '<th>'.$fetch_sumQuery['OtherFour'].'</th>';
+                                    }
+
+
+                                    $totalAmountSum =   $fetch_sumQuery['Room'] + 
+                                                        $fetch_sumQuery['Surg'] + 
+                                                        $fetch_sumQuery['ANA'] + 
+                                                        $fetch_sumQuery['OT'] + 
+                                                        $fetch_sumQuery['OTA'] + 
+                                                        $fetch_sumQuery['Delivery'] + 
+                                                        $fetch_sumQuery['XRay'] + 
+                                                        $fetch_sumQuery['Lab'] + 
+                                                        $fetch_sumQuery['US'] + 
+                                                        $fetch_sumQuery['INV'] + 
+                                                        $fetch_sumQuery['Cons'] + 
+                                                        $fetch_sumQuery['Viss'] + 
+                                                        $fetch_sumQuery['BT'] + 
+                                                        $fetch_sumQuery['Med'] + 
+                                                        $fetch_sumQuery['MO'] + 
+                                                        $fetch_sumQuery['Nurs'] + 
+                                                        $fetch_sumQuery['ISLF'] + 
+                                                        $fetch_sumQuery['CT'] + 
+                                                        $fetch_sumQuery['OtherOne'] + 
+                                                        $fetch_sumQuery['OtherTwo'] + 
+                                                        $fetch_sumQuery['OtherThree'] + 
+                                                        $fetch_sumQuery['OtherFour'];
+                                                        
+                                echo '<th>'.$totalAmountSum.'</th>';
+                                  
+
+                            echo '
+                                </tr>';
                                 ?>
 
 
                             </tbody>
 
                         </table>
-                        </div>
-                    </div>
-                </div> <!-- end row -->
-            </div>
-        </div> <!-- Page content Wrapper -->
-    </form>
+                    <!-- </div> -->
+                <!-- </div> -->
+            </div> <!-- end col -->
+        </div> <!-- end row -->
+    </div><!-- container fluid -->
+</div> <!-- Page content Wrapper -->
 </div> <!-- content -->
 <?php include '../_partials/footer.php'?>
 </div>
@@ -486,24 +551,47 @@
 </div>
 <!-- END wrapper -->
 <!-- jQuery  -->
+<!-- jQuery  -->
 <?php include '../_partials/jquery.php'?>
+<!-- Required datatable js -->
+<?php include '../_partials/datatable.php'?>
+<!-- Buttons examples -->
+<?php include '../_partials/buttons.php'?>
+<!-- Responsive examples -->
+<?php include '../_partials/responsive.php'?>
+<!-- Datatable init js -->
+<?php 
+// include '../_partials/datatableInit.php'
+?>
+<!-- Sweet-Alert  -->
+<?php include '../_partials/sweetalert.php'?>
 <!-- App js -->
 <?php include '../_partials/app.php'?>
-<?php include '../_partials/datetimepicker.php'?>
-<script type="text/javascript" src="../assets/js/select2.min.js"></script>
 
-<script type="text/javascript" src="../assets/print.js"></script>
+<script src="../../assets/plugins/bootstrap-datatable/js/dataTables.bootstrap4.min.js"></script>
 
-<script type="text/javascript">
-    function print() {
-        printJS({
-        printable: 'printElement',
-        type: 'html',
-        targetStyles: ['*']
-     })
-    }
 
-    document.getElementById('printButton').addEventListener ("click", print);
+
+<script>
+    $(document).ready(function() {
+        $('#datatable').DataTable({
+            "pageLength": 100,
+            dom: 'Bfrtip', 
+            buttons: [
+               'excel',
+            {
+                extend: 'pdfHtml5',
+                orientation: 'landscape',
+                pageSize: 'A4'
+            }
+        ]
+
+        });
+
+    } );
+
+    
 </script>
 </body>
+
 </html>

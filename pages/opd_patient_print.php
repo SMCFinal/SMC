@@ -70,7 +70,7 @@
                     <div class="col-3">
                         <div class="invoice-title">
                             <h3 class="m-t-0 text-right">
-                                <p class="text-right font-16" style="font-size: 40%"><b>NO: <u>200</u></b></p>
+                                <p class="text-right font-16" style="font-size: 40%"><b>NO: <u><?php echo $fetch_selectPatient['bill_no'] ?></u></b></p>
                                 <?php if($fetch_selectPatient['emp_date'] === '0000-00-00') {}else { ?>
                                 <p class="text-right font-16" style="font-size: 40%"><b>Date: <u><?php echo $fetch_selectPatient['emp_date'] ?></u></b></p>
                                 <?php  } ?>

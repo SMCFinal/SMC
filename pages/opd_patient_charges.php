@@ -38,6 +38,17 @@
         $otherfour_charges          = $_POST['otherfour_charges'];
         $pat_id                     = $_POST['pat_id'];
 
+        $billNoQuery = mysqli_query($connect, "SELECT MAX(bill_no) AS MaxBillNo FROM `opd_charges`");
+        $fetch_billNoQuery = mysqli_fetch_assoc($billNoQuery);
+
+        $billNoMax = $fetch_billNoQuery['MaxBillNo'];
+
+        if ($billNoMax === 'NULL' OR empty($billNoMax)) {
+            $billNo = '1';
+        }else {
+            $billNo = $billNoMax + 1;
+        }
+
         $insertQuery = mysqli_query($connect, "INSERT INTO `opd_charges`(
              `room_charges`,
               `operation_charges`,
@@ -62,7 +73,8 @@
                                  `othertwo_charges`,
                                   `otherthree_charges`,
                                    `otherfour_charges`,
-                                    `pat_id`
+                                    `pat_id`,
+                                     `bill_no`
             ) VALUES (
              '$room_charges',
               '$operation_charges',
@@ -87,7 +99,8 @@
                                  '$othertwo_charges',
                                   '$otherthree_charges',
                                    '$otherfour_charges',
-                                    '$pat_id'
+                                    '$pat_id',
+                                     '$billNo'
         )");
         
         if (!$insertQuery) {
