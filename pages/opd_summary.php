@@ -56,16 +56,16 @@
     } */
 
 
-    th {
-        transform: rotate(300deg);
-        font-size: 80% !important;
+    /* th { */
+        /* transform: rotate(300deg); */
+        /* font-size: 80% !important; */
         /* transform-origin: 100% 150%; */
-    }
+    /* } */
 
-    .payment {
-        transform: rotate(300deg);
+    /* .payment { */
+        /* transform: rotate(300deg); */
         /* transform-origin: 0% 50%; */
-    }
+    /* } */
 
     .customRollOPD {
         overflow-x: scroll !important
@@ -130,106 +130,106 @@
                                     $fetch_sumQuery = mysqli_fetch_assoc($sumQuery);
 
                                     echo '
-                                        <th class="text-center">Bill</th>
-                                        <th class="text-center">Date</th>
-                                        <th class="text-center">P.Name</th>
-                                        <th class="text-center">E.Name</th>
-                                        <th class="text-center">Doctor</th>
+                                        <th>Bill</th>
+                                        <th>Date</th>
+                                        <th>P.Name</th>
+                                        <th>E.Name</th>
+                                        <th>Doctor</th>
                                     ';
                                     if ($fetch_sumQuery['Room'] != '0') {
-                                        echo '<th class="text-center">Room</th>';
+                                        echo '<th>Room</th>';
                                     }
 
                                     if ($fetch_sumQuery['Surg'] != '0') {
-                                        echo '<th class="text-center">Surg</th>';
+                                        echo '<th>Surg</th>';
                                     }
 
                                     if ($fetch_sumQuery['ANA'] != '0') {
-                                        echo '<th class="text-center">ANA</th>';
+                                        echo '<th>ANA</th>';
                                     }
 
                                     if ($fetch_sumQuery['OT'] != '0') {
-                                        echo '<th class="text-center">OT</th>';
+                                        echo '<th>OT</th>';
                                     }
 
                                     if ($fetch_sumQuery['OTA'] != '0') {
-                                        echo '<th class="text-center">OTA</th>';
+                                        echo '<th>OTA</th>';
                                     }
 
                                     if ($fetch_sumQuery['Delivery'] != '0') {
-                                        echo '<th class="text-center">Delivery</th>';
+                                        echo '<th>Delivery</th>';
                                     }
 
                                     if ($fetch_sumQuery['XRay'] != '0') {
-                                        echo '<th class="text-center">XRay</th>';
+                                        echo '<th>XRay</th>';
                                     }
 
                                     if ($fetch_sumQuery['Lab'] != '0') {
-                                        echo '<th class="text-center">Lab</th>';
+                                        echo '<th>Lab</th>';
                                     }
 
                                     if ($fetch_sumQuery['US'] != '0') {
-                                        echo '<th class="text-center">U/S</th>';
+                                        echo '<th>U/S</th>';
                                     }
 
                                     if ($fetch_sumQuery['INV'] != '0') {
-                                        echo '<th class="text-center">Oth.INV</th>';
+                                        echo '<th>Oth.INV</th>';
                                     }
 
                                     if ($fetch_sumQuery['Cons'] != '0') {
-                                        echo '<th class="text-center">Cons</th>';
+                                        echo '<th>Cons</th>';
                                     }
 
                                     if ($fetch_sumQuery['Viss'] != '0') {
-                                        echo '<th class="text-center">Viss</th>';
+                                        echo '<th>Viss</th>';
                                     }
 
                                     if ($fetch_sumQuery['BT'] != '0') {
-                                        echo '<th class="text-center">BT</th>';
+                                        echo '<th>BT</th>';
                                     }
 
                                     if ($fetch_sumQuery['Med'] != '0') {
-                                        echo '<th class="text-center">Med</th>';
+                                        echo '<th>Med</th>';
                                     }
 
                                     if ($fetch_sumQuery['MO'] != '0') {
-                                        echo '<th class="text-center">MO</th>';
+                                        echo '<th>MO</th>';
                                     }
 
                                     if ($fetch_sumQuery['Nurs'] != '0') {
-                                        echo '<th class="text-center">Nurs</th>';
+                                        echo '<th>Nurs</th>';
                                     }
 
                                     if ($fetch_sumQuery['ISLF'] != '0') {
-                                        echo '<th class="text-center">ISLF</th>';
+                                        echo '<th>ISLF</th>';
                                     }
 
                                     if ($fetch_sumQuery['CT'] != '0') {
-                                        echo '<th class="text-center">CT</th>';
+                                        echo '<th>CT</th>';
                                     }
 
                                     if ($fetch_sumQuery['MRI'] != '0') {
-                                        echo '<th class="text-center">MRI</th>';
+                                        echo '<th>MRI</th>';
                                     }
 
                                     if ($fetch_sumQuery['OtherOne'] != '0') {
-                                        echo '<th class="text-center">Oth.1</th>';
+                                        echo '<th>Oth.1</th>';
                                     }
 
                                     if ($fetch_sumQuery['OtherTwo'] != '0') {
-                                        echo '<th class="text-center">Oth.2</th>';
+                                        echo '<th>Oth.2</th>';
                                     }
 
                                     if ($fetch_sumQuery['OtherThree'] != '0') {
-                                        echo '<th class="text-center">Oth.3</th>';
+                                        echo '<th>Oth.3</th>';
                                     }
 
                                     if ($fetch_sumQuery['OtherFour'] != '0') {
-                                        echo '<th class="text-center">Oth.4</th>';
+                                        echo '<th>Oth.4</th>';
                                     }
 
                                     echo '
-                                        <th class="text-center">Total</th>
+                                        <th>Total</th>
                                     ';
                                     ?>
                                 </tr>
@@ -446,6 +446,7 @@
                                                             $row['lab_charges'] + 
                                                             $row['ultrasound_charges'] + 
                                                             $row['otherinvestigation_charges'] + 
+                                                            $row['consultant_charges'] + 
                                                             $row['consultantvisit_charges'] + 
                                                             $row['bloodtransfusions_charges'] + 
                                                             $row['medicines_charges'] + 

@@ -384,6 +384,7 @@ include '../_partials/header.php';
                                                             $row['lab_charges'] + 
                                                             $row['ultrasound_charges'] + 
                                                             $row['otherinvestigation_charges'] + 
+                                                            $row['consultant_charges'] + 
                                                             $row['consultantvisit_charges'] + 
                                                             $row['bloodtransfusions_charges'] + 
                                                             $row['medicines_charges'] + 
